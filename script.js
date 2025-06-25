@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             id: 'baju-001',
             name: 'Skeleton',
-            image: 'Skeleton.jpg', // Pastikan gambar ini ada di folder Anda
+            image: 'keleton.jpg', // Pastikan gambar ini ada di folder Anda
             description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
             basePrice: 95000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
