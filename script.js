@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellerInfo = {
         name: "Luxuliver Official",
         address: "Jakarta Selatan, DKI Jakarta, Indonesia",
-        phone: "+62 878-7142-0482", // Nomor telepon untuk ditampilkan
+        phone: "+62 852-1819-7546", // Nomor telepon untuk ditampilkan
         email: "info@luxuliver.com",
         instagram: "https://www.instagram.com/luxuliver", // Link Ig
         whatsappAdmin: "6287871420482" // Nomor WhatsApp admin untuk order (tanpa + dan spasi)
@@ -138,6 +138,37 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hapus toast dari DOM setelah animasi selesai
             toast.addEventListener('transitionend', () => toast.remove());
         }, 3000); // Notifikasi akan hilang setelah 3 detik
+    };
+
+    // NEW: Fungsi untuk membagikan produk
+    const shareProduct = async (product) => {
+        const shareData = {
+            title: product.name,
+            text: `Lihat T-Shirt keren "${product.name}" ini di Luxuliver Shop! Harga mulai ${formatRupiah(product.basePrice)}. ${product.description}`,
+            url: window.location.origin + window.location.pathname + `#product-${product.id}` // Link ke bagian produk di halaman
+        };
+
+        try {
+            if (navigator.share) {
+                await navigator.share(shareData);
+                showToast('Produk berhasil dibagikan!', 'success');
+            } else {
+                // Fallback for browsers that don't support Web Share API
+                const productUrl = `${window.location.origin}${window.location.pathname}#product-${product.id}`;
+                navigator.clipboard.writeText(shareData.text + '\n' + productUrl).then(() => {
+                    showToast('Detail produk dan link telah disalin ke clipboard! Anda bisa menempelkannya ke mana saja.', 'info');
+                }).catch(err => {
+                    console.error('Gagal menyalin:', err);
+                    showToast('Gagal menyalin detail produk.', 'error');
+                });
+            }
+        } catch (err) {
+            console.error('Error sharing:', err);
+            // Ini bisa terjadi jika user membatalkan share
+            if (err.name !== 'AbortError') {
+                showToast('Gagal membagikan produk.', 'error');
+            }
+        }
     };
 
     // --- Render Skeleton Loader ---
@@ -253,6 +284,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         toggleFavorite(productId, e.target.closest('button'));
                     });
                 });
+
+                // --- BAGIAN INI DIHAPUS (TOMBOL BAGIKAN DI KARTU PRODUK UTAMA) ---
+                // containerElement.querySelectorAll('.share-product-btn').forEach(button => {
+                //     button.addEventListener('click', (e) => {
+                //         const productId = e.target.dataset.id || e.target.closest('button').dataset.id;
+                //         const productToShare = products.find(p => p.id === productId);
+                //         if (productToShare) {
+                //             shareProduct(productToShare);
+                //         }
+                //     });
+                // });
             }
             updateFavoriteButtons(); // Pastikan tombol favorit diperbarui setelah render
         }, initialLoad ? 0 : 700); // Waktu loading simulasi
@@ -520,6 +562,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update its state
         updateFavoriteButtons(); // Call this to set the correct class and icon
 
+        // Set product ID for modal's Share Product button
+        const modalShareProductBtn = quickViewModal.querySelector('.modal-share-product-btn');
+        modalShareProductBtn.dataset.id = product.id;
+        modalShareProductBtn.onclick = () => shareProduct(product); // Pasang event listener langsung
+
         quickViewModal.classList.add('show');
         body.classList.add('no-scroll'); // Prevent body scroll
     };
@@ -659,6 +706,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <button class="btn add-to-cart" data-id="${product.id}"><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
                             <button class="btn quick-view-btn" data-id="${product.id}"><i class="fas fa-eye"></i> Quick View</button>
                             <button class="btn remove-from-favorite btn-danger" data-id="${product.id}"><i class="fas fa-heart-broken"></i> Hapus</button>
+                            <button class="btn share-product-btn" data-id="${product.id}"><i class="fas fa-share-alt"></i> Bagikan</button>
                         </div>
                     </div>
                 `;
@@ -673,10 +721,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const selectedSizeElement = productElement.querySelector('.size-option.selected');
                     let selectedSize = 'M'; // Default
 
+                    // Pastikan `product` di scope ini adalah produk yang sesuai
+                    const currentProduct = products.find(p => p.id === productId);
+
                     if (selectedSizeElement) {
                         selectedSize = selectedSizeElement.dataset.size;
-                    } else if (product.sizes && product.sizes.length > 0) {
-                        selectedSize = product.sizes[0]; // Ambil ukuran pertama jika tidak ada yang dipilih
+                    } else if (currentProduct && currentProduct.sizes && currentProduct.sizes.length > 0) {
+                        selectedSize = currentProduct.sizes[0]; // Ambil ukuran pertama jika tidak ada yang dipilih
                     }
                     
                     addToCart(productId, selectedSize);
@@ -706,6 +757,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 button.addEventListener('click', (e) => {
                     const productId = e.target.dataset.id;
                     toggleFavorite(productId); // Ini akan menghapus dan memperbarui tampilan
+                });
+            });
+
+            // Event listener untuk tombol Bagikan Produk di daftar favorit
+            favoriteProductsList.querySelectorAll('.share-product-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.target.dataset.id || e.target.closest('button').dataset.id;
+                    const productToShare = products.find(p => p.id === productId);
+                    if (productToShare) {
+                        shareProduct(productToShare);
+                    }
                 });
             });
         }
