@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellerInfo = {
         name: "Luxuliver Official",
         address: "Srengseng Sawah, Kel. Srengseng Sawah, Kec. Jagakarsa, Kota Jakarta Selatan, DKI Jakarta, 12640",
-        phone: "+62 852-1819-7546", // Nomor telepon untuk ditampilkan
+        phone: "+62 878-7142-0482", // Nomor telepon untuk ditampilkan
         email: "info@luxuliver.com",
         instagram: "https://www.instagram.com/luxuliver", // Link Ig
         whatsappAdmin: "6287871420482" // Nomor WhatsApp admin untuk order (tanpa + dan spasi)
