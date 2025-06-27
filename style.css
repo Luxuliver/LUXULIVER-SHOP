@@ -1571,3 +1571,109 @@ body.no-scroll {
         font-size: 1.05rem;
     }
   }
+  /* --- NEW: Size Guide Modal Styles --- */
+#size-guide-modal .modal-content {
+    max-width: 700px;
+}
+
+#size-guide-modal h3 {
+    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+#size-guide-modal p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.size-guide-table-container {
+    overflow-x: auto; /* Memungkinkan scrolling horizontal pada tabel di layar kecil */
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    box-shadow: 0 5px 15px var(--shadow-light);
+    background-color: var(--surface-color);
+}
+
+#size-chart-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px; /* Pastikan tabel tidak terlalu kecil di layar sempit */
+}
+
+#size-chart-table th,
+#size-chart-table td {
+    padding: 15px 20px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+#size-chart-table thead th {
+    background-color: var(--primary-light);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#size-chart-table tbody tr:nth-child(odd) {
+    background-color: var(--background-color);
+}
+
+#size-chart-table tbody tr:hover {
+    background-color: #eaf1f7; /* Hover effect */
+}
+
+#size-chart-table tbody td {
+    font-weight: 500;
+}
+
+#size-guide-modal .notes {
+    font-size: 0.95rem;
+    color: var(--light-text);
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Responsive adjustments for size guide modal */
+@media (max-width: 768px) {
+    #size-guide-modal .modal-content {
+        padding: 20px;
+        margin: 0 15px;
+    }
+
+    #size-guide-modal h3 {
+        font-size: 1.8rem;
+    }
+
+    #size-chart-table th,
+    #size-chart-table td {
+        padding: 12px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #size-guide-modal h3 {
+        font-size: 1.5rem;
+    }
+
+    #size-guide-modal p {
+        font-size: 0.9rem;
+    }
+
+    #size-chart-table th,
+    #size-chart-table td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+    }
+
+    .size-guide-table-container {
+        border-radius: 8px;
+    }
+}
