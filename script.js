@@ -54,11 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: DATA PANDUAN UKURAN
     const sizeGuideData = [
-        { size: 'XS', length: '64', chest: '46', sleeve: '19' },
-        { size: 'S', length: '67', chest: '48', sleeve: '20' },
-        { size: 'M', length: '70', chest: '50', sleeve: '21' },
-        { size: 'L', length: '73', chest: '52', sleeve: '22' },
-        { size: 'XL', length: '76', chest: '54', sleeve: '23' }
+        { size: 'XS', length: '66', width: '46', sleeve: '20' },
+        { size: 'S', length: '68', width: '48', sleeve: '21' },
+        { size: 'M', length: '72', width: '50', sleeve: '22' },
+        { size: 'L', length: '74', width: '52', sleeve: '23' },
+        { size: 'XL', length: '76', width: '54', sleeve: '24' }
     ];
     // --- AKHIR DATA PANDUAN UKURAN ---
 
