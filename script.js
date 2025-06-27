@@ -85,6 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = quickViewModal.querySelector('.modal-body');
     const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
     const modalSizeOptions = document.getElementById('modal-size-options');
+// NEW: Size Guide Modal Elements
+    const sizeGuideModal = document.getElementById('size-guide-modal');
+    const closeSizeGuideModalButton = sizeGuideModal.querySelector('.close-button');
+    const modalSizeGuideBtn = document.getElementById('modal-size-guide-btn');
+    const sizeChartTableBody = document.getElementById('size-chart-table').querySelector('tbody');
 
     // Footer contact info elements
     const sellerAddressSpan = document.getElementById('seller-address');
