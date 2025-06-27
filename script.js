@@ -54,11 +54,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // NEW: DATA PANDUAN UKURAN
     const sizeGuideData = [
-        { size: 'XS', length: '66', width: '46', sleeve: '20' },
-        { size: 'S', length: '68', width: '48', sleeve: '21' },
-        { size: 'M', length: '72', width: '50', sleeve: '22' },
-        { size: 'L', length: '74', width: '52', sleeve: '23' },
-        { size: 'XL', length: '76', width: '54', sleeve: '24' }
+        { size: 'XS', length: '66', chest: '92', sleeve: '20' },
+        { size: 'S', length: '68', chest: '96', sleeve: '21' },
+        { size: 'M', length: '72', chest: '100', sleeve: '22' },
+        { size: 'L', length: '74', chest: '104', sleeve: '23' },
+        { size: 'XL', length: '76', chest: '108', sleeve: '24' }
     ];
     // --- AKHIR DATA PANDUAN UKURAN ---
 
@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${item.size}</td>
                 <td>${item.length}</td>
-                <td>${item.width}</td>
+                <td>${item.chest}</td>
                 <td>${item.sleeve}</td>
             `;
             sizeChartTableBody.appendChild(row);
