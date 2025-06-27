@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${item.size}</td>
                 <td>${item.length}</td>
-                <td>${item.chest}</td>
+                <td>${item.width}</td>
                 <td>${item.sleeve}</td>
             `;
             sizeChartTableBody.appendChild(row);
