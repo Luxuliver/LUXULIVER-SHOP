@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // Dummy Data Produk
     const products = [
@@ -43,13 +44,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INFORMASI PENJUAL ---
     const sellerInfo = {
         name: "Luxuliver Official",
-        address: "Jakarta Selatan, DKI Jakarta, Indonesia",
-        phone: "+62 878-7142-0482", // Nomor telepon untuk ditampilkan
+        address: "Srengseng Sawah, Kel. Srengseng Sawah, Kec. Jagakarsa, Kota Jakarta Selatan, DKI Jakarta, 12640",
+        phone: "+62 852-1819-7546", // Nomor telepon untuk ditampilkan
         email: "info@luxuliver.com",
         instagram: "https://www.instagram.com/luxuliver", // Link Ig
         whatsappAdmin: "6287871420482" // Nomor WhatsApp admin untuk order (tanpa + dan spasi)
     };
     // --- AKHIR INFORMASI PENJUAL ---
+
+    // NEW: DATA PANDUAN UKURAN
+    const sizeGuideData = [
+        { size: 'XS', length: '64', chest: '46', sleeve: '19' },
+        { size: 'S', length: '67', chest: '48', sleeve: '20' },
+        { size: 'M', length: '70', chest: '50', sleeve: '21' },
+        { size: 'L', length: '73', chest: '52', sleeve: '22' },
+        { size: 'XL', length: '76', chest: '54', sleeve: '23' }
+    ];
+    // --- AKHIR DATA PANDUAN UKURAN ---
 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
@@ -85,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalBody = quickViewModal.querySelector('.modal-body');
     const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
     const modalSizeOptions = document.getElementById('modal-size-options');
-// NEW: Size Guide Modal Elements
+    // NEW: Size Guide Modal Elements
     const sizeGuideModal = document.getElementById('size-guide-modal');
     const closeSizeGuideModalButton = sizeGuideModal.querySelector('.close-button');
     const modalSizeGuideBtn = document.getElementById('modal-size-guide-btn');
@@ -143,6 +154,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Hapus toast dari DOM setelah animasi selesai
             toast.addEventListener('transitionend', () => toast.remove());
         }, 3000); // Notifikasi akan hilang setelah 3 detik
+    };
+
+    // NEW: Fungsi untuk merender dan menampilkan tabel panduan ukuran
+    const renderSizeGuide = () => {
+        sizeChartTableBody.innerHTML = ''; // Kosongkan tabel
+        sizeGuideData.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${item.size}</td>
+                <td>${item.length}</td>
+                <td>${item.chest}</td>
+                <td>${item.sleeve}</td>
+            `;
+            sizeChartTableBody.appendChild(row);
+        });
+        sizeGuideModal.style.display = 'block';
+        body.classList.add('no-scroll');
     };
 
     // NEW: Fungsi untuk membagikan produk
@@ -576,9 +604,34 @@ document.addEventListener('DOMContentLoaded', () => {
         body.classList.add('no-scroll'); // Prevent body scroll
     };
 
+    // Event Listener untuk tombol Tutup Modal Quick View
     closeModalButton.addEventListener('click', () => {
-        quickViewModal.classList.remove('show');
-        body.classList.remove('no-scroll'); // Allow body scroll
+        quickViewModal.style.display = 'none';
+        body.classList.remove('no-scroll');
+    });
+
+    // NEW: Event Listener untuk tombol "Panduan Ukuran" di dalam Quick View Modal
+    if (modalSizeGuideBtn) {
+        modalSizeGuideBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // Mencegah modal quick view tertutup
+            renderSizeGuide(); // Panggil fungsi untuk menampilkan panduan ukuran
+        });
+    }
+
+    // NEW: Event Listener untuk tombol Tutup Modal Panduan Ukuran
+    if (closeSizeGuideModalButton) {
+        closeSizeGuideModalButton.addEventListener('click', () => {
+            sizeGuideModal.style.display = 'none';
+            body.classList.remove('no-scroll');
+        });
+    }
+
+    // NEW: Tutup modal panduan ukuran jika klik di luar area modal
+    window.addEventListener('click', (event) => {
+        if (event.target === sizeGuideModal) {
+            sizeGuideModal.style.display = 'none';
+            body.classList.remove('no-scroll');
+        }
     });
 
     window.addEventListener('click', (e) => {
