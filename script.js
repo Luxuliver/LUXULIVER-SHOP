@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         orderDetails += `\n*Total Pembayaran:* ${formatRupiah(total)}\n\n`;
-        orderDetails += `Terima kasih telah berbelanja di Luxuliver Shop!`;
+        orderDetails += `Terima kasih atas kepercayaan Anda berbelanja di Luxuliver. Pembayaran dapat dilakukan melalui transfer bank dan untuk biaya pengiriman detailnya akan diinformasikan langsung oleh admin kami sesuai lokasi Anda!`;
 
         const whatsappUrl = `https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`;
         window.open(whatsappUrl, '_blank');
