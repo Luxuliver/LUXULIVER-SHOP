@@ -1677,3 +1677,68 @@ body.no-scroll {
         border-radius: 8px;
     }
 }
+ /* Styling untuk penampung gambar ekspedisi */
+#expedition-image-display {
+    margin-top: 15px; /* Memberi sedikit jarak dari dropdown */
+    text-align: center; /* Pusatkan gambar jika diinginkan */
+    min-height: 50px; /* Memberi ruang agar tidak ada "lompatan" saat gambar muncul */
+}
+
+#expedition-image-display img {
+    max-width: 120px; /* Atur lebar maksimum gambar */
+    height: auto; /* Jaga rasio aspek */
+    border: 1px solid var(--border-color); /* Border halus */
+    border-radius: var(--border-radius-base); /* Sudut membulat */
+    padding: 5px; /* Padding di sekitar logo */
+    box-shadow: 0 4px 12px var(--shadow-light); /* Bayangan lembut */
+    transition: all 0.3s ease-in-out; /* Transisi halus */
+}
+
+#expedition-image-display img:hover {
+    transform: scale(1.05); /* Sedikit membesar saat dihover */
+    box-shadow: 0 6px 15px var(--shadow-medium); /* Bayangan lebih jelas saat dihover */
+}
+ /* Styling untuk penampung gambar ekspedisi (sudah ada) */
+#expedition-image-display {
+    margin-top: 15px;
+    text-align: center;
+    min-height: 50px;
+}
+
+#expedition-image-display img {
+    max-width: 120px;
+    height: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    padding: 5px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    transition: all 0.3s ease-in-out;
+}
+
+#expedition-image-display img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+
+/* Styling untuk penampung gambar metode pembayaran BARU */
+#payment-image-display {
+    margin-top: 15px; /* Memberi sedikit jarak dari dropdown */
+    text-align: center; /* Pusatkan gambar jika diinginkan */
+    min-height: 50px; /* Memberi ruang agar tidak ada "lompatan" saat gambar muncul */
+}
+
+#payment-image-display img {
+    max-width: 120px; /* Atur lebar maksimum gambar */
+    height: auto; /* Jaga rasio aspek */
+    border: 1px solid var(--border-color); /* Border halus */
+    border-radius: var(--border-radius-base); /* Sudut membulat */
+    padding: 5px; /* Padding di sekitar logo */
+    box-shadow: 0 4px 12px var(--shadow-light); /* Bayangan lembut */
+    transition: all 0.3s ease-in-out; /* Transisi halus */
+}
+
+#payment-image-display img:hover {
+    transform: scale(1.05); /* Sedikit membesar saat dihover */
+    box-shadow: 0 6px 15px var(--shadow-medium); /* Bayangan lebih jelas saat dihover */
+}
