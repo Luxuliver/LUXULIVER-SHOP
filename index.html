@@ -108,14 +108,35 @@
                             <textarea id="customer-address" name="customer-address" rows="4" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="expedition-method">Metode Ekspedisi:</label>
-                            <select id="expedition-method" name="expedition-method" required>
-                                <option value="">Pilih Ekspedisi</option>
-                                <option value="jnt">J&T</option>
-                                <option value="lion-parcel">Lion Parcel</option>
-                                <option value="jne">JNE</option>
-                            </select>
-                        </div>
+    <label for="expedition-method">Metode Ekspedisi:</label>
+    <select id="expedition-method" name="expeditionMethod">
+        <option value="">Pilih Ekspedisi</option>
+        <option value="JNE" data-image="JNE.jpg">JNE</option>
+        <option value="J&T" data-image="J&T.jpg">J&T</option>
+        <option value="LION PARCEL" data-image="Lion.jpg">LION PARCEL</option>
+        <option value="TIKI" data-image="
+        Tiki.jpg">TIKI</option>
+        <option value="WAHANA" data-image="Wahana.jpg">WAHANA</option>
+        </select>
+    <div id="expedition-image-display">
+        </div>
+</div>
+
+ <div class="form-group">
+    <label for="payment-method">Metode Pembayaran:</label>
+    <select id="payment-method" name="paymentMethod">
+        <option value="">Pilih Metode Pembayaran</option>
+        <option value="BCA" data-image="BCA.jpg">BCA</option>
+        <option value="BRI" data-image="BRI.jpg">BRI</option>
+        <option value="BNI" data-image="BNI.jpg">BNI</option>
+        <option value="MANDIRI" data-image="MANDIRI.jpg">MANDIRI</option>
+        <option value="SHOPEEPAY" data-image="SHOPEEPAY.jpg">SHOPEEPAY</option>
+        <option value="GOPAY" data-image="GOPAY.jpg">GOPAY</option>
+        <option value="OVO" data-image="OVO.jpg">OVO</option>
+        </select>
+    <div id="payment-image-display">
+        </div>
+</div>
                         <button type="submit" class="btn btn-primary">Buat Pesanan via WhatsApp</button>
                     </form>
                 </div>
