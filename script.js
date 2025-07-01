@@ -316,7 +316,7 @@ paymentMethodSelect.addEventListener('change', () => {
 
                         // Feedback visual tombol "Ditambahkan!"
                         const originalText = button.textContent;
-                        button.textContent = "✅ Ditambahkan!";
+                        button.textContent = "Ditambahkan!";
                         button.classList.add('added');
                         button.disabled = true;
 
@@ -683,7 +683,7 @@ paymentMethodSelect.addEventListener('change', () => {
 
         // Feedback visual tombol "Ditambahkan!"
         const originalText = modalAddToCartBtn.textContent;
-        modalAddToCartBtn.textContent = "✅ Ditambahkan!";
+        modalAddToCartBtn.textContent = "Ditambahkan!";
         modalAddToCartBtn.classList.add('added');
         modalAddToCartBtn.disabled = true;
 
