@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
     // Dummy Data Produk
     const products = [
@@ -45,10 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const sellerInfo = {
         name: "Luxuliver Official",
         address: "Jakarta Selatan, DKI Jakarta, Indonesia",
-        phone: "+62 878-2084-3118", // Nomor telepon untuk ditampilkan
+        phone: "+62 852-1819-7546", // Nomor telepon untuk ditampilkan
         email: "info@luxuliver.com",
         instagram: "https://www.instagram.com/luxuliver", // Link Ig
-        whatsappAdmin: "6287820843118" // Nomor WhatsApp admin untuk order (tanpa + dan spasi)
+        whatsappAdmin: "6287871420482" // Nomor WhatsApp admin untuk order (tanpa + dan spasi)
     };
     // --- AKHIR INFORMASI PENJUAL ---
 
@@ -112,8 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const favoriteProductsList = document.getElementById('favorite-products-list');
     const emptyFavoritesMessage = document.getElementById('empty-favorites-message');
 
-    // Metode Ekspedisi DOM Element
     const expeditionMethodSelect = document.getElementById('expedition-method');
+    const expeditionImageDisplay = document.getElementById('expedition-image-display');
+
+// Variabel untuk Metode Pembayaran BARU
+const paymentMethodSelect = document.getElementById('payment-method');
+const paymentImageDisplay = document.getElementById('payment-image-display');
 
     // NEW: Elemen untuk Confirmation Modal
     const confirmationModal = document.getElementById('confirmation-modal');
@@ -265,6 +268,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                     containerElement.appendChild(productCard);
                 });
+            // Event Listener untuk Metode Ekspedisi
+expeditionMethodSelect.addEventListener('change', () => {
+    const selectedOption = expeditionMethodSelect.options[expeditionMethodSelect.selectedIndex];
+    const imageUrl = selectedOption.dataset.image;
+
+    if (imageUrl) {
+        expeditionImageDisplay.innerHTML = `<img src="${imageUrl}" alt="Logo Ekspedisi" style="max-width: 100px; margin-top: 10px; display: block;">`;
+    } else {
+        expeditionImageDisplay.innerHTML = '';
+    }
+});
+
+// Event Listener untuk Metode Pembayaran BARU
+paymentMethodSelect.addEventListener('change', () => {
+    const selectedOption = paymentMethodSelect.options[paymentMethodSelect.selectedIndex];
+    const imageUrl = selectedOption.dataset.image;
+
+    if (imageUrl) {
+        paymentImageDisplay.innerHTML = `<img src="${imageUrl}" alt="Logo Pembayaran" style="max-width: 100px; margin-top: 10px; display: block;">`;
+    } else {
+        paymentImageDisplay.innerHTML = '';
+    }
+});
 
                 // Event listener untuk pilihan ukuran
                 containerElement.querySelectorAll('.size-option').forEach(option => {
@@ -515,7 +541,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const customerName = document.getElementById('customer-name').value;
         const customerPhone = document.getElementById('customer-phone').value;
         const customerAddress = document.getElementById('customer-address').value;
-        const expeditionMethod = document.getElementById('expedition-method').value;
+        const expeditionMethod = expeditionMethodSelect.value;
+        const paymentMethod = paymentMethodSelect.value; 
 
         // VALIDASI NOMOR TELEPON: Antara 10 sampai 15 digit angka saja
         const phoneRegex = /^[0-9]{10,15}$/; 
@@ -533,7 +560,8 @@ document.addEventListener('DOMContentLoaded', () => {
         orderDetails += `*Nama Pelanggan:* ${customerName}\n`;
         orderDetails += `*Telepon:* ${customerPhone}\n`;
         orderDetails += `*Alamat:* ${customerAddress}\n`;
-        orderDetails += `*Metode Ekspedisi:* ${expeditionMethod.toUpperCase().replace('-', ' ')}\n\n`; // Format J&T, LION PARCEL, JNE
+        orderDetails += `*Metode Ekspedisi:* ${expeditionMethod.toUpperCase().replace('-', ' ')}\n`;
+        orderDetails += `*Metode Pembayaran:* ${paymentMethod.toUpperCase().replace(/_/g, ' ')}\n\n`;
         orderDetails += `*Detail Pesanan:*\n`;
 
         cart.forEach(item => {
@@ -541,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         orderDetails += `\n*Total Pembayaran:* ${formatRupiah(total)}\n\n`;
-        orderDetails += `Terima kasih atas kepercayaan Anda berbelanja di Luxuliver. Pembayaran dapat dilakukan melalui transfer bank dan untuk biaya pengiriman detailnya akan diinformasikan langsung oleh admin kami sesuai lokasi Anda!`;
+        orderDetails += `Terima kasih atas kepercayaan Anda berbelanja di Luxuliver dan untuk biaya pengiriman detailnya akan diinformasikan langsung oleh admin kami sesuai lokasi Anda!`;
 
         const whatsappUrl = `https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`;
         window.open(whatsappUrl, '_blank');
