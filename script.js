@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Dummy Data Produk DENGAN PENAMBAHAN REVIEW
     const products = [
         {
@@ -13,7 +13,7 @@
             reviews: [
                 { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-06-26' },
                 { author: 'Citra Wulandari', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-06-26' },
-                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain.', date: '2025-06-26' }
+                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-06-26' }
             ]
         },
         {
@@ -146,18 +146,15 @@
     const confirmYesBtn = document.getElementById('confirm-yes');
     const confirmNoBtn = document.getElementById('confirm-no');
     
-    // === ELEMEN BARU ===
     const promoUpsellMessage = document.getElementById('promo-upsell-message');
     const whatsappConfirmationModal = document.getElementById('whatsapp-confirmation-modal');
     const whatsappConfirmYesBtn = document.getElementById('whatsapp-confirm-yes');
     const whatsappConfirmNoBtn = document.getElementById('whatsapp-confirm-no');
-    // === END ELEMEN BARU ===
     
     // Elemen Riwayat Pesanan
     const orderHistoryList = document.getElementById('order-history-list');
     const emptyHistoryMessage = document.getElementById('empty-history-message');
 
-    // ... (FUNGSI HELPER ANDA SEPERTI formatRupiah, getPriceBySize, dll TETAP SAMA) ...
     // --- Helper Functions ---
     const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
 
@@ -202,7 +199,6 @@
         body.classList.remove('no-scroll');
     };
 
-    // ... (Fungsi lain seperti renderSizeGuide, shareProduct, flyToCartAnimation, dll TETAP SAMA) ...
      const renderSizeGuide = () => {
         sizeChartTableBody.innerHTML = '';
         sizeGuideData.forEach(item => {
@@ -271,7 +267,6 @@
         }, { once: true });
     };
 
-    // --- === renderCart() DIPERBARUI === ---
     const renderCart = () => {
         const { subtotal, totalItems, discount, total } = calculateCartTotals();
 
@@ -306,7 +301,6 @@
         cartItemsContainer.querySelectorAll('.decrease-quantity').forEach(btn => btn.onclick = e => updateQuantity(e.target.dataset.cartId, -1));
         cartItemsContainer.querySelectorAll('.increase-quantity').forEach(btn => btn.onclick = e => updateQuantity(e.target.dataset.cartId, 1));
         
-        // --- LOGIKA PESAN PROMO INTERAKTIF ---
         if (totalItems > 0 && totalItems < 5) {
             const itemsNeeded = 5 - totalItems;
             promoUpsellMessage.textContent = `Tambah ${itemsNeeded} barang lagi untuk dapat diskon 2%!`;
@@ -314,7 +308,6 @@
         } else {
             promoUpsellMessage.style.display = 'none';
         }
-        // --- END LOGIKA PESAN PROMO ---
 
         cartCountSpan.textContent = totalItems;
         subtotalPriceSpan.textContent = formatRupiah(subtotal);
@@ -323,7 +316,6 @@
         checkoutBtn.style.display = cart.length > 0 ? 'inline-flex' : 'none';
     };
 
-    // --- === Event Listener Checkout Form DIPERBARUI === ---
     checkoutForm.addEventListener('submit', e => {
         e.preventDefault();
         if (!validateStep(3)) return;
@@ -335,7 +327,7 @@
         }
 
         const { total, subtotal, discount, shippingDiscount } = calculateCartTotals();
-        const orderId = `LXVR-${orderCounter}`; // Counter tidak dinaikkan dulu
+        const orderId = `LXVR-${orderCounter}`;
         const formData = new FormData(checkoutForm);
         
         const shippingDiscountText = shippingDiscount > 0 ? `*Promo Ongkir (Jabodetabek):* -${formatRupiah(shippingDiscount)}\n` : '';
@@ -355,7 +347,6 @@
             `*Total Pembayaran:* ${formatRupiah(total)}\n\n` +
             `Terima kasih! Detail biaya pengiriman (setelah promo) akan diinfokan oleh admin kami.`;
 
-        // Simpan data pesanan ke variabel sementara
         pendingOrder = {
             orderId: orderId,
             date: new Date().toISOString(),
@@ -363,30 +354,24 @@
             total: total
         };
 
-        // Buka WhatsApp dan tampilkan modal konfirmasi
         window.open(`https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`, '_blank');
         openModal(whatsappConfirmationModal);
     });
 
-    // --- === LISTENER BARU UNTUK MODAL KONFIRMASI WHATSAPP === ---
     whatsappConfirmYesBtn.addEventListener('click', () => {
         if (pendingOrder) {
-            // Simpan ke riwayat pesanan
             let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
             orderHistory.unshift(pendingOrder);
             localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
             
-            // Naikkan counter pesanan
             orderCounter++;
             localStorage.setItem('orderCounter', orderCounter);
 
-            // Kosongkan keranjang
             cart = [];
             saveCart();
             renderCart();
             renderOrderHistory();
 
-            // Reset UI
             checkoutForm.reset();
             checkoutFormContainer.style.display = 'none';
             cartSummary.style.display = 'block';
@@ -394,19 +379,16 @@
             closeModal(whatsappConfirmationModal);
             showToast("Pesanan Anda berhasil dikonfirmasi!", "success");
 
-            pendingOrder = null; // Bersihkan pesanan sementara
+            pendingOrder = null;
         }
     });
 
     whatsappConfirmNoBtn.addEventListener('click', () => {
-        pendingOrder = null; // Batalkan pesanan sementara
+        pendingOrder = null;
         closeModal(whatsappConfirmationModal);
         showToast("Pesanan dibatalkan. Keranjang Anda tetap utuh.", "warning");
     });
     
-    // ... (SISA KODE ANDA SEPERTI renderProducts, attachProductCardListeners, dll TETAP SAMA) ...
-    // Sisa kode di bawah ini tidak perlu diubah dan tetap sama seperti yang Anda miliki.
-    // Pastikan untuk menyalin seluruh kode yang ada di bawah ini dari file asli Anda.
     const renderSkeletonLoaders = (container, count) => {
         container.innerHTML = Array(count).fill(0).map(() => `
             <div class="skeleton-card">
@@ -431,7 +413,6 @@
         const lowStockLabel = product.stock <= 5 && product.stock > 0 ? `<div class="low-stock-badge">Stok Terbatas!</div>` : '';
         const outOfStockLabel = product.stock === 0 ? `<div class="out-of-stock-badge">Stok Habis</div>` : '';
 
-        // Calculate average rating for card
         const totalReviews = product.reviews ? product.reviews.length : 0;
         let averageRating = 0;
         if (totalReviews > 0) {
@@ -541,7 +522,6 @@
         }
     };
     
-    // --- Cart Logic ---
     const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
     
     const addToCart = (productId, size, triggerElement) => {
@@ -551,7 +531,6 @@
         const cartItemIdentifier = `${productId}-${size}`;
         const existingItem = cart.find(item => item.cartId === cartItemIdentifier);
         
-        // Check stock
         const currentQuantityInCart = existingItem ? existingItem.quantity : 0;
         if (currentQuantityInCart >= product.stock) {
             showToast(`Stok ${product.name} (${size}) tidak mencukupi!`, "error");
@@ -580,7 +559,6 @@
         if (itemIndex > -1) {
             const item = cart[itemIndex];
             
-            // Check stock before increasing
             if (change > 0 && item.quantity + change > item.stock) {
                  showToast(`Stok ${item.name} (${item.size}) tidak mencukupi!`, "error");
                  return;
@@ -601,13 +579,11 @@
         }
     };
 
-    // --- REVISED: Updated Shipping Discount Logic ---
     const calculateCartTotals = () => {
         const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
         const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
         const productDiscount = totalItems >= 5 ? subtotal * 0.02 : 0;
 
-        // Revised Shipping discount logic for city name only
         let shippingDiscount = 0;
         const addressInput = document.getElementById('customer-address');
         if (cart.length > 0 && addressInput && addressInput.value) {
@@ -617,11 +593,9 @@
             
             const isJabodetabek = addressParts.some(part => {
                 const trimmedPart = part.trim();
-                // Check if the trimmed address part starts with a city name, or "kota/kab" + city name.
-                // This prevents matching street names like "Jalan Bogor".
                 return jabodetabekCities.some(city => 
                     trimmedPart === city || 
-                    trimmedPart.startsWith(city + ' ') || // Handles "jakarta pusat", "bekasi barat", etc.
+                    trimmedPart.startsWith(city + ' ') ||
                     trimmedPart.startsWith('kota ' + city) ||
                     trimmedPart.startsWith('kab ' + city) ||
                     trimmedPart.startsWith('kabupaten ' + city)
@@ -640,8 +614,10 @@
     const saveFavorites = () => localStorage.setItem('favorites', JSON.stringify(favorites));
 
     const toggleFavorite = (productId, buttonElement) => {
-        const favoriteIndex = favorites.findIndex(item => item.id === productId);
         const product = products.find(p => p.id === productId);
+        if (!product) return;
+
+        const favoriteIndex = favorites.findIndex(item => item.id === productId);
 
         if (favoriteIndex > -1) {
             favorites.splice(favoriteIndex, 1);
@@ -930,6 +906,24 @@
         });
     };
 
+    // === [BARU] FUNGSI UNTUK MENGATUR BAR PROGRES SCROLL ===
+    const handleScrollProgress = () => {
+        const progressBar = document.querySelector('.scroll-progress-bar');
+        if (!progressBar) return;
+
+        const totalScrollableHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const currentScrollPosition = window.scrollY;
+        
+        if (totalScrollableHeight <= 0) {
+            progressBar.style.width = '0%';
+            return;
+        }
+        
+        const scrollPercentage = (currentScrollPosition / totalScrollableHeight) * 100;
+        
+        progressBar.style.width = `${scrollPercentage}%`;
+    };
+
     searchButton.addEventListener('click', () => {
         renderAllProductShowcases(searchInput.value.trim());
         searchSuggestionsContainer.style.display = 'none';
@@ -999,6 +993,10 @@
 
     window.addEventListener('scroll', () => {
         backToTopButton.classList.toggle('show', window.scrollY > 300);
+        
+        // Panggil fungsi untuk bar progres
+        handleScrollProgress();
+        
         document.querySelectorAll('section, footer').forEach(el => {
             const rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
@@ -1018,12 +1016,14 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         applyTheme(savedTheme);
 
+        handleScrollProgress();
+        
+        initializeNavigation();
+
         renderSkeletonLoaders(productList, 4);
         renderSkeletonLoaders(blackClothingList, 2);
         renderSkeletonLoaders(whiteClothingList, 2);
         
-        initializeNavigation();
-
         setTimeout(() => {
             renderAllProductShowcases();
             renderCart();
