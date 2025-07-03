@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -7,165 +7,295 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="no-scroll">
     <header>
         <div class="container">
             <a href="#" class="logo"><h1>LUXULIVER SHOP</h1></a>
             <nav>
-                <ul>
-                    <li><a href="#koleksi">Koleksi</a></li>
-                    <li><a href="#baju-hitam">Baju Hitam</a></li>
-                    <li><a href="#baju-putih">Baju Putih</a></li>
-                    <li><a href="#keranjang">
+                <ul id="main-nav">
+                    <li><a href="#hero" class="active"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#koleksi"><i class="fas fa-tshirt"></i> Koleksi</a></li>
+                    <li><a href="#baju-hitam"><i class="fas fa-circle" style="color: #333;"></i> Baju Hitam</a></li>
+                    <li><a href="#baju-putih"><i class="fas fa-circle" style="color: #f1f1f1; border: 1px solid #ddd; border-radius: 50%;"></i> Baju Putih</a></li>
+                    <li><a href="#keranjang" id="keranjang">
                         <i class="fas fa-shopping-cart"></i> Keranjang <span id="cart-count">0</span>
                     </a></li>
                     <li><a href="#favorit">
-                        <i class="far fa-heart"></i> Favorit <span id="favorite-count">0</span>
+                        <i class="fas fa-heart"></i> Favorit <span id="favorite-count">0</span>
                     </a></li>
-                    <li><a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-instagram"></i> Instagram
+                    <li><a href="#riwayat-pesanan">
+                        <i class="fas fa-history"></i> Riwayat
                     </a></li>
+                    <li>
+                        <button id="dark-mode-toggle" class="btn-utility" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color); padding: 0 10px;">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="hero" class="animated-section">
-            <div class="container">
+        <div id="hero">
+            <div id="hero-content">
                 <h2>T-Shirt Terbaik untuk Gaya Anda</h2>
                 <p>Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.</p>
-                <a href="#koleksi" class="btn btn-primary">Ayo Belanja Sekarang!</a>
+                <a href="#koleksi" class="btn">Jelajahi Koleksi <i class="fas fa-arrow-right"></i></a>
             </div>
-        </section>
+        </div>
 
-        <section id="search-section" class="animated-section">
-            <div class="container">
+        <div class="container">
+            <section id="search-section">
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Cari produk...">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="search-input" placeholder="Cari nama produk..." autocomplete="off">
+                        <div id="search-suggestions-container"></div>
+                    </div>
                     <button id="search-button" class="btn btn-primary"><i class="fas fa-search"></i> Cari</button>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="koleksi" class="animated-section">
-            <div class="container">
+            <section id="koleksi">
                 <h2>Semua Koleksi</h2>
                 <div id="product-list" class="product-grid">
                     </div>
                 <p id="no-results-message" class="info-message" style="display: none;">Produk tidak ditemukan.</p>
-            </div>
-        </section>
+            </section>
 
-        <section id="baju-hitam" class="animated-section">
-            <div class="container">
+            <div class="section-divider"></div>
+
+            <section id="baju-hitam">
                 <h2>Koleksi Baju Hitam</h2>
                 <div id="black-clothing-list" class="product-grid">
                     </div>
                 <p id="no-black-clothing" class="info-message" style="display: none;">Belum ada koleksi baju hitam saat ini.</p>
-            </div>
-        </section>
+            </section>
 
-        <section id="baju-putih" class="animated-section">
-            <div class="container">
+            <div class="section-divider"></div>
+
+            <section id="baju-putih">
                 <h2>Koleksi Baju Putih</h2>
                 <div id="white-clothing-list" class="product-grid">
                     </div>
                 <p id="no-white-clothing" class="info-message" style="display: none;">Belum ada koleksi baju putih saat ini.</p>
-            </div>
-        </section>
+            </section>
 
-        <section id="keranjang" class="animated-section">
-            <div class="container">
+            <div class="section-divider"></div>
+
+            <section id="keranjang">
                 <h2>Keranjang Belanja</h2>
-                <div id="cart-items" class="cart-items-container">
+                <div id="cart-items-container" class="cart-items-container">
                     </div>
-                <p id="empty-cart-message" class="info-message" style="display: none;">Keranjang Anda kosong.</p>
-                <div class="cart-summary">
+                <p id="empty-cart-message" class="info-message">Keranjang Anda kosong. Mari mulai berbelanja!</p>
+                <div id="cart-summary" class="cart-summary" style="display: none;">
+                    <p id="promo-upsell-message" class="promo-message" style="display: none;"></p>
                     <p>Subtotal: <span id="subtotal-price">Rp0</span></p>
                     <p>Diskon: <span id="discount-amount">Rp0</span></p>
                     <h3>Total: <span id="total-price">Rp0</span></h3>
-                    <button id="checkout-btn" class="btn btn-primary" style="display: none;">Lanjutkan ke Checkout</button>
+                    <button id="checkout-btn" class="btn btn-primary">Lanjutkan ke Checkout <i class="fas fa-lock"></i></button>
                 </div>
 
                 <div id="checkout-form-container" class="checkout-form-container" style="display: none;">
-                    <h3>Informasi Pengiriman</h3>
-                    <form id="checkout-form">
-                        <div class="form-group">
-                            <label for="customer-name">Nama Lengkap:</label>
-                            <input type="text" id="customer-name" name="customer-name" required>
+                    <div id="checkout-header">
+                        <h3>Proses Checkout</h3>
+                        <div id="progress-bar">
+                            <div class="progress-step active" data-step="1">
+                                <div class="step-icon"><i class="fas fa-user"></i></div>
+                                <p>Informasi</p>
+                            </div>
+                            <div class="progress-step" data-step="2">
+                                 <div class="step-icon"><i class="fas fa-truck"></i></div>
+                                <p>Pengiriman</p>
+                            </div>
+                            <div class="progress-step" data-step="3">
+                                 <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                                <p>Pembayaran</p>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="customer-phone">Nomor WhatsApp:</label>
-                            <input type="tel" id="customer-phone" name="customer-phone" placeholder="Contoh: 6281234567890" pattern="[0-9]{10,15}" required>
-                            <small>Format: 10-15 digit angka (diawali kode negara, cth: 62)</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="customer-address">Alamat Lengkap:</label>
-                            <textarea id="customer-address" name="customer-address" rows="4" required></textarea>
-                        </div>
-                        <div class="form-group">
-    <label for="expedition-method">Metode Ekspedisi:</label>
-    <select id="expedition-method" name="expeditionMethod">
-        <option value="">Pilih Ekspedisi</option>
-        <option value="JNE" data-image="JNE.jpg">JNE</option>
-        <option value="J&T" data-image="J&T.jpg">J&T</option>
-        <option value="LION PARCEL" data-image="Lion.jpg">LION PARCEL</option>
-        <option value="TIKI" data-image="
-        Tiki.jpg">TIKI</option>
-        <option value="WAHANA" data-image="Wahana.jpg">WAHANA</option>
-        </select>
-    <div id="expedition-image-display">
-        </div>
-</div>
+                    </div>
 
- <div class="form-group">
-    <label for="payment-method">Metode Pembayaran:</label>
-    <select id="payment-method" name="paymentMethod">
-        <option value="">Pilih Metode Pembayaran</option>
-        <option value="BCA" data-image="BCA.jpg">BCA</option>
-        <option value="BRI" data-image="BRI.jpg">BRI</option>
-        <option value="BNI" data-image="BNI.jpg">BNI</option>
-        <option value="MANDIRI" data-image="MANDIRI.jpg">MANDIRI</option>
-        <option value="SHOPEEPAY" data-image="SHOPEEPAY.jpg">SHOPEEPAY</option>
-        <option value="GOPAY" data-image="GOPAY.jpg">GOPAY</option>
-        <option value="OVO" data-image="OVO.jpg">OVO</option>
-        </select>
-    <div id="payment-image-display">
-        </div>
-</div>
-                        <button type="submit" class="btn btn-primary">Buat Pesanan via WhatsApp</button>
+                    <form id="checkout-form">
+                        <div class="checkout-step active" data-step="1">
+                            <h4>Langkah 1: Informasi Kontak Anda</h4>
+                            <div class="form-group">
+                                <label for="customer-name">Nama Lengkap:</label>
+                                <input type="text" id="customer-name" name="customer-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-phone">Nomor WhatsApp:</label>
+                                <input type="tel" id="customer-phone" name="customer-phone" placeholder="Contoh: 081234567890" required>
+                                <small>Format: 10-15 digit angka (Gunakan format lokal, cth: 08xxxxxxxx).</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="customer-address">Alamat Lengkap:</label>
+                                <textarea id="customer-address" name="customer-address" rows="4" placeholder="Jl. Mawar No. 10, RT 01/RW 02, Kelurahan, Kecamatan, Kota, Kode Pos" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="checkout-step" data-step="2">
+                            <h4>Langkah 2: Pilih Metode Pengiriman</h4>
+                            <div class="form-group-radio">
+                                <label>Pilih Ekspedisi:</label>
+                                <div class="radio-options-container" id="expedition-method">
+                                    <label class="radio-option">
+                                        <input type="radio" name="expeditionMethod" value="JNE" data-image="JNE.jpg" required>
+                                        <div class="radio-tile">
+                                            <img src="JNE.jpg" alt="JNE">
+                                            <span>JNE</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="expeditionMethod" value="J&T" data-image="J&T.jpg">
+                                        <div class="radio-tile">
+                                            <img src="J&T.jpg" alt="J&T">
+                                            <span>J&T Express</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="expeditionMethod" value="LION PARCEL" data-image="Lion.jpg">
+                                        <div class="radio-tile">
+                                            <img src="Lion.jpg" alt="Lion Parcel">
+                                            <span>Lion Parcel</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="expeditionMethod" value="TIKI" data-image="Tiki.jpg">
+                                        <div class="radio-tile">
+                                            <img src="Tiki.jpg" alt="TIKI">
+                                            <span>TIKI</span>
+                                        </div>
+                                    </label>
+                                     <label class="radio-option">
+                                        <input type="radio" name="expeditionMethod" value="WAHANA" data-image="Wahana.jpg">
+                                        <div class="radio-tile">
+                                            <img src="Wahana.jpg" alt="Wahana">
+                                            <span>Wahana</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="checkout-step" data-step="3">
+                             <h4>Langkah 3: Pilih Metode Pembayaran</h4>
+                             <div class="form-group-radio">
+                                <label>Pilih Pembayaran:</label>
+                                <div class="radio-options-container" id="payment-method">
+                                    <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="BCA" data-image="BCA.jpg" required>
+                                        <div class="radio-tile">
+                                            <img src="BCA.jpg" alt="BCA">
+                                            <span>BCA</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="BRI" data-image="BRI.jpg">
+                                        <div class="radio-tile">
+                                            <img src="BRI.jpg" alt="BRI">
+                                            <span>BRI</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="BNI" data-image="BNI.jpg">
+                                        <div class="radio-tile">
+                                            <img src="BNI.jpg" alt="BNI">
+                                            <span>BNI</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="MANDIRI" data-image="MANDIRI.jpg">
+                                        <div class="radio-tile">
+                                            <img src="MANDIRI.jpg" alt="Mandiri">
+                                            <span>Mandiri</span>
+                                        </div>
+                                    </label>
+                                     <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="SHOPEEPAY" data-image="SHOPEEPAY.jpg">
+                                        <div class="radio-tile">
+                                            <img src="SHOPEEPAY.jpg" alt="ShopeePay">
+                                            <span>ShopeePay</span>
+                                        </div>
+                                    </label>
+                                     <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="GOPAY" data-image="GOPAY.jpg">
+                                        <div class="radio-tile">
+                                            <img src="GOPAY.jpg" alt="GoPay">
+                                            <span>GoPay</span>
+                                        </div>
+                                    </label>
+                                    <label class="radio-option">
+                                        <input type="radio" name="paymentMethod" value="OVO" data-image="OVO.jpg">
+                                        <div class="radio-tile">
+                                            <img src="OVO.jpg" alt="OVO">
+                                            <span>OVO</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="order-summary-final">
+                                <h4>Ringkasan Pesanan</h4>
+                                <div id="final-order-summary"></div>
+                                <p>Pastikan semua data sudah benar sebelum menyelesaikan pesanan.</p>
+                            </div>
+                        </div>
+
+                        <div id="checkout-navigation" class="form-navigation">
+                            <button type="button" class="btn btn-secondary" id="prev-step-btn" style="display: none;">
+                                <i class="fas fa-arrow-left"></i> Kembali
+                            </button>
+                            <button type="button" class="btn btn-primary" id="next-step-btn">
+                                Lanjut <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submit-order-btn" style="display: none;">
+                                Buat Pesanan via WhatsApp <i class="fab fa-whatsapp"></i>
+                            </button>
+                        </div>
                     </form>
                 </div>
-            </div>
-        </section>
 
-        <section id="favorit" class="animated-section">
-            <div class="container">
+            </section>
+
+            <div class="section-divider"></div>
+
+            <section id="favorit">
                 <h2>Produk Favorit Anda</h2>
                 <div id="favorite-products-list" class="product-grid">
                     </div>
-                <p id="empty-favorites-message" class="info-message" style="display: none;">Anda belum menambahkan produk favorit apapun.</p>
-            </div>
-        </section>
+                <p id="empty-favorites-message" class="info-message">Anda belum menambahkan produk favorit apapun.</p>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <section id="riwayat-pesanan">
+                <h2>Riwayat Pesanan Anda</h2>
+                <div id="order-history-list">
+                    </div>
+                <p id="empty-history-message" class="info-message" style="display: none;">Anda belum memiliki riwayat pesanan.</p>
+            </section>
+        </div>
     </main>
 
     <footer>
         <div class="container footer-content">
+            <div class="footer-section about">
+                <h3>Tentang Luxuliver</h3>
+                 <p>Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.</p>
+            </div>
             <div class="footer-section contact-info">
                 <h3>Hubungi Kami</h3>
                 <p><i class="fas fa-map-marker-alt"></i> <span id="seller-address"></span></p>
-                <p><i class="fas fa-phone"></i> <span id="seller-phone"></span></p>
-                <p><i class="fas fa-envelope"></i> <span id="seller-email"></span></p>
+                <p><i class="fas fa-phone"></i> <a href="" id="seller-phone-link"><span id="seller-phone"></span></a></p>
+                <p><i class="fas fa-envelope"></i> <a href="" id="seller-email-link"><span id="seller-email"></span></a></p>
             </div>
             <div class="footer-section social-media">
                 <h3>Ikuti Kami</h3>
-                <p><i class="fab fa-instagram"></i> Ikuti kami di <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a></p>
+                <p><i class="fab fa-instagram"></i> Ikuti kami di <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> untuk update terbaru dan penawaran spesial.</p>
             </div>
-            <div class="footer-section copyright">
+            <div class="copyright">
                 <p>&copy; <span id="current-year"></span> Luxuliver. Semua Hak Cipta Dilindungi.</p>
             </div>
         </div>
@@ -184,12 +314,32 @@
                     <h3 id="modal-product-name">Nama Baju</h3>
                     <p id="modal-product-description">Deskripsi singkat produk.</p>
                     <p class="price" id="modal-product-price">Rp0</p>
-                    <div class="size-options" id="modal-size-options">
+                    <div class="size-options" id="modal-size-options"></div>
+
+                    <hr class="modal-divider">
+                    <div class="reviews-section">
+                        <div class="reviews-summary" style="display: none;">
+                            <h4 id="modal-reviews-title">Ulasan Produk</h4>
+                            <div class="summary-line">
+                                <span class="average-rating-stars" id="modal-average-rating-stars"></span>
+                                <strong id="modal-average-rating-value"></strong>
+                                <span>/ 5.0</span>
+                                <span class="total-reviews-count">(<span id="modal-total-reviews"></span> ulasan)</span>
+                            </div>
                         </div>
-                    <button class="btn add-to-cart" id="modal-add-to-cart-btn" data-id=""><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
-                    <button class="btn btn-secondary modal-add-to-favorite" data-id=""><i class="far fa-heart"></i> Tambah ke Favorit</button>
-                    <button class="btn btn-secondary modal-share-product-btn" data-id=""><i class="fas fa-share-alt"></i> Bagikan Produk</button>
-                    <button class="btn btn-secondary" id="modal-size-guide-btn"><i class="fas fa-ruler-horizontal"></i> Panduan Ukuran</button>
+                        <div class="reviews-list" id="modal-reviews-list-container">
+                            </div>
+                        <p id="modal-no-reviews" class="info-message" style="display: none; font-size: 1rem; padding: 20px;">Belum ada ulasan untuk produk ini.</p>
+                    </div>
+                     <hr class="modal-divider">
+                    <div class="modal-buttons-group">
+                        <button class="btn btn-primary add-to-cart" id="modal-add-to-cart-btn" data-id=""><i class="fas fa-shopping-cart"></i> Tambah ke Keranjang</button>
+                        <button class="btn add-to-favorite modal-add-to-favorite" data-id=""><i class="far fa-heart"></i></button>
+                    </div>
+                     <div class="modal-utility-buttons">
+                        <button class="btn-utility" id="modal-size-guide-btn"><i class="fas fa-ruler-horizontal"></i> Panduan Ukuran</button>
+                        <button class="btn-utility modal-share-product-btn" data-id=""><i class="fas fa-share-alt"></i> Bagikan Produk</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -204,19 +354,30 @@
             </div>
         </div>
     </div>
+    
+    <div id="whatsapp-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <p id="whatsapp-confirm-message">Kami telah menyiapkan pesan WhatsApp untuk Anda. Mohon kirim pesan tersebut untuk melanjutkan pesanan. Apakah Anda sudah mengirimkannya?</p>
+            <div class="modal-actions">
+                <button id="whatsapp-confirm-yes" class="btn btn-primary"><i class="fas fa-check"></i> Sudah, Selesaikan Pesanan</button>
+                <button id="whatsapp-confirm-no" class="btn btn-secondary"><i class="fas fa-times"></i> Batal</button>
+            </div>
+        </div>
+    </div>
+
 
     <div id="size-guide-modal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <h3>Panduan Ukuran</h3>
-            <p>Ukuran dalam centimeter (cm).</p>
+            <p>Semua ukuran dalam satuan centimeter (cm).</p>
             <div class="size-guide-table-container">
                 <table id="size-chart-table">
                     <thead>
                         <tr>
                             <th>Ukuran</th>
                             <th>Panjang Baju</th>
-                            <th>Lebar Dada</th>
+                            <th>Lebar Baju</th>
                             <th>Panjang Lengan</th>
                         </tr>
                     </thead>
@@ -227,6 +388,9 @@
             <p class="notes">*Toleransi ukuran +/- 1-2 cm karena proses produksi.</p>
         </div>
     </div>
+
+    <div id="toast-container"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
