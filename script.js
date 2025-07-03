@@ -108,6 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const toastContainer = document.getElementById('toast-container');
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const mainNav = document.getElementById('main-nav');
+    
+    // [BARU] Elemen Loading Screen
+    const loadingScreen = document.getElementById('loading-screen');
+    const loadingVideo = document.getElementById('loading-video');
 
     // Quick View Modal
     const quickViewModal = document.getElementById('quick-view-modal');
@@ -1048,5 +1052,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     };
 
-    initializeApp();
+    // === [BARU] LOGIKA UNTUK LOADING SCREEN VIDEO ===
+    const startApp = () => {
+        // Hapus loading screen dengan efek fade-out
+        if(loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            
+            // Hapus elemen dari DOM setelah transisi selesai agar tidak mengganggu
+            loadingScreen.addEventListener('transitionend', () => {
+                loadingScreen.style.display = 'none'; 
+            }, { once: true });
+        }
+        
+        // Panggil fungsi inisialisasi utama HANYA SETELAH video selesai
+        initializeApp();
+    };
+
+    // Panggil startApp ketika video selesai diputar
+    if (loadingVideo) {
+        // Jika video bisa selesai diputar
+        loadingVideo.addEventListener('ended', startApp);
+        
+        // Fallback: jika video gagal dimuat, langsung mulai aplikasi
+        loadingVideo.addEventListener('error', () => {
+            console.error("Video loading screen gagal dimuat.");
+            startApp();
+        });
+    } else {
+        // Fallback: jika elemen video tidak ada, langsung mulai aplikasi
+        startApp();
+    }
 });
