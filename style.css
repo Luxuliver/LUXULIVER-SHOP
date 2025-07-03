@@ -42,32 +42,33 @@
     --hero-transition-duration: 0.8s; /* Transisi khusus untuk hero */
 }
 
-/* BARU: Variabel untuk Mode Gelap */
 body.dark-mode {
-    --primary-color: #5a8cbf;
-    --primary-light: #7da9d3;
-    --primary-dark-hover: #4a75a0;
+    /* Warna Aksi & Aksen disatukan menjadi Emas yang kaya */
+    --primary-color: #DAB974; /* Emas klasik yang tidak terlalu kuning */
+    --primary-light: #E1C58A;
+    --primary-dark-hover: #C9A862;
     
-    --secondary-color: #6bb097;
+    /* Hijau diubah menjadi lebih kalem & elegan, tidak mencolok */
+    --secondary-color: #45a29e; /* Teal yang terdesaturasi */
 
-    --accent-color: #ff9e64;
-    --accent-dark-hover: #ff8a4c;
+    --accent-color: #DAB974; /* Aksen = Warna Primer */
+    --accent-dark-hover: #C9A862;
 
-    --text-color: #e0e6ec;
-    --light-text: #a0a9b4;
-    --background-color: #1a2228;
-    --surface-color: #242f38;
-    --border-color: #3a4752;
+    --text-color: #EAE6E0; /* Teks Putih Gading (Ivory), sangat lembut & hangat */
+    --light-text: #8A8883; /* Abu-abu hangat untuk detail */
+    --background-color: #101114; /* Latar Beludru Malam (Midnight Velvet) */
+    --surface-color: #1C1D21; /* Permukaan kartu, sedikit lebih terang dari latar */
+    --border-color: #2F3136;
 
-    --shadow-extra-light: rgba(0, 0, 0, 0.1);
-    --shadow-light: rgba(0, 0, 0, 0.2);
-    --shadow-medium: rgba(0, 0, 0, 0.35);
-    --shadow-strong: rgba(0, 0, 0, 0.5);
+    /* Bayangan dibuat sangat subtil untuk menonjolkan batas elemen */
+    --shadow-extra-light: rgba(0, 0, 0, 0.2);
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.45);
+    --shadow-strong: rgba(0, 0, 0, 0.6);
 
-    --skeleton-bg: #2c3a47;
-    --skeleton-highlight: #3a4752;
+    --skeleton-bg: #1C1D21;
+    --skeleton-highlight: #2F3136;
 }
-
 
 /* Global Reset & Body */
 * {
