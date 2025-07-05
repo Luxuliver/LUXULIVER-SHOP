@@ -162,6 +162,12 @@
                 <div id="cart-items-container" class="cart-items-container">
                     </div>
                 <p id="empty-cart-message" class="info-message" data-lang-key="empty_cart">Keranjang Anda kosong. Mari mulai berbelanja!</p>
+                
+                <div id="saved-for-later-section" style="display: none;">
+                    <div class="section-divider"></div>
+                    <h3 data-lang-key="saved_for_later_title" style="text-align:center; font-size: 2rem; margin-bottom: 2rem;">Disimpan untuk Nanti</h3>
+                    <div id="saved-for-later-container" class="cart-items-container"></div>
+                </div>
                 <div id="cart-summary" class="cart-summary" style="display: none;">
                     <p id="promo-upsell-message" class="promo-message" style="display: none;"></p>
                     <p><span data-lang-key="subtotal">Subtotal</span>: <span id="subtotal-price">Rp0</span></p>
@@ -191,7 +197,12 @@
 
                     <form id="checkout-form">
                         <div class="checkout-step active" data-step="1">
-                            <h4 data-lang-key="step1_title">Langkah 1: Informasi Kontak Anda</h4>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h4 data-lang-key="step1_title">Langkah 1: Informasi Kontak Anda</h4>
+                                <button type="button" id="use-saved-address-btn" class="btn-utility" style="display: none; margin-bottom: 1rem;">
+                                    <i class="fas fa-history"></i> <span data-lang-key="button_use_saved_address">Gunakan Alamat Tersimpan</span>
+                                </button>
+                                </div>
                             <div class="form-group">
                                 <label for="customer-name" data-lang-key="label_fullname">Nama Lengkap:</label>
                                 <input type="text" id="customer-name" name="customer-name" required>
