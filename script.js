@@ -1,5 +1,288 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Dummy Data Produk DENGAN PENAMBAHAN REVIEW
+    
+    const translations = {
+        id: {
+            nav_home: 'Beranda',
+            nav_collections: 'Koleksi',
+            nav_cart: 'Keranjang',
+            nav_favorites: 'Favorit',
+            nav_history: 'Riwayat',
+            sidebar_title: 'Menu & Filter',
+            sidebar_main_menu: 'Menu Utama',
+            sidebar_availability: 'Ketersediaan',
+            sidebar_all_products: 'Semua Produk',
+            sidebar_in_stock: 'Stok Tersedia',
+            sidebar_color: 'Warna',
+            sidebar_all_colors: 'Semua Warna',
+            color_black: 'Hitam',
+            color_white: 'Putih',
+            sidebar_design: 'Desain',
+            sidebar_all_designs: 'Semua Desain',
+            design_classy: 'Classy',
+            design_abstract: 'Abstrak',
+            sidebar_display_mode: 'Mode Tampilan',
+            sidebar_language: 'Bahasa',
+            sidebar_video_gallery: 'Khusus Vidio',
+            sidebar_reset_filters: 'Reset Semua Filter',
+            hero_title: 'T-Shirt stylish yang bikin gaya makin percaya diri!',
+            hero_subtitle: 'Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.',
+            hero_button: 'Jelajahi Koleksi',
+            search_placeholder: 'Cari nama produk...',
+            search_button: 'Cari',
+            all_collections_title: 'Semua Koleksi',
+            no_results: 'Produk tidak ditemukan.',
+            cart_title: 'Keranjang Belanja',
+            empty_cart: 'Keranjang Anda kosong. Mari mulai berbelanja!',
+            subtotal: 'Subtotal',
+            discount: 'Diskon',
+            total: 'Total',
+            checkout_button: 'Lanjutkan ke Checkout',
+            checkout_process_title: 'Proses Checkout',
+            step_info: 'Informasi',
+            step_shipping: 'Pengiriman',
+            step_payment: 'Pembayaran',
+            step1_title: 'Langkah 1: Informasi Kontak Anda',
+            label_fullname: 'Nama Lengkap:',
+            label_whatsapp: 'Nomor WhatsApp:',
+            note_whatsapp: 'Format: 10-15 digit angka (Gunakan format lokal, cth: 08xxxxxxxx).',
+            label_address: 'Alamat Lengkap:',
+            step2_title: 'Langkah 2: Pilih Metode Pengiriman',
+            label_expedition: 'Pilih Ekspedisi:',
+            step3_title: 'Langkah 3: Pilih Metode Pembayaran',
+            label_payment_method: 'Pilih Pembayaran:',
+            final_summary_title: 'Ringkasan Pesanan',
+            final_summary_note: 'Pastikan semua data sudah benar sebelum menyelesaikan pesanan.',
+            button_back: 'Kembali',
+            button_next: 'Lanjut',
+            button_order_whatsapp: 'Buat Pesanan via WhatsApp',
+            favorites_title: 'Produk Favorit Anda',
+            empty_favorites: 'Anda belum menambahkan produk favorit apapun.',
+            history_title: 'Riwayat Pesanan Anda',
+            empty_history: 'Anda belum memiliki riwayat pesanan.',
+            footer_about: 'Tentang Luxuliver',
+            footer_about_text: 'Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.',
+            footer_contact: 'Hubungi Kami',
+            footer_social: 'Ikuti Kami',
+            footer_social_text: 'Ikuti kami di <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> untuk update terbaru dan penawaran spesial.',
+            footer_policy_title: 'Informasi & Kebijakan',
+            footer_policy_privacy: 'Kebijakan Privasi',
+            footer_policy_terms: 'Syarat & Ketentuan',
+            footer_policy_shipping: 'Kebijakan Pengiriman',
+            footer_policy_return: 'Kebijakan Pengembalian',
+            footer_copyright: 'Semua Hak Cipta Dilindungi.',
+            reviews_title: 'Ulasan Produk',
+            reviews_count: 'ulasan',
+            no_reviews_yet: 'Belum ada ulasan untuk produk ini.',
+            add_to_cart: 'Tambah ke Keranjang',
+            size_guide: 'Panduan Ukuran',
+            share_product: 'Bagikan Produk',
+            confirm_yes: 'Ya',
+            confirm_no: 'Tidak',
+            whatsapp_confirm_text: 'Kami telah menyiapkan pesan WhatsApp untuk Anda. Mohon kirim pesan tersebut untuk melanjutkan pesanan. Apakah Anda sudah mengirimkannya?',
+            whatsapp_confirm_yes: 'Sudah, Selesaikan Pesanan',
+            whatsapp_confirm_no: 'Batal',
+            size_guide_title: 'Panduan Ukuran',
+            size_guide_subtitle: 'Semua ukuran dalam satuan centimeter (cm).',
+            th_size: 'Ukuran',
+            th_length: 'Panjang Baju',
+            th_width: 'Lebar Baju',
+            th_sleeve: 'Panjang Lengan',
+            video_gallery_title: 'Video Koleksi',
+            video_gallery_subtitle: 'Lihat lebih dekat kualitas dan gaya produk kami melalui video.',
+            video1_title: 'Brand Showcase',
+            video2_title: 'Daily Style with Luxuliver',
+            video3_title: 'Behind The Seams',
+            faq_title: 'Pertanyaan yang Sering Diajukan',
+            faq_q1: 'Bagaimana cara memesan produk?',
+            faq_a1: 'Untuk memesan, cukup tambahkan produk ke keranjang, lanjutkan ke checkout, isi informasi Anda, lalu klik tombol \'Buat Pesanan via WhatsApp\'. Anda akan diarahkan ke WhatsApp dengan pesan otomatis yang sudah kami siapkan untuk menyelesaikan pesanan dengan admin kami.',
+            faq_q2: 'Terbuat dari bahan apa T-shirt ini?',
+            faq_a2: 'Semua T-shirt kami terbuat dari bahan premium berkualitas tinggi yang lembut, adem, dan nyaman dipakai sepanjang hari. Kami menjamin kualitas bahan dan sablon terbaik.',
+            faq_q3: 'Bagaimana cara menentukan ukuran yang pas?',
+            faq_a3: 'Kami menyediakan \'Panduan Ukuran\' detail di setiap halaman produk. Cukup klik tombol \'Panduan Ukuran\' untuk melihat tabel ukuran lengkap (panjang, lebar, dan panjang lengan) dalam centimeter untuk membantu Anda memilih ukuran yang paling tepat.',
+            faq_q4: 'Apa saja metode pembayaran yang tersedia?',
+            faq_a4: 'Saat ini kami menerima pembayaran melalui transfer bank (BCA, Mandiri) dan dompet digital (GoPay, OVO). Anda dapat memilih metode yang paling nyaman bagi Anda pada langkah checkout.',
+            faq_q5: 'Berapa lama proses pengiriman?',
+            faq_a5: 'Estimasi waktu pengiriman tergantung pada lokasi Anda dan ekspedisi yang dipilih. Untuk area Jabodetabek, biasanya memakan waktu 1-3 hari kerja. Untuk luar Jabodetabek, estimasi 3-7 hari kerja. Nomor resi akan kami informasikan melalui WhatsApp setelah pesanan dikirim.',
+            policy_title_privacy: 'Kebijakan Privasi',
+            privacy_p1: 'Kami di Luxuliver sangat menghargai privasi Anda. Kebijakan ini menjelaskan informasi pribadi apa yang kami kumpulkan dan bagaimana kami menggunakannya.',
+            privacy_p2: '<strong>Informasi yang Kami Kumpulkan:</strong> Kami mengumpulkan informasi yang Anda berikan langsung kepada kami, seperti nama, nomor telepon, dan alamat email saat Anda melakukan pemesanan. Informasi ini hanya digunakan untuk memproses pesanan Anda dan untuk menghubungi Anda terkait pesanan tersebut.',
+            privacy_p3: '<strong>Keamanan Data:</strong> Kami tidak akan pernah membagikan, menjual, atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum. Semua komunikasi pesanan dilakukan melalui WhatsApp untuk kemudahan dan keamanan Anda.',
+            policy_title_terms: 'Syarat & Ketentuan',
+            terms_p1: 'Dengan mengakses dan menggunakan situs web ini, Anda setuju untuk terikat oleh Syarat dan Ketentuan berikut.',
+            terms_p2: '<strong>Pemesanan:</strong> Semua pesanan dianggap final setelah konfirmasi pembayaran diterima. Pastikan semua detail pesanan (produk, ukuran, alamat) sudah benar sebelum melakukan pembayaran.',
+            terms_p3: '<strong>Harga:</strong> Harga yang tertera dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya. Harga final adalah harga yang tercantum pada ringkasan pesanan Anda di WhatsApp, termasuk detail biaya pengiriman yang akan diinformasikan langsung oleh admin sesuai dengan alamat tujuan Anda.',
+            terms_p4: '<strong>Hak Cipta:</strong> Semua konten di situs ini, termasuk desain produk, gambar, dan teks, adalah milik Luxuliver dan dilindungi oleh undang-undang hak cipta.',
+            policy_title_shipping: 'Kebijakan Pengiriman',
+            shipping_p1: '<strong>Proses Pengiriman:</strong> Pesanan akan diproses dan dikirim dalam 1-2 hari kerja setelah konfirmasi pembayaran diterima.',
+            shipping_p2: '<strong>Waktu Pengiriman:</strong> Estimasi waktu pengiriman adalah 1-3 hari kerja untuk Jabodetabek dan 3-7 hari kerja untuk kota-kota lain di Indonesia. Keterlambatan oleh pihak ekspedisi berada di luar tanggung jawab kami.',
+            shipping_p3: '<strong>Biaya Kirim & Pelacakan:</strong> Biaya pengiriman akan diinformasikan oleh admin kami melalui WhatsApp. Nomor resi pelacakan juga akan diberikan setelah paket dikirim agar Anda dapat melacak status pengiriman Anda.',
+            policy_title_return: 'Kebijakan Pengembalian',
+            return_p1: 'Kepuasan Anda adalah prioritas kami. Kami menerima pengembalian produk dengan ketentuan sebagai berikut:',
+            return_p2: '<strong>Kondisi:</strong> Produk hanya dapat dikembalikan jika ada cacat produksi atau kesalahan pengiriman dari pihak kami (salah ukuran atau salah produk).',
+            return_p3: '<strong>Batas Waktu:</strong> Klaim pengembalian harus diajukan maksimal 3 hari setelah barang diterima, dengan menyertakan video unboxing sebagai bukti.',
+            return_p4: '<strong>Proses:</strong> Silakan hubungi admin kami melalui WhatsApp untuk memulai proses pengembalian. Produk pengganti akan kami kirim setelah produk yang dikembalikan kami terima dan periksa. Kami tidak melayani pengembalian dana (refund).',
+            toast_select_size: 'Mohon pilih ukuran baju terlebih dahulu!',
+            toast_stock_not_enough: (name, size) => `Stok ${name} (${size}) tidak mencukupi!`,
+            toast_quantity_updated: (name, size) => `Kuantitas ${name} (${size}) diperbarui!`,
+            toast_added_to_cart: (name, size) => `${name} (${size}) ditambahkan!`,
+            toast_removed_from_cart: (name, size) => `"${name} (${size})" dihapus.`,
+            toast_removed_from_favorites: (name) => `"${name}" dihapus dari favorit.`,
+            toast_added_to_favorites: (name) => `"${name}" ditambahkan ke favorit!`,
+            toast_product_shared: 'Produk berhasil dibagikan!',
+            toast_link_copied: 'Link produk disalin ke clipboard!',
+            toast_share_failed: 'Gagal membagikan produk.',
+            toast_invalid_whatsapp: 'Nomor WhatsApp tidak valid (10-15 digit angka).',
+            toast_step_not_complete: (step) => `Mohon lengkapi semua data pada langkah ${step}.`,
+            toast_order_confirmed: 'Pesanan Anda berhasil dikonfirmasi!',
+            toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
+            confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
+            promo_upsell: (items) => `Tambah ${items} barang lagi untuk dapat diskon 2%!`,
+            stock_limited: 'Stok Terbatas!',
+            stock_out: 'Stok Habis',
+            add_button: 'Tambah',
+        },
+        en: {
+            nav_home: 'Home',
+            nav_collections: 'Collections',
+            nav_cart: 'Cart',
+            nav_favorites: 'Favorites',
+            nav_history: 'History',
+            sidebar_title: 'Menu & Filters',
+            sidebar_main_menu: 'Main Menu',
+            sidebar_availability: 'Availability',
+            sidebar_all_products: 'All Products',
+            sidebar_in_stock: 'In Stock',
+            sidebar_color: 'Color',
+            sidebar_all_colors: 'All Colors',
+            color_black: 'Black',
+            color_white: 'White',
+            sidebar_design: 'Design',
+            sidebar_all_designs: 'All Designs',
+            design_classy: 'Classy',
+            design_abstract: 'Abstract',
+            sidebar_display_mode: 'Display Mode',
+            sidebar_language: 'Language',
+            sidebar_video_gallery: 'Video Gallery',
+            sidebar_reset_filters: 'Reset All Filters',
+            hero_title: 'Stylish T-Shirts that boost your confidence!',
+            hero_subtitle: 'Discover a collection of stylish and comfortable apparel that makes you confident every day.',
+            hero_button: 'Explore Collections',
+            search_placeholder: 'Search product name...',
+            search_button: 'Search',
+            all_collections_title: 'All Collections',
+            no_results: 'Product not found.',
+            cart_title: 'Shopping Cart',
+            empty_cart: 'Your cart is empty. Let\'s start shopping!',
+            subtotal: 'Subtotal',
+            discount: 'Discount',
+            total: 'Total',
+            checkout_button: 'Proceed to Checkout',
+            checkout_process_title: 'Checkout Process',
+            step_info: 'Information',
+            step_shipping: 'Shipping',
+            step_payment: 'Payment',
+            step1_title: 'Step 1: Your Contact Information',
+            label_fullname: 'Full Name:',
+            label_whatsapp: 'WhatsApp Number:',
+            note_whatsapp: 'Format: 10-15 digits (Use local format, e.g., 08xxxxxxxx).',
+            label_address: 'Full Address:',
+            step2_title: 'Step 2: Choose Shipping Method',
+            label_expedition: 'Choose Expedition:',
+            step3_title: 'Step 3: Choose Payment Method',
+            label_payment_method: 'Choose Payment:',
+            final_summary_title: 'Order Summary',
+            final_summary_note: 'Please ensure all data is correct before finalizing the order.',
+            button_back: 'Back',
+            button_next: 'Next',
+            button_order_whatsapp: 'Order via WhatsApp',
+            favorites_title: 'Your Favorite Products',
+            empty_favorites: 'You haven\'t added any favorite products yet.',
+            history_title: 'Your Order History',
+            empty_history: 'You don\'t have an order history yet.',
+            footer_about: 'About Luxuliver',
+            footer_about_text: 'Luxuliver presents a collection of high-quality T-Shirts with exclusive designs that blend comfort and style. Made for those who want to be confident at all times.',
+            footer_contact: 'Contact Us',
+            footer_social: 'Follow Us',
+            footer_social_text: 'Follow us on <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> for the latest updates and special offers.',
+            footer_policy_title: 'Information & Policies',
+            footer_policy_privacy: 'Privacy Policy',
+            footer_policy_terms: 'Terms & Conditions',
+            footer_policy_shipping: 'Shipping Policy',
+            footer_policy_return: 'Return Policy',
+            footer_copyright: 'All Rights Reserved.',
+            reviews_title: 'Product Reviews',
+            reviews_count: 'reviews',
+            no_reviews_yet: 'There are no reviews for this product yet.',
+            add_to_cart: 'Add to Cart',
+            size_guide: 'Size Guide',
+            share_product: 'Share Product',
+            confirm_yes: 'Yes',
+            confirm_no: 'No',
+            whatsapp_confirm_text: 'We have prepared a WhatsApp message for you. Please send it to proceed with the order. Have you sent it?',
+            whatsapp_confirm_yes: 'Yes, Complete Order',
+            whatsapp_confirm_no: 'Cancel',
+            size_guide_title: 'Size Guide',
+            size_guide_subtitle: 'All measurements are in centimeters (cm).',
+            th_size: 'Size',
+            th_length: 'Length',
+            th_width: 'Width',
+            th_sleeve: 'Sleeve',
+            video_gallery_title: 'Collection Videos',
+            video_gallery_subtitle: 'Get a closer look at the quality and style of our products through video.',
+            video1_title: 'Brand Showcase',
+            video2_title: 'Daily Style with Luxuliver',
+            video3_title: 'Behind The Seams',
+            faq_title: 'Frequently Asked Questions',
+            faq_q1: 'How do I place an order?',
+            faq_a1: 'To order, simply add products to your cart, proceed to checkout, fill in your information, and then click the \'Order via WhatsApp\' button. You will be redirected to WhatsApp with a pre-filled message to finalize the order with our admin.',
+            faq_q2: 'What material are the T-shirts made of?',
+            faq_a2: 'All our T-shirts are made from high-quality premium that is soft, cool, and comfortable for all-day wear. We guarantee the best quality for both materials and prints.',
+            faq_q3: 'How do I find the right size?',
+            faq_a3: 'We provide a detailed \'Size Guide\' on each product page. Simply click the \'Size Guide\' button to see a complete size chart (length, width, and sleeve length) in centimeters to help you choose the most accurate size.',
+            faq_q4: 'What payment methods are available?',
+            faq_a4: 'We currently accept payments via bank transfer (BCA, Mandiri) and digital wallets (GoPay, OVO). You can choose the most convenient method for you at the checkout step.',
+            faq_q5: 'How long does shipping take?',
+            faq_a5: 'Shipping time estimates depend on your location and the chosen courier. For the Jabodetabek area, it usually takes 1-3 business days. For areas outside Jabodetabek, the estimate is 3-7 business days. We will provide the tracking number via WhatsApp once the order is shipped.',
+            policy_title_privacy: 'Privacy Policy',
+            privacy_p1: 'We at Luxuliver highly value your privacy. This policy explains what personal information we collect and how we use it.',
+            privacy_p2: '<strong>Information We Collect:</strong> We collect information you provide directly to us, such as your name, phone number, and email address when you place an order. This information is solely used to process your order and to contact you regarding that order.',
+            privacy_p3: '<strong>Data Security:</strong> We will never share, sell, or rent your personal information to third parties without your consent, except as required by law. All order communications are conducted via WhatsApp for your convenience and security.',
+            policy_title_terms: 'Terms & Conditions',
+            terms_p1: 'By accessing and using this website, you agree to be bound by the following Terms and Conditions.',
+            terms_p2: '<strong>Ordering:</strong> All orders are considered final once payment confirmation is received. Please ensure all order details (product, size, address) are correct before making a payment.',
+            terms_p3: '<strong>Pricing:</strong> Prices are subject to change at any time without prior notice. The final price will be the one stated in your order summary on WhatsApp, including the shipping fee, which will be informed directly by our admin based on your delivery address.',
+            terms_p4: '<strong>Copyright:</strong> All content on this site, including product designs, images, and text, is the property of Luxuliver and is protected by copyright law.',
+            policy_title_shipping: 'Shipping Policy',
+            shipping_p1: '<strong>Processing:</strong> Orders will be processed and shipped within 1-2 business days after payment confirmation is received.',
+            shipping_p2: '<strong>Delivery Time:</strong> Estimated delivery time is 1-3 business days for Jabodetabek and 3-7 business days for other cities in Indonesia. Delays by the courier are beyond our responsibility.',
+            shipping_p3: '<strong>Shipping Costs & Tracking:</strong> Shipping costs will be informed by our admin via WhatsApp. A tracking number will also be provided after the package is shipped so you can track your delivery status.',
+            policy_title_return: 'Return Policy',
+            return_p1: 'Your satisfaction is our priority. We accept product returns under the following conditions:',
+            return_p2: '<strong>Condition:</strong> Products can only be returned if there is a manufacturing defect or a shipping error on our part (wrong size or wrong product).',
+            return_p3: '<strong>Timeframe:</strong> Return claims must be submitted a maximum of 3 days after the item is received, accompanied by an unboxing video as proof.',
+            return_p4: '<strong>Process:</strong> Please contact our admin via WhatsApp to initiate the return process. A replacement product will be sent after we receive and inspect the returned item. We do not offer refunds.',
+            toast_select_size: 'Please select a T-shirt size first!',
+            toast_stock_not_enough: (name, size) => `Stock for ${name} (${size}) is insufficient!`,
+            toast_quantity_updated: (name, size) => `Quantity of ${name} (${size}) updated!`,
+            toast_added_to_cart: (name, size) => `${name} (${size}) added to cart!`,
+            toast_removed_from_cart: (name, size) => `"${name} (${size})" removed from cart.`,
+            toast_removed_from_favorites: (name) => `"${name}" removed from favorites.`,
+            toast_added_to_favorites: (name) => `"${name}" added to favorites!`,
+            toast_product_shared: 'Product shared successfully!',
+            toast_link_copied: 'Product link copied to clipboard!',
+            toast_share_failed: 'Failed to share product.',
+            toast_invalid_whatsapp: 'Invalid WhatsApp number (10-15 digits).',
+            toast_step_not_complete: (step) => `Please complete all data in step ${step}.`,
+            toast_order_confirmed: 'Your order has been confirmed!',
+            toast_order_cancelled: 'Order cancelled. Your cart remains intact.',
+            confirm_remove_from_cart: (name, size) => `Remove "${name} (${size})" from the cart?`,
+            promo_upsell: (items) => `Add ${items} more item(s) to get a 2% discount!`,
+            stock_limited: 'Limited Stock!',
+            stock_out: 'Out of Stock',
+            add_button: 'Add',
+        }
+    };
+    
     const products = [
         {
             id: 'baju-001',
@@ -9,11 +292,12 @@ document.addEventListener('DOMContentLoaded', () => {
             basePrice: 95000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'putih',
+            design: 'abstrak',
             stock: 5,
             reviews: [
-                { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-06-26' },
-                { author: 'Citra Wulandari', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-06-26' },
-                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-06-26' }
+                { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-07-04' },
+                { author: 'Citra Wulandari', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-07-03' },
+                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-07-02' }
             ]
         },
         {
@@ -24,10 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
             basePrice: 95000,
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
+            design: 'abstrak',
             stock: 15,
             reviews: [
-                { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-06-04' },
-                { author: 'Eko Budianto', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-06-11' }
+                { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-07-01' },
+                { author: 'Eko Budianto', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-06-28' }
             ]
         },
         {
@@ -38,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
             basePrice: 95000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
+            design: 'abstrak',
             stock: 3,
             reviews: [
                 { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }
@@ -51,14 +337,26 @@ document.addEventListener('DOMContentLoaded', () => {
             basePrice: 95000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
-            stock: 25,
+            design: 'abstrak',
+            stock: 15,
             reviews: [
-                { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-24' }
+                { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }
             ]
+        },
+        { 
+            id: 'baju-005',
+            name: 'Atelier Noir',
+            image: 'Atelier Noir.jpg',
+            description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
+            basePrice: 100000,
+            sizes: ['XS','S', 'M', 'L', 'XL'],
+            color: 'hitam',
+            design: 'classy',
+            stock: 20,
+            
         },
     ];
 
-    // --- INFORMASI PENJUAL ---
     const sellerInfo = {
         name: "Luxuliver Official",
         address: "Jakarta Selatan, DKI Jakarta, Indonesia",
@@ -67,8 +365,25 @@ document.addEventListener('DOMContentLoaded', () => {
         instagram: "https://www.instagram.com/luxuliver",
         whatsappAdmin: "6287820843118"
     };
+    
+    const expeditionMethods = [
+        { id: 'jne', name: 'JNE', logo: 'JNE.jpg' },
+        { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' },
+        { id: 'tiki', name: 'TIKI', logo: 'TIKI.jpg' },
+        { id: 'wahana', name: 'WAHANA', logo: 'WAHANA.jpg' }
+    ];
 
-    // --- DATA PANDUAN UKURAN ---
+    const paymentMethods = [
+        { id: 'bca', name: 'BCA', logo: 'BCA.jpg' },
+        { id: 'mandiri', name: 'MANDIRI', logo: 'MANDIRI.jpg' },
+        { id: 'bni', name: 'BNI', logo: 'BNI.jpg' },
+        { id: 'bri', name: 'BRI', logo: 'BRI.jpg' },
+        { id: 'gopay', name: 'GOPAY', logo: 'GOPAY.jpg' },
+        { id: 'ovo', name: 'OVO', logo: 'OVO.jpg' }, 
+        { id: 'Shopeepay', name: 'SHOPEEPAY', logo: 'SHOPEEPAY.jpg' }
+    ];
+
+
     const sizeGuideData = [
         { size: 'XS', length: '66', width: '46', sleeve: '20' },
         { size: 'S', length: '68', width: '48', sleeve: '21' },
@@ -80,13 +395,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    let pendingOrder = null; // Variabel untuk menyimpan pesanan sementara
+    let pendingOrder = null;
+    let currentLanguage = localStorage.getItem('language') || 'id';
 
-    // DOM Elements
+    let activeFilters = {
+        availability: 'all',
+        color: 'all',
+        design: 'all'
+    };
+
     const body = document.body;
     const productList = document.getElementById('product-list');
-    const blackClothingList = document.getElementById('black-clothing-list');
-    const whiteClothingList = document.getElementById('white-clothing-list');
     const cartItemsContainer = document.getElementById('cart-items-container');
     const cartCountSpan = document.getElementById('cart-count');
     const subtotalPriceSpan = document.getElementById('subtotal-price');
@@ -94,8 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPriceSpan = document.getElementById('total-price');
     const emptyCartMessage = document.getElementById('empty-cart-message');
     const noResultsMessage = document.getElementById('no-results-message');
-    const noBlackClothingMessage = document.getElementById('no-black-clothing');
-    const noWhiteClothingMessage = document.getElementById('no-white-clothing');
     const checkoutBtn = document.getElementById('checkout-btn');
     const cartSummary = document.getElementById('cart-summary');
     const checkoutFormContainer = document.getElementById('checkout-form-container');
@@ -109,33 +426,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const mainNav = document.getElementById('main-nav');
     
-    // [BARU] Elemen Loading Screen
     const loadingScreen = document.getElementById('loading-screen');
     const loadingVideo = document.getElementById('loading-video');
 
-    // Quick View Modal
     const quickViewModal = document.getElementById('quick-view-modal');
     const modalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
     const modalSizeOptions = document.getElementById('modal-size-options');
     
-    // Size Guide Modal
     const sizeGuideModal = document.getElementById('size-guide-modal');
     const modalSizeGuideBtn = document.getElementById('modal-size-guide-btn');
     const sizeChartTableBody = document.getElementById('size-chart-table').querySelector('tbody');
 
-    // Footer
     const sellerAddressSpan = document.getElementById('seller-address');
     const sellerPhoneSpan = document.getElementById('seller-phone');
     const sellerEmailSpan = document.getElementById('seller-email');
     const sellerPhoneLink = document.getElementById('seller-phone-link');
     const sellerEmailLink = document.getElementById('seller-email-link');
 
-    // Favorites
     const favoriteCountSpan = document.getElementById('favorite-count');
     const favoriteProductsList = document.getElementById('favorite-products-list');
     const emptyFavoritesMessage = document.getElementById('empty-favorites-message');
 
-    // Checkout Form (Multi-Langkah)
     const progressBar = document.getElementById('progress-bar');
     const checkoutSteps = document.querySelectorAll('.checkout-step');
     const prevStepBtn = document.getElementById('prev-step-btn');
@@ -144,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalOrderSummaryContainer = document.getElementById('final-order-summary');
     let currentStep = 1;
 
-    // Confirmation Modals
     const confirmationModal = document.getElementById('confirmation-modal');
     const confirmMessage = document.getElementById('confirm-message');
     const confirmYesBtn = document.getElementById('confirm-yes');
@@ -155,11 +465,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const whatsappConfirmYesBtn = document.getElementById('whatsapp-confirm-yes');
     const whatsappConfirmNoBtn = document.getElementById('whatsapp-confirm-no');
     
-    // Elemen Riwayat Pesanan
     const orderHistoryList = document.getElementById('order-history-list');
     const emptyHistoryMessage = document.getElementById('empty-history-message');
 
-    // --- Helper Functions ---
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+    const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const sidebarMenu = document.querySelector('.sidebar-menu');
+    const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
+    const resetFiltersBtn = document.getElementById('reset-filters-btn');
+    const videoGalleryBtn = document.getElementById('video-gallery-btn');
+    const videoGalleryModal = document.getElementById('video-gallery-modal');
+
+    const languageToggleButtons = document.getElementById('language-toggle-buttons');
+    const cartCountSidebar = document.getElementById('cart-count-sidebar');
+    const favoriteCountSidebar = document.getElementById('favorite-count-sidebar');
+    
+    // BARU: Fungsi untuk merender opsi radio (ekspedisi & pembayaran)
+    const renderRadioOptions = (containerId, optionsData, inputName) => {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = optionsData.map(option => `
+            <div class="radio-option">
+                <input type="radio" id="${option.id}" name="${inputName}" value="${option.name}" required>
+                <label for="${option.id}" class="radio-tile">
+                    <img src="${option.logo}" alt="${option.name} logo">
+                    <span>${option.name}</span>
+                </label>
+            </div>
+        `).join('');
+
+        // Secara otomatis memilih opsi pertama untuk memastikan satu selalu terpilih
+        const firstRadio = container.querySelector('input[type="radio"]');
+        if (firstRadio) {
+            firstRadio.checked = true;
+        }
+    };
+
+
     const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
 
     const getPriceBySize = (basePrice, size) => {
@@ -181,7 +526,18 @@ document.addEventListener('DOMContentLoaded', () => {
         return stars;
     };
 
-    const showToast = (message, type = 'info') => {
+    const showToast = (messageKey, type = 'info', context = {}) => {
+        let message = translations[currentLanguage][messageKey];
+        if (typeof message === 'function') {
+            message = message(context.name, context.size);
+        }
+        if(context.itemsNeeded) {
+             message = translations[currentLanguage][messageKey](context.itemsNeeded);
+        }
+         if(context.step) {
+             message = translations[currentLanguage][messageKey](context.step);
+        }
+
         const toast = document.createElement('div');
         toast.className = `toast-notification ${type}`;
         toast.textContent = message;
@@ -200,7 +556,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const closeModal = (modalElement) => {
         modalElement.classList.remove('show');
-        body.classList.remove('no-scroll');
+        if (modalElement.id === 'video-gallery-modal') {
+            modalElement.querySelectorAll('video').forEach(video => {
+                video.pause();
+                video.currentTime = 0;
+            });
+        }
+        if (!body.classList.contains('sidebar-open')) {
+            body.classList.remove('no-scroll');
+        }
     };
 
      const renderSizeGuide = () => {
@@ -222,15 +586,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (navigator.share) {
                 await navigator.share(shareData);
-                showToast('Produk berhasil dibagikan!', 'success');
+                showToast('toast_product_shared', 'success');
             } else {
                 navigator.clipboard.writeText(`${shareData.text}\n${shareData.url}`).then(() => {
-                    showToast('Link produk disalin ke clipboard!', 'info');
+                    showToast('toast_link_copied', 'info');
                 });
             }
         } catch (err) {
              if (err.name !== 'AbortError') {
-                showToast('Gagal membagikan produk.', 'error');
+                showToast('toast_share_failed', 'error');
             }
         }
     };
@@ -307,13 +671,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (totalItems > 0 && totalItems < 5) {
             const itemsNeeded = 5 - totalItems;
-            promoUpsellMessage.textContent = `Tambah ${itemsNeeded} barang lagi untuk dapat diskon 2%!`;
+            promoUpsellMessage.textContent = translations[currentLanguage].promo_upsell(itemsNeeded);
             promoUpsellMessage.style.display = 'block';
         } else {
             promoUpsellMessage.style.display = 'none';
         }
 
         cartCountSpan.textContent = totalItems;
+        cartCountSidebar.textContent = totalItems;
         subtotalPriceSpan.textContent = formatRupiah(subtotal);
         discountAmountSpan.textContent = `- ${formatRupiah(discount)}`;
         totalPriceSpan.textContent = formatRupiah(total);
@@ -326,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const customerPhoneInput = document.getElementById('customer-phone').value;
         if (!/^[0-9]{10,15}$/.test(customerPhoneInput)) {
-            showToast("Nomor WhatsApp tidak valid (10-15 digit angka).", "error");
+            showToast("toast_invalid_whatsapp", "error");
             return;
         }
 
@@ -381,7 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartSummary.style.display = 'block';
             
             closeModal(whatsappConfirmationModal);
-            showToast("Pesanan Anda berhasil dikonfirmasi!", "success");
+            showToast("toast_order_confirmed", "success");
 
             pendingOrder = null;
         }
@@ -390,7 +755,7 @@ document.addEventListener('DOMContentLoaded', () => {
     whatsappConfirmNoBtn.addEventListener('click', () => {
         pendingOrder = null;
         closeModal(whatsappConfirmationModal);
-        showToast("Pesanan dibatalkan. Keranjang Anda tetap utuh.", "warning");
+        showToast("toast_order_cancelled", "warning");
     });
     
     const renderSkeletonLoaders = (container, count) => {
@@ -414,8 +779,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const createProductCardHTML = (product) => {
         const isFavorited = favorites.some(fav => fav.id === product.id);
         const price = getPriceBySize(product.basePrice, 'M');
-        const lowStockLabel = product.stock <= 5 && product.stock > 0 ? `<div class="low-stock-badge">Stok Terbatas!</div>` : '';
-        const outOfStockLabel = product.stock === 0 ? `<div class="out-of-stock-badge">Stok Habis</div>` : '';
+        const lowStockLabel = product.stock <= 5 && product.stock > 0 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
+        const outOfStockLabel = product.stock === 0 ? `<div class="out-of-stock-badge">${translations[currentLanguage].stock_out}</div>` : '';
 
         const totalReviews = product.reviews ? product.reviews.length : 0;
         let averageRating = 0;
@@ -434,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${lowStockLabel}
                 ${outOfStockLabel}
                 <div class="product-image-container">
-                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';">
                 </div>
                 <div class="product-info">
                     <h3>${product.name}</h3>
@@ -444,14 +809,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}
                     </div>
                     <div class="product-actions">
-                        <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> ${product.stock === 0 ? 'Stok Habis' : 'Tambah'}</button>
+                        <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> <span data-lang-key="${product.stock === 0 ? 'stock_out' : 'add_button'}">${product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_button}</span></button>
                         <button class="btn quick-view-btn"><i class="fas fa-eye"></i></button>
                         <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}"><i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i></button>
                     </div>
                 </div>
             </div>`;
     };
-
 
     const renderProducts = (productsToRender, container, noResultsEl) => {
         container.innerHTML = '';
@@ -485,7 +849,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (product.stock === 0) return;
                 const selectedSizeEl = card.querySelector('.size-option.selected');
                 if (!selectedSizeEl) {
-                    showToast("Mohon pilih ukuran baju terlebih dahulu!", "warning");
+                    showToast('toast_select_size', 'warning');
                     return;
                 }
                 addToCart(productId, selectedSizeEl.dataset.size, card);
@@ -499,33 +863,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const renderAllProductShowcases = (searchTerm = '') => {
-        const initialLoad = !searchTerm;
-        const allSections = ['#koleksi', '#baju-hitam', '#baju-putih', '#riwayat-pesanan', '.section-divider', '#favorit'];
-
-        if(searchTerm) {
-            allSections.forEach(sel => document.querySelectorAll(sel).forEach(el => el.style.display = 'none'));
-            document.querySelector('#koleksi').style.display = 'block';
-            document.querySelector('#koleksi h2').textContent = `Hasil Pencarian untuk "${searchTerm}"`;
-        } else {
-             allSections.forEach(sel => document.querySelectorAll(sel).forEach(el => el.style.display = 'block'));
-            document.querySelector('#koleksi h2').textContent = "Semua Koleksi";
+        if (searchTerm) {
+            activeFilters = { availability: 'all', color: 'all', design: 'all' };
+            updateFilterUI();
+            searchInput.value = searchTerm;
         }
+
+        let filteredProducts = [...products];
+        const currentSearchTerm = searchInput.value.trim().toLowerCase();
+
+        if (currentSearchTerm) {
+            filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(currentSearchTerm));
+        }
+
+        if (activeFilters.availability === 'in_stock') {
+            filteredProducts = filteredProducts.filter(p => p.stock > 0);
+        }
+        if (activeFilters.color !== 'all') {
+            filteredProducts = filteredProducts.filter(p => p.color === activeFilters.color);
+        }
+        if (activeFilters.design !== 'all') {
+            filteredProducts = filteredProducts.filter(p => p.design === activeFilters.design);
+        }
+
+        const isFilterOrSearchActive = activeFilters.availability !== 'all' || activeFilters.color !== 'all' || activeFilters.design !== 'all' || currentSearchTerm;
+        const mainSections = ['#keranjang', '.section-divider', '#favorit', '#riwayat-pesanan', '#faq'];
+        const kolekasiH2 = document.querySelector('#koleksi h2');
         
-        let filteredProducts = searchTerm
-            ? products.filter(p => p.name.toLowerCase().includes(searchTerm.toLowerCase()))
-            : products;
+        mainSections.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => {
+                el.style.display = isFilterOrSearchActive ? 'none' : 'block';
+            });
+        });
+
+        if (isFilterOrSearchActive) {
+            let titleParts = [];
+             if (activeFilters.availability !== 'all') titleParts.push(translations[currentLanguage].sidebar_in_stock);
+            if (activeFilters.color !== 'all') titleParts.push(`${translations[currentLanguage].sidebar_color} ${translations[currentLanguage]['color_' + activeFilters.color]}`);
+            if (activeFilters.design !== 'all') titleParts.push(`${translations[currentLanguage].sidebar_design} ${translations[currentLanguage]['design_' + activeFilters.design]}`);
+            if (currentSearchTerm) titleParts.push(`Pencarian "${searchInput.value.trim()}"`);
+            
+            kolekasiH2.textContent = titleParts.join(' & ').replace(/&/g, 'dan');
+        } else {
+            kolekasiH2.textContent = translations[currentLanguage].all_collections_title;
+        }
 
         renderProducts(filteredProducts, productList, noResultsMessage);
         attachProductCardListeners(productList);
-
-        if (initialLoad) {
-            renderProducts(products.filter(p => p.color === 'hitam'), blackClothingList, noBlackClothingMessage);
-            attachProductCardListeners(blackClothingList);
-            renderProducts(products.filter(p => p.color === 'putih'), whiteClothingList, noWhiteClothingMessage);
-            attachProductCardListeners(whiteClothingList);
-        }
     };
-    
+
     const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
     
     const addToCart = (productId, size, triggerElement) => {
@@ -537,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const currentQuantityInCart = existingItem ? existingItem.quantity : 0;
         if (currentQuantityInCart >= product.stock) {
-            showToast(`Stok ${product.name} (${size}) tidak mencukupi!`, "error");
+            showToast('toast_stock_not_enough', "error", { name: product.name, size: size });
             return;
         }
 
@@ -545,10 +931,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (existingItem) {
             existingItem.quantity++;
-            showToast(`Kuantitas ${product.name} (${size}) diperbarui!`, "info");
+            showToast('toast_quantity_updated', 'info', { name: product.name, size: size });
         } else {
             cart.push({ ...product, price, size, quantity: 1, cartId: cartItemIdentifier });
-            showToast(`${product.name} (${size}) ditambahkan!`, "success");
+            showToast('toast_added_to_cart', 'success', { name: product.name, size: size });
         }
         saveCart();
         renderCart();
@@ -564,14 +950,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = cart[itemIndex];
             
             if (change > 0 && item.quantity + change > item.stock) {
-                 showToast(`Stok ${item.name} (${item.size}) tidak mencukupi!`, "error");
+                 showToast('toast_stock_not_enough', 'error', { name: item.name, size: item.size });
                  return;
             }
 
             if (item.quantity + change <= 0) {
-                showConfirmationModal(`Hapus "${item.name} (${item.size})" dari keranjang?`, () => {
+                showConfirmationModal(translations[currentLanguage].confirm_remove_from_cart(item.name, item.size), () => {
                     cart.splice(itemIndex, 1);
-                    showToast(`"${item.name} (${item.size})" dihapus.`, "success");
+                    showToast('toast_removed_from_cart', 'success', { name: item.name, size: item.size });
                     saveCart();
                     renderCart();
                 });
@@ -625,10 +1011,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (favoriteIndex > -1) {
             favorites.splice(favoriteIndex, 1);
-            showToast(`"${product.name}" dihapus dari favorit.`, "info");
+            showToast('toast_removed_from_favorites', 'info', { name: product.name });
         } else {
             favorites.push({ id: product.id });
-            showToast(`"${product.name}" ditambahkan ke favorit!`, "success");
+            showToast('toast_added_to_favorites', 'success', { name: product.name });
         }
         saveFavorites();
         renderFavorites();
@@ -648,6 +1034,7 @@ document.addEventListener('DOMContentLoaded', () => {
             attachProductCardListeners(favoriteProductsList);
         }
         favoriteCountSpan.textContent = favorites.length;
+        favoriteCountSidebar.textContent = favorites.length;
     };
     
     const updateAllFavoriteButtons = () => {
@@ -729,13 +1116,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         modalAddToCartBtn.dataset.id = product.id;
         modalAddToCartBtn.disabled = product.stock === 0;
-        modalAddToCartBtn.innerHTML = product.stock === 0 ? '<i class="fas fa-times-circle"></i> Stok Habis' : '<i class="fas fa-shopping-cart"></i> Tambah ke Keranjang';
+        
+        const modalBtnText = modalAddToCartBtn.querySelector('span');
+        if(modalBtnText) {
+            modalBtnText.textContent = product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_to_cart;
+        }
         
         modalAddToCartBtn.onclick = () => {
             if (product.stock === 0) return;
             const selectedSizeEl = modalSizeOptions.querySelector('.size-option.selected');
             if (!selectedSizeEl) {
-                showToast("Mohon pilih ukuran terlebih dahulu!", "warning");
+                showToast("toast_select_size", "warning");
                 return;
             }
             addToCart(productId, selectedSizeEl.dataset.size, quickViewModal);
@@ -791,7 +1182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         if (!isValid) {
-            showToast(`Mohon lengkapi semua data pada langkah ${stepNumber}.`, 'warning');
+            showToast('toast_step_not_complete', 'warning', {step: stepNumber});
         }
         return isValid;
     };
@@ -894,23 +1285,42 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initializeNavigation = () => {
-        const navLinks = mainNav.querySelectorAll('a');
+        const navLinks = document.querySelectorAll('#main-nav a, .sidebar-menu a');
 
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                navLinks.forEach(l => l.classList.remove('active'));
-                e.currentTarget.classList.add('active');
-                if (e.currentTarget.getAttribute('href') === '#hero') {
-                    e.preventDefault();
-                    searchInput.value = '';
-                    renderAllProductShowcases();
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                const href = e.currentTarget.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const targetElement = document.querySelector(href);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+
+                        if (href === '#hero') {
+                            searchInput.value = '';
+                            activeFilters = { availability: 'all', color: 'all', design: 'all' };
+                            updateFilterUI();
+                            renderAllProductShowcases();
+                        }
+
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(l => {
+                            l.classList.toggle('active', l.getAttribute('href') === href);
+                        });
+
+                        if (body.classList.contains('sidebar-open')) {
+                            toggleSidebar();
+                        }
+                    }
                 }
             });
         });
     };
-
-    // === [BARU] FUNGSI UNTUK MENGATUR BAR PROGRES SCROLL ===
+    
     const handleScrollProgress = () => {
         const progressBar = document.querySelector('.scroll-progress-bar');
         if (!progressBar) return;
@@ -928,6 +1338,155 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = `${scrollPercentage}%`;
     };
 
+    const toggleSidebar = () => {
+        body.classList.toggle('sidebar-open');
+        body.classList.toggle('no-scroll', body.classList.contains('sidebar-open'));
+    };
+
+    const updateFilterUI = () => {
+        sidebarSubmenus.forEach(submenu => {
+            const filterType = submenu.dataset.filterType;
+            const links = submenu.querySelectorAll('.sidebar-filter');
+            links.forEach(link => {
+                const filterValue = link.dataset.filterValue;
+                link.classList.toggle('active', filterValue === activeFilters[filterType]);
+            });
+        });
+    };
+
+    const initializeSidebar = () => {
+        sidebarToggleBtn.addEventListener('click', toggleSidebar);
+        sidebarCloseBtn.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        document.querySelectorAll('.sidebar-category-toggle').forEach(toggle => {
+            toggle.addEventListener('click', e => {
+                e.preventDefault();
+                toggle.parentElement.classList.toggle('open');
+            });
+        });
+
+        sidebarSubmenus.forEach(submenu => {
+            submenu.addEventListener('click', e => {
+                e.preventDefault();
+                const target = e.target.closest('.sidebar-filter');
+                if (!target) return;
+
+                const filterType = submenu.dataset.filterType;
+                const filterValue = target.dataset.filterValue;
+
+                activeFilters[filterType] = filterValue;
+                searchInput.value = '';
+                renderAllProductShowcases();
+                updateFilterUI();
+                setTimeout(toggleSidebar, 200);
+            });
+        });
+        
+        resetFiltersBtn.addEventListener('click', () => {
+            activeFilters = { availability: 'all', color: 'all', design: 'all' };
+            searchInput.value = '';
+            updateFilterUI();
+            renderAllProductShowcases();
+            setTimeout(toggleSidebar, 200);
+        });
+
+        videoGalleryBtn.addEventListener('click', e => {
+            e.preventDefault();
+            toggleSidebar();
+            setTimeout(() => {
+                openModal(videoGalleryModal);
+                videoGalleryModal.querySelectorAll('video').forEach(video => {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.error("Error attempting to autoplay video:", error);
+                        });
+                    }
+                });
+            }, 300);
+        });
+    };
+     
+    document.getElementById('sidebar-contact-admin').addEventListener('click', (e) => {
+        e.preventDefault();
+        window.open(`https://wa.me/${sellerInfo.whatsappAdmin}`, '_blank');
+    });
+
+    // Event listener untuk modal kebijakan sudah ada, ini akan bekerja secara otomatis.
+
+    const setLanguage = (lang) => {
+        currentLanguage = lang;
+        localStorage.setItem('language', lang);
+        document.documentElement.lang = lang;
+    
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+            const key = el.dataset.langKey;
+            if (translations[lang] && translations[lang][key]) {
+                let text = translations[lang][key];
+    
+                if (typeof text === 'function') return;
+    
+                if (el.matches('.faq-question span, .policy-content p, .policy-content h3')) {
+                    el.innerHTML = text; // Use innerHTML for elements that might contain <strong> tags
+                } else if (key === 'footer_social_text') {
+                    el.innerHTML = text;
+                } else {
+                    const icon = el.querySelector('i');
+                    const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
+    
+                    if (textNode) {
+                        textNode.textContent = ` ${text} `;
+                    } else if (el.querySelector('span[data-lang-key]')) {
+                         el.querySelector('span[data-lang-key]').textContent = text;
+                    } else {
+                        el.innerHTML = text;
+                        if (icon) el.prepend(icon);
+                    }
+                }
+            }
+        });
+    
+        document.querySelectorAll('[data-lang-key-placeholder]').forEach(el => {
+            const key = el.dataset.langKeyPlaceholder;
+            if (translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+    
+        languageToggleButtons.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+    
+        renderAllProductShowcases();
+        renderCart();
+        renderFavorites();
+    };
+    
+    const initializeFAQ = () => {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    };
+
+    const initializePolicyModals = () => {
+        const policyLinks = document.querySelectorAll('a[data-modal-target]');
+        policyLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const modalId = link.getAttribute('data-modal-target');
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    openModal(modal);
+                }
+            });
+        });
+    };
+
     searchButton.addEventListener('click', () => {
         renderAllProductShowcases(searchInput.value.trim());
         searchSuggestionsContainer.style.display = 'none';
@@ -935,6 +1494,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     searchInput.addEventListener('keypress', e => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             renderAllProductShowcases(searchInput.value.trim());
             searchSuggestionsContainer.style.display = 'none';
         }
@@ -997,10 +1557,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', () => {
         backToTopButton.classList.toggle('show', window.scrollY > 300);
-        
-        // Panggil fungsi untuk bar progres
         handleScrollProgress();
-        
         document.querySelectorAll('section, footer').forEach(el => {
             const rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
@@ -1016,22 +1573,34 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme(isDarkMode ? 'light' : 'dark');
     });
 
+    languageToggleButtons.addEventListener('click', (e) => {
+        const target = e.target.closest('.lang-btn');
+        if (target) {
+            setLanguage(target.dataset.lang);
+        }
+    });
+    
     const initializeApp = () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedLang = localStorage.getItem('language') || 'id';
+
         applyTheme(savedTheme);
-
-        handleScrollProgress();
         
+        handleScrollProgress();
         initializeNavigation();
+        initializeSidebar();
+        initializeFAQ();
+        initializePolicyModals();
+        
+        // BARU: Panggil fungsi untuk merender opsi checkout
+        renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
+        renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
 
-        renderSkeletonLoaders(productList, 4);
-        renderSkeletonLoaders(blackClothingList, 2);
-        renderSkeletonLoaders(whiteClothingList, 2);
+
+        renderSkeletonLoaders(productList, 6);
         
         setTimeout(() => {
-            renderAllProductShowcases();
-            renderCart();
-            renderFavorites();
+            setLanguage(savedLang); // Call setLanguage after a small delay to ensure DOM is ready
             renderOrderHistory();
             updateAllFavoriteButtons();
 
@@ -1052,34 +1621,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1200);
     };
 
-    // === [BARU] LOGIKA UNTUK LOADING SCREEN VIDEO ===
     const startApp = () => {
-        // Hapus loading screen dengan efek fade-out
         if(loadingScreen) {
             loadingScreen.classList.add('hidden');
-            
-            // Hapus elemen dari DOM setelah transisi selesai agar tidak mengganggu
             loadingScreen.addEventListener('transitionend', () => {
                 loadingScreen.style.display = 'none'; 
             }, { once: true });
         }
-        
-        // Panggil fungsi inisialisasi utama HANYA SETELAH video selesai
         initializeApp();
     };
 
-    // Panggil startApp ketika video selesai diputar
     if (loadingVideo) {
-        // Jika video bisa selesai diputar
         loadingVideo.addEventListener('ended', startApp);
-        
-        // Fallback: jika video gagal dimuat, langsung mulai aplikasi
         loadingVideo.addEventListener('error', () => {
             console.error("Video loading screen gagal dimuat.");
             startApp();
         });
     } else {
-        // Fallback: jika elemen video tidak ada, langsung mulai aplikasi
         startApp();
     }
 });
