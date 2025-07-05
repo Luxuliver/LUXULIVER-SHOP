@@ -140,6 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
             stock_limited: 'Stok Terbatas!',
             stock_out: 'Stok Habis',
             add_button: 'Tambah',
+            button_use_saved_address: 'Gunakan Alamat Tersimpan',
+            toast_address_loaded: 'Alamat berhasil dimuat!',
+            button_save_for_later: 'Simpan untuk Nanti',
+            button_move_to_cart: 'Pindahkan ke Keranjang',
+            saved_for_later_title: 'Disimpan untuk Nanti',
+            toast_moved_to_saved: (name, size) => `"${name} (${size})" disimpan.`,
+            toast_moved_to_cart: (name, size) => `"${name} (${size})" dipindahkan ke keranjang.`,
         },
         en: {
             nav_home: 'Home',
@@ -280,9 +287,16 @@ document.addEventListener('DOMContentLoaded', () => {
             stock_limited: 'Limited Stock!',
             stock_out: 'Out of Stock',
             add_button: 'Add',
+            button_use_saved_address: 'Use Saved Address',
+            toast_address_loaded: 'Address loaded successfully!',
+            button_save_for_later: 'Save for Later',
+            button_move_to_cart: 'Move to Cart',
+            saved_for_later_title: 'Saved for Later',
+            toast_moved_to_saved: (name, size) => `"${name} (${size})" was saved.`,
+            toast_moved_to_cart: (name, size) => `"${name} (${size})" was moved to cart.`,
         }
     };
-    
+
     const products = [
         {
             id: 'baju-001',
@@ -369,6 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const expeditionMethods = [
         { id: 'jne', name: 'JNE', logo: 'JNE.jpg' },
         { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' }
+        
     ];
 
     const paymentMethods = [
@@ -393,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    let savedForLater = JSON.parse(localStorage.getItem('savedForLater')) || [];
     let pendingOrder = null;
     let currentLanguage = localStorage.getItem('language') || 'id';
 
@@ -479,8 +495,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const languageToggleButtons = document.getElementById('language-toggle-buttons');
     const cartCountSidebar = document.getElementById('cart-count-sidebar');
     const favoriteCountSidebar = document.getElementById('favorite-count-sidebar');
+
+    const useSavedAddressBtn = document.getElementById('use-saved-address-btn');
+    const savedForLaterContainer = document.getElementById('saved-for-later-container');
+    const savedForLaterSection = document.getElementById('saved-for-later-section');
     
-    // BARU: Fungsi untuk merender opsi radio (ekspedisi & pembayaran)
     const renderRadioOptions = (containerId, optionsData, inputName) => {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -495,7 +514,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `).join('');
 
-        // Secara otomatis memilih opsi pertama untuk memastikan satu selalu terpilih
         const firstRadio = container.querySelector('input[type="radio"]');
         if (firstRadio) {
             firstRadio.checked = true;
@@ -632,18 +650,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }, { once: true });
         }, { once: true });
     };
-
+    
+    // [PERBAIKAN] Logika renderCart disederhanakan dan diperbaiki
     const renderCart = () => {
         const { subtotal, totalItems, discount, total } = calculateCartTotals();
 
         cartItemsContainer.innerHTML = '';
+
         if (cart.length === 0) {
+            // Jika keranjang kosong, sembunyikan semua yang tidak relevan
             emptyCartMessage.style.display = 'block';
             cartSummary.style.display = 'none';
-            checkoutFormContainer.style.display = 'none';
+            checkoutFormContainer.style.display = 'none'; // Paling penting: sembunyikan form checkout
         } else {
+            // Jika ada barang, tampilkan item keranjang
             emptyCartMessage.style.display = 'none';
-            cartSummary.style.display = 'block';
             cart.forEach(item => {
                 const cartItemDiv = document.createElement('div');
                 cartItemDiv.className = 'cart-item';
@@ -652,6 +673,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="item-details">
                         <h4>${item.name} (${item.size})</h4>
                         <p>${formatRupiah(item.price)}</p>
+                        <button class="btn-utility save-for-later-btn" data-cart-id="${item.cartId}" style="padding: 5px 10px; font-size: 0.9rem;">
+                            <i class="far fa-bookmark"></i> <span data-lang-key="button_save_for_later">${translations[currentLanguage].button_save_for_later}</span>
+                        </button>
                     </div>
                     <div class="quantity-controls">
                         <button class="decrease-quantity" data-cart-id="${item.cartId}">-</button>
@@ -662,11 +686,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 cartItemsContainer.appendChild(cartItemDiv);
             });
+            
+            // Tampilkan summary HANYA jika form checkout tidak sedang ditampilkan
+            if (checkoutFormContainer.style.display !== 'block') {
+                cartSummary.style.display = 'block';
+            }
         }
         
         cartItemsContainer.querySelectorAll('.decrease-quantity').forEach(btn => btn.onclick = e => updateQuantity(e.target.dataset.cartId, -1));
         cartItemsContainer.querySelectorAll('.increase-quantity').forEach(btn => btn.onclick = e => updateQuantity(e.target.dataset.cartId, 1));
-        
+        cartItemsContainer.querySelectorAll('.save-for-later-btn').forEach(btn => btn.onclick = e => moveToSavedForLater(e.currentTarget.dataset.cartId));
+
         if (totalItems > 0 && totalItems < 5) {
             const itemsNeeded = 5 - totalItems;
             promoUpsellMessage.textContent = translations[currentLanguage].promo_upsell(itemsNeeded);
@@ -680,8 +710,113 @@ document.addEventListener('DOMContentLoaded', () => {
         subtotalPriceSpan.textContent = formatRupiah(subtotal);
         discountAmountSpan.textContent = `- ${formatRupiah(discount)}`;
         totalPriceSpan.textContent = formatRupiah(total);
-        checkoutBtn.style.display = cart.length > 0 ? 'inline-flex' : 'none';
+        
+        renderSavedForLater();
     };
+
+    const saveAddress = () => {
+        const addressData = {
+            name: document.getElementById('customer-name').value,
+            phone: document.getElementById('customer-phone').value,
+            address: document.getElementById('customer-address').value,
+        };
+        if(addressData.name && addressData.phone && addressData.address) {
+            localStorage.setItem('savedAddress', JSON.stringify(addressData));
+        }
+    };
+    
+    const loadSavedAddress = () => {
+        const savedAddress = JSON.parse(localStorage.getItem('savedAddress'));
+        if(savedAddress) {
+            document.getElementById('customer-name').value = savedAddress.name;
+            document.getElementById('customer-phone').value = savedAddress.phone;
+            document.getElementById('customer-address').value = savedAddress.address;
+            showToast('toast_address_loaded', 'success');
+        }
+    };
+
+    const renderSavedForLater = () => {
+        savedForLaterContainer.innerHTML = '';
+        if (savedForLater.length > 0) {
+            savedForLaterSection.style.display = 'block';
+            savedForLater.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <h4>${item.name} (${item.size})</h4>
+                        <p>${formatRupiah(item.price)}</p>
+                    </div>
+                    <div class="item-actions" style="margin-left: auto; display:flex; gap: 10px;">
+                         <button class="btn btn-secondary move-to-cart-btn" data-cart-id="${item.cartId}">
+                            <span data-lang-key="button_move_to_cart">${translations[currentLanguage].button_move_to_cart}</span>
+                        </button>
+                        <button class="btn btn-danger remove-from-saved-btn" data-cart-id="${item.cartId}">
+                           <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                savedForLaterContainer.appendChild(itemDiv);
+            });
+
+            savedForLaterContainer.querySelectorAll('.move-to-cart-btn').forEach(btn => btn.onclick = e => moveToCart(e.currentTarget.dataset.cartId));
+            
+            savedForLaterContainer.querySelectorAll('.remove-from-saved-btn').forEach(btn => {
+                btn.onclick = e => {
+                    const cartIdToRemove = e.currentTarget.dataset.cartId; 
+                    const item = savedForLater.find(i => i.cartId === cartIdToRemove);
+
+                    if (!item) return;
+
+                    showConfirmationModal(translations[currentLanguage].confirm_remove_from_cart(item.name, item.size), () => {
+                        savedForLater = savedForLater.filter(i => i.cartId !== cartIdToRemove);
+                        saveSavedForLater();
+                        renderSavedForLater();
+                        showToast('toast_removed_from_cart', 'info', { name: item.name, size: item.size });
+                    });
+                };
+            });
+        } else {
+            savedForLaterSection.style.display = 'none';
+        }
+    }
+
+    const saveSavedForLater = () => localStorage.setItem('savedForLater', JSON.stringify(savedForLater));
+
+    const moveToSavedForLater = (cartId) => {
+        const itemIndex = cart.findIndex(item => item.cartId === cartId);
+        if (itemIndex > -1) {
+            const item = cart[itemIndex];
+            savedForLater.push(item);
+            cart.splice(itemIndex, 1);
+
+            saveCart();
+            saveSavedForLater();
+            renderCart();
+            showToast('toast_moved_to_saved', 'info', { name: item.name, size: item.size });
+        }
+    };
+    
+    const moveToCart = (cartId) => {
+        const itemIndex = savedForLater.findIndex(item => item.cartId === cartId);
+        if (itemIndex > -1) {
+            const item = savedForLater[itemIndex];
+            const existingCartItem = cart.find(cartItem => cartItem.cartId === item.cartId);
+            if (existingCartItem) {
+                existingCartItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            savedForLater.splice(itemIndex, 1);
+
+            saveCart();
+            saveSavedForLater();
+            renderCart();
+            showToast('toast_moved_to_cart', 'success', { name: item.name, size: item.size });
+        }
+    };
+
 
     checkoutForm.addEventListener('submit', e => {
         e.preventDefault();
@@ -734,14 +869,14 @@ document.addEventListener('DOMContentLoaded', () => {
             orderCounter++;
             localStorage.setItem('orderCounter', orderCounter);
 
+            saveAddress();
+
             cart = [];
             saveCart();
             renderCart();
             renderOrderHistory();
 
             checkoutForm.reset();
-            checkoutFormContainer.style.display = 'none';
-            cartSummary.style.display = 'block';
             
             closeModal(whatsappConfirmationModal);
             showToast("toast_order_confirmed", "success");
@@ -1411,8 +1546,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.open(`https://wa.me/${sellerInfo.whatsappAdmin}`, '_blank');
     });
 
-    // Event listener untuk modal kebijakan sudah ada, ini akan bekerja secara otomatis.
-
     const setLanguage = (lang) => {
         currentLanguage = lang;
         localStorage.setItem('language', lang);
@@ -1426,7 +1559,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof text === 'function') return;
     
                 if (el.matches('.faq-question span, .policy-content p, .policy-content h3')) {
-                    el.innerHTML = text; // Use innerHTML for elements that might contain <strong> tags
+                    el.innerHTML = text; 
                 } else if (key === 'footer_social_text') {
                     el.innerHTML = text;
                 } else {
@@ -1510,11 +1643,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) {
+            showToast('empty_cart', 'warning');
+            return;
+        }
+
         checkoutFormContainer.style.display = 'block';
         cartSummary.style.display = 'none';
-        checkoutBtn.style.display = 'none';
         currentStep = 1;
         updateCheckoutUI();
+        if (localStorage.getItem('savedAddress')) {
+            useSavedAddressBtn.style.display = 'inline-flex';
+        } else {
+            useSavedAddressBtn.style.display = 'none';
+        }
         checkoutFormContainer.scrollIntoView({ behavior: 'smooth' });
     });
     
@@ -1577,6 +1719,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setLanguage(target.dataset.lang);
         }
     });
+
+    useSavedAddressBtn.addEventListener('click', loadSavedAddress);
     
     const initializeApp = () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -1590,7 +1734,6 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeFAQ();
         initializePolicyModals();
         
-        // BARU: Panggil fungsi untuk merender opsi checkout
         renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
         renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
 
@@ -1598,7 +1741,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSkeletonLoaders(productList, 6);
         
         setTimeout(() => {
-            setLanguage(savedLang); // Call setLanguage after a small delay to ensure DOM is ready
+            setLanguage(savedLang); 
             renderOrderHistory();
             updateAllFavoriteButtons();
 
