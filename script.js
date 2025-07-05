@@ -368,9 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const expeditionMethods = [
         { id: 'jne', name: 'JNE', logo: 'JNE.jpg' },
-        { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' },
-        { id: 'tiki', name: 'TIKI', logo: 'TIKI.jpg' },
-        { id: 'wahana', name: 'WAHANA', logo: 'WAHANA.jpg' }
+        { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' }
     ];
 
     const paymentMethods = [
