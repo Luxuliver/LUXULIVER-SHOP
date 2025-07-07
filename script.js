@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     
     const translations = {
         id: {
@@ -406,6 +406,42 @@ document.addEventListener('DOMContentLoaded', () => {
         { size: 'XL', length: '76', width: '54', sleeve: '24' }
     ];
 
+    // DATA BARU UNTUK NOTIFIKASI
+    const notificationsData = [
+        {
+            id: 'promo-001',
+            category: 'promo',
+            icon: 'fas fa-percent',
+            title: 'Belanja Kapan Aja, Diskon nya Tetap Ada!',
+            description: 'Diskon 2% untuk pembelian minimal 5 item.',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 14)).toISOString() // 14 hari yang lalu
+        },
+        {
+            id: 'info-001',
+            category: 'info',
+            icon: 'fas fa-shipping-fast',
+            title: 'Pengiriman tetap aktif setiap hari Senin sampai Sabtu!',
+            description: 'Beli sekarang, kirim rutin setiap Senin–Sabtu. Gak pakai nunggu lama.',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 8)).toISOString() // 8 hari yang lalu
+        },
+        {
+            id: 'info-002',
+            category: 'info',
+            icon: 'fas fa-tshirt',
+            title: 'Koleksi Baru Akan Telah Tiba!',
+            description: 'Lihat koleksi T-shirt Classy terbaru pada tanggal 4 Agustus 2025 di halaman koleksi.',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString() // 2 hari yang lalu
+        },
+        {
+            id: 'promo-002',
+            category: 'promo',
+            icon: 'fas fa-tag',
+            title: 'Potongan Ongkir Khusus Jabodetabek!',
+            description: 'Ongkir lebih hemat untuk Jabodetabek.',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 22)).toISOString() // 22 hari yang lalu
+        }
+    ];
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -490,8 +526,80 @@ document.addEventListener('DOMContentLoaded', () => {
     const recentlyViewedContainer = document.getElementById('recently-viewed-container');
     const emptyRecentlyViewedMessage = document.getElementById('empty-recently-viewed-message');
     const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
+    
+    // SELEKTOR BARU UNTUK NOTIFIKASI
+    const notificationSidebarBtn = document.getElementById('notification-sidebar-btn');
+    const notificationModal = document.getElementById('notification-modal');
+    const notificationListContainer = document.getElementById('notification-list');
+    const notificationTabs = document.querySelector('.notification-tabs');
+    const emptyNotificationMessage = document.getElementById('empty-notification-message');
+
 
     const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+
+    // FUNGSI BARU UNTUK FORMAT WAKTU NOTIFIKASI
+    const formatNotificationTimestamp = (isoString) => {
+        const now = new Date();
+        const notificationDate = new Date(isoString);
+
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+
+        const notificationDay = new Date(notificationDate.getFullYear(), notificationDate.getMonth(), notificationDate.getDate());
+
+        const timeString = notificationDate.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        if (notificationDay.getTime() === today.getTime()) {
+            return `Hari ini, ${timeString}`;
+        }
+        if (notificationDay.getTime() === yesterday.getTime()) {
+            return `Kemarin, ${timeString}`;
+        }
+        return notificationDate.toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
+    // FUNGSI BARU UNTUK MERENDER NOTIFIKASI
+    const renderNotifications = (filter = 'all') => {
+        notificationListContainer.innerHTML = '';
+
+        const filteredNotifications = notificationsData.filter(notif =>
+            filter === 'all' || notif.category === filter
+        ).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Urutkan dari terbaru
+
+        if (filteredNotifications.length === 0) {
+            emptyNotificationMessage.style.display = 'block';
+            notificationListContainer.style.display = 'none';
+        } else {
+            emptyNotificationMessage.style.display = 'none';
+            notificationListContainer.style.display = 'block';
+        }
+
+        filteredNotifications.forEach(notif => {
+            const notifElement = document.createElement('div');
+            notifElement.className = `notification-item category-${notif.category}`;
+            notifElement.innerHTML = `
+                <div class="notification-icon">
+                    <i class="${notif.icon}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-header">
+                        <h4 class="notification-title">${notif.title}</h4>
+                        <span class="notification-timestamp">${formatNotificationTimestamp(notif.timestamp)}</span>
+                    </div>
+                    <p class="notification-description">${notif.description}</p>
+                </div>
+            `;
+            notificationListContainer.appendChild(notifElement);
+        });
+    };
+
 
     // ===================================
     // === MULAI LOGIKA BARU UNTUK ANDA ===
@@ -1068,7 +1176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!validateStep(3)) return;
         const customerPhoneInput = document.getElementById('customer-phone').value;
         if (!/^[0-9]{10,15}$/.test(customerPhoneInput)) {
-            showToast("toast_invalid_whatsapp", "error");
+            showToast("invalid_whatsapp", "error");
             return;
         }
         const { total, subtotal, discount, shippingDiscount } = calculateCartTotals();
@@ -1461,7 +1569,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const href = e.currentTarget.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     const targetElement = document.querySelector(href);
-                    if (targetElement) {
+                    // Tambahkan pengecekan jika bukan link notifikasi
+                    if (targetElement && href !== '#notification-modal') {
                         e.preventDefault();
                         if (href === '#hero') {
                             searchInput.value = '';
@@ -1623,6 +1732,47 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     };
+
+    // FUNGSI BARU UNTUK INISIALISASI NOTIFIKASI
+    const initializeNotifications = () => {
+        // Event listener untuk tombol notifikasi di sidebar
+        if(notificationSidebarBtn) {
+            notificationSidebarBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderNotifications('all'); // Tampilkan semua notifikasi saat dibuka
+                // Reset tab ke "Semua"
+                if(notificationTabs) {
+                    notificationTabs.querySelectorAll('.notification-tab-btn').forEach(btn => {
+                        btn.classList.toggle('active', btn.dataset.filter === 'all');
+                    });
+                }
+                openModal(notificationModal);
+                // Sembunyikan sidebar jika terbuka
+                if (body.classList.contains('sidebar-open')) {
+                    toggleSidebar();
+                }
+            });
+        }
+
+        // Event listener untuk tab filter
+        if(notificationTabs) {
+            notificationTabs.addEventListener('click', (e) => {
+                const target = e.target.closest('.notification-tab-btn');
+                if (target) {
+                    const filter = target.dataset.filter;
+                    // Update kelas 'active' pada tab
+                    notificationTabs.querySelectorAll('.notification-tab-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    target.classList.add('active');
+                    // Render ulang notifikasi dengan filter yang dipilih
+                    renderNotifications(filter);
+                }
+            });
+        }
+    };
+
+
     searchButton.addEventListener('click', () => {
         renderAllProductShowcases(searchInput.value.trim());
         searchSuggestionsContainer.style.display = 'none';
@@ -1720,6 +1870,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initializeSidebar();
         initializeFAQ();
         initializePolicyModals();
+        initializeNotifications(); // PANGGIL FUNGSI INISIALISASI NOTIFIKASI
         renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
         renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
         renderSkeletonLoaders(productList, 6);
