@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     
     const translations = {
         id: {
@@ -46,6 +46,7 @@
             label_whatsapp: 'Nomor WhatsApp:',
             note_whatsapp: 'Format: 10-15 digit angka (Gunakan format lokal, cth: 08xxxxxxxx).',
             label_address: 'Alamat Lengkap:',
+            label_notes: 'Informasi Tambahan (Opsional):',
             step2_title: 'Langkah 2: Pilih Metode Pengiriman',
             label_expedition: 'Pilih Ekspedisi:',
             step3_title: 'Langkah 3: Pilih Metode Pembayaran',
@@ -59,11 +60,18 @@
             empty_favorites: 'Anda belum menambahkan produk favorit apapun.',
             history_title: 'Riwayat Pesanan Anda',
             empty_history: 'Anda belum memiliki riwayat pesanan.',
+            history_track_order: 'Lacak Pesanan',
+            history_buy_again: 'Beli Lagi',
+            history_order: 'Pesanan',
+            history_date: 'Tanggal',
+            history_status_completed: 'Selesai', 
+            footer_about: 'Tentang Luxuliver',
+            // ...
             footer_about: 'Tentang Luxuliver',
             footer_about_text: 'Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.',
             footer_contact: 'Hubungi Kami',
             footer_social: 'Ikuti Kami',
-            footer_social_text: 'Ikuti kami di <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> untuk update terbaru dan penawaran spesial.',
+            footer_social_text: '<a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">luxuliver</a>',
             footer_policy_title: 'Informasi & Kebijakan',
             footer_policy_privacy: 'Kebijakan Privasi',
             footer_policy_terms: 'Syarat & Ketentuan',
@@ -135,6 +143,7 @@
             toast_step_not_complete: (step) => `Mohon lengkapi semua data pada langkah ${step}.`,
             toast_order_confirmed: 'Pesanan Anda berhasil dikonfirmasi!',
             toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
+            toast_order_rebought: (orderId) => `Produk dari pesanan ${orderId} berhasil ditambahkan kembali!`,
             confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
             promo_upsell: (items) => `Tambah ${items} barang lagi untuk dapat diskon 2%!`,
             stock_limited: 'Stok Terbatas!',
@@ -149,8 +158,16 @@
             toast_moved_to_cart: (name, size) => `"${name} (${size})" dipindahkan ke keranjang.`,
             sidebar_recently_viewed: 'Terakhir Dilihat',
             empty_recently_viewed: 'Anda belum melihat produk apapun.',
+            notif_promo_1_title: 'Belanja Kapan Aja, Diskon nya Tetap Ada!',
+            notif_promo_1_desc: 'Diskon 2% untuk pembelian minimal 5 item.',
+            notif_info_1_title: 'Pengiriman tetap aktif setiap hari Senin sampai Sabtu!',
+            notif_info_1_desc: 'Beli sekarang, kirim rutin setiap Senin–Sabtu. Gak pakai nunggu lama.',
+            notif_info_2_title: 'Koleksi Baru Akan Telah Tiba!',
+            notif_info_2_desc: 'Lihat koleksi T-shirt Classy terbaru pada tanggal 4 Agustus 2025 di halaman koleksi.',
+            notif_promo_2_title: 'Potongan Ongkir Khusus Jabodetabek!',
+            notif_promo_2_desc: 'Ongkir lebih hemat untuk Jabodetabek.',
         },
-        en: { // Terjemahan Inggris tidak diubah
+        en: { // Terjemahan Inggris diperbarui
             nav_home: 'Home',
             nav_collections: 'Collections',
             nav_cart: 'Cart',
@@ -195,6 +212,7 @@
             label_whatsapp: 'WhatsApp Number:',
             note_whatsapp: 'Format: 10-15 digits (Use local format, e.g., 08xxxxxxxx).',
             label_address: 'Full Address:',
+            label_notes: 'Additional Information (Optional):',
             step2_title: 'Step 2: Choose Shipping Method',
             label_expedition: 'Choose Expedition:',
             step3_title: 'Step 3: Choose Payment Method',
@@ -208,11 +226,18 @@
             empty_favorites: 'You haven\'t added any favorite products yet.',
             history_title: 'Your Order History',
             empty_history: 'You don\'t have an order history yet.',
+            history_track_order: 'Track Order',
+            history_buy_again: 'Buy Again',
+            history_order: 'Order',
+            history_date: 'Date',
+            history_status_completed: 'Completed',
+            footer_about: 'About Luxuliver',
+            // ...
             footer_about: 'About Luxuliver',
             footer_about_text: 'Luxuliver presents a collection of high-quality T-Shirts with exclusive designs that blend comfort and style. Made for those who want to be confident at all times.',
             footer_contact: 'Contact Us',
             footer_social: 'Follow Us',
-            footer_social_text: 'Follow us on <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> for the latest updates and special offers.',
+            footer_social_text: '<a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">luxuliver</a>',
             footer_policy_title: 'Information & Policies',
             footer_policy_privacy: 'Privacy Policy',
             footer_policy_terms: 'Terms & Conditions',
@@ -284,6 +309,7 @@
             toast_step_not_complete: (step) => `Please complete all data in step ${step}.`,
             toast_order_confirmed: 'Your order has been confirmed!',
             toast_order_cancelled: 'Order cancelled. Your cart remains intact.',
+            toast_order_rebought: (orderId) => `Products from order ${orderId} were successfully re-added!`,
             confirm_remove_from_cart: (name, size) => `Remove "${name} (${size})" from the cart?`,
             promo_upsell: (items) => `Add ${items} more item(s) to get a 2% discount!`,
             stock_limited: 'Limited Stock!',
@@ -298,6 +324,14 @@
             toast_moved_to_cart: (name, size) => `"${name} (${size})" was moved to cart.`,
             sidebar_recently_viewed: 'Recently Viewed',
             empty_recently_viewed: 'You have not viewed any products yet.',
+            notif_promo_1_title: 'Shop Anytime, The Discount is Always There!',
+            notif_promo_1_desc: 'Get a 2% discount for a minimum purchase of 5 items.',
+            notif_info_1_title: 'Shipping is active every Monday to Saturday!',
+            notif_info_1_desc: 'Buy now, and we ship regularly every Monday–Saturday. No long waits.',
+            notif_info_2_title: 'New Collection Has Arrived!',
+            notif_info_2_desc: 'Check out the latest Classy T-shirt collection on August 4, 2025, on the collections page.',
+            notif_promo_2_title: 'Special Shipping Discount for Jabodetabek!',
+            notif_promo_2_desc: 'More affordable shipping for the Jabodetabek area.',
         }
     };
 
@@ -406,39 +440,38 @@
         { size: 'XL', length: '76', width: '54', sleeve: '24' }
     ];
 
-    // DATA BARU UNTUK NOTIFIKASI
     const notificationsData = [
         {
             id: 'promo-001',
             category: 'promo',
             icon: 'fas fa-percent',
-            title: 'Belanja Kapan Aja, Diskon nya Tetap Ada!',
-            description: 'Diskon 2% untuk pembelian minimal 5 item.',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 14)).toISOString() // 14 hari yang lalu
+            title: 'notif_promo_1_title',
+            description: 'notif_promo_1_desc',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 14)).toISOString()
         },
         {
             id: 'info-001',
             category: 'info',
             icon: 'fas fa-shipping-fast',
-            title: 'Pengiriman tetap aktif setiap hari Senin sampai Sabtu!',
-            description: 'Beli sekarang, kirim rutin setiap Senin–Sabtu. Gak pakai nunggu lama.',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 8)).toISOString() // 8 hari yang lalu
+            title: 'notif_info_1_title',
+            description: 'notif_info_1_desc',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 8)).toISOString()
         },
         {
             id: 'info-002',
             category: 'info',
             icon: 'fas fa-tshirt',
-            title: 'Koleksi Baru Akan Telah Tiba!',
-            description: 'Lihat koleksi T-shirt Classy terbaru pada tanggal 4 Agustus 2025 di halaman koleksi.',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString() // 2 hari yang lalu
+            title: 'notif_info_2_title',
+            description: 'notif_info_2_desc',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
         },
         {
             id: 'promo-002',
             category: 'promo',
             icon: 'fas fa-tag',
-            title: 'Potongan Ongkir Khusus Jabodetabek!',
-            description: 'Ongkir lebih hemat untuk Jabodetabek.',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 22)).toISOString() // 22 hari yang lalu
+            title: 'notif_promo_2_title',
+            description: 'notif_promo_2_desc',
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 22)).toISOString()
         }
     ];
 
@@ -457,7 +490,6 @@
         design: 'all'
     };
 
-    // Variabel elemen DOM
     const body = document.body;
     const productList = document.getElementById('product-list');
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -527,7 +559,6 @@
     const emptyRecentlyViewedMessage = document.getElementById('empty-recently-viewed-message');
     const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
     
-    // SELEKTOR BARU UNTUK NOTIFIKASI
     const notificationSidebarBtn = document.getElementById('notification-sidebar-btn');
     const notificationModal = document.getElementById('notification-modal');
     const notificationListContainer = document.getElementById('notification-list');
@@ -537,7 +568,6 @@
 
     const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
 
-    // FUNGSI BARU UNTUK FORMAT WAKTU NOTIFIKASI
     const formatNotificationTimestamp = (isoString) => {
         const now = new Date();
         const notificationDate = new Date(isoString);
@@ -565,13 +595,12 @@
         });
     };
 
-    // FUNGSI BARU UNTUK MERENDER NOTIFIKASI
     const renderNotifications = (filter = 'all') => {
         notificationListContainer.innerHTML = '';
 
         const filteredNotifications = notificationsData.filter(notif =>
             filter === 'all' || notif.category === filter
-        ).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Urutkan dari terbaru
+        ).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
         if (filteredNotifications.length === 0) {
             emptyNotificationMessage.style.display = 'block';
@@ -584,33 +613,28 @@
         filteredNotifications.forEach(notif => {
             const notifElement = document.createElement('div');
             notifElement.className = `notification-item category-${notif.category}`;
+            
+            const titleText = translations[currentLanguage][notif.title] || notif.title;
+            const descriptionText = translations[currentLanguage][notif.description] || notif.description;
+
             notifElement.innerHTML = `
                 <div class="notification-icon">
                     <i class="${notif.icon}"></i>
                 </div>
                 <div class="notification-content">
                     <div class="notification-header">
-                        <h4 class="notification-title">${notif.title}</h4>
+                        <h4 class="notification-title">${titleText}</h4>
                         <span class="notification-timestamp">${formatNotificationTimestamp(notif.timestamp)}</span>
                     </div>
-                    <p class="notification-description">${notif.description}</p>
+                    <p class="notification-description">${descriptionText}</p>
                 </div>
             `;
             notificationListContainer.appendChild(notifElement);
         });
     };
 
-
-    // ===================================
-    // === MULAI LOGIKA BARU UNTUK ANDA ===
-    // ===================================
-
-    /**
-     * FUNGSI BARU: Fungsi pusat untuk memperbarui semua tampilan yang bergantung pada keranjang.
-     */
     const refreshAllCartViews = () => {
         renderCart();
-        // Hanya perbarui ringkasan checkout jika formnya terlihat
         if (checkoutFormContainer.style.display === 'block' && currentStep === 3) {
             renderFinalSummary();
         }
@@ -726,7 +750,7 @@
         showToast('toast_added_to_cart', 'success', { name: product.name, size: size, qty: quantity });
         
         saveCart();
-        refreshAllCartViews(); // Menggunakan fungsi baru
+        refreshAllCartViews();
         
         if (triggerElement) {
             flyToCartAnimation(triggerElement);
@@ -779,7 +803,7 @@
                         () => {
                             cart = cart.filter(cartItem => cartItem.cartId !== cartId);
                             saveCart();
-                            refreshAllCartViews(); // Menggunakan fungsi baru
+                            refreshAllCartViews();
                             showToast('toast_removed_from_cart', 'info', { name: item.name, size: item.size });
                         }
                     );
@@ -886,10 +910,10 @@
             <button class="btn add-to-favorite modal-add-to-favorite"><i class="far fa-heart"></i></button>
         `;
 
-        const newModalAddToCartBtn = document.getElementById('modal-add-to-cart-btn');
+        const newModalAddToCartBtn = modalActionsContainer.querySelector('#modal-add-to-cart-btn');
         newModalAddToCartBtn.disabled = product.stock === 0;
 
-        newModalAddToCartBtn.onclick = () => {
+        newModalAddToCartBtn.addEventListener('click', () => {
             if (modalActionsContainer.classList.contains('quantity-selector-active')) return;
             if (product.stock === 0) return;
             const selectedSizeEl = modalSizeOptions.querySelector('.size-option.selected');
@@ -901,11 +925,11 @@
                 addToCart(productId, selectedSizeEl.dataset.size, quantity, quickViewModal);
                 closeModal(quickViewModal);
             });
-        };
+        });
 
-        modalActionsContainer.querySelector('.modal-add-to-favorite').onclick = e => {
+        modalActionsContainer.querySelector('.modal-add-to-favorite').addEventListener('click', e => {
              toggleFavorite(productId, e.currentTarget);
-        };
+        });
         
         quickViewModal.querySelector('.modal-share-product-btn').onclick = () => shareProduct(product);
         renderReviews(product);
@@ -921,7 +945,7 @@
             cart.splice(itemIndex, 1);
             saveCart();
             saveSavedForLater();
-            refreshAllCartViews(); // Menggunakan fungsi baru
+            refreshAllCartViews();
             showToast('toast_moved_to_saved', 'info', { name: item.name, size: item.size });
         }
     };
@@ -930,18 +954,12 @@
         const itemIndex = savedForLater.findIndex(item => item.cartId === cartId);
         if (itemIndex > -1) {
             const item = savedForLater[itemIndex];
-            // Langsung panggil addToCart agar logikanya terpusat
             addToCart(item.id, item.size, item.quantity, null);
             savedForLater.splice(itemIndex, 1);
             saveSavedForLater();
-            // Tidak perlu panggil refreshAllCartViews lagi karena sudah dipanggil di dalam addToCart
             showToast('toast_moved_to_cart', 'success', { name: item.name, size: item.size });
         }
     };
-    
-    // ===================================
-    // === AKHIR LOGIKA BARU UNTUK ANDA ===
-    // ===================================
     
     const toastMessageOriginal = translations.id.toast_added_to_cart;
     translations.id.toast_added_to_cart = (name, size, qty) => `${qty}x ${name} (${size}) ditambahkan!`;
@@ -1023,6 +1041,9 @@
         }
          if(context.step) {
              message = translations[currentLanguage][messageKey](context.step);
+        }
+        if(context.orderId) {
+            message = translations[currentLanguage][messageKey](context.orderId);
         }
         const toast = document.createElement('div');
         toast.className = `toast-notification ${type}`;
@@ -1182,12 +1203,15 @@
         const { total, subtotal, discount, shippingDiscount } = calculateCartTotals();
         const orderId = `LXVR-${orderCounter}`;
         const formData = new FormData(checkoutForm);
+        const customerNotes = formData.get('customer-notes').trim();
+        const notesText = customerNotes ? `*Catatan:* ${customerNotes}\n` : '';
         const shippingDiscountText = shippingDiscount > 0 ? `*Promo Ongkir (Jabodetabek):* -${formatRupiah(shippingDiscount)}\n` : '';
         let orderDetails = `*Order Baru dari Luxuliver Shop*\n\n` +
             `*ID Pesanan:* ${orderId}\n` +
             `*Nama:* ${formData.get('customer-name')}\n` +
             `*Telepon:* ${formData.get('customer-phone')}\n` +
             `*Alamat:* ${formData.get('customer-address')}\n` +
+            notesText +
             `*Ekspedisi:* ${formData.get('expeditionMethod')}\n` +
             `*Pembayaran:* ${formData.get('paymentMethod')}\n\n` +
             `*Detail Pesanan:*\n` +
@@ -1293,9 +1317,7 @@
                 container.insertAdjacentHTML('beforeend', createProductCardHTML(product));
             });
         }
-        container.querySelectorAll('.product-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 100}ms`;
-        });
+        attachProductCardListeners(container);
     };
     const renderAllProductShowcases = (searchTerm = '') => {
         if (searchTerm) {
@@ -1336,7 +1358,14 @@
             kolekasiH2.textContent = translations[currentLanguage].all_collections_title;
         }
         renderProducts(filteredProducts, productList, noResultsMessage);
-        attachProductCardListeners(productList);
+        
+        document.querySelectorAll('section, footer, .product-card').forEach(el => {
+            if (el.classList.contains('visible')) return;
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
+                el.classList.add('visible');
+            }
+        });
     };
     const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
     const calculateCartTotals = () => {
@@ -1508,19 +1537,63 @@
                 });
                 const orderCard = document.createElement('div');
                 orderCard.className = 'order-history-card';
+                
                 orderCard.innerHTML = `
                     <div class="order-history-header">
-                        <h4>Pesanan: ${order.orderId}</h4>
-                        <p>${orderDate}</p>
+                        <div>
+                            <h4>${translations[currentLanguage].history_order}: ${order.orderId}</h4>
+                            <p>${translations[currentLanguage].history_date}: ${orderDate}</p>
+                        </div>
+                        <div class="order-status completed">
+                            <i class="fas fa-check-circle"></i> ${translations[currentLanguage].history_status_completed}
+                        </div>
                     </div>
                     <div class="order-history-body">
-                        <ul>
-                            ${order.items.map(item => `<li>${item.name} (${item.size}) x ${item.quantity}</li>`).join('')}
+                        <ul class="order-item-list">
+                            ${order.items.map(item => `
+                                <li class="order-item-detail">
+                                    <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                                    <div class="order-item-info">
+                                        <span class="order-item-name">${item.name} (${item.size})</span>
+                                        <span class="order-item-qty">Kuantitas: ${item.quantity}</span>
+                                    </div>
+                                    <span class="order-item-price">${formatRupiah(item.price * item.quantity)}</span>
+                                </li>
+                            `).join('')}
                         </ul>
                     </div>
                     <div class="order-history-footer">
-                        <strong>Total: ${formatRupiah(order.total)}</strong>
+                        <div class="order-total">
+                            <strong>Total Pesanan: ${formatRupiah(order.total)}</strong>
+                        </div>
+                        <div class="order-actions">
+                            <button class="btn btn-secondary btn-sm track-order-btn">${translations[currentLanguage].history_track_order}</button>
+                            <button class="btn btn-primary btn-sm buy-again-btn">${translations[currentLanguage].history_buy_again}</button>
+                        </div>
                     </div>`;
+                
+                orderCard.querySelector('.track-order-btn').addEventListener('click', () => {
+                    window.open('https://cekresi.com/', '_blank');
+                });
+    
+                orderCard.querySelector('.buy-again-btn').addEventListener('click', () => {
+                    let itemsAddedCount = 0;
+                    order.items.forEach(item => {
+                        const product = products.find(p => p.id === item.id);
+                        if (product && product.stock >= item.quantity) {
+                            addToCart(item.id, item.size, item.quantity, null);
+                            itemsAddedCount++;
+                        } else {
+                             showToast('toast_stock_not_enough', "error", { name: item.name, size: item.size });
+                        }
+                    });
+                    
+                    if (itemsAddedCount > 0) {
+                        showToast('toast_order_rebought', 'success', { orderId: order.orderId });
+                        document.getElementById('keranjang').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+    
                 orderHistoryList.appendChild(orderCard);
             });
         }
@@ -1569,7 +1642,6 @@
                 const href = e.currentTarget.getAttribute('href');
                 if (href && href.startsWith('#')) {
                     const targetElement = document.querySelector(href);
-                    // Tambahkan pengecekan jika bukan link notifikasi
                     if (targetElement && href !== '#notification-modal') {
                         e.preventDefault();
                         if (href === '#hero') {
@@ -1606,6 +1678,15 @@
         body.classList.toggle('sidebar-open');
         body.classList.toggle('no-scroll', body.classList.contains('sidebar-open'));
     };
+
+    // [FUNGSI BARU] Mengatur visibilitas tombol reset
+    const updateResetButtonVisibility = () => {
+        const isFilterActive = activeFilters.availability !== 'all' || activeFilters.color !== 'all' || activeFilters.design !== 'all';
+        if (resetFiltersBtn) {
+            resetFiltersBtn.style.display = isFilterActive ? 'block' : 'none';
+        }
+    };
+
     const updateFilterUI = () => {
         sidebarSubmenus.forEach(submenu => {
             const filterType = submenu.dataset.filterType;
@@ -1618,6 +1699,7 @@
             }
         });
     };
+
     const initializeSidebar = () => {
         sidebarToggleBtn.addEventListener('click', toggleSidebar);
         sidebarCloseBtn.addEventListener('click', toggleSidebar);
@@ -1639,6 +1721,7 @@
                 searchInput.value = '';
                 renderAllProductShowcases();
                 updateFilterUI();
+                updateResetButtonVisibility(); // Panggil fungsi visibilitas
                 setTimeout(toggleSidebar, 200);
             });
         });
@@ -1647,6 +1730,7 @@
             searchInput.value = '';
             updateFilterUI();
             renderAllProductShowcases();
+            updateResetButtonVisibility(); // Panggil fungsi visibilitas
             setTimeout(toggleSidebar, 200);
         });
         videoGalleryBtn.addEventListener('click', e => {
@@ -1669,7 +1753,7 @@
         e.preventDefault();
         window.open(`https://wa.me/${sellerInfo.whatsappAdmin}`, '_blank');
     });
-    const setLanguage = (lang) => {
+     const setLanguage = (lang) => {
         currentLanguage = lang;
         localStorage.setItem('language', lang);
         document.documentElement.lang = lang;
@@ -1678,10 +1762,8 @@
             if (translations[lang] && translations[lang][key]) {
                 let text = translations[lang][key];
                 if (typeof text === 'function') return;
-                if (el.matches('.faq-question span, .policy-content p, .policy-content h3')) {
+                if (el.matches('.faq-question span, .policy-content p, .policy-content h3, .footer-section .social-media span')) { 
                     el.innerHTML = text; 
-                } else if (key === 'footer_social_text') {
-                    el.innerHTML = text;
                 } else {
                     const icon = el.querySelector('i');
                     const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '');
@@ -1709,6 +1791,7 @@
         refreshAllCartViews();
         renderFavorites();
         renderRecentlyViewed();
+        renderOrderHistory();
     };
     const initializeFAQ = () => {
         const faqQuestions = document.querySelectorAll('.faq-question');
@@ -1733,39 +1816,32 @@
         });
     };
 
-    // FUNGSI BARU UNTUK INISIALISASI NOTIFIKASI
     const initializeNotifications = () => {
-        // Event listener untuk tombol notifikasi di sidebar
         if(notificationSidebarBtn) {
             notificationSidebarBtn.addEventListener('click', (e) => {
                 e.preventDefault();
-                renderNotifications('all'); // Tampilkan semua notifikasi saat dibuka
-                // Reset tab ke "Semua"
+                renderNotifications('all');
                 if(notificationTabs) {
                     notificationTabs.querySelectorAll('.notification-tab-btn').forEach(btn => {
                         btn.classList.toggle('active', btn.dataset.filter === 'all');
                     });
                 }
                 openModal(notificationModal);
-                // Sembunyikan sidebar jika terbuka
                 if (body.classList.contains('sidebar-open')) {
                     toggleSidebar();
                 }
             });
         }
 
-        // Event listener untuk tab filter
         if(notificationTabs) {
             notificationTabs.addEventListener('click', (e) => {
                 const target = e.target.closest('.notification-tab-btn');
                 if (target) {
                     const filter = target.dataset.filter;
-                    // Update kelas 'active' pada tab
                     notificationTabs.querySelectorAll('.notification-tab-btn').forEach(btn => {
                         btn.classList.remove('active');
                     });
                     target.classList.add('active');
-                    // Render ulang notifikasi dengan filter yang dipilih
                     renderNotifications(filter);
                 }
             });
@@ -1838,16 +1914,22 @@
     });
     confirmNoBtn.addEventListener('click', () => closeModal(confirmationModal));
     modalSizeGuideBtn.addEventListener('click', renderSizeGuide);
+    
     window.addEventListener('scroll', () => {
         backToTopButton.classList.toggle('show', window.scrollY > 300);
         handleScrollProgress();
-        document.querySelectorAll('section, footer').forEach(el => {
+        
+        document.querySelectorAll('section, footer, .product-card').forEach(el => {
+            if (el.classList.contains('visible')) {
+                return;
+            }
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
+            if (rect.top < window.innerHeight * 0.85 && rect.bottom >= 0) {
                  el.classList.add('visible');
             }
         });
     });
+
     backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     darkModeToggle.addEventListener('click', () => {
         const isDarkMode = body.classList.contains('dark-mode');
@@ -1861,6 +1943,7 @@
         }
     });
     useSavedAddressBtn.addEventListener('click', loadSavedAddress);
+    
     const initializeApp = () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
         const savedLang = localStorage.getItem('language') || 'id';
@@ -1870,10 +1953,12 @@
         initializeSidebar();
         initializeFAQ();
         initializePolicyModals();
-        initializeNotifications(); // PANGGIL FUNGSI INISIALISASI NOTIFIKASI
+        initializeNotifications();
         renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
         renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
         renderSkeletonLoaders(productList, 6);
+        updateResetButtonVisibility(); // Panggil fungsi saat aplikasi dimuat
+
         setTimeout(() => {
             setLanguage(savedLang); 
             renderRecentlyViewed();
@@ -1885,7 +1970,8 @@
             if (sellerEmailSpan) sellerEmailSpan.textContent = sellerInfo.email;
             if (sellerPhoneLink) sellerPhoneLink.href = `tel:${sellerInfo.phone}`;
             if (sellerEmailLink) sellerEmailLink.href = `mailto:${sellerInfo.email}`;
-            document.querySelectorAll('section, footer').forEach(el => {
+            
+            document.querySelectorAll('section, footer, .product-card').forEach(el => {
                 const rect = el.getBoundingClientRect();
                 if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) {
                     el.classList.add('visible');
@@ -1894,6 +1980,7 @@
             body.classList.remove('no-scroll');
         }, 1200);
     };
+
     const startApp = () => {
         if(loadingScreen) {
             loadingScreen.classList.add('hidden');
