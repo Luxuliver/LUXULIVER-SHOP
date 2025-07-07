@@ -542,33 +542,30 @@ section.visible {
     padding-top: 40px;
 }
 
-/* BARU: Animasi untuk kemunculan kartu produk */
-@keyframes card-enter {
-    from {
-        opacity: 0;
-        transform: translateY(50px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
+/* --- [MODIFIKASI] Animasi untuk kemunculan kartu produk --- */
 .product-card {
     background-color: var(--surface-color);
     border-radius: var(--border-radius-base);
     box-shadow: 0 18px 45px var(--shadow-medium);
     overflow: hidden;
-    transition: transform var(--transition-duration) var(--transition-timing-function), box-shadow var(--transition-duration) var(--transition-timing-function);
+    /* Modifikasi transisi untuk menyertakan opacity dan transform */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow var(--transition-duration) var(--transition-timing-function);
     display: flex;
     flex-direction: column;
     border: 1px solid var(--border-color);
     position: relative;
-
-    /* BARU: Terapkan animasi */
-    opacity: 0; /* Mulai dari transparan */
-    animation: card-enter 0.6s var(--transition-timing-function) forwards;
+    
+    /* Kondisi awal untuk animasi scroll */
+    opacity: 0;
+    transform: translateY(60px);
 }
+
+/* Aturan baru untuk memicu animasi */
+.product-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
 .product-card::after {
     content: '';
@@ -1147,73 +1144,170 @@ section.visible {
     border-top: 1px solid var(--border-color);
 }
 
-/* ================================================= */
-/* ============= END CHECKOUT STYLES =============== */
+ /* ================================================= */
+/* === [UPDATED] STYLING UNTUK RIWAYAT PESANAN === */
 /* ================================================= */
 
-
-/* BARU: Styling untuk Riwayat Pesanan */
 #riwayat-pesanan .info-message {
     margin-top: 0;
 }
+
 #order-history-list {
     display: grid;
-    gap: 30px;
+    gap: 35px; /* Memberi jarak antar kartu pesanan */
 }
+
 .order-history-card {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-base);
+    border-radius: 12px; /* Sedikit lebih bulat */
     box-shadow: 0 8px 25px var(--shadow-light);
-    padding: 2.5rem;
-    transition: all 0.3s ease;
+    padding: 0; /* Padding diatur per bagian agar lebih rapi */
+    overflow: hidden; /* Memastikan border-radius diterapkan dengan benar */
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .order-history-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px var(--shadow-medium);
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+    border-color: var(--primary-light);
 }
+
 .order-history-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 1rem;
+    padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
 }
+
 .order-history-header h4 {
     margin: 0;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--primary-dark-hover);
 }
+
 .order-history-header p {
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--light-text);
 }
-.order-history-body ul {
-    list-style: none;
-    padding-left: 0;
-    margin-bottom: 1.5rem;
+
+.order-status {
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    letter-spacing: 0.5px;
 }
-.order-history-body li {
-    padding: 8px 0;
-    color: var(--text-color);
+
+.order-status.completed {
+    background-color: #e8f5e9; /* Hijau muda */
+    color: #388e3c; /* Hijau tua */
+}
+
+body.dark-mode .order-status.completed {
+    background-color: #2c4b32;
+    color: #a5d6a7;
+}
+
+.order-history-body {
+    padding: 1.5rem 2rem;
+}
+
+.order-item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.order-item-detail {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px dashed var(--border-color);
 }
-.order-history-body li:last-child {
+
+.order-item-detail:last-child {
     border-bottom: none;
+    padding-bottom: 0;
 }
-.order-history-footer {
+
+.order-item-image {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: var(--border-radius-base);
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.order-item-info {
+    flex-grow: 1;
+}
+
+.order-item-name {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.order-item-qty {
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.order-item-price {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1rem;
     text-align: right;
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    padding-top: 1rem;
-    margin-top: 1rem;
+    min-width: 100px;
+}
+
+.order-history-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    background-color: var(--background-color);
     border-top: 1px solid var(--border-color);
 }
 
+.order-total strong {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+}
+
+.order-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.order-actions .btn-sm {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.order-actions .btn:disabled {
+    background: var(--skeleton-bg);
+    cursor: not-allowed;
+    color: var(--light-text);
+    box-shadow: none;
+}
 
 /* Footer */
 footer {
@@ -1797,6 +1891,31 @@ body.dark-mode .suggestion-item:hover {
 
 .cart-pop-animation {
     animation: cartPop 0.6s ease-in-out;
+}
+
+/* === [ALTERNATIF] Efek Garis Bawah Nama Produk === */
+/* =================================================== */
+
+.product-info h3 {
+    position: relative;
+    padding-bottom: 8px; /* Beri sedikit ruang untuk garis bawah */
+    transition: color 0.3s ease;
+}
+
+.product-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width 0.4s ease-in-out;
+}
+
+.product-card:hover .product-info h3::after {
+    width: 80%; /* Lebar garis bawah saat hover */
 }
 
 /* Responsive Design */
