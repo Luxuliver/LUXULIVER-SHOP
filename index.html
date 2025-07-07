@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -53,6 +54,23 @@
         </div>
         <nav class="sidebar-nav">
             <ul class="sidebar-menu">
+                <li>
+                    <div class="sidebar-action-item">
+                        <span class="sidebar-action-label" data-lang-key="sidebar_language">Bahasa</span>
+                        <div id="language-toggle-buttons">
+                            <button class="lang-btn active" data-lang="id">ID</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" id="notification-sidebar-btn">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifikasi</span>
+                        <span class="notification-badge">2</span>
+                    </a>
+                </li>
+                <hr>
                 <li class="open">
                     <a href="#" class="sidebar-category-toggle" data-lang-key="sidebar_main_menu">Menu Utama <i class="fas fa-chevron-right"></i></a>
                     <ul class="sidebar-submenu">
@@ -111,27 +129,11 @@
                 </li>
                 <hr>
                 <li>
-                    <a href="#" id="notification-sidebar-btn">
-                        <i class="fas fa-bell"></i>
-                        <span>Notifikasi</span>
-                        <span class="notification-badge">2</span>
-                    </a>
-                </li>
-                <li>
                     <div class="sidebar-action-item">
                         <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
                         <button id="dark-mode-toggle" class="btn-utility">
                             <i class="fas fa-moon"></i>
                         </button>
-                    </div>
-                </li>
-                <li>
-                    <div class="sidebar-action-item">
-                        <span class="sidebar-action-label" data-lang-key="sidebar_language">Bahasa</span>
-                        <div id="language-toggle-buttons">
-                            <button class="lang-btn active" data-lang="id">ID</button>
-                            <button class="lang-btn" data-lang="en">EN</button>
-                        </div>
                     </div>
                 </li>
                 <li>
@@ -230,7 +232,12 @@
                                 <label for="customer-address" data-lang-key="label_address">Alamat Lengkap:</label>
                                 <textarea id="customer-address" name="customer-address" rows="4" placeholder="Jl. Mawar No. 10, RT 01/RW 02, Kelurahan, Kecamatan, Kota, Kode Pos" required></textarea>
                             </div>
-                        </div>
+                            
+                            <div class="form-group">
+                                <label for="customer-notes" data-lang-key="label_notes">Informasi Tambahan (Opsional):</label>
+                                <textarea id="customer-notes" name="customer-notes" rows="3" placeholder="Contoh: Patokan rumah dekat masjid, permintaan khusus, dll."></textarea>
+                            </div>
+                           </div>
 
                         <div class="checkout-step" data-step="2">
                             <h4 data-lang-key="step2_title">Langkah 2: Pilih Metode Pengiriman</h4>
@@ -366,8 +373,7 @@
                 <p><i class="fas fa-envelope"></i> <a href="" id="seller-email-link"><span id="seller-email"></span></a></p>
             </div>
             <div class="footer-section social-media">
-                <h3 data-lang-key="footer_social">Ikuti Kami</h3>
-                <p><i class="fab fa-instagram"></i> <span data-lang-key="footer_social_text">Ikuti kami di <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">Instagram</a> untuk update terbaru dan penawaran spesial.</span></p>
+                <p><i class="fab fa-instagram"></i> <span data-lang-key="footer_social_text"></span></p>
             </div>
             <div class="footer-section">
                 <h3 data-lang-key="footer_policy_title">Informasi & Kebijakan</h3>
