@@ -111,6 +111,13 @@
                 </li>
                 <hr>
                 <li>
+                    <a href="#" id="notification-sidebar-btn">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifikasi</span>
+                        <span class="notification-badge">2</span>
+                    </a>
+                </li>
+                <li>
                     <div class="sidebar-action-item">
                         <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
                         <button id="dark-mode-toggle" class="btn-utility">
@@ -483,6 +490,27 @@
                     <video src="C.mp4" controls preload="metadata" playsinline></video>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="notification-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Notifikasi Anda</h3>
+    
+            <div class="notification-tabs">
+                <button class="notification-tab-btn active" data-filter="all">Semua</button>
+                <button class="notification-tab-btn" data-filter="info">
+                    <i class="fas fa-info-circle"></i> Info
+                </button>
+                <button class="notification-tab-btn" data-filter="promo">
+                    <i class="fas fa-percent"></i> Promo
+                </button>
+            </div>
+    
+            <div id="notification-list" class="notification-list-container">
+                </div>
+            <p id="empty-notification-message" class="info-message" style="display: none;">Tidak ada notifikasi.</p>
         </div>
     </div>
     
