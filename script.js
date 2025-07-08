@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'putih',
             design: 'abstrak',
-            stock: 15,
+            stock: 30,
             reviews: [
                 { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-07-04' },
                 { author: 'Citra Wulandari', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-07-03' },
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
-            stock: 15,
+            stock: 30,
             reviews: [
                 { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-07-01' },
                 { author: 'Eko Budianto', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-06-28' }
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
-            stock: 3,
+            stock: 30,
             reviews: [
                 { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }
             ]
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
-            stock: 15,
+            stock: 30,
             reviews: [
                 { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }
             ]
