@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     const getLocalStorageItem = (key, defaultValue) => {
         try {
             const item = localStorage.getItem(key);
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return defaultValue;
         }
     };
-    
+
     const translations = {
         id: {
             nav_home: 'Beranda',
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
             history_buy_again: 'Beli Lagi',
             history_order: 'Pesanan',
             history_date: 'Tanggal',
-            history_status_completed: 'Selesai', 
+            history_status_completed: 'Selesai',
             footer_about: 'Tentang Luxuliver',
             footer_about_text: 'Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.',
             footer_contact: 'Hubungi Kami',
@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkout_in_progress_warning: 'Selesaikan atau batalkan checkout untuk menambah produk lain.',
             recommendations_title: 'Anda Mungkin Juga Suka',
         },
-        en: { // English translations updated
+        en: {
             nav_home: 'Home',
             nav_collections: 'Collections',
             nav_cart: 'Cart',
@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }
             ]
         },
-        { 
+        {
             id: 'baju-005',
             name: 'Atelier Noir',
             image: 'Atelier Noir.jpg',
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
         instagram: "https://www.instagram.com/luxuliver",
         whatsappAdmin: "6287820843118"
     };
-    
+
     const expeditionMethods = [
         { id: 'jne', name: 'JNE', logo: 'JNE.jpg' },
         { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' }
@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'bni', name: 'BNI', logo: 'BNI.jpg' },
         { id: 'bri', name: 'BRI', logo: 'BRI.jpg' },
         { id: 'gopay', name: 'GOPAY', logo: 'GOPAY.jpg' },
-        { id: 'ovo', name: 'OVO', logo: 'OVO.jpg' }, 
+        { id: 'ovo', name: 'OVO', logo: 'OVO.jpg' },
         { id: 'Shopeepay', name: 'SHOPEEPAY', logo: 'SHOPEEPAY.jpg' }
     ];
 
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let favorites = getLocalStorageItem('favorites', []);
     let savedForLater = getLocalStorageItem('savedForLater', []);
     let recentlyViewed = getLocalStorageItem('recentlyViewed', []);
-    
+
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let pendingOrder = null;
     let currentLanguage = localStorage.getItem('language') || 'id';
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recentlyViewedContainer = document.getElementById('recently-viewed-container');
     const emptyRecentlyViewedMessage = document.getElementById('empty-recently-viewed-message');
     const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
-    
+
     const notificationSidebarBtn = document.getElementById('notification-sidebar-btn');
     const notificationModal = document.getElementById('notification-modal');
     const notificationListContainer = document.getElementById('notification-list');
@@ -767,11 +767,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
         });
-        
+
         cartItemsContainer.querySelectorAll('.save-for-later-btn').forEach(btn => {
             btn.onclick = e => moveToSavedForLater(e.currentTarget.dataset.cartId);
         });
-        
+
         if (totalItems > 0 && totalItems < 5) {
             promoUpsellMessage.textContent = translations[currentLanguage].promo_upsell(5 - totalItems);
             promoUpsellMessage.style.display = 'block';
@@ -786,7 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animateValue(totalPriceSpan, oldTotalValue, total, 500);
         renderSavedForLater();
     };
-    
+
     function attachProductCardListeners(container) {
         container.querySelectorAll('.product-card').forEach(card => {
             const productId = card.dataset.productId;
@@ -822,13 +822,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderRecommendations = (currentProduct) => {
         const recommendationsContainer = document.getElementById('modal-recommendations');
         const recommendationsGrid = document.getElementById('modal-recommendations-grid');
-        
+
         if (!currentProduct || !currentProduct.design) {
             recommendationsContainer.style.display = 'none';
             return;
         }
 
-        const recommendedProducts = products.filter(p => 
+        const recommendedProducts = products.filter(p =>
             p.design === currentProduct.design && p.id !== currentProduct.id
         ).slice(0, 3);
 
@@ -950,7 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('toast_moved_to_cart', 'success', { name: item.name, size: item.size });
         }
     };
-    
+
     const renderRadioOptions = (containerId, optionsData, inputName) => {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -1276,7 +1276,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (rect.top < window.innerHeight * 0.9 && rect.bottom >= 0) el.classList.add('visible');
         });
     };
-    
+
     const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
 
    const calculateCartTotals = () => {
@@ -1289,15 +1289,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cart.length > 0 && addressInput && addressInput.value) {
         const address = addressInput.value.toLowerCase();
         const jabodetabekCities = ['jakarta', 'bogor', 'depok', 'tangerang', 'bekasi'];
-        
-        // 1. Pisahkan alamat berdasarkan koma (,)
+
         const addressParts = address.split(',');
 
-        // 2. Ambil 2 bagian terakhir dari alamat (biasanya Kota dan Provinsi)
         const lastTwoParts = addressParts.slice(-2).map(part => part.trim());
 
-        // 3. Cek HANYA di 2 bagian terakhir tersebut
-        const isJabodetabek = lastTwoParts.some(part => 
+        const isJabodetabek = lastTwoParts.some(part =>
             jabodetabekCities.some(city => part.includes(city))
         );
 
@@ -1547,7 +1544,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     });
                 }
-                
+
                 if (href && href.startsWith('#') && href !== '#notification-modal') {
                     e.preventDefault();
                     if (href === '#hero') {
@@ -1556,7 +1553,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         updateFilterUI();
                         renderAllProductShowcases();
                     }
-                    
+
                     const targetElement = document.querySelector(href);
                     if (targetElement) {
                         targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1698,7 +1695,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // [DIPERBARUI DENGAN PERBAIKAN]
     const initializeNotifications = () => {
         notificationSidebarBtn?.addEventListener('click', e => {
             e.preventDefault();
@@ -1712,17 +1708,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Event listener untuk klik pada tab
         notificationTabs?.addEventListener('click', e => {
             const target = e.target.closest('.notification-tab-btn');
             if (target) {
-                // Hapus kelas aktif dari semua tombol
                 notificationTabs.querySelectorAll('.notification-tab-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                // Tambahkan kelas aktif ke tombol yang diklik
                 target.classList.add('active');
-                // Render ulang notifikasi sesuai filter
                 renderNotifications(target.dataset.filter);
             }
         });
@@ -1822,7 +1814,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkoutFormContainer.scrollIntoView({ behavior: 'smooth' });
         }, 400);
     });
-    
+
     nextStepBtn.addEventListener('click', () => {
         if (validateStep(currentStep)) {
             currentStep++;
@@ -1852,7 +1844,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     confirmNoBtn.addEventListener('click', () => closeModal(confirmationModal));
     modalSizeGuideBtn.addEventListener('click', renderSizeGuide);
-    
+
     window.addEventListener('scroll', () => {
         backToTopButton.classList.toggle('show', window.scrollY > 300);
         handleScrollProgress();
@@ -1868,7 +1860,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (target) setLanguage(target.dataset.lang);
     });
     useSavedAddressBtn.addEventListener('click', loadSavedAddress);
-    
+
     const initializeApp = () => {
         applyTheme(localStorage.getItem('theme') || 'light');
         handleScrollProgress();
