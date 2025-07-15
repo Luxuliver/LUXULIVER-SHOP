@@ -303,14 +303,16 @@ body.dark-mode h2::after {
 
 header {
     background-color: rgba(255, 255, 255, 0.9);
-    padding: 1.2rem 0; 
-    box-shadow: 0 4px 20px var(--shadow-light); 
+    padding: 1.2rem 0;
+    box-shadow: 0 4px 20px var(--shadow-light);
     position: sticky;
     top: 0;
     z-index: 999;
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border-color);
+    transition: padding 0.4s ease, background-color 0.4s ease;
 }
+
 header .container {
     display: flex;
     justify-content: space-between;
@@ -335,7 +337,8 @@ header .logo h1 {
     letter-spacing: -1.5px;
     font-weight: 900;
     text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    transition: all 0.3s var(--transition-timing-function);
+    transition: all 0.4s var(--transition-timing-function);
+    transition: font-size 0.4s ease; 
 }
 header .logo h1:hover {
     color: var(--primary-dark-hover);
@@ -387,6 +390,20 @@ header nav a i {
 header nav a:hover i,
 header nav a.active i {
     color: var(--primary-color);
+}
+
+.header-scrolled {
+    padding: 0.5rem 0; 
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1); 
+}
+
+.header-scrolled .logo h1 {
+    font-size: 2.2rem;
+}
+
+body.dark-mode .header-scrolled {
+    background-color: rgba(36, 47, 56, 0.9); 
 }
 
 .scroll-progress-bar-container {
