@@ -330,19 +330,39 @@ header .container {
     border: none;
     color: var(--text-color);
 }
+
+ @keyframes shimmer {
+    0% {
+        background-position: -300% 0;
+    }
+    100% {
+        background-position: 300% 0; 
+    }
+}
+
 header .logo h1 {
     margin: 0;
     font-size: 2.8rem;
-    color: var(--primary-color);
-    letter-spacing: -1.5px;
     font-weight: 900;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    letter-spacing: -1.5px;
     transition: all 0.4s var(--transition-timing-function);
-    transition: font-size 0.4s ease; 
+
+    background: linear-gradient(
+        100deg, 
+        var(--primary-color) 40%, 
+        var(--accent-color) 50%, 
+        var(--primary-color) 60%
+    );
+    background-size: 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text; 
+    color: transparent;
+    animation: shimmer 5s linear infinite; 
 }
 header .logo h1:hover {
-    color: var(--primary-dark-hover);
+    color: transparent;
     transform: scale(1.03) rotate(-1deg);
+    animation-play-state: paused; 
 }
 header nav ul {
     list-style: none;
@@ -543,6 +563,29 @@ section.visible {
     margin: 4rem 0;
     border-radius: 8px;
     opacity: 0.8;
+    position: relative; 
+    overflow: hidden; 
+}
+
+.section-divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 100%
+    );
+    transform: skewX(-25deg);
+    transition: left 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+section.visible + .section-divider::after {
+    left: 150%;
 }
 
 #search-section {
@@ -2969,19 +3012,24 @@ body.dark-mode .sidebar-submenu a.active {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-out, opacity 0.4s ease-out, padding 0.5s ease-out;
+    transform: translateY(-10px); 
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.5s ease-out,
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-answer p {
-    padding: 0 30px 25px 30px;
+    padding: 0 30px 0px 30px;
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.8;
+    transition: padding 0.4s ease;
 }
 
 .faq-item.active .faq-answer {
     max-height: 300px; 
     opacity: 1;
+    transform: translateY(0); 
 }
 
 body.dark-mode .faq-question:hover {
