@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_history: 'Riwayat',
             sidebar_title: 'Menu & Filter',
             sidebar_main_menu: 'Menu Utama',
+            sidebar_help: 'Bantuan',
+            sidebar_faq: 'FAQ',
+            sidebar_contact_admin: 'Hubungi Admin',
+            sidebar_return_policy: 'Kebijakan Pengembalian',
             sidebar_availability: 'Ketersediaan',
             sidebar_all_products: 'Semua Produk',
             sidebar_in_stock: 'Stok Tersedia',
@@ -189,6 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_history: 'History',
             sidebar_title: 'Menu & Filters',
             sidebar_main_menu: 'Main Menu',
+            sidebar_help: 'Help',
+            sidebar_faq: 'FAQ',
+            sidebar_contact_admin: 'Contact Admin',
+            sidebar_return_policy: 'Return Policy',
             sidebar_availability: 'Availability',
             sidebar_all_products: 'All Products',
             sidebar_in_stock: 'In Stock',
@@ -394,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
-            stock: 3,
+            stock: 20,
             reviews: [
                 { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }
             ]
