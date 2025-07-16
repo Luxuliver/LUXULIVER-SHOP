@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
-            stock: 20,
+            stock: 15,
             reviews: [
                 { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }
             ]
