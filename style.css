@@ -195,6 +195,7 @@ a:hover {
     overflow: hidden;
     transform: perspective(1px) translateZ(0);
     -webkit-tap-highlight-color: transparent;
+    will-change: transform, box-shadow;
 }
 .btn::before {
     content: '';
@@ -603,6 +604,7 @@ section.visible {
     opacity: 0;
     transform: translateY(80px) scale(0.98); 
     transition-delay: 0s;
+    will-change: transform; 
 }
 
 .product-card.hidden {
@@ -665,7 +667,9 @@ section.visible {
     height: 350px;
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform; 
 }
+
 .product-card:hover img {
     transform: scale(1.1);
 }
@@ -1467,6 +1471,7 @@ footer::before {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    will-change: transform, opacity, box-shadow; /* <-- TAMBAHKAN BARIS INI */
 }
 
 .back-to-top.show {
