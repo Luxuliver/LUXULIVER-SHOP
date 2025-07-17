@@ -3847,3 +3847,17 @@ ul.sidebar-submenu a[href*="tiktok.com"]:hover span {
 .btn:hover:not(:disabled) .fa-whatsapp {
     transform: scale(1.2) rotate(-10deg);
 }
+
+main, header, footer {
+    transition: filter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: filter;
+}
+
+body.no-scroll main,
+body.no-scroll header,
+body.no-scroll footer,
+body.sidebar-open main,
+body.sidebar-open header,
+body.sidebar-open footer {
+    filter: blur(8px) brightness(0.9);
+}
