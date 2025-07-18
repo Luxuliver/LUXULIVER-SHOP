@@ -444,9 +444,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const expeditionMethods = [
-        { id: 'jne', name: 'JNE', logo: 'JNE.jpg' },
-        { id: 'jnt', name: 'J&T', logo: 'J&T.jpg' }
-    ];
+    { id: 'jne', name: 'JNE Express', logo: 'JNE.jpg', service: 'Reguler', price: 'Konfirmasi Admin' },
+    { id: 'jnt', name: 'J&T Express', logo: 'J&T.jpg', service: 'Reguler', price: 'Konfirmasi Admin' }
+];
 
     const paymentMethods = [
         { id: 'bca', name: 'BCA', logo: 'BCA.jpg' },
@@ -968,19 +968,125 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderRadioOptions = (containerId, optionsData, inputName) => {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.innerHTML = optionsData.map(option => `
-            <div class="radio-option">
-                <input type="radio" id="${option.id}" name="${inputName}" value="${option.name}" required>
-                <label for="${option.id}" class="radio-tile">
-                    <img src="${option.logo}" alt="${option.name} logo">
-                    <span>${option.name}</span>
-                </label>
-            </div>`).join('');
-        const firstRadio = container.querySelector('input[type="radio"]');
-        if (firstRadio) firstRadio.checked = true;
-    };
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (containerId === 'expedition-method') {
+        container.innerHTML = '';
+        container.classList.add('definitive-shipping-hub');
+
+        const slider = document.createElement('div');
+        slider.className = 'selection-highlight-slider';
+        container.appendChild(slider);
+
+        container.innerHTML += optionsData.map((option, index) => `
+            <label for="${option.id}" class="definitive-shipping-option">
+                <input type="radio" id="${option.id}" name="${inputName}" value="${option.name}" ${index === 0 ? 'checked' : ''} required>
+                <div class="shipping-content">
+                    <div class="logo-and-details">
+                        <div class="shipping-logo-wrapper">
+                            <img src="${option.logo}" alt="${option.name} logo">
+                        </div>
+                        <div class="shipping-details">
+                            <span class="shipping-name">${option.name}</span>
+                            <span class="shipping-service">${option.service}</span>
+                        </div>
+                    </div>
+                    <div class="shipping-price">
+                        <span class="price-label">Biaya</span>
+                        <span class="price-value">${option.price}</span>
+                    </div>
+                    <div class="shipping-estimate">
+                        </div>
+                </div>
+            </label>
+        `).join('');
+
+        const updateSlider = (instant = false) => {
+            const sliderEl = container.querySelector('.selection-highlight-slider');
+            const selectedRadio = container.querySelector('input[type="radio"]:checked');
+            if (!selectedRadio) {
+                sliderEl.style.opacity = '0';
+                return;
+            };
+            sliderEl.style.opacity = '1';
+            const selectedLabel = selectedRadio.closest('label');
+
+            if (instant) {
+                sliderEl.style.transition = 'none';
+            } else {
+                sliderEl.style.transition = 'top 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            }
+
+            sliderEl.style.height = `${selectedLabel.offsetHeight}px`;
+            sliderEl.style.top = `${selectedLabel.offsetTop}px`;
+
+            if (instant) {
+               
+                setTimeout(() => sliderEl.style.transition = '', 50);
+            }
+        };
+
+        container.addEventListener('click', (e) => {
+            if (e.target.closest('.definitive-shipping-option')) {
+                setTimeout(() => updateSlider(false), 50);
+            }
+        });
+
+       
+        setTimeout(() => updateSlider(true), 100);
+
+    } else {
+         container.innerHTML = optionsData.map(option => `
+        <div class="radio-option">
+            <input type="radio" id="${option.id}" name="${inputName}" value="${option.name}" required>
+            <label for="${option.id}" class="radio-tile">
+                <img src="${option.logo}" alt="${option.name} logo">
+                <div class="radio-tile-info">
+                    <span class="radio-tile-name">${option.name}</span>
+                    ${option.description ? `<span class="radio-tile-desc">${option.description}</span>` : ''}
+                </div>
+            </label>
+        </div>`).join('');
+        const firstRadioPayment = container.querySelector('input[type="radio"]');
+        if (firstRadioPayment) firstRadioPayment.checked = true;
+    }
+};
+   const updateShippingEstimates = () => {
+    const address = document.getElementById('customer-address').value.toLowerCase();
+    const shippingOptions = document.querySelectorAll('.definitive-shipping-option');
+
+    shippingOptions.forEach(option => {
+        const estimateElement = option.querySelector('.shipping-estimate');
+        if (!estimateElement) return;
+
+        if (!address.trim()) {
+           
+            estimateElement.innerHTML = `<span class="estimate-placeholder">Isi alamat di Langkah 1</span>`;
+        } else {
+           
+            estimateElement.innerHTML = `<div class="spinner"></div><span>Menghitung...</span>`;
+
+           
+            setTimeout(() => {
+
+    const lowerCaseAddress = address.toLowerCase();
+
+    const addressParts = lowerCaseAddress.split(',');
+
+    const cityAndProvinceString = addressParts.length > 1 ? addressParts.slice(1).join(' ') : lowerCaseAddress;
+
+    const jabodetabek = ['jakarta', 'bogor', 'depok', 'tangerang', 'bekasi'];
+
+    const isJabodetabek = jabodetabek.some(city => cityAndProvinceString.includes(city));
+
+    const newEstimate = isJabodetabek ? '1-4 Hari Kerja' : '3-7 Hari Kerja';
+
+    estimateElement.innerHTML = `<i class="far fa-clock"></i><span>${newEstimate}</span>`;
+}, 1500);
+        }
+    });
+};
 
     const renderRecentlyViewed = () => {
         if (!recentlyViewedContainer) return;
@@ -1237,6 +1343,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>`;
     };
+    
+    const createFavoriteCardHTMLLuxury = (product) => {
+    const price = getPriceBySize(product.basePrice, 'M');
+    return `
+    <div class="favorite-card-luxury" data-product-id="${product.id}">
+        <div class="favorite-card-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+             <div class="favorite-card-image-overlay"></div>
+        </div>
+        <div class="favorite-card-content">
+            <div class="favorite-card-header">
+                <h3>${product.name}</h3>
+                <button class="btn-remove-favorite" title="Remove from Favorites"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="favorite-card-description">${product.description}</p>
+            <div class="favorite-card-footer">
+                <span class="price">${formatRupiah(price)}</span>
+                <button class="btn btn-primary btn-add-to-cart-fav"><i class="fas fa-shopping-cart"></i> <span>${translations[currentLanguage].add_to_cart}</span></button>
+            </div>
+        </div>
+    </div>
+    `;
+};
 
     const renderProducts = (productsToRender, container, noResultsEl) => {
         container.innerHTML = '';
@@ -1340,16 +1469,47 @@ document.addEventListener('DOMContentLoaded', () => {
         renderFavorites();
         updateAllFavoriteButtons();
     };
-
+    
     const renderFavorites = () => {
-        const favProducts = products.filter(p => favorites.some(fav => fav.id === p.id));
-        favoriteProductsList.innerHTML = '';
-        emptyFavoritesMessage.style.display = favProducts.length === 0 ? 'block' : 'none';
-        favProducts.forEach(product => favoriteProductsList.insertAdjacentHTML('beforeend', createProductCardHTML(product)));
-        attachProductCardListeners(favoriteProductsList);
-        favoriteCountSpan.textContent = favorites.length;
-        favoriteCountSidebar.textContent = favorites.length;
-    };
+    const favProducts = products.filter(p => favorites.some(fav => fav.id === p.id));
+    favoriteProductsList.innerHTML = '';
+    emptyFavoritesMessage.style.display = favProducts.length === 0 ? 'block' : 'none';
+
+    if (favProducts.length > 0) {
+        favoriteProductsList.classList.remove('product-grid');
+        favoriteProductsList.classList.add('favorite-luxury-list');
+    } else {
+        favoriteProductsList.className = 'product-grid';
+    }
+
+    favProducts.forEach(product => {
+        favoriteProductsList.insertAdjacentHTML('beforeend', createFavoriteCardHTMLLuxury(product));
+    });
+
+
+    favoriteProductsList.querySelectorAll('.favorite-card-luxury').forEach(card => {
+        const productId = card.dataset.productId;
+
+        
+        card.querySelector('.btn-remove-favorite').addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleFavorite(productId, null);
+        });
+
+        card.querySelector('.btn-add-to-cart-fav').addEventListener('click', () => {
+            openQuickViewModal(productId);
+        });
+
+        card.addEventListener('click', (e) => {
+            if (!e.target.closest('button')) {
+                openQuickViewModal(productId);
+            }
+        });
+    });
+
+    favoriteCountSpan.textContent = favorites.length;
+    favoriteCountSidebar.textContent = favorites.length;
+};
 
     const updateAllFavoriteButtons = () => {
         document.querySelectorAll('.add-to-favorite').forEach(button => {
@@ -1437,80 +1597,192 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isValid) showToast('toast_step_not_complete', 'warning', { step: stepNumber });
         return isValid;
     };
-
+    
     const renderFinalSummary = () => {
-        const { subtotal, totalItems, discount, shippingDiscount, total } = calculateCartTotals();
-        const formData = new FormData(checkoutForm);
-        const expedition = formData.get('expeditionMethod') || 'Belum dipilih';
-        const payment = formData.get('paymentMethod') || 'Belum dipilih';
-        const shippingDiscountHTML = shippingDiscount > 0 ? `<p><span>Promo Ongkir (Jabodetabek):</span> <span>- ${formatRupiah(shippingDiscount)}</span></p>` : '';
-        finalOrderSummaryContainer.innerHTML = `
-            <p><span>Total Barang:</span> <span>${totalItems} pcs</span></p>
-            <p><span>Subtotal:</span> <span>${formatRupiah(subtotal)}</span></p>
-            <p><span>Diskon Pembelian:</span> <span>-${formatRupiah(discount)}</span></p>
-            ${shippingDiscountHTML}
-            <hr style="border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0;">
-            <p><span>Ekspedisi:</span> <span>${expedition}</span></p>
-            <p><span>Pembayaran:</span> <span>${payment}</span></p>
-            <p class="total-row"><span>Total Akhir:</span> <span>${formatRupiah(total)}</span></p>`;
-    };
+    const { subtotal, totalItems, discount, shippingDiscount, total } = calculateCartTotals();
+    const formData = new FormData(checkoutForm);
 
-    const renderOrderHistory = () => {
-        const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
-        orderHistoryList.innerHTML = '';
-        emptyHistoryMessage.style.display = history.length === 0 ? 'block' : 'none';
-        history.forEach(order => {
-            const orderDate = new Date(order.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-            const orderCard = document.createElement('div');
-            orderCard.className = 'order-history-card';
-            orderCard.innerHTML = `
-                <div class="order-history-header">
-                    <div>
-                        <h4>${translations[currentLanguage].history_order}: ${order.orderId}</h4>
-                        <p>${translations[currentLanguage].history_date}: ${orderDate}</p>
-                    </div>
-                    <div class="order-status completed"><i class="fas fa-check-circle"></i> ${translations[currentLanguage].history_status_completed}</div>
+    const customerName = formData.get('customer-name') || 'Belum diisi';
+    const customerPhone = formData.get('customer-phone') || 'Belum diisi';
+    const customerAddress = formData.get('customer-address') || 'Belum diisi';
+    const expedition = formData.get('expeditionMethod') || 'Belum dipilih';
+    const payment = formData.get('paymentMethod') || 'Belum dipilih';
+
+    const shippingDiscountHTML = shippingDiscount > 0 ? `
+        <div class="finance-line">
+            <span class="label">Promo Ongkir (Jabodetabek)</span>
+            <span class="amount">- ${formatRupiah(shippingDiscount)}</span>
+        </div>` : '';
+
+    const itemsHTML = cart.map(item => `
+        <div class="summary-product-item">
+            <div class="image-container"><img src="${item.image}" alt="${item.name}"></div>
+            <div class="details">
+                <div class="name">${item.name}</div>
+                <div class="qty-size">${item.quantity}x, Ukuran: ${item.size}</div>
+            </div>
+            <div class="price">${formatRupiah(item.price * item.quantity)}</div>
+        </div>
+    `).join('');
+
+    finalOrderSummaryContainer.innerHTML = `
+    <div class="luxury-summary-container">
+        <h3 class="luxury-summary-header">Ringkasan Pesanan Anda</h3>
+
+        <div class="summary-section">
+            <h5 class="summary-section-title"><i class="fas fa-user-check"></i> Detail Penerima & Pengiriman</h5>
+            <div class="summary-customer-details">
+                <div class="summary-detail-item">
+                    <span class="label">Nama Penerima</span>
+                    <span class="value">${customerName}</span>
                 </div>
-                <div class="order-history-body"><ul class="order-item-list">${order.items.map(item => `
-                    <li class="order-item-detail">
-                        <img src="${item.image}" alt="${item.name}" class="order-item-image">
-                        <div class="order-item-info">
-                            <span class="order-item-name">${item.name} (${item.size})</span>
-                            <span class="order-item-qty">Kuantitas: ${item.quantity}</span>
-                        </div>
-                        <span class="order-item-price">${formatRupiah(item.price * item.quantity)}</span>
-                    </li>`).join('')}</ul></div>
-                <div class="order-history-footer">
-                    <div class="order-total"><strong>Total Pesanan: ${formatRupiah(order.total)}</strong></div>
-                    <div class="order-actions">
-                        <button class="btn btn-secondary btn-sm track-order-btn">${translations[currentLanguage].history_track_order}</button>
-                        <button class="btn btn-primary btn-sm buy-again-btn">${translations[currentLanguage].history_buy_again}</button>
+                <div class="summary-detail-item">
+                    <span class="label">Nomor WhatsApp</span>
+                    <span class="value">${customerPhone}</span>
+                </div>
+                <div class="summary-detail-item">
+                    <span class="label">Ekspedisi</span>
+                    <span class="value">${expedition}</span>
+                </div>
+                <div class="summary-detail-item">
+                    <span class="label">Metode Pembayaran</span>
+                    <span class="value">${payment}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-section">
+            <h5 class="summary-section-title"><i class="fas fa-box-open"></i> Produk Dipesan (${totalItems} item)</h5>
+            <div class="summary-product-list">
+                ${itemsHTML}
+            </div>
+        </div>
+
+        <div class="summary-finance-details">
+            <div class="finance-line">
+                <span class="label">Subtotal</span>
+                <span class="amount">${formatRupiah(subtotal)}</span>
+            </div>
+            <div class="finance-line">
+                <span class="label">Diskon</span>
+                <span class="amount">- ${formatRupiah(discount)}</span>
+            </div>
+            ${shippingDiscountHTML}
+        </div>
+
+        <div class="summary-grand-total-wrapper">
+            <span class="total-label">Total Tagihan</span>
+            <span class="total-amount">${formatRupiah(total)}</span>
+        </div>
+        
+        <p class="summary-footer-note">Terima kasih telah berbelanja di <strong>Luxuliver</strong></p>
+    </div>
+    `;
+};
+
+const renderOrderHistory = () => {
+    const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
+    orderHistoryList.innerHTML = '';
+    emptyHistoryMessage.style.display = history.length === 0 ? 'block' : 'none';
+
+    history.forEach(order => {
+        const orderDate = new Date(order.date).toLocaleDateString('id-ID', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+
+        const orderCard = document.createElement('div');
+        orderCard.className = 'ultra-luxury-order';
+        orderCard.tabIndex = 0; 
+
+        orderCard.innerHTML = `
+            <div class="order-summary-header">
+                <div class="order-identity">
+                    <h3 class="order-receipt-id">${order.orderId}</h3>
+                    <p class="order-date">${orderDate} WIB</p>
+                </div>
+                <div class="order-summary-info">
+                    <div class="grand-total-display">
+                        <span class="total-label">Total</span>
+                        <span class="total-amount">${formatRupiah(order.total)}</span>
                     </div>
-                </div>`;
-            orderCard.querySelector('.track-order-btn').onclick = () => window.open('https://cekresi.com/', '_blank');
-            orderCard.querySelector('.buy-again-btn').addEventListener('click', () => {
-                if (checkoutFormContainer.style.display === 'block') {
-                    showToast('checkout_in_progress_warning', 'warning');
-                    return;
-                }
-                let itemsAddedCount = 0;
-                order.items.forEach(item => {
-                    const product = products.find(p => p.id === item.id);
-                    if (product && product.stock >= item.quantity) {
-                        addToCart(item.id, item.size, item.quantity, null);
-                        itemsAddedCount++;
-                    } else {
-                        showToast('toast_stock_not_enough', "error", { name: item.name, size: item.size });
-                    }
-                });
-                if (itemsAddedCount > 0) {
-                    showToast('toast_order_rebought', 'success', { orderId: order.orderId });
-                    document.getElementById('keranjang').scrollIntoView({ behavior: 'smooth' });
+                    <div class="status-tag delivered">
+                        <i class="fas fa-check-circle"></i>
+                        <span>${translations[currentLanguage].history_status_completed}</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-down expand-chevron"></i>
+            </div>
+            
+            <div class="order-expandable-content">
+                <div class="order-content-panel">
+                    <hr class="ultra-fine-separator">
+                    <div class="collection-details">
+                        <h4 class="content-title">Koleksi yang Dipesan (${order.items.length})</h4>
+                        <ul class="collection-item-list">
+                            ${order.items.map(item => `
+                                <li class="collection-item">
+                                    <img src="${item.image}" alt="${item.name}" class="collection-item-image">
+                                    <div class="collection-item-info">
+                                        <p class="item-name">${item.name} (${item.size})</p>
+                                        <p class="item-meta">Kuantitas: ${item.quantity}</p>
+                                    </div>
+                                    <p class="item-price">${formatRupiah(item.price * item.quantity)}</p>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    <hr class="ultra-fine-separator">
+                    <div class="order-actions-ultra">
+                        <button class="btn btn-secondary track-order-btn">
+                            <i class="fas fa-truck"></i> ${translations[currentLanguage].history_track_order}
+                        </button>
+                        <button class="btn btn-primary buy-again-btn">
+                            <i class="fas fa-redo-alt"></i> ${translations[currentLanguage].history_buy_again}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        orderCard.querySelector('.order-summary-header').addEventListener('click', () => {
+            orderCard.classList.toggle('expanded');
+        });
+
+        orderCard.querySelector('.track-order-btn').onclick = (e) => {
+            e.stopPropagation();
+            window.open('https://cekresi.com/', '_blank');
+        };
+
+        orderCard.querySelector('.buy-again-btn').addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (checkoutFormContainer.style.display === 'block') {
+                showToast('checkout_in_progress_warning', 'warning');
+                return;
+            }
+            let itemsAddedCount = 0;
+            order.items.forEach(item => {
+                const product = products.find(p => p.id === item.id);
+                if (product && product.stock >= item.quantity) {
+                    addToCart(item.id, item.size, item.quantity, null);
+                    itemsAddedCount++;
+                } else {
+                    showToast('toast_stock_not_enough', "error", { name: item.name, size: item.size });
                 }
             });
-            orderHistoryList.appendChild(orderCard);
+            if (itemsAddedCount > 0) {
+                showToast('toast_order_rebought', 'success', { orderId: order.orderId });
+                document.getElementById('keranjang').scrollIntoView({ behavior: 'smooth' });
+            }
+
         });
-    };
+        
+        orderHistoryList.appendChild(orderCard);
+    });
+};
 
     const applyTheme = (theme) => {
         body.classList.toggle('dark-mode', theme === 'dark');
@@ -1831,21 +2103,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 400);
     });
 
-    nextStepBtn.addEventListener('click', () => {
-        if (validateStep(currentStep)) {
-            currentStep++;
-            if (currentStep === 3) renderFinalSummary();
-            updateCheckoutUI();
+nextStepBtn.addEventListener('click', () => {
+    if (validateStep(currentStep)) {
+        currentStep++;
+        if (currentStep === 2) {
+            updateShippingEstimates();
         }
-    });
+        if (currentStep === 3) {
+            renderFinalSummary();
+        }
+        updateCheckoutUI();
+    }
+});
 
-    prevStepBtn.addEventListener('click', () => {
-        if (currentStep === 1) transitionToCartView();
-        else {
-            currentStep--;
-            updateCheckoutUI();
+
+prevStepBtn.addEventListener('click', () => {
+    if (currentStep === 1) {
+        transitionToCartView();
+    } else {
+        currentStep--;
+        if (currentStep === 2) {
+            
+            updateShippingEstimates();
         }
-    });
+        updateCheckoutUI();
+    }
+});
 
     quickViewModal.querySelector('.modal-add-to-favorite').addEventListener('click', e => toggleFavorite(e.currentTarget.dataset.id, e.currentTarget));
     document.querySelectorAll('.modal').forEach(modal => {
