@@ -2129,6 +2129,17 @@ prevStepBtn.addEventListener('click', () => {
     }
 });
 
+    const paymentMethodContainer = document.getElementById('payment-method');
+if (paymentMethodContainer) {
+    paymentMethodContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.radio-option')) {
+            if (currentStep === 3) {
+                renderFinalSummary();
+            }
+        }
+    });
+}
+
     quickViewModal.querySelector('.modal-add-to-favorite').addEventListener('click', e => toggleFavorite(e.currentTarget.dataset.id, e.currentTarget));
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', e => {
