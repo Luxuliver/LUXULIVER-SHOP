@@ -35,9 +35,6 @@
                     <li><a href="#favorit">
                         <i class="fas fa-heart"></i> <span data-lang-key="nav_favorites">Favorit</span> <span id="favorite-count">0</span>
                     </a></li>
-                    <li><a href="#riwayat-pesanan">
-                        <i class="fas fa-history"></i> <span data-lang-key="nav_history">Riwayat</span>
-                    </a></li>
                 </ul>
             </nav>
         </div>
@@ -468,6 +465,12 @@
                         <button class="btn-utility" id="modal-size-guide-btn"><i class="fas fa-ruler-horizontal"></i> <span data-lang-key="size_guide">Panduan Ukuran</span></button>
                         <button class="btn-utility modal-share-product-btn" data-id=""><i class="fas fa-share-alt"></i> <span data-lang-key="share_product">Bagikan Produk</span></button>
                     </div>
+                    
+                    <div class="policy-note-sm">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garansi Penggantian Produk. Kami tidak melayani pengembalian dana (refund).</span>
+                    </div>
+                    
 
                     <div id="modal-recommendations" style="display: none;">
                         <hr class="modal-divider">
@@ -627,6 +630,66 @@
             </div>
     </div>
 </div>
+    
+    <div id="return-request-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Ajukan Pengembalian Barang</h3>
+            <p>ID Pesanan: <strong id="return-order-id"></strong></p>
+            
+            <form id="return-form">
+                <div class="form-group">
+                    <label>Pilih produk yang ingin dikembalikan:</label>
+                    <div id="return-product-list" class="return-product-selection">
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="return-reason">Alasan Pengembalian:</label>
+                    <select id="return-reason" class="form-input" required>
+                        <option value="" disabled selected>-- Pilih Alasan --</option>
+                        <option value="cacat_produksi">Ada cacat produksi</option>
+                        <option value="salah_ukuran">Barang tidak sesuai ukuran </option>
+                        <option value="salah_produk">Salah produk yang dikirim</option>
+                        <option value="lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Unggah foto/video bukti (wajib):</label>
+                    <label for="return-proof-upload" class="file-upload-label">
+                        <i class="fas fa-paperclip"></i> Pilih File
+                    </label>
+                    <input type="file" id="return-proof-upload" class="file-upload-input">
+                    <span id="return-file-name" class="file-name-display"></span>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" id="submit-return-request-btn" class="btn btn-primary">Kirim Permintaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="return-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="confirmation-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Konfirmasi Kebijakan Pengembalian</h3>
+            <p class="confirmation-message">
+                Sesuai kebijakan, barang yang memenuhi syarat hanya akan <strong>diganti dengan produk baru</strong>. Kami tidak melayani pengembalian dana (refund).
+            </p>
+            <p class="confirmation-question">
+                Apakah Anda ingin melanjutkan?
+            </p>
+            <div class="modal-actions">
+                <button id="confirm-return-cancel" class="btn btn-secondary">Kembali</button>
+                <button id="confirm-return-continue" class="btn btn-primary">Lanjut</button>
+            </div>
+        </div>
+    </div>
 
     <div id="toast-container"></div>
 
