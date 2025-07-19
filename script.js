@@ -1680,13 +1680,35 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 };
 
-const renderOrderHistory = () => {
+    const renderOrderHistory = () => {
     const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
     orderHistoryList.innerHTML = '';
     emptyHistoryMessage.style.display = history.length === 0 ? 'block' : 'none';
 
     history.forEach(order => {
-        const orderDate = new Date(order.date).toLocaleDateString('id-ID', {
+        const orderDate = new Date(order.date);
+        const currentDate = new Date();
+        const timeDiff = currentDate.getTime() - orderDate.getTime();
+        const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        let returnButtonHTML = '';
+        if (dayDiff <= 15) {
+
+            returnButtonHTML = `
+                <button class="btn btn-secondary request-return-btn" data-order-id="${order.orderId}" data-order-items='${JSON.stringify(order.items)}'>
+                    <i class="fas fa-undo-alt"></i> Ajukan Pengembalian
+                </button>
+            `;
+        } else {
+           
+            returnButtonHTML = `
+                <button class="btn btn-secondary" disabled title="Batas waktu pengembalian telah berakhir">
+                    <i class="fas fa-undo-alt"></i> Batas Pengembalian Habis
+                </button>
+            `;
+        }
+        
+        const displayDate = orderDate.toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',
             year: 'numeric',
@@ -1702,7 +1724,7 @@ const renderOrderHistory = () => {
             <div class="order-summary-header">
                 <div class="order-identity">
                     <h3 class="order-receipt-id">${order.orderId}</h3>
-                    <p class="order-date">${orderDate} WIB</p>
+                    <p class="order-date">${displayDate} WIB</p>
                 </div>
                 <div class="order-summary-info">
                     <div class="grand-total-display">
@@ -1740,6 +1762,7 @@ const renderOrderHistory = () => {
                         <button class="btn btn-secondary track-order-btn">
                             <i class="fas fa-truck"></i> ${translations[currentLanguage].history_track_order}
                         </button>
+                        ${returnButtonHTML} 
                         <button class="btn btn-primary buy-again-btn">
                             <i class="fas fa-redo-alt"></i> ${translations[currentLanguage].history_buy_again}
                         </button>
@@ -1777,7 +1800,6 @@ const renderOrderHistory = () => {
                 showToast('toast_order_rebought', 'success', { orderId: order.orderId });
                 document.getElementById('keranjang').scrollIntoView({ behavior: 'smooth' });
             }
-
         });
         
         orderHistoryList.appendChild(orderCard);
@@ -2218,6 +2240,132 @@ if (paymentMethodContainer) {
             });
             body.classList.remove('no-scroll');
         }, 1200);
+
+
+orderHistoryList.addEventListener('click', function(e) {
+    const returnBtn = e.target.closest('.request-return-btn');
+    if (!returnBtn) return;
+
+    const orderId = returnBtn.dataset.orderId;
+    const items = returnBtn.dataset.orderItems; 
+
+    const continueBtn = document.getElementById('confirm-return-continue');
+    continueBtn.dataset.orderId = orderId; 
+    continueBtn.dataset.orderItems = items;
+
+    openModal(document.getElementById('return-confirmation-modal'));
+});
+
+const returnConfirmationModal = document.getElementById('return-confirmation-modal');
+if (returnConfirmationModal) {
+    const continueBtn = document.getElementById('confirm-return-continue');
+    const cancelBtn = document.getElementById('confirm-return-cancel');
+    const closeBtn = returnConfirmationModal.querySelector('.close-button');
+
+    continueBtn.addEventListener('click', function() {
+        closeModal(returnConfirmationModal);
+
+
+        const orderId = this.dataset.orderId;
+        const items = JSON.parse(this.dataset.orderItems);
+
+        const returnModal = document.getElementById('return-request-modal');
+        const returnOrderIdSpan = document.getElementById('return-order-id');
+        const returnProductListDiv = document.getElementById('return-product-list');
+
+        returnOrderIdSpan.textContent = orderId;
+
+        returnProductListDiv.innerHTML = items.map(item => `
+            <div class="return-product-item">
+                <input type="checkbox" id="return-${item.cartId}" name="return-product" value="${item.cartId}">
+                <label for="return-${item.cartId}">
+                    <img src="${item.image}" alt="${item.name}">
+                    <span>${item.name} (${item.size}) - ${item.quantity}x</span>
+                </label>
+            </div>
+        `).join('');
+
+        openModal(returnModal);
+    });
+
+    cancelBtn.addEventListener('click', () => closeModal(returnConfirmationModal));
+    closeBtn.addEventListener('click', () => closeModal(returnConfirmationModal));
+}
+
+    
+    
+    const returnForm = document.getElementById('return-form');
+    if(returnForm) {
+        returnForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const selectedProductsCheckboxes = document.querySelectorAll('input[name="return-product"]:checked');
+            const reasonSelect = document.getElementById('return-reason');
+            const otherReasonTextarea = document.getElementById('other-reason-text');
+            const fileInput = document.getElementById('return-proof-upload');
+            const orderId = document.getElementById('return-order-id').textContent;
+
+            if (selectedProductsCheckboxes.length === 0) {
+                showToast('Mohon pilih setidaknya satu produk.', 'warning');
+                return;
+            }
+            if (!reasonSelect.value) {
+                showToast('Mohon pilih alasan pengembalian.', 'warning');
+                return;
+            }
+
+            let reasonText = reasonSelect.options[reasonSelect.selectedIndex].text;
+
+            if (reasonSelect.value === 'lainnya') {
+                const otherReason = otherReasonTextarea.value.trim();
+                const wordCount = otherReason.split(' ').filter(word => word.length > 0).length;
+                if (wordCount < 3) {
+                    showToast('Mohon jelaskan alasan Anda dengan lebih detail (minimal 3 kata).', 'warning');
+                    return;
+                }
+                reasonText = `Lainnya: ${otherReason}`;
+            }
+
+            if (fileInput.files.length === 0) {
+                showToast('Mohon unggah foto atau video sebagai bukti.', 'warning');
+                return;
+            }
+
+            const selectedProductNames = Array.from(selectedProductsCheckboxes).map(checkbox => {
+                const label = document.querySelector(`label[for="${checkbox.id}"]`);
+                return label ? label.textContent.trim() : 'Produk tidak dikenal';
+            });
+            const proofText = `Ya (mohon kirimkan file bukti "${fileInput.files[0].name}" secara manual di chat ini setelah pesan terkirim).`;
+
+            const returnMessage = `*Permintaan Pengembalian Barang*\n\n` +
+                `*ID Pesanan:* ${orderId}\n\n` +
+                `*Produk yang ingin dikembalikan:*\n- ${selectedProductNames.join('\n- ')}\n\n` +
+                `*Alasan Pengembalian:* ${reasonText}\n\n` +
+                `*Bukti Foto/Video:* ${proofText}\n\n` +
+                `Mohon segera diproses. Terima kasih.`;
+
+            const whatsappUrl = `https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(returnMessage)}`;
+            window.open(whatsappUrl, '_blank');
+            
+            closeModal(document.getElementById('return-request-modal'));
+            showToast('Permintaan pengembalian telah disiapkan untuk dikirim via WhatsApp.', 'success');
+            returnForm.reset();
+            document.getElementById('other-reason-container').style.display = 'none';
+            document.getElementById('return-file-name').textContent = '';
+        });
+    }
+    
+    const fileUploadInput = document.getElementById('return-proof-upload');
+    if(fileUploadInput) {
+        fileUploadInput.addEventListener('change', function() {
+            const fileNameDisplay = document.getElementById('return-file-name');
+            if (this.files.length > 0) {
+                fileNameDisplay.textContent = this.files[0].name;
+            } else {
+                fileNameDisplay.textContent = '';
+            }
+        });
+    }
     };
 
     const startApp = () => {
