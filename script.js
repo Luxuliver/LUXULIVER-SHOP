@@ -2385,4 +2385,33 @@ if (returnConfirmationModal) {
     } else {
         startApp();
     }
+    
+        const formGroups = document.querySelectorAll('.luxury-form-group');
+
+    const updateIconVisibility = (formGroup) => {
+        const input = formGroup.querySelector('.form-input');
+        const icon = formGroup.querySelector('.form-icon');
+        if (!input || !icon) return;
+
+        const isFocused = document.activeElement === input;
+        const hasValue = input.value.trim() !== '';
+
+        if (isFocused || hasValue) {
+            icon.classList.add('hidden');
+        } else {
+            icon.classList.remove('hidden');
+        }
+    };
+
+    formGroups.forEach(group => {
+        const input = group.querySelector('.form-input');
+        if (input) {
+            input.addEventListener('focus', () => updateIconVisibility(group));
+            input.addEventListener('blur', () => updateIconVisibility(group));
+            input.addEventListener('input', () => updateIconVisibility(group));
+            
+
+            updateIconVisibility(group); 
+        }
+    });
 });
