@@ -2189,8 +2189,19 @@ prevStepBtn.addEventListener('click', () => {
             if (sellerAddressSpan) sellerAddressSpan.textContent = sellerInfo.address;
             if (sellerPhoneSpan) sellerPhoneSpan.textContent = sellerInfo.phone;
             if (sellerEmailSpan) sellerEmailSpan.textContent = sellerInfo.email;
-            if (sellerPhoneLink) sellerPhoneLink.href = `mailto:${sellerInfo.email}`;
-            if (sellerEmailLink) sellerEmailLink.href = `mailto:${sellerInfo.email}`;
+            const sellerAddressLink = document.getElementById('seller-address-link');
+            if (sellerAddressLink) {
+                const encodedAddress = encodeURIComponent(sellerInfo.address);
+                sellerAddressLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                
+            }
+            if (sellerPhoneLink) {
+                const phoneNumber = sellerInfo.phone.replace(/[\s-]/g, '');
+                sellerPhoneLink.href = `tel:${phoneNumber}`;
+                }
+            if (sellerEmailLink) {sellerEmailLink.href = `mailto:${sellerInfo.email}`;
+                
+            }
             document.querySelectorAll('section, footer, .product-card:not(.visible)').forEach(el => {
                 if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
             });
