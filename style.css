@@ -3584,23 +3584,6 @@ body.dark-mode .product-card:hover {
     box-shadow: 0 25px 55px var(--shadow-deep), 0 0 30px rgba(201, 176, 131, 0.2);
 }
 
-.btn i {
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.btn:hover i {
-    transform: translateX(5px) rotate(12deg);
-}
-
-
-.btn:hover .fa-arrow-right {
-    transform: translateX(8px);
-}
-
-.btn:hover .fa-shopping-cart {
-    transform: rotate(15deg) scale(1.1);
-}
-
 .product-card img {
     width: 100%;
     height: 350px;
@@ -3742,22 +3725,6 @@ i, .fas, .far, .fab {
     transition: all 0.4s ease;
 }
 
-.product-info h3:hover {
-    color: transparent;
-    
-    background: linear-gradient(90deg, 
-        var(--accent-color) 0%, 
-        var(--primary-color) 50%, 
-        var(--accent-color) 100%);
-        
-    background-size: 200% auto;
-    
-    -webkit-background-clip: text;
-    background-clip: text;
-    
-    animation: text-gradient-flow 3s linear infinite;
-}
-
 ul.sidebar-submenu a[href*="instagram.com"],
 ul.sidebar-submenu a[href*="tiktok.com"] {
     position: relative;
@@ -3802,12 +3769,6 @@ ul.sidebar-submenu a[href*="tiktok.com"]:hover span {
 
 .product-card:hover .product-image-container::before {
     opacity: 1;
-}
-
-@keyframes text-gradient-flow {
-    to {
-        background-position: -200% center;
-    }
 }
 
 @keyframes text-gradient-flow {
@@ -4750,10 +4711,6 @@ body.dark-mode .favorite-card-image-overlay {
         padding: 12px 24px;
         font-size: 1rem;
     }
-}
-
-#riwayat-pesanan .info-message {
-    margin-top: 0;
 }
 
 #order-history-list {
