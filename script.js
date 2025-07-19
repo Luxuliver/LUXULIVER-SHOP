@@ -1785,9 +1785,8 @@ const renderOrderHistory = () => {
 };
 
     const applyTheme = (theme) => {
-        body.classList.toggle('dark-mode', theme === 'dark');
-        darkModeToggle.innerHTML = `<i class="fas fa-${theme === 'dark' ? 'sun' : 'moon'}"></i>`;
-    };
+    body.classList.toggle('dark-mode', theme === 'dark');
+};
 
     const renderSearchSuggestions = (query) => {
         if (!query) {
