@@ -4214,7 +4214,7 @@ body.dark-mode .summary-grand-total-wrapper {
     top: 18px;
     left: 18px;
     color: var(--light-text);
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, opacity 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     z-index: 2;
 }
 
@@ -4255,10 +4255,6 @@ body.dark-mode .summary-grand-total-wrapper {
     font-size: 0.85rem;
     color: var(--primary-color);
     font-weight: 600;
-}
-
-.form-input:focus ~ .form-icon {
-    color: var(--primary-color);
 }
 
 textarea.form-input {
@@ -5381,4 +5377,9 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     text-align: center;
     margin-top: 1.5rem;
     font-style: italic;
+}
+
+.form-icon.hidden {
+    opacity: 0;
+    transform: translateX(-15px);
 }
