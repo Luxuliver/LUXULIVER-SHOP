@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
             toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
             toast_order_rebought: (orderId) => `Produk dari pesanan ${orderId} berhasil ditambahkan kembali!`,
             confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
-            promo_upsell: (items) => `Tambah ${items} barang lagi untuk dapat diskon 2%!`,
-            stock_limited: 'Stok Terbatas!',
+            promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 2%.`,
+            stock_limited: 'Terbatas!',
             stock_out: 'Stok Habis',
             add_button: 'Tambah',
             button_use_saved_address: 'Gunakan Alamat Tersimpan',
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toast_order_cancelled: 'Order cancelled. Your cart remains intact.',
             toast_order_rebought: (orderId) => `Products from order ${orderId} were successfully re-added!`,
             confirm_remove_from_cart: (name, size) => `Remove "${name} (${size})" from the cart?`,
-            promo_upsell: (items) => `Add ${items} more item(s) to get a 2% discount!`,
+            promo_upsell: (items) => `Select ${items} more piece(s) to unlock an exclusive 2% offer.`,
             stock_limited: 'Limited Stock!',
             stock_out: 'Out of Stock',
             add_button: 'Add',
@@ -372,10 +372,14 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'putih',
             design: 'abstrak',
             stock: 15,
+            status: 'preorder', 
             reviews: [
-                { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-07-04' },
-                { author: 'Citra Wulandari', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-07-03' },
-                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-07-02' }
+                { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-06-29' },
+                { author: 'Subhan Saputro', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-06-29' },
+                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-06-29' }, 
+                { author: 'Tegar', rating: 5, text: 'Adem bahan nya', date: '2025-07-02' }, 
+                { author: 'Rangga Aji', rating: 5, text: 'Cocok buat outfit harian', date: '2025-07-03' }, 
+                { author: 'Vino Rizki', rating: 5, text: 'Kualitas sesuai harga', date: '2025-07-03' }
             ]
         },
         {
@@ -388,9 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'hitam',
             design: 'abstrak',
             stock: 15,
+            status: 'preorder', 
             reviews: [
-                { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-07-01' },
-                { author: 'Eko Budianto', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-06-28' }
+                { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-06-28' },
+                { author: 'Eko Rahman', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-07-01' }, 
+                { author: 'Zidan Hakim', rating: 5, text: 'Tidak nerawang bro, bagus', date: '2025-07-08' }, 
+                { author: 'Wahid Maulana', rating: 5, text: 'gak mudah kusut juga bahannya', date: '2025-07-15' }
             ]
         },
         {
@@ -403,8 +410,16 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'hitam',
             design: 'abstrak',
             stock: 15,
+            status: 'preorder', 
             reviews: [
-                { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }
+                { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }, 
+                { author: 'Yoga Wijayanto', rating: 5, text: 'cocok buat cauaca panas', date: '2025-06-24' },
+                { author: 'Alif', rating: 5, text: 'serat kaik nya bagus', date: '2025-07-05' }, 
+                { author: 'Iqbal', rating: 5, text: 'jahitan nya bagus banget min', date: '2025-07-05' }, 
+                { author: 'Yusuf Gunawan', rating: 5, text: 'Mantapppp', date: '2025-07-07' }, 
+                { author: 'Jaya Santoso', rating: 5, text: 'Bagus sih ini', date: '2025-07-08' }, 
+                { author: 'Hendra', rating: 5, text: 'Cocok di gua baju nya', date: '2025-07-10' }, 
+                { author: 'Dewa Prastyo', rating: 5, text: 'Enak lah bahan nya', date: '2025-07-12' }
             ]
         },
         {
@@ -417,8 +432,11 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'hitam',
             design: 'abstrak',
             stock: 15,
+            status: 'preorder', 
             reviews: [
-                { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }
+                { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }, 
+                { author: 'Akbar Wirawan', rating: 5, text: 'sudah beli 2x, gak kecewain emang di sini', date: '2025-06-22' }, 
+                { author: 'Naufal Yuda', rating: 5, text: 'gila keren asli', date: '2025-06-28' }
             ]
         },
         {
@@ -431,7 +449,14 @@ document.addEventListener('DOMContentLoaded', () => {
             color: 'hitam',
             design: 'classy',
             stock: 5,
-        },
+            status: 'preorder', 
+            reviews: [
+                { author: 'Candha Mahardika', rating: 5, text: 'Anjir bagus cuy classy nya', date: '2025-07-09' },
+                { author: 'Sandi', rating: 5, text: 'Gak expect sebagus ini', date: '2025-07-09' }, 
+                { author: 'Rizal Fahmi', rating: 5, text: 'bagus desain classy nya', date: '2025-07-12' }, 
+                { author: 'Riko Satria', rating: 5, text: 'Ditunggu desain classy selanjutnya', date: '2025-07-15' }
+            ]    
+        },  
     ];
 
     const sellerInfo = {
@@ -1321,15 +1346,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const createProductCardHTML = (product) => {
         const isFavorited = favorites.some(fav => fav.id === product.id);
         const price = getPriceBySize(product.basePrice, 'M');
+        const preOrderBadge = `<div class="pre-order-badge">Pre-Order</div>`; 
         const lowStockLabel = product.stock > 0 && product.stock <= 5 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
         const outOfStockLabel = product.stock === 0 ? `<div class="out-of-stock-badge">${translations[currentLanguage].stock_out}</div>` : '';
         const totalReviews = product.reviews ? product.reviews.length : 0;
         const averageRating = totalReviews > 0 ? product.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews : 0;
         const ratingHTML = `<div class="product-rating" title="${averageRating.toFixed(1)} dari 5 bintang">${generateStarsHTML(Math.round(averageRating))}<span class="rating-count">(${totalReviews})</span></div>`;
         return `
-            <div class="product-card" data-product-id="${product.id}">
-                ${lowStockLabel}${outOfStockLabel}
-                <div class="product-image-container"><img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
+    <div class="product-card" data-product-id="${product.id}">
+        ${preOrderBadge}${lowStockLabel}${outOfStockLabel}
+        <div class="product-image-container"><img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
                 <div class="product-info">
                     <h3>${product.name}</h3>
                     ${ratingHTML}
@@ -1383,7 +1409,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let filteredProducts = [...products];
         const currentSearchTerm = searchInput.value.trim().toLowerCase();
         if (currentSearchTerm) filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(currentSearchTerm));
-        if (activeFilters.availability === 'in_stock') filteredProducts = filteredProducts.filter(p => p.stock > 0);
+        if (activeFilters.availability === 'ready') {
+            filteredProducts = filteredProducts.filter(p => p.status === 'ready');} else if (activeFilters.availability === 'preorder') {
+    filteredProducts = filteredProducts.filter(p => p.status === 'preorder');
+}
         if (activeFilters.color !== 'all') filteredProducts = filteredProducts.filter(p => p.color === activeFilters.color);
         if (activeFilters.design !== 'all') filteredProducts = filteredProducts.filter(p => p.design === activeFilters.design);
         const container = productList;
@@ -1898,16 +1927,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const updateFilterUI = () => {
-        sidebarSubmenus.forEach(submenu => {
-            const filterType = submenu.dataset.filterType;
-            if (filterType) {
-                submenu.querySelectorAll('.sidebar-filter').forEach(link => {
-                    link.classList.toggle('active', link.dataset.filterValue === activeFilters[filterType]);
-                });
-            }
-        });
-    };
+const updateFilterUI = () => {
+    document.querySelectorAll('#sidebar .sidebar-filter').forEach(link => {
+        const filterType = link.dataset.filterType;
+        const filterValue = link.dataset.filterValue;
+        if (filterType) {
+            link.classList.toggle('active', activeFilters[filterType] === filterValue);
+        }
+    });
+};
 
     const initializeSidebar = () => {
         sidebarToggleBtn.addEventListener('click', toggleSidebar);
@@ -1919,19 +1947,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 toggle.parentElement.classList.toggle('open');
             });
         });
+        
         sidebarSubmenus.forEach(submenu => {
-            submenu.addEventListener('click', e => {
-                const target = e.target.closest('.sidebar-filter');
-                if (!target) return;
-                e.preventDefault();
-                activeFilters[submenu.dataset.filterType] = target.dataset.filterValue;
-                searchInput.value = '';
-                renderAllProductShowcases();
-                updateFilterUI();
-                updateResetButtonVisibility();
-                setTimeout(toggleSidebar, 200);
-            });
-        });
+    submenu.addEventListener('click', e => {
+        const target = e.target.closest('.sidebar-filter');
+        if (!target) return;
+        e.preventDefault();
+        activeFilters[target.dataset.filterType] = target.dataset.filterValue; 
+
+        searchInput.value = '';
+        renderAllProductShowcases();
+        updateFilterUI();
+        updateResetButtonVisibility();
+        setTimeout(toggleSidebar, 200);
+    });
+});
         resetFiltersBtn.addEventListener('click', () => {
             activeFilters = { availability: 'all', color: 'all', design: 'all' };
             searchInput.value = '';
