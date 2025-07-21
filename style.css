@@ -5408,6 +5408,62 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     margin-right: 8px;
 }
 
+#ulasan h2 {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.all-reviews-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.review-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-base);
+    padding: 2rem;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+}
+
+.review-card-product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--border-radius-base);
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.review-card-content {
+    flex-grow: 1;
+}
+
+.review-card-product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--light-text);
+    margin: 0 0 1rem 0;
+}
+
+.review-card .review-item {
+    padding: 0;
+    border: none;
+}
+
+
 #return-confirmation-modal h3 {
     text-align: center; 
 }
