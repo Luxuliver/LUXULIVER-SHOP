@@ -767,7 +767,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cartItemsContainer.innerHTML = '';
 
         if (cart.length === 0) {
-            emptyCartMessage.style.display = 'block';
+            emptyCartMessage.style.display = 'flex'; 
             cartSummary.style.display = 'none';
             checkoutFormContainer.style.display = 'none';
             cartItemsContainer.style.display = 'none';
@@ -1445,14 +1445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isFilterOrSearchActive = activeFilters.availability !== 'all' || activeFilters.color !== 'all' || activeFilters.design !== 'all' || currentSearchTerm;
 
 
-    const activeNav = document.querySelector('#main-nav a.active, .sidebar-menu a.active');
-    const currentViewHref = activeNav ? activeNav.getAttribute('href') : '#hero';
-
-    if (currentViewHref === '#hero') {
-        ['#keranjang', '.section-divider', '#favorit', '#riwayat-pesanan', '#faq'].forEach(sel => {
-            document.querySelectorAll(sel).forEach(el => el.style.display = isFilterOrSearchActive ? 'none' : 'block');
-        });
-    }
+    
 
     const kolekasiH2 = document.querySelector('#koleksi h2');
     if (isFilterOrSearchActive) {
@@ -1523,7 +1516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderFavorites = () => {
     const favProducts = products.filter(p => favorites.some(fav => fav.id === p.id));
     favoriteProductsList.innerHTML = '';
-    emptyFavoritesMessage.style.display = favProducts.length === 0 ? 'block' : 'none';
+    emptyFavoritesMessage.style.display = favProducts.length === 0 ? 'flex' : 'none'; 
 
     if (favProducts.length > 0) {
         favoriteProductsList.classList.remove('product-grid');
@@ -1944,58 +1937,53 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
 
-const showMainContentSection = (targetId) => {
-    const sections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#faq', '#ulasan'];
+ const showMainContentSection = (targetId) => {
+    document.body.classList.remove('single-section-view');
+
+  
+    const homePageSections = ['#koleksi', '#faq'];
+    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#faq', '#ulasan'];
+    
     const dividers = document.querySelectorAll('.section-divider');
     const searchSection = document.getElementById('search-section');
-    const heroSection = document.getElementById('hero'); 
+    const heroSection = document.getElementById('hero');
+    const footer = document.querySelector('footer');
 
-
-    if (heroSection) {
-
-        if (targetId === '#hero') {
-            heroSection.style.display = 'flex'; 
-        } else {
-            heroSection.style.display = 'none';
-        }
-    }
-
-    if (searchSection) {
-        if (targetId === '#hero' || targetId === '#koleksi') {
-            searchSection.style.display = 'block';
-        } else {
-            searchSection.style.display = 'none';
-        }
-    }
-
-    sections.forEach(sel => {
-        const el = document.querySelector(sel);
-        if (el) {
-            el.style.display = sel === targetId ? 'block' : 'none';
-        }
+   
+    [heroSection, searchSection, footer, ...dividers, ...allSections.map(sel => document.querySelector(sel))].forEach(el => {
+        if (el) el.style.display = 'none';
     });
-
-    const isDefaultView = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#faq'].includes(targetId);
-    dividers.forEach(divider => {
-        divider.style.display = isDefaultView ? 'block' : 'none';
-    });
-
-    if(targetId === '#ulasan') {
-        renderAllReviews();
-    }
-
+    
     if (targetId === '#hero') {
-        sections.forEach(sel => {
+       
+        [searchSection, footer].forEach(el => {
+            if(el) el.style.display = 'block';
+        });
+        if(heroSection) heroSection.style.display = 'flex';
+        
+        homePageSections.forEach(sel => {
             const el = document.querySelector(sel);
             if (el) el.style.display = 'block';
         });
+        
         dividers.forEach(divider => divider.style.display = 'block');
-        document.querySelector('#ulasan').style.display = 'none';
+        
+    } else {
+       
+        document.body.classList.add('single-section-view'); 
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            targetElement.style.display = 'block';
+        }
+
+       
+        if (targetId === '#ulasan') {
+            renderAllReviews();
+        }
     }
 };
 
-
-   const initializeNavigation = () => {
+ const initializeNavigation = () => {
     document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(link => {
         link.addEventListener('click', e => {
             const href = e.currentTarget.getAttribute('href'); 
@@ -2005,18 +1993,16 @@ const showMainContentSection = (targetId) => {
 
                 const targetElement = document.querySelector(href);
                 if (targetElement) {
-                    if (href === '#hero') {
-                        showMainContentSection('#hero'); 
-                    } else {
-                       showMainContentSection(href); 
-                    }
+                    showMainContentSection(href);
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
 
+               
                 document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(l => l.classList.remove('active'));
                 document.querySelectorAll(`a[href="${href}"]`).forEach(l => l.classList.add('active'));
 
-                if (body.classList.contains('sidebar-open')) {
+               
+                if (document.body.classList.contains('sidebar-open')) {
                     toggleSidebar();
                 }
             }
@@ -2097,11 +2083,6 @@ const updateFilterUI = () => {
             }, 300);
         });
     };
-
-    document.getElementById('sidebar-contact-admin').addEventListener('click', e => {
-        e.preventDefault();
-        window.open(`https://wa.me/${sellerInfo.whatsappAdmin}`, '_blank');
-    });
 
     const setLanguage = (lang) => {
         currentLanguage = lang;
@@ -2371,7 +2352,7 @@ if (paymentMethodContainer) {
             const sellerAddressLink = document.getElementById('seller-address-link');
             if (sellerAddressLink) {
                 const encodedAddress = encodeURIComponent(sellerInfo.address);
-                sellerAddressLink.href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+                sellerAddressLink.href = `https://maps.google.com/?q=${encodedAddress}`;
                 
             }
             if (sellerPhoneLink) {
@@ -2521,6 +2502,7 @@ if (returnConfirmationModal) {
             }
         });
     }
+    showMainContentSection('#hero');
     };
 
     const startApp = () => {
@@ -2569,4 +2551,170 @@ if (returnConfirmationModal) {
             updateIconVisibility(group); 
         }
     });
+
+   
+    const liveChatToggle = document.getElementById('live-chat-toggle');
+    const liveChatModal = document.getElementById('live-chat-modal');
+    const chatTabBtns = document.querySelectorAll('.chat-tab-btn');
+    const chatTabContents = document.querySelectorAll('.chat-tab-content');
+    const faqSearchInput = document.getElementById('faq-search');
+    const faqItems = document.querySelectorAll('.faq-item-chat');
+    const faqNotFound = document.querySelector('.faq-not-found');
+    const contactAdminFromFaq = document.getElementById('contact-admin-from-faq');
+    const whatsappAdminBtn = document.getElementById('whatsapp-admin-btn');
+    const emailAdminBtn = document.getElementById('email-admin-btn');
+    const quickContactForm = document.getElementById('quick-contact-form');
+
+   
+    if (liveChatToggle) {
+        liveChatToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            liveChatModal.style.display = 'block';
+            document.body.classList.add('modal-open');
+        });
+    }
+
+   
+    chatTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetTab = btn.dataset.tab;
+            
+
+            chatTabBtns.forEach(b => b.classList.remove('active'));
+            chatTabContents.forEach(c => c.classList.remove('active'));
+            
+
+            btn.classList.add('active');
+            document.querySelector(`[data-tab="${targetTab}"].chat-tab-content`).classList.add('active');
+        });
+    });
+
+   
+    if (faqSearchInput) {
+        faqSearchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            let hasResults = false;
+
+            faqItems.forEach(item => {
+                const keywords = item.dataset.keywords.toLowerCase();
+                const questionText = item.querySelector('.faq-question-chat span').textContent.toLowerCase();
+                const answerText = item.querySelector('.faq-answer-chat p').textContent.toLowerCase();
+                
+                const isMatch = keywords.includes(searchTerm) || 
+                               questionText.includes(searchTerm) || 
+                               answerText.includes(searchTerm);
+                
+                if (isMatch || searchTerm === '') {
+                    item.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+           
+            if (faqNotFound) {
+                faqNotFound.style.display = (!hasResults && searchTerm !== '') ? 'block' : 'none';
+            }
+        });
+    }
+
+   
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question-chat');
+        question.addEventListener('click', () => {
+           
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            
+            item.classList.toggle('active');
+        });
+    });
+
+   
+    if (contactAdminFromFaq) {
+        contactAdminFromFaq.addEventListener('click', () => {
+
+            chatTabBtns.forEach(b => b.classList.remove('active'));
+            chatTabContents.forEach(c => c.classList.remove('active'));
+            
+            document.querySelector('[data-tab="admin"]').classList.add('active');
+            document.querySelector('[data-tab="admin"].chat-tab-content').classList.add('active');
+        });
+    }
+
+
+    if (whatsappAdminBtn) {
+        whatsappAdminBtn.addEventListener('click', () => {
+            const message = "Halo, saya ingin bertanya tentang produk Luxuliver. Mohon bantuannya.";
+            const whatsappUrl = `https://wa.me/6287820843118??text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
+
+    if (emailAdminBtn) {
+        emailAdminBtn.addEventListener('click', () => {
+            const subject = "Pertanyaan tentang Luxuliver";
+            const body = "Halo,\n\nSaya ingin bertanya tentang:\n\n\nTerima kasih.";
+            const emailUrl = `mailto:luxuliver@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.open(emailUrl, '_blank');
+        });
+    }
+
+   
+    if (quickContactForm) {
+        quickContactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('quick-name').value;
+            const topic = document.getElementById('quick-topic').value;
+            const message = document.getElementById('quick-message').value;
+            
+            if (!name || !topic || !message) {
+                showToast('Mohon lengkapi semua field', 'error');
+                return;
+            }
+            
+            const topicLabels = {
+                'order': 'Pertanyaan Pesanan',
+                'product': 'Informasi Produk',
+                'shipping': 'Pengiriman',
+                'return': 'Pengembalian',
+                'other': 'Lainnya'
+            };
+            
+            const whatsappMessage = `Halo, saya ${name}.\n\nTopik: ${topicLabels[topic]}\n\nPesan: ${message}\n\nMohon bantuannya. Terima kasih.`;
+            const whatsappUrl = `https://wa.me/6287820843118?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            
+
+            quickContactForm.reset();
+            showToast('Pesan telah disiapkan di WhatsApp', 'success');
+        });
+    }
+
+
+    const liveChatCloseBtn = liveChatModal?.querySelector('.close-button');
+    if (liveChatCloseBtn) {
+        liveChatCloseBtn.addEventListener('click', () => {
+            liveChatModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        });
+    }
+
+
+    if (liveChatModal) {
+        liveChatModal.addEventListener('click', (e) => {
+            if (e.target === liveChatModal) {
+                liveChatModal.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+        });
+    }
 });
