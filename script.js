@@ -185,7 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
             follow_instagram: 'Instagram',
             follow_tiktok: 'TikTok',
             nav_reviews: 'Ulasan',
-        reviews_page_title: 'Ulasan Terbaru dari Pelanggan',
+            reviews_page_title: 'Ulasan Terbaru dari Pelanggan',
+            compare_now: 'Bandingkan Sekarang',
+            clear_comparison: 'Bersihkan',
+            comparison_title: 'Perbandingan Produk',
+            toast_max_compare_items: 'Maksimal 3 produk dapat dibandingkan sekaligus.',
+  
         },
         en: {
             nav_home: 'Home',
@@ -361,7 +366,12 @@ document.addEventListener('DOMContentLoaded', () => {
             follow_instagram: 'Instagram',
             follow_tiktok: 'TikTok',
             nav_reviews: 'Reviews',
-        reviews_page_title: 'Latest Customer Reviews',
+            reviews_page_title: 'Latest Customer Reviews',
+            compare_now: 'Compare Now',
+            clear_comparison: 'Clear All',
+            comparison_title: 'Product Comparison',
+            toast_max_compare_items: 'A maximum of 3 products can be compared at once.',
+   
         }
     };
 
@@ -534,6 +544,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let favorites = getLocalStorageItem('favorites', []);
     let savedForLater = getLocalStorageItem('savedForLater', []);
     let recentlyViewed = getLocalStorageItem('recentlyViewed', []);
+    let comparisonList = getLocalStorageItem('comparisonList', []);
+const MAX_COMPARISON_ITEMS = 3;
+
 
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let pendingOrder = null;
@@ -623,6 +636,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const notificationListContainer = document.getElementById('notification-list');
     const notificationTabs = document.querySelector('.notification-tabs');
     const emptyNotificationMessage = document.getElementById('empty-notification-message');
+    const comparisonTray = document.getElementById('comparison-tray');
+const comparisonItemsContainer = document.getElementById('comparison-items');
+const compareNowBtn = document.getElementById('compare-now-btn');
+const clearComparisonBtn = document.getElementById('clear-comparison-btn');
+const comparisonModal = document.getElementById('comparison-modal');
+const comparisonTableContainer = document.getElementById('comparison-table-container');
 
 
     const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
@@ -864,8 +883,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             card.querySelector('.quick-view-btn').addEventListener('click', () => openQuickViewModal(productId));
             card.querySelector('.add-to-favorite').addEventListener('click', e => toggleFavorite(productId, e.currentTarget));
+                card.querySelector('.compare-btn').addEventListener('click', () => {
+   
+    toggleCompare(productId); 
+});
+            
         });
-    }
+}
 
     const renderRecommendations = (currentProduct) => {
         const recommendationsContainer = document.getElementById('modal-recommendations');
@@ -1360,21 +1384,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const averageRating = totalReviews > 0 ? product.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews : 0;
         const ratingHTML = `<div class="product-rating" title="${averageRating.toFixed(1)} dari 5 bintang">${generateStarsHTML(Math.round(averageRating))}<span class="rating-count">(${totalReviews})</span></div>`;
         return `
-    <div class="product-card" data-product-id="${product.id}">
-        ${preOrderBadge}${lowStockLabel}${outOfStockLabel}
-        <div class="product-image-container"><img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
-                <div class="product-info">
-                    <h3>${product.name}</h3>
-                    ${ratingHTML}
-                    <p class="price">${formatRupiah(price)}</p>
-                    <div class="size-options">${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}</div>
-                    <div class="product-actions">
-                        <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> <span data-lang-key="${product.stock === 0 ? 'stock_out' : 'add_button'}">${product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_button}</span></button>
-                        <button class="btn quick-view-btn"><i class="fas fa-eye"></i></button>
-                        <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}"><i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i></button>
-                    </div>
+<div class="product-card" data-product-id="${product.id}">
+    ${preOrderBadge}${lowStockLabel}${outOfStockLabel}
+    <div class="product-image-container"><img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
+            <div class="product-info">
+                <h3>${product.name}</h3>
+                ${ratingHTML}
+                <p class="price">${formatRupiah(price)}</p>
+                <div class="size-options">${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}</div>
+                <div class="product-actions">
+                    <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> <span data-lang-key="${product.stock === 0 ? 'stock_out' : 'add_button'}">${product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_button}</span></button>
+                    <button class="btn quick-view-btn" title="Lihat Cepat"><i class="fas fa-eye"></i></button>
+                    <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit"><i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i></button>
+                    <button class="btn compare-btn" title="Bandingkan"><i class="fas fa-balance-scale"></i></button>
                 </div>
-            </div>`;
+            </div>
+        </div>`;
+        
     };
     
     const createFavoriteCardHTMLLuxury = (product) => {
@@ -1907,6 +1933,158 @@ document.addEventListener('DOMContentLoaded', () => {
 };
 
 
+const saveComparisonList = () => localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
+
+
+const toggleCompare = (productId) => {
+    const productIndex = comparisonList.indexOf(productId);
+
+    if (productIndex > -1) {
+
+        comparisonList.splice(productIndex, 1);
+    } else {
+
+        if (comparisonList.length >= MAX_COMPARISON_ITEMS) {
+            showToast('toast_max_compare_items', 'warning');
+            return;
+        }
+        comparisonList.push(productId);
+    }
+    
+    saveComparisonList();
+    renderComparisonTray();
+    updateAllCompareButtons();
+};
+
+
+const updateAllCompareButtons = () => {
+    document.querySelectorAll('.compare-btn').forEach(button => {
+        const productId = button.closest('.product-card').dataset.productId;
+        const isSelected = comparisonList.includes(productId);
+        button.classList.toggle('selected', isSelected);
+        button.querySelector('i').className = isSelected ? 'fas fa-check' : 'fas fa-balance-scale';
+    });
+};
+
+
+
+const renderComparisonTray = () => {
+    if (comparisonList.length === 0) {
+        comparisonTray.classList.remove('show');
+        return;
+    }
+
+    comparisonItemsContainer.innerHTML = '';
+    comparisonList.forEach(productId => {
+        const product = products.find(p => p.id === productId);
+        if (product) {
+            const itemEl = document.createElement('div');
+            itemEl.className = 'comparison-item';
+            itemEl.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <span>${product.name}</span>
+                <button class="remove-comparison-item" data-product-id="${productId}" title="Hapus">&times;</button>
+            `;
+            comparisonItemsContainer.appendChild(itemEl);
+        }
+    });
+
+
+    comparisonItemsContainer.querySelectorAll('.remove-comparison-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            toggleCompare(e.currentTarget.dataset.productId);
+        });
+    });
+
+
+    compareNowBtn.disabled = comparisonList.length < 2;
+    compareNowBtn.textContent = `${translations[currentLanguage].compare_now} (${comparisonList.length})`;
+
+    comparisonTray.classList.add('show');
+};
+
+
+const renderComparisonModal = () => {
+    const productsToCompare = comparisonList.map(id => products.find(p => p.id === id)).filter(p => p);
+
+    let tableHTML = '<table class="comparison-table">';
+
+    tableHTML += '<thead><tr><th class="attribute-header">Produk</th>';
+    productsToCompare.forEach(product => {
+        tableHTML += `
+            <th>
+                <div class="product-header">
+                    <img src="${product.image}" alt="${product.name}">
+                    <p>${product.name}</p>
+                    
+                    <button class="btn btn-primary btn-sm btn-select-option" data-product-id="${product.id}">
+                        <i class="fas fa-shopping-cart"></i> Pilih Opsi
+                    </button>
+                    </div>
+            </th>`;
+    });
+    tableHTML += '</tr></thead>';
+
+
+    tableHTML += '<tbody>';
+    const attributes = [
+        { key: 'price', label: 'Harga' },
+        { key: 'design', label: 'Desain' },
+        { key: 'color', label: 'Warna' },
+        { key: 'stock', label: 'Ketersediaan' },
+        { key: 'rating', label: 'Rating' }
+    ];
+
+    attributes.forEach(attr => {
+        tableHTML += `<tr><td class="attribute-header">${attr.label}</td>`;
+        productsToCompare.forEach(product => {
+            let value = '';
+            switch (attr.key) {
+                case 'price':
+                    value = formatRupiah(getPriceBySize(product.basePrice, 'M'));
+                    break;
+                case 'design':
+                    value = product.design;
+                    break;
+                case 'color':
+                    value = product.color;
+                    break;
+                case 'stock':
+                    value = product.stock > 0 ? (product.status === 'preorder' ? 'Pre-Order' : 'Tersedia') : 'Habis';
+                    break;
+                case 'rating':
+                    const totalReviews = product.reviews ? product.reviews.length : 0;
+                    const avgRating = totalReviews > 0 ? product.reviews.reduce((acc, r) => acc + r.rating, 0) / totalReviews : 0;
+                    value = `<div class="rating-cell">${generateStarsHTML(Math.round(avgRating))} (${avgRating.toFixed(1)})</div>`;
+                    break;
+            }
+            tableHTML += `<td class="text-capitalize">${value}</td>`;
+        });
+        tableHTML += '</tr>';
+    });
+
+    tableHTML += '</tbody></table>';
+
+    comparisonTableContainer.innerHTML = tableHTML;
+    
+
+    comparisonTableContainer.querySelectorAll('.btn-select-option').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const productId = e.currentTarget.dataset.productId;
+            
+            closeModal(comparisonModal);
+            
+            setTimeout(() => {
+                openQuickViewModal(productId);
+            }, 300); 
+        });
+    });
+    
+    openModal(comparisonModal);
+};
+
+
+
     const applyTheme = (theme) => {
     body.classList.toggle('dark-mode', theme === 'dark');
 };
@@ -2325,6 +2503,19 @@ if (paymentMethodContainer) {
         if (target) setLanguage(target.dataset.lang);
     });
     useSavedAddressBtn.addEventListener('click', loadSavedAddress);
+    compareNowBtn.addEventListener('click', () => {
+        if (comparisonList.length >= 2) {
+            renderComparisonModal();
+        }
+    });
+
+    clearComparisonBtn.addEventListener('click', () => {
+        comparisonList = [];
+        saveComparisonList();
+        renderComparisonTray();
+        updateAllCompareButtons();
+        showToast('Daftar perbandingan dibersihkan.', 'info');
+    });
 
     const initializeApp = () => {
         applyTheme(localStorage.getItem('theme') || 'light');
@@ -2339,6 +2530,8 @@ if (paymentMethodContainer) {
         renderSkeletonLoaders(productList, 6);
         updateResetButtonVisibility();
         applyRippleEffect();
+        renderComparisonTray();
+    updateAllCompareButtons();
 
         setTimeout(() => {
             setLanguage(localStorage.getItem('language') || 'id');
