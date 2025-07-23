@@ -333,6 +333,17 @@
             <div class="section-divider"></div>
         </div>
     </main>
+    
+    <div id="comparison-tray" class="comparison-tray">
+    <div class="comparison-tray-content">
+        <div class="comparison-items" id="comparison-items">
+            </div>
+        <div class="comparison-actions">
+            <button id="compare-now-btn" class="btn btn-primary" disabled data-lang-key="compare_now">Bandingkan Sekarang</button>
+            <button id="clear-comparison-btn" class="btn btn-danger" data-lang-key="clear_comparison">Bersihkan</button>
+        </div>
+    </div>
+</div>
 
     <footer>
         <div class="container">
@@ -807,6 +818,15 @@
             </div>
         </div>
     </div>
+    
+    <div id="comparison-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 data-lang-key="comparison_title">Perbandingan Produk</h3>
+        <div id="comparison-table-container" class="comparison-table-container">
+            </div>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>
