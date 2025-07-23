@@ -1764,8 +1764,8 @@ footer::before {
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* <-- Ganti menjadi ini untuk membuat 2 kolom */
-    gap: 50px 70px; /* <-- Ubah ini agar jarak vertikal dan horizontal bisa diatur */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 50px 70px; 
     position: relative;
     z-index: 1;
 }
@@ -4037,23 +4037,23 @@ body.dark-mode .notification-tab-btn.active {
 }
 
 .notification-item.category-promo .notification-icon {
-    background-color: #6c757d;  /* Latar abu-abu tua */
-    color: #ffffff;             /* Ikon warna putih */
+    background-color: #6c757d; 
+    color: #ffffff;    
 }
 
 .notification-item.category-info .notification-icon {
-    background-color: #f0f0f0;  /* Latar abu-abu sangat muda */
-    color: #555555;             /* Ikon warna abu-abu gelap */
+    background-color: #f0f0f0;  
+    color: #555555;             
 }
 
 body.dark-mode .notification-item.category-promo .notification-icon {
-    background-color: #5a5a5a;  /* Abu-abu medium di mode gelap */
+    background-color: #5a5a5a; 
     color: #e0e0e0;
 }
 
 body.dark-mode .notification-item.category-info .notification-icon {
-    background-color: #333333; /* Latar abu-abu gelap */
-    color: #bbbbbb;            /* Ikon warna abu-abu terang */
+    background-color: #333333;
+    color: #bbbbbb;          
 }
 
 .notification-content {
@@ -5879,7 +5879,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     border-top: none;
 }
 
-/* Live Chat Styles */
+
 .live-chat-content {
     max-width: 800px;
     width: 90vw;
@@ -5975,7 +5975,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     display: block;
 }
 
-/* FAQ Search */
+
 .faq-search {
     position: relative;
     margin-bottom: 20px;
@@ -6003,7 +6003,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     color: #666;
 }
 
-/* FAQ Items */
+
 .faq-list {
     max-height: 400px;
     overflow-y: auto;
@@ -6070,7 +6070,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     color: #555;
 }
 
-/* FAQ Not Found */
+
 .faq-not-found {
     text-align: center;
     padding: 40px 20px;
@@ -6088,7 +6088,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     font-size: 1.1rem;
 }
 
-/* Admin Contact */
+
 .admin-contact-info {
     text-align: center;
     padding: 30px 20px;
@@ -6121,7 +6121,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     color: #666;
 }
 
-/* Contact Options */
+
 .contact-options {
     display: flex;
     flex-direction: column;
@@ -6179,7 +6179,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     font-size: 0.9rem;
 }
 
-/* Quick Contact Form */
+
 .quick-contact-form {
     background: #f8f9fa;
     padding: 25px;
@@ -6228,7 +6228,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     font-weight: 600;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .live-chat-content {
         width: 95vw;
@@ -6261,7 +6261,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     }
 }
 
-/* Animation for FAQ items */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -6277,7 +6277,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     animation: fadeInUp 0.3s ease;
 }
 
-/* Scrollbar styling for chat content */
+
 .chat-tab-content::-webkit-scrollbar,
 .faq-list::-webkit-scrollbar {
     width: 6px;
@@ -6301,8 +6301,8 @@ body.dark-mode .order-actions-ultra .btn:disabled {
 }
 
 #live-chat-modal {
-    align-items: flex-start; /* Mengubah perataan vertikal ke atas */
-    padding-top: 30vh;      /* Memberi jarak 5% dari atas layar */
+    align-items: flex-start;
+    padding-top: 30vh;      
 }
 
 
@@ -6319,7 +6319,7 @@ body.dark-mode .order-actions-ultra .btn:disabled {
     background-color: rgba(0, 0, 0, 0.02);
 }
 
-/* GAYA 2: Tampilan LAYAR PENUH (untuk Halaman Khusus) */
+
 body.single-section-view .empty-state-container {
     min-height: 80vh;
     padding: 40px 20px;
@@ -6328,9 +6328,9 @@ body.single-section-view .empty-state-container {
     background-color: transparent;
 }
 
-/* GAYA UNTUK IKON (Ini yang hilang sebelumnya) */
+
 .empty-state-icon {
-    font-size: 5rem; /* Ukuran ikon sedikit diperkecil agar lebih proporsional */
+    font-size: 5rem; 
     color: var(--light-text);
     opacity: 0.5;
     margin-bottom: 2rem;
@@ -6343,12 +6343,12 @@ body.single-section-view .empty-state-container {
     color: var(--accent-color);
 }
 
-/* GAYA UNTUK TEKS DI BAWAH IKON (Dengan margin yang benar) */
+
 .empty-state-text {
     font-size: 1.1rem;
     color: var(--light-text);
     font-weight: 400;
-    margin: 0; /* Margin diperbaiki */
+    margin: 0; 
     max-width: 450px;
     font-style: italic;
 }
