@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="no-scroll">
 
     <div id="loading-screen">
        <video id="loading-video" autoplay muted playsinline preload="auto">
@@ -125,20 +124,40 @@
                       <li><a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a></li>
                   </ul>
                  </li>
-                <hr>
-                <li>
-                    <div class="sidebar-action-item">
-                        <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
-                       <button id="dark-mode-toggle" class="btn-utility">
-                   <i class="fas fa-sun theme-icon sun-icon"></i>
-                <i class="fas fa-moon theme-icon moon-icon"></i>
+                 
+                 <li>
+    <a href="#" class="sidebar-category-toggle">
+        <i class="fas fa-magic"></i> <span>Pengaturan Visual</span>
+        <i class="fas fa-chevron-right"></i>
+    </a>
+    <ul class="sidebar-submenu">
+        <li>
+            <a href="#" id="a11y-sidebar-btn">
+                <i class="fas fa-universal-access"></i> <span>Aksesibilitas</span>
+            </a>
+        </li>
+        <li>
+            <div class="sidebar-action-item">
+                <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
+                <button id="dark-mode-toggle" class="btn-utility">
+                    <i class="fas fa-sun theme-icon sun-icon"></i>
+                    <i class="fas fa-moon theme-icon moon-icon"></i>
                 </button>
-                    </div>
-                </li>
+            </div>
+        </li>
+    </ul>
+</li>
+
                 <li>
                     <a href="#" id="video-gallery-btn"><i class="fas fa-film"></i> <span data-lang-key="sidebar_video_gallery">Khusus Vidio</span></a>
                 </li>
             </ul>
+            <li id="logout-menu-item">
+    <a href="#" id="logout-btn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+    </a>
+    </li>
             <button id="reset-filters-btn" class="btn btn-secondary" data-lang-key="sidebar_reset_filters">Reset Semua Filter</button>
         </nav>
     </aside>
@@ -162,9 +181,28 @@
                     <button id="search-button" class="btn btn-primary"><i class="fas fa-search"></i> <span data-lang-key="search_button">Cari</span></button>
                 </div>
             </section>
-
-            <section id="koleksi">
+            
+                <section id="koleksi">
                 <h2 data-lang-key="all_collections_title">Semua Koleksi</h2>
+
+                <div class="sorting-controls-container">
+    <div class="custom-select-wrapper">
+        <div class="custom-select-trigger">
+            <span>URUTKAN:</span>
+            <strong id="custom-select-value">Standar</strong>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="custom-select-options">
+            </div>
+        <select id="sort-products-dropdown" class="original-select">
+            <option value="default">Standar</option>
+            <option value="popularity">Populer</option>
+            <option value="price-asc">Harga: Terendah</option>
+            <option value="price-desc">Harga: Tertinggi</option>
+        </select>
+    </div>
+</div>
+                
                 <div id="product-list" class="product-grid">
                     </div>
                 <p id="no-results-message" class="info-message" style="display: none;" data-lang-key="no_results">Produk tidak ditemukan.</p>
@@ -322,6 +360,8 @@
                     </div>
                 <p id="empty-history-message" class="info-message" style="display: none;" data-lang-key="empty_history">Anda belum memiliki riwayat pesanan.</p>
             </section>
+            
+            
             
             <section id="ulasan" style="display: none;">
                 <h2 data-lang-key="reviews_page_title">Ulasan Terbaru dari Pelanggan</h2>
@@ -604,7 +644,6 @@
                         <option value="cacat_produksi">Ada cacat produksi</option>
                         <option value="salah_ukuran">Barang tidak sesuai ukuran </option>
                         <option value="salah_produk">Salah produk yang dikirim</option>
-                        <option value="lainnya">Lainnya</option>
                     </select>
                 </div>
 
@@ -828,6 +867,68 @@
     </div>
 </div>
 
-    <script src="script.js"></script>
+ <div id="a11y-panel" class="a11y-panel">
+    <div class="a11y-panel-header">
+        <h4>Pengaturan Tampilan & Aksesibilitas</h4>
+        <button id="a11y-panel-close-btn" class="a11y-panel-close-btn" title="Tutup">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Ukuran Teks</span>
+        <div class="a11y-controls">
+            <button data-action="font-decrease" title="Perkecil Teks">A-</button>
+            <button data-action="font-reset" title="Reset Ukuran Teks">A</button>
+            <button data-action="font-increase" title="Perbesar Teks">A+</button>
+        </div>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Teks Mudah Dibaca</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-readable-font">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Kontras Tinggi</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-contrast">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Garis Bawahi Tautan</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-underline-links">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Kurangi Gerakan</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-reduce-motion">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    
+    <div class="a11y-option">
+        <span class="a11y-label">Pemandu Baca</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-reading-guide">
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>
+
+<div id="reading-guide"></div>
+
+
+
+<script src="script.js"></script>
 </body>
 </html>
