@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             compare_now: 'Bandingkan Sekarang',
             clear_comparison: 'Bersihkan',
             comparison_title: 'Perbandingan Produk',
-            toast_max_compare_items: 'Maksimal 3 produk dapat dibandingkan sekaligus.',
+            toast_max_compare_items: 'Maksimal 2 produk dapat dibandingkan sekaligus.',
   
         },
         en: {
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             compare_now: 'Compare Now',
             clear_comparison: 'Clear All',
             comparison_title: 'Product Comparison',
-            toast_max_compare_items: 'A maximum of 3 products can be compared at once.',
+            toast_max_compare_items: 'A maximum of 2 products can be compared at once.',
    
         }
     };
@@ -545,7 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let savedForLater = getLocalStorageItem('savedForLater', []);
     let recentlyViewed = getLocalStorageItem('recentlyViewed', []);
     let comparisonList = getLocalStorageItem('comparisonList', []);
-const MAX_COMPARISON_ITEMS = 3;
+const MAX_COMPARISON_ITEMS = 2;
 
 
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
@@ -637,6 +637,8 @@ const MAX_COMPARISON_ITEMS = 3;
     const notificationTabs = document.querySelector('.notification-tabs');
     const emptyNotificationMessage = document.getElementById('empty-notification-message');
     const comparisonTray = document.getElementById('comparison-tray');
+    const sortProductsDropdown = document.getElementById('sort-products-dropdown');
+
 const comparisonItemsContainer = document.getElementById('comparison-items');
 const compareNowBtn = document.getElementById('compare-now-btn');
 const clearComparisonBtn = document.getElementById('clear-comparison-btn');
@@ -1257,16 +1259,17 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
         const addressData = { name: document.getElementById('customer-name').value, phone: document.getElementById('customer-phone').value, address: document.getElementById('customer-address').value };
         if (addressData.name && addressData.phone && addressData.address) localStorage.setItem('savedAddress', JSON.stringify(addressData));
     };
-
-    const loadSavedAddress = () => {
-        const savedAddress = JSON.parse(localStorage.getItem('savedAddress'));
-        if (savedAddress) {
-            document.getElementById('customer-name').value = savedAddress.name;
-            document.getElementById('customer-phone').value = savedAddress.phone;
-            document.getElementById('customer-address').value = savedAddress.address;
-            showToast('toast_address_loaded', 'success');
-        }
-    };
+    
+   
+const loadSavedAddress = () => {
+    const userProfile = getLocalStorageItem('luxuliverUser', null);
+    if (userProfile && userProfile.address) {
+        document.getElementById('customer-name').value = userProfile.name;
+        document.getElementById('customer-phone').value = userProfile.phone;
+        document.getElementById('customer-address').value = userProfile.address;
+        showToast('toast_address_loaded', 'success');
+    }
+};
 
     const renderSavedForLater = () => {
         savedForLaterContainer.innerHTML = '';
@@ -1332,23 +1335,46 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
         openModal(whatsappConfirmationModal);
     });
 
-    whatsappConfirmYesBtn.addEventListener('click', () => {
-        if (pendingOrder) {
-            let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
-            orderHistory.unshift(pendingOrder);
-            localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
-            orderCounter++;
-            localStorage.setItem('orderCounter', orderCounter.toString());
-            saveAddress();
-            cart = [];
-            saveCart();
-            refreshAllCartViews();
-            renderOrderHistory();
-            checkoutForm.reset();
-            closeModal(whatsappConfirmationModal);
-            showToast("toast_order_confirmed", "success");
-            pendingOrder = null;
-        }
+whatsappConfirmYesBtn.addEventListener('click', () => {
+    if (pendingOrder) {
+
+        let userProfile = getLocalStorageItem('luxuliverUser', {
+            name: '',
+            phone: '',
+            address: '',
+            history: []
+        });
+
+
+        const formData = new FormData(checkoutForm);
+        userProfile.name = formData.get('customer-name');
+        userProfile.phone = formData.get('customer-phone');
+        userProfile.address = formData.get('customer-address');
+
+
+        userProfile.history.unshift(pendingOrder);
+
+
+        localStorage.setItem('luxuliverUser', JSON.stringify(userProfile));
+
+
+        localStorage.removeItem('savedAddress');
+
+        localStorage.removeItem('orderHistory');
+
+
+        orderCounter++;
+        localStorage.setItem('orderCounter', orderCounter.toString());
+
+        cart = [];
+        saveCart();
+        refreshAllCartViews();
+        renderOrderHistory(); 
+        checkoutForm.reset();
+        closeModal(whatsappConfirmationModal);
+        showToast("toast_order_confirmed", "success");
+        pendingOrder = null;
+    }
     });
 
     whatsappConfirmNoBtn.addEventListener('click', () => {
@@ -1396,7 +1422,7 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
                     <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> <span data-lang-key="${product.stock === 0 ? 'stock_out' : 'add_button'}">${product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_button}</span></button>
                     <button class="btn quick-view-btn" title="Lihat Cepat"><i class="fas fa-eye"></i></button>
                     <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit"><i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i></button>
-                    <button class="btn compare-btn" title="Bandingkan"><i class="fas fa-balance-scale"></i></button>
+                    <button class="btn compare-btn" title="Bandingkan"><i class="fas fa-layer-group"></i></button>
                 </div>
             </div>
         </div>`;
@@ -1443,16 +1469,30 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
     const currentSearchTerm = searchInput.value.trim().toLowerCase();
     if (currentSearchTerm) filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(currentSearchTerm));
     if (activeFilters.availability === 'ready') {
-        filteredProducts = filteredProducts.filter(p => p.status === 'ready');
+        filteredProducts = filteredProducts.filter(p => p.status !== 'preorder' && p.stock > 0);
     } else if (activeFilters.availability === 'preorder') {
         filteredProducts = filteredProducts.filter(p => p.status === 'preorder');
     }
     if (activeFilters.color !== 'all') filteredProducts = filteredProducts.filter(p => p.color === activeFilters.color);
     if (activeFilters.design !== 'all') filteredProducts = filteredProducts.filter(p => p.design === activeFilters.design);
-    
+
+
+    const sortDropdown = document.getElementById('sort-products-dropdown');
+    if (sortDropdown) { 
+        const sortValue = sortDropdown.value;
+        if (sortValue === 'popularity') {
+            filteredProducts.sort((a, b) => (b.reviews?.length || 0) - (a.reviews?.length || 0));
+        } else if (sortValue === 'price-asc') {
+            filteredProducts.sort((a, b) => getPriceBySize(a.basePrice, 'M') - getPriceBySize(b.basePrice, 'M'));
+        } else if (sortValue === 'price-desc') {
+            filteredProducts.sort((a, b) => getPriceBySize(b.basePrice, 'M') - getPriceBySize(a.basePrice, 'M'));
+        }
+    }
+
+
     const container = productList;
     const visibleProductIds = new Set(filteredProducts.map(p => p.id));
-    
+
     Array.from(container.children).forEach(card => {
         if (!visibleProductIds.has(card.dataset.productId) && !card.classList.contains('hidden')) card.classList.add('hidden');
     });
@@ -1470,13 +1510,10 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
 
     const isFilterOrSearchActive = activeFilters.availability !== 'all' || activeFilters.color !== 'all' || activeFilters.design !== 'all' || currentSearchTerm;
 
-
-    
-
     const kolekasiH2 = document.querySelector('#koleksi h2');
     if (isFilterOrSearchActive) {
         let titleParts = [];
-        if (activeFilters.availability !== 'all') titleParts.push(translations[currentLanguage].sidebar_in_stock);
+        if (activeFilters.availability === 'in_stock') titleParts.push(translations[currentLanguage].sidebar_in_stock);
         if (activeFilters.color !== 'all') titleParts.push(`${translations[currentLanguage].sidebar_color} ${translations[currentLanguage]['color_' + activeFilters.color]}`);
         if (activeFilters.design !== 'all') titleParts.push(`${translations[currentLanguage].sidebar_design} ${translations[currentLanguage]['design_' + activeFilters.design]}`);
         if (currentSearchTerm) titleParts.push(`Pencarian "${searchInput.value.trim()}"`);
@@ -1751,7 +1788,9 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
    
    
    const renderOrderHistory = () => {
-    const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
+    const userProfile = getLocalStorageItem('luxuliverUser', null);
+    const history = userProfile ? userProfile.history || [] : [];
+
 
     const returnedOrderIds = JSON.parse(localStorage.getItem('returnedOrderIds')) || [];
 
@@ -1962,7 +2001,8 @@ const updateAllCompareButtons = () => {
         const productId = button.closest('.product-card').dataset.productId;
         const isSelected = comparisonList.includes(productId);
         button.classList.toggle('selected', isSelected);
-        button.querySelector('i').className = isSelected ? 'fas fa-check' : 'fas fa-balance-scale';
+        
+        button.querySelector('i').className = isSelected ? 'fas fa-check' : 'fas fa-layer-group';
     });
 };
 
@@ -2516,7 +2556,113 @@ if (paymentMethodContainer) {
         updateAllCompareButtons();
         showToast('Daftar perbandingan dibersihkan.', 'info');
     });
+    
+    
+    function initializeAccessibilityPanel() {
 
+    const toggleBtn = document.getElementById('a11y-sidebar-btn');
+    const panel = document.getElementById('a11y-panel');
+    const closeBtn = document.getElementById('a11y-panel-close-btn');
+    const readingGuideElement = document.getElementById('reading-guide');
+
+
+    let prefs = getLocalStorageItem('a11yPrefs', { 
+        fontSizeMultiplier: 1.0, 
+        highContrast: false,
+        readableFont: false,     
+        underlineLinks: false,    
+        reduceMotion: false,      
+        readingGuide: false      
+    });
+
+
+    const applyPrefs = () => {
+        
+        document.documentElement.style.fontSize = `${16 * prefs.fontSizeMultiplier}px`;
+        
+       
+        document.body.classList.toggle('high-contrast', prefs.highContrast);
+        document.body.classList.toggle('readable-font', prefs.readableFont);
+        document.body.classList.toggle('underline-links', prefs.underlineLinks);
+        document.body.classList.toggle('reduce-motion', prefs.reduceMotion);
+        document.body.classList.toggle('reading-guide-active', prefs.readingGuide);
+
+
+        panel.querySelector('[data-action="toggle-contrast"]').checked = prefs.highContrast;
+        panel.querySelector('[data-action="toggle-readable-font"]').checked = prefs.readableFont;
+        panel.querySelector('[data-action="toggle-underline-links"]').checked = prefs.underlineLinks;
+        panel.querySelector('[data-action="toggle-reduce-motion"]').checked = prefs.reduceMotion;
+        panel.querySelector('[data-action="toggle-reading-guide"]').checked = prefs.readingGuide;
+    };
+
+
+    const savePrefs = () => {
+        localStorage.setItem('a11yPrefs', JSON.stringify(prefs));
+    };
+
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        panel.classList.toggle('open');
+    });
+
+
+    closeBtn.addEventListener('click', () => {
+        panel.classList.remove('open');
+    });
+
+    
+    panel.addEventListener('click', (e) => {
+        const action = e.target.dataset.action;
+        if (!action) return;
+
+        switch (action) {
+            case 'font-increase':
+                prefs.fontSizeMultiplier = Math.min(1.5, prefs.fontSizeMultiplier * 1.1);
+                break;
+            case 'font-decrease':
+                prefs.fontSizeMultiplier = Math.max(0.8, prefs.fontSizeMultiplier * 0.9);
+                break;
+            case 'font-reset':
+                prefs.fontSizeMultiplier = 1.0;
+                break;
+            case 'toggle-contrast':
+                prefs.highContrast = e.target.checked;
+                break;
+            case 'toggle-readable-font': 
+                prefs.readableFont = e.target.checked;
+                break;
+            case 'toggle-underline-links': 
+                prefs.underlineLinks = e.target.checked;
+                break;
+            case 'toggle-reduce-motion': 
+                prefs.reduceMotion = e.target.checked;
+                break;
+            case 'toggle-reading-guide': 
+                prefs.readingGuide = e.target.checked;
+                break;
+        }
+        
+        applyPrefs();
+        savePrefs();
+    });
+    
+
+    document.addEventListener('mousemove', (e) => {
+        if (prefs.readingGuide && readingGuideElement) {
+
+            window.requestAnimationFrame(() => {
+                readingGuideElement.style.top = `${e.clientY}px`;
+            });
+        }
+    });
+
+
+    applyPrefs();
+}
+    
+    
+    
     const initializeApp = () => {
         applyTheme(localStorage.getItem('theme') || 'light');
         handleScrollProgress();
@@ -2695,6 +2841,9 @@ if (returnConfirmationModal) {
             }
         });
     }
+    
+    initializeAccessibilityPanel();
+    
     showMainContentSection('#hero');
     };
 
@@ -2910,4 +3059,100 @@ if (returnConfirmationModal) {
             }
         });
     }
-});
+    
+    
+    const wrapper = document.querySelector('.custom-select-wrapper');
+    if (wrapper) {
+        const trigger = wrapper.querySelector('.custom-select-trigger');
+        const valueDisplay = wrapper.querySelector('#custom-select-value');
+        const optionsContainer = wrapper.querySelector('.custom-select-options');
+        const originalSelect = wrapper.querySelector('.original-select');
+
+        if (originalSelect && optionsContainer) {
+            Array.from(originalSelect.options).forEach(option => {
+                const customOption = document.createElement('div');
+                customOption.classList.add('custom-select-option');
+                customOption.textContent = option.textContent;
+                customOption.dataset.value = option.value;
+                if (option.selected) {
+                    customOption.classList.add('selected');
+                    if(valueDisplay) valueDisplay.textContent = option.textContent;
+                }
+                optionsContainer.appendChild(customOption);
+            });
+        }
+
+        const customOptions = optionsContainer ? optionsContainer.querySelectorAll('.custom-select-option') : [];
+
+        if(trigger) {
+            trigger.addEventListener('click', () => {
+                wrapper.classList.toggle('open');
+            });
+        }
+
+        customOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                if (option.classList.contains('selected')) {
+                    wrapper.classList.remove('open');
+                    return;
+                }
+
+                customOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+                if(valueDisplay) valueDisplay.textContent = option.textContent;
+
+
+                if(originalSelect) originalSelect.value = option.dataset.value;
+
+                renderAllProductShowcases(searchInput.value.trim());
+
+                wrapper.classList.remove('open');
+            });
+        });
+
+
+        document.addEventListener('click', (e) => {
+            if (wrapper && !wrapper.contains(e.target)) {
+                wrapper.classList.remove('open');
+            }
+        });
+    }
+    
+
+const logoutMenuItem = document.getElementById('logout-menu-item');
+
+if (logoutMenuItem) {
+    const userProfile = getLocalStorageItem('luxuliverUser', null);
+
+    if (userProfile) {
+        logoutMenuItem.style.display = 'block';
+    }
+
+    const logoutBtn = logoutMenuItem.querySelector('#logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+
+            const confirmationMessage = 'Semua data sesi Anda (Keranjang, Favorit, Riwayat Pesanan) akan dihapus dari peramban ini. Yakin ingin logout?';
+            
+            showConfirmationModal(confirmationMessage, () => {
+                
+                const userSessionKeys = [
+                    'luxuliverUser', 
+                    'cart',    
+                    'favorites',    
+                    'savedForLater',
+                    'recentlyViewed', 
+                    'comparisonList' 
+                ];
+
+                userSessionKeys.forEach(key => localStorage.removeItem(key));
+
+                window.location.reload();
+            });
+        });
+    }
+}
+
+}); 
