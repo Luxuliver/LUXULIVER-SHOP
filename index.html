@@ -83,7 +83,9 @@
                         <li><a href="#ulasan">
         <i class="fas fa-star"></i> <span data-lang-key="nav_reviews">Ulasan</span>
     </a></li>
-                    </ul>
+           
+                <li><a href="#loyalty-points" data-lang-key="nav_loyalty"><i class="fas fa-gem"></i> <span data-lang-key="nav_loyalty">Poin Loyalty</span></a></li>
+                </ul>
                 </li>
                 <li>
     <a href="#" class="sidebar-category-toggle"><i class="fas fa-filter"></i> Pilihan Produk <i class="fas fa-chevron-right"></i></a>
@@ -370,6 +372,21 @@
                 </div>
                 <p id="empty-all-reviews-message" class.="info-message" style="display: none;" data-lang-key="empty_all_reviews">Belum ada ulasan yang diberikan.</p>
             </section>
+            
+            <section id="loyalty-points" style="display: none;">
+    <h2 data-lang-key="loyalty_title">Poin Loyalty Anda</h2>
+    <div class="loyalty-info-card">
+        <div class="loyalty-current-points">
+            <span data-lang-key="loyalty_current_points_label">Poin Anda Saat Ini:</span>
+            <strong id="current-loyalty-points">0</strong> <i class="fas fa-gem"></i>
+        </div>
+        <div id="loyalty-next-tier" class="loyalty-next-tier">
+            </div>
+    </div>
+    <div id="loyalty-tiers-container" class="loyalty-tiers-container">
+        </div>
+    <p id="empty-loyalty-message" class="info-message" style="display: none;" data-lang-key="empty_loyalty">Mulai belanja untuk mengumpulkan poin loyalty!</p>
+</section>
 
             <div class="section-divider"></div>
         </div>
