@@ -190,6 +190,21 @@ document.addEventListener('DOMContentLoaded', () => {
             clear_comparison: 'Bersihkan',
             comparison_title: 'Perbandingan Produk',
             toast_max_compare_items: 'Maksimal 2 produk dapat dibandingkan sekaligus.',
+            nav_loyalty: 'Poin Loyalty',
+            loyalty_title: 'Poin Loyalty Anda',
+            loyalty_current_points_label: 'Poin Anda Saat Ini:',
+            loyalty_next_tier_progress: (pointsNeeded, tierName) => `Dapatkan ${pointsNeeded} poin lagi untuk level ${tierName} Premium!`,
+            loyalty_next_tier_unlocked_all: 'Selamat! Anda telah membuka semua level premium!',
+            loyalty_tier_500_title: 'Loyalty Level: Perunggu',
+            loyalty_tier_500_message: 'Selamat! Anda telah mencapai tier perunggu. Terima kasih atas kepercayaan yang anda berikan kepada kami.',
+            loyalty_tier_1000_title: 'Loyalty Level: Perak',
+            loyalty_tier_1000_message: 'Selamat! Anda telah mencapai tier perak Tier ini menunjukan keberlanjutan loyalitas anda.',
+            loyalty_tier_1500_title: 'Loyalty Level: Emas',
+            loyalty_tier_1500_message: 'Selamat! Anda kini menjadi simbol kepercayaan tertinggi kami.',
+            loyalty_tier_locked: 'Terkunci',
+            loyalty_tier_unlocked: 'Terbuka!',
+            empty_loyalty: 'Mulai belanja untuk mengumpulkan poin loyalty!',
+
   
         },
         en: {
@@ -371,6 +386,20 @@ document.addEventListener('DOMContentLoaded', () => {
             clear_comparison: 'Clear All',
             comparison_title: 'Product Comparison',
             toast_max_compare_items: 'A maximum of 2 products can be compared at once.',
+            nav_loyalty: 'Loyalty Points',
+            loyalty_title: 'Your Loyalty Points',
+            loyalty_current_points_label: 'Your Current Points:',
+            loyalty_next_tier_progress: (pointsNeeded, tierName) => `Earn ${pointsNeeded} more points for ${tierName} Premium Level!`,
+            loyalty_next_tier_unlocked_all: 'Congratulations! You have unlocked all premium levels!',
+            loyalty_tier_500_title: 'Loyalty Level: Bronze',
+            loyalty_tier_500_message: 'Congratulations on reaching the Bronze Tier. We truly appreciate your trust and support.',
+            loyalty_tier_1000_title: 'Loyalty Level: Silver',
+            loyalty_tier_1000_message: 'Congratulations! You have reached the Silver Tier. This tier represents your ongoing loyalty.',
+            loyalty_tier_1500_title: 'Loyalty Level: Gold',
+            loyalty_tier_1500_message: 'Congratulations! You are now a symbol of our highest trust.',
+            loyalty_tier_locked: 'Locked',
+            loyalty_tier_unlocked: 'Unlocked!',
+            empty_loyalty: 'Start shopping to collect loyalty points!'
    
         }
     };
@@ -387,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
             design: 'abstrak',
             stock: 15,
             status: 'preorder', 
+            points: 100,
             reviews: [
                 { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-06-29' },
                 { author: 'Subhan Saputro', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-06-29' },
@@ -407,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
             design: 'abstrak',
             stock: 15,
             status: 'preorder', 
+            points: 100,
             reviews: [
                 { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-06-28' },
                 { author: 'Eko Rahman', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-07-01' }, 
@@ -425,6 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
             design: 'abstrak',
             stock: 15,
             status: 'preorder', 
+            points: 100,
             reviews: [
                 { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }, 
                 { author: 'Yoga Wijayanto', rating: 5, text: 'cocok buat cauaca panas', date: '2025-06-24' },
@@ -447,6 +479,7 @@ document.addEventListener('DOMContentLoaded', () => {
             design: 'abstrak',
             stock: 15,
             status: 'preorder', 
+            points: 100,
             reviews: [
                 { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }, 
                 { author: 'Akbar Wirawan', rating: 5, text: 'sudah beli 2x, gak kecewain emang di sini', date: '2025-06-22' }, 
@@ -464,6 +497,7 @@ document.addEventListener('DOMContentLoaded', () => {
             design: 'classy',
             stock: 5,
             status: 'preorder', 
+            points: 125,
             reviews: [
                 { author: 'Candha Mahardika', rating: 5, text: 'Anjir bagus cuy classy nya', date: '2025-07-09' },
                 { author: 'Sandi', rating: 5, text: 'Gak expect sebagus ini', date: '2025-07-09' }, 
@@ -546,6 +580,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let recentlyViewed = getLocalStorageItem('recentlyViewed', []);
     let comparisonList = getLocalStorageItem('comparisonList', []);
 const MAX_COMPARISON_ITEMS = 2;
+ let userLoyaltyPoints = getLocalStorageItem('userLoyaltyPoints', 0);
+const loyaltyTiers = [
+    { points: 500, message: 'loyalty_tier_500_message', class: 'loyalty-tier-500' },
+    { points: 1000, message: 'loyalty_tier_1000_message', class: 'loyalty-tier-1000' },
+    { points: 1500, message: 'loyalty_tier_1500_message', class: 'loyalty-tier-1500' }
+];
 
 
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
@@ -559,85 +599,90 @@ const MAX_COMPARISON_ITEMS = 2;
         design: 'all'
     };
 
-    const body = document.body;
-    const productList = document.getElementById('product-list');
-    const cartItemsContainer = document.getElementById('cart-items-container');
-    const cartCountSpan = document.getElementById('cart-count');
-    const subtotalPriceSpan = document.getElementById('subtotal-price');
-    const discountAmountSpan = document.getElementById('discount-amount');
-    const totalPriceSpan = document.getElementById('total-price');
-    const emptyCartMessage = document.getElementById('empty-cart-message');
-    const noResultsMessage = document.getElementById('no-results-message');
-    const checkoutBtn = document.getElementById('checkout-btn');
-    const cartSummary = document.getElementById('cart-summary');
-    const checkoutFormContainer = document.getElementById('checkout-form-container');
-    const checkoutForm = document.getElementById('checkout-form');
-    const currentYearSpan = document.getElementById('current-year');
-    const searchInput = document.getElementById('search-input');
-    const searchButton = document.getElementById('search-button');
-    const searchSuggestionsContainer = document.getElementById('search-suggestions-container');
-    const backToTopButton = document.getElementById('back-to-top');
-    const toastContainer = document.getElementById('toast-container');
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const loadingScreen = document.getElementById('loading-screen');
-    const loadingVideo = document.getElementById('loading-video');
-    const quickViewModal = document.getElementById('quick-view-modal');
-    const modalSizeOptions = document.getElementById('modal-size-options');
-    const sizeGuideModal = document.getElementById('size-guide-modal');
-    const modalSizeGuideBtn = document.getElementById('modal-size-guide-btn');
-    const sizeChartTableBody = document.getElementById('size-chart-table').querySelector('tbody');
-    const sellerAddressSpan = document.getElementById('seller-address');
-    const sellerPhoneSpan = document.getElementById('seller-phone');
-    const sellerEmailSpan = document.getElementById('seller-email');
-    const sellerPhoneLink = document.getElementById('seller-phone-link');
-    const sellerEmailLink = document.getElementById('seller-email-link');
-    const favoriteCountSpan = document.getElementById('favorite-count');
-    const favoriteProductsList = document.getElementById('favorite-products-list');
-    const emptyFavoritesMessage = document.getElementById('empty-favorites-message');
-    const progressBar = document.getElementById('progress-bar');
-    const checkoutSteps = document.querySelectorAll('.checkout-step');
-    const prevStepBtn = document.getElementById('prev-step-btn');
-    const nextStepBtn = document.getElementById('next-step-btn');
-    const submitOrderBtn = document.getElementById('submit-order-btn');
-    const finalOrderSummaryContainer = document.getElementById('final-order-summary');
-    let currentStep = 1;
-    const confirmationModal = document.getElementById('confirmation-modal');
-    const confirmMessage = document.getElementById('confirm-message');
-    const confirmYesBtn = document.getElementById('confirm-yes');
-    const confirmNoBtn = document.getElementById('confirm-no');
-    const promoUpsellMessage = document.getElementById('promo-upsell-message');
-    const whatsappConfirmationModal = document.getElementById('whatsapp-confirmation-modal');
-    const whatsappConfirmYesBtn = document.getElementById('whatsapp-confirm-yes');
-    const whatsappConfirmNoBtn = document.getElementById('whatsapp-confirm-no');
-    const orderHistoryList = document.getElementById('order-history-list');
-    const emptyHistoryMessage = document.getElementById('empty-history-message');
-    const allReviewsList = document.getElementById('all-reviews-list');
-    const emptyAllReviewsMessage = document.getElementById('empty-all-reviews-message');
-   
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
-    const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
-    const sidebarOverlay = document.getElementById('sidebar-overlay');
-    const resetFiltersBtn = document.getElementById('reset-filters-btn');
-    const videoGalleryBtn = document.getElementById('video-gallery-btn');
-    const videoGalleryModal = document.getElementById('video-gallery-modal');
-    const languageToggleButtons = document.getElementById('language-toggle-buttons');
-    const cartCountSidebar = document.getElementById('cart-count-sidebar');
-    const favoriteCountSidebar = document.getElementById('favorite-count-sidebar');
-    const useSavedAddressBtn = document.getElementById('use-saved-address-btn');
-    const savedForLaterContainer = document.getElementById('saved-for-later-container');
-    const savedForLaterSection = document.getElementById('saved-for-later-section');
-    const recentlyViewedContainer = document.getElementById('recently-viewed-container');
-    const emptyRecentlyViewedMessage = document.getElementById('empty-recently-viewed-message');
-    const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
 
-    const notificationSidebarBtn = document.getElementById('notification-sidebar-btn');
-    const notificationModal = document.getElementById('notification-modal');
-    const notificationListContainer = document.getElementById('notification-list');
-    const notificationTabs = document.querySelector('.notification-tabs');
-    const emptyNotificationMessage = document.getElementById('empty-notification-message');
-    const comparisonTray = document.getElementById('comparison-tray');
-    const sortProductsDropdown = document.getElementById('sort-products-dropdown');
+const body = document.body;
+const productList = document.getElementById('product-list');
+const cartItemsContainer = document.getElementById('cart-items-container');
+const currentLoyaltyPointsSpan = document.getElementById('current-loyalty-points'); 
+const loyaltyNextTierDiv = document.getElementById('loyalty-next-tier'); 
+const loyaltyTiersContainer = document.getElementById('loyalty-tiers-container');
+const emptyLoyaltyMessage = document.getElementById('empty-loyalty-message'); 
+const cartCountSpan = document.getElementById('cart-count');
+const subtotalPriceSpan = document.getElementById('subtotal-price');
+const discountAmountSpan = document.getElementById('discount-amount');
+const totalPriceSpan = document.getElementById('total-price');
+const emptyCartMessage = document.getElementById('empty-cart-message');
+const noResultsMessage = document.getElementById('no-results-message');
+const checkoutBtn = document.getElementById('checkout-btn');
+const cartSummary = document.getElementById('cart-summary');
+const checkoutFormContainer = document.getElementById('checkout-form-container');
+const checkoutForm = document.getElementById('checkout-form');
+const currentYearSpan = document.getElementById('current-year');
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+const searchSuggestionsContainer = document.getElementById('search-suggestions-container');
+const backToTopButton = document.getElementById('back-to-top');
+const toastContainer = document.getElementById('toast-container');
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const loadingScreen = document.getElementById('loading-screen');
+const loadingVideo = document.getElementById('loading-video');
+const quickViewModal = document.getElementById('quick-view-modal');
+const modalSizeOptions = document.getElementById('modal-size-options');
+const sizeGuideModal = document.getElementById('size-guide-modal');
+const modalSizeGuideBtn = document.getElementById('modal-size-guide-btn');
+const sizeChartTableBody = document.getElementById('size-chart-table').querySelector('tbody');
+const sellerAddressSpan = document.getElementById('seller-address');
+const sellerPhoneSpan = document.getElementById('seller-phone');
+const sellerEmailSpan = document.getElementById('seller-email');
+const sellerPhoneLink = document.getElementById('seller-phone-link');
+const sellerEmailLink = document.getElementById('seller-email-link');
+const favoriteCountSpan = document.getElementById('favorite-count');
+const favoriteProductsList = document.getElementById('favorite-products-list');
+const emptyFavoritesMessage = document.getElementById('empty-favorites-message');
+const progressBar = document.getElementById('progress-bar');
+const checkoutSteps = document.querySelectorAll('.checkout-step');
+const prevStepBtn = document.getElementById('prev-step-btn');
+const nextStepBtn = document.getElementById('next-step-btn');
+const submitOrderBtn = document.getElementById('submit-order-btn');
+const finalOrderSummaryContainer = document.getElementById('final-order-summary');
+let currentStep = 1;
+const confirmationModal = document.getElementById('confirmation-modal');
+const confirmMessage = document.getElementById('confirm-message');
+const confirmYesBtn = document.getElementById('confirm-yes');
+const confirmNoBtn = document.getElementById('confirm-no');
+const promoUpsellMessage = document.getElementById('promo-upsell-message');
+const whatsappConfirmationModal = document.getElementById('whatsapp-confirmation-modal');
+const whatsappConfirmYesBtn = document.getElementById('whatsapp-confirm-yes');
+const whatsappConfirmNoBtn = document.getElementById('whatsapp-confirm-no');
+const orderHistoryList = document.getElementById('order-history-list');
+const emptyHistoryMessage = document.getElementById('empty-history-message');
+const allReviewsList = document.getElementById('all-reviews-list');
+const emptyAllReviewsMessage = document.getElementById('empty-all-reviews-message');
+
+const sidebar = document.getElementById('sidebar');
+const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+const resetFiltersBtn = document.getElementById('reset-filters-btn');
+const videoGalleryBtn = document.getElementById('video-gallery-btn');
+const videoGalleryModal = document.getElementById('video-gallery-modal');
+const languageToggleButtons = document.getElementById('language-toggle-buttons');
+const cartCountSidebar = document.getElementById('cart-count-sidebar');
+const favoriteCountSidebar = document.getElementById('favorite-count-sidebar');
+const useSavedAddressBtn = document.getElementById('use-saved-address-btn');
+const savedForLaterContainer = document.getElementById('saved-for-later-container');
+const savedForLaterSection = document.getElementById('saved-for-later-section');
+const recentlyViewedContainer = document.getElementById('recently-viewed-container');
+const emptyRecentlyViewedMessage = document.getElementById('empty-recently-viewed-message');
+const sidebarSubmenus = document.querySelectorAll('.sidebar-submenu');
+
+const notificationSidebarBtn = document.getElementById('notification-sidebar-btn');
+const notificationModal = document.getElementById('notification-modal');
+const notificationListContainer = document.getElementById('notification-list');
+const notificationTabs = document.querySelector('.notification-tabs');
+const emptyNotificationMessage = document.getElementById('empty-notification-message');
+const comparisonTray = document.getElementById('comparison-tray');
+const sortProductsDropdown = document.getElementById('sort-products-dropdown');
 
 const comparisonItemsContainer = document.getElementById('comparison-items');
 const compareNowBtn = document.getElementById('compare-now-btn');
@@ -645,22 +690,50 @@ const clearComparisonBtn = document.getElementById('clear-comparison-btn');
 const comparisonModal = document.getElementById('comparison-modal');
 const comparisonTableContainer = document.getElementById('comparison-table-container');
 
-
-    const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
-
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const currentValue = Math.floor(progress * (end - start) + start);
-            obj.innerHTML = formatRupiah(currentValue);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
+const addToCart = (productId, size, quantity, triggerElement) => {
+    if (checkoutFormContainer.style.display === 'block') {
+        showToast('checkout_in_progress_warning', 'warning');
+        return;
     }
+    const product = products.find(p => p.id === productId);
+    if (!product || quantity <= 0) return;
+    const cartItemIdentifier = `${productId}-${size}`;
+    const existingItem = cart.find(item => item.cartId === cartItemIdentifier);
+    const totalStock = product.stock;
+    const currentQtyInCart = existingItem ? existingItem.quantity : 0;
+    if (currentQtyInCart + quantity > totalStock) {
+        showToast('toast_stock_not_enough', "error", { name: product.name, size: size });
+        return;
+    }
+    const price = getPriceBySize(product.basePrice, size);
+    if (existingItem) {
+        existingItem.quantity += quantity;
+        showToast('toast_quantity_updated', 'info', { name: product.name, size: size });
+    } else {
+        cart.push({ ...product, price, size, quantity, cartId: cartItemIdentifier });
+    }
+    showToast('toast_added_to_cart', 'success', { name: product.name, size: size, qty: quantity });
+    saveCart();
+    refreshAllCartViews();
+    if (triggerElement) flyToCartAnimation(triggerElement);
+
+};
+
+const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const currentValue = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = formatRupiah(currentValue);
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
 
     const formatNotificationTimestamp = (isoString) => {
         const now = new Date();
@@ -753,33 +826,6 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
         container.appendChild(selectorContainer);
     };
 
-    const addToCart = (productId, size, quantity, triggerElement) => {
-        if (checkoutFormContainer.style.display === 'block') {
-            showToast('checkout_in_progress_warning', 'warning');
-            return;
-        }
-        const product = products.find(p => p.id === productId);
-        if (!product || quantity <= 0) return;
-        const cartItemIdentifier = `${productId}-${size}`;
-        const existingItem = cart.find(item => item.cartId === cartItemIdentifier);
-        const totalStock = product.stock;
-        const currentQtyInCart = existingItem ? existingItem.quantity : 0;
-        if (currentQtyInCart + quantity > totalStock) {
-            showToast('toast_stock_not_enough', "error", { name: product.name, size: size });
-            return;
-        }
-        const price = getPriceBySize(product.basePrice, size);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-            showToast('toast_quantity_updated', 'info', { name: product.name, size: size });
-        } else {
-            cart.push({ ...product, price, size, quantity, cartId: cartItemIdentifier });
-        }
-        showToast('toast_added_to_cart', 'success', { name: product.name, size: size, qty: quantity });
-        saveCart();
-        refreshAllCartViews();
-        if (triggerElement) flyToCartAnimation(triggerElement);
-    };
 
     const renderCart = () => {
         const oldTotalSpan = document.getElementById('total-price');
@@ -1310,30 +1356,41 @@ const loadSavedAddress = () => {
     }
     const saveSavedForLater = () => localStorage.setItem('savedForLater', JSON.stringify(savedForLater));
 
-    checkoutForm.addEventListener('submit', e => {
-        e.preventDefault();
-        if (!validateStep(3)) return;
-        const customerPhoneInput = document.getElementById('customer-phone').value;
-        if (!/^[0-9]{10,15}$/.test(customerPhoneInput)) {
-            showToast("invalid_whatsapp", "error");
-            return;
-        }
-        const { total, subtotal, discount, shippingDiscount } = calculateCartTotals();
-        const orderId = `LXVR-${orderCounter}`;
-        const formData = new FormData(checkoutForm);
-        const customerNotes = formData.get('customer-notes').trim();
-        const notesText = customerNotes ? `*Catatan:* ${customerNotes}\n` : '';
-        const shippingDiscountText = shippingDiscount > 0 ? `*Promo Ongkir (Jabodetabek):* -${formatRupiah(shippingDiscount)}\n` : '';
-        let orderDetails = `*Order Baru dari Luxuliver Shop*\n\n` +
-            `*ID Pesanan:* ${orderId}\n` +
-            `*Nama:* ${formData.get('customer-name')}\n*Telepon:* ${formData.get('customer-phone')}\n*Alamat:* ${formData.get('customer-address')}\n` +
-            notesText + `*Ekspedisi:* ${formData.get('expeditionMethod')}\n*Pembayaran:* ${formData.get('paymentMethod')}\n\n*Detail Pesanan:*\n` +
-            cart.map(item => `- ${item.name} (${item.size}) x ${item.quantity} = ${formatRupiah(item.price * item.quantity)}`).join('\n') + `\n\n*Subtotal:* ${formatRupiah(subtotal)}\n` +
-            `*Diskon Pembelian:* -${formatRupiah(discount)}\n` + shippingDiscountText + `*Total Pembayaran:* ${formatRupiah(total)}\n\n` + `Terima kasih! Detail biaya pengiriman (setelah promo) akan diinfokan oleh admin kami.`;
-        pendingOrder = { orderId, date: new Date().toISOString(), items: [...cart], total };
-        window.open(`https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`, '_blank');
-        openModal(whatsappConfirmationModal);
-    });
+
+
+checkoutForm.addEventListener('submit', e => {
+    e.preventDefault(); 
+
+    if (!validateStep(3)) {
+        
+        return;
+    }
+
+    const customerPhoneInput = document.getElementById('customer-phone').value;
+    
+    if (!/^[0-9]{10,15}$/.test(customerPhoneInput)) {
+        showToast("toast_invalid_whatsapp", "error");
+        return; 
+    }
+
+    const { total, subtotal, discount, shippingDiscount } = calculateCartTotals();
+    const orderId = `LXVR-${orderCounter}`;
+    const formData = new FormData(checkoutForm);
+    const customerNotes = formData.get('customer-notes').trim();
+    const notesText = customerNotes ? `*Catatan:* ${customerNotes}\n` : '';
+    const shippingDiscountText = shippingDiscount > 0 ? `*Promo Ongkir (Jabodetabek):* -${formatRupiah(shippingDiscount)}\n` : '';
+
+    let orderDetails = `*Order Baru dari Luxuliver Shop*\n\n` +
+        `*ID Pesanan:* ${orderId}\n` +
+        `*Nama:* ${formData.get('customer-name')}\n*Telepon:* ${formData.get('customer-phone')}\n*Alamat:* ${formData.get('customer-address')}\n` +
+        notesText + `*Ekspedisi:* ${formData.get('expeditionMethod')}\n*Pembayaran:* ${formData.get('paymentMethod')}\n\n*Detail Pesanan:*\n` +
+        cart.map(item => `- ${item.name} (${item.size}) x ${item.quantity} = ${formatRupiah(item.price * item.quantity)}`).join('\n') + `\n\n*Subtotal:* ${formatRupiah(subtotal)}\n` +
+        `*Diskon Pembelian:* -${formatRupiah(discount)}\n` + shippingDiscountText + `*Total Pembayaran:* ${formatRupiah(total)}\n\n` + `Terima kasih! Detail biaya pengiriman (setelah promo) akan diinfokan oleh admin kami.`;
+
+    pendingOrder = { orderId, date: new Date().toISOString(), items: [...cart], total };
+    window.open(`https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`, '_blank');
+    openModal(whatsappConfirmationModal);
+});
 
 whatsappConfirmYesBtn.addEventListener('click', () => {
     if (pendingOrder) {
@@ -1346,22 +1403,27 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         });
 
 
+        let pointsEarned = 0;
+        pendingOrder.items.forEach(item => {
+            const product = products.find(p => p.id === item.id);
+            if (product && product.points) { 
+                pointsEarned += (product.points * item.quantity); 
+            }
+        });
+        userLoyaltyPoints += pointsEarned; 
+        localStorage.setItem('userLoyaltyPoints', userLoyaltyPoints); 
+        updateLoyaltyPremiumVisuals(); 
+
         const formData = new FormData(checkoutForm);
         userProfile.name = formData.get('customer-name');
         userProfile.phone = formData.get('customer-phone');
         userProfile.address = formData.get('customer-address');
 
-
         userProfile.history.unshift(pendingOrder);
 
-
         localStorage.setItem('luxuliverUser', JSON.stringify(userProfile));
-
-
         localStorage.removeItem('savedAddress');
-
-        localStorage.removeItem('orderHistory');
-
+       localStorage.removeItem('orderHistory'); 
 
         orderCounter++;
         localStorage.setItem('orderCounter', orderCounter.toString());
@@ -1369,13 +1431,14 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         cart = [];
         saveCart();
         refreshAllCartViews();
-        renderOrderHistory(); 
+        renderOrderHistory();
         checkoutForm.reset();
         closeModal(whatsappConfirmationModal);
         showToast("toast_order_confirmed", "success");
         pendingOrder = null;
+        renderLoyaltySection(); 
     }
-    });
+});
 
     whatsappConfirmNoBtn.addEventListener('click', () => {
         pendingOrder = null;
@@ -1971,6 +2034,79 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     }).join('');
 };
 
+ const renderLoyaltySection = () => {
+    if (!currentLoyaltyPointsSpan) return;
+
+    currentLoyaltyPointsSpan.textContent = userLoyaltyPoints;
+    loyaltyTiersContainer.innerHTML = '';
+    emptyLoyaltyMessage.style.display = 'none'; 
+
+    let nextTierInfo = null;
+    let allUnlocked = true;
+
+    loyaltyTiers.forEach(tier => {
+        const tierCard = document.createElement('div');
+        tierCard.className = 'loyalty-tier-card';
+        let tierStatusText = '';
+        let unlockedMessage = '';
+        let tierClass = '';
+
+        if (userLoyaltyPoints >= tier.points) {
+            tierClass = 'unlocked-card';
+            tierStatusText = translations[currentLanguage].loyalty_tier_unlocked;
+            unlockedMessage = translations[currentLanguage][tier.message];
+        } else {
+            tierClass = 'locked-card';
+            tierStatusText = translations[currentLanguage].loyalty_tier_locked;
+            if (!nextTierInfo) { 
+                nextTierInfo = {
+                    pointsNeeded: tier.points - userLoyaltyPoints,
+                    tierName: translations[currentLanguage][`${tier.class}_title`]
+                };
+            }
+            allUnlocked = false;
+        }
+
+        tierCard.classList.add(tierClass);
+        tierCard.innerHTML = `
+            <h3>${translations[currentLanguage][`${tier.class}_title`]}</h3>
+            <div class="points-threshold">${tier.points} Poin</div>
+            <p>${unlockedMessage}</p>
+            <span class="tier-status ${tierClass === 'unlocked-card' ? 'unlocked' : 'locked'}">${tierStatusText}</span>
+        `;
+        loyaltyTiersContainer.appendChild(tierCard);
+    });
+
+    if (allUnlocked) {
+        loyaltyNextTierDiv.textContent = translations[currentLanguage].loyalty_next_tier_unlocked_all;
+    } else if (nextTierInfo) {
+        loyaltyNextTierDiv.textContent = translations[currentLanguage].loyalty_next_tier_progress(nextTierInfo.pointsNeeded, nextTierInfo.tierName);
+    } else {
+        loyaltyNextTierDiv.textContent = '';
+    }
+
+    if (userLoyaltyPoints === 0 && loyaltyTiers.length > 0) {
+        emptyLoyaltyMessage.style.display = 'block';
+        loyaltyTiersContainer.style.display = 'none';
+        loyaltyNextTierDiv.style.display = 'none';
+    } else {
+        emptyLoyaltyMessage.style.display = 'none';
+        loyaltyTiersContainer.style.display = 'grid';
+        loyaltyNextTierDiv.style.display = 'block';
+    }
+};
+
+ const updateLoyaltyPremiumVisuals = () => {
+    document.body.classList.remove('loyalty-tier-500', 'loyalty-tier-1000', 'loyalty-tier-1500');
+
+    if (userLoyaltyPoints >= 1500) {
+        document.body.classList.add('loyalty-tier-1500');
+    } else if (userLoyaltyPoints >= 1000) {
+        document.body.classList.add('loyalty-tier-1000');
+    } else if (userLoyaltyPoints >= 500) {
+        document.body.classList.add('loyalty-tier-500');
+    }
+};
 
 const saveComparisonList = () => localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
 
@@ -2158,45 +2294,43 @@ const renderComparisonModal = () => {
  const showMainContentSection = (targetId) => {
     document.body.classList.remove('single-section-view');
 
-  
     const homePageSections = ['#koleksi', '#faq'];
-    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#faq', '#ulasan'];
     
+    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#ulasan', '#loyalty-points'];
+
     const dividers = document.querySelectorAll('.section-divider');
     const searchSection = document.getElementById('search-section');
     const heroSection = document.getElementById('hero');
     const footer = document.querySelector('footer');
 
-   
     [heroSection, searchSection, footer, ...dividers, ...allSections.map(sel => document.querySelector(sel))].forEach(el => {
         if (el) el.style.display = 'none';
     });
-    
+
     if (targetId === '#hero') {
-       
         [searchSection, footer].forEach(el => {
             if(el) el.style.display = 'block';
         });
         if(heroSection) heroSection.style.display = 'flex';
-        
+
         homePageSections.forEach(sel => {
             const el = document.querySelector(sel);
             if (el) el.style.display = 'block';
         });
-        
+
         dividers.forEach(divider => divider.style.display = 'block');
-        
+
     } else {
-       
-        document.body.classList.add('single-section-view'); 
+        document.body.classList.add('single-section-view');
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
             targetElement.style.display = 'block';
         }
 
-       
         if (targetId === '#ulasan') {
             renderAllReviews();
+        } else if (targetId === '#loyalty-points') { 
+            renderLoyaltySection();
         }
     }
 };
@@ -2664,48 +2798,52 @@ if (paymentMethodContainer) {
     
     
     const initializeApp = () => {
-        applyTheme(localStorage.getItem('theme') || 'light');
-        handleScrollProgress();
-        initializeNavigation();
-        initializeSidebar();
-        initializeFAQ();
-        initializePolicyModals();
-        initializeNotifications();
-        renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
-        renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
-        renderSkeletonLoaders(productList, 6);
-        updateResetButtonVisibility();
-        applyRippleEffect();
-        renderComparisonTray();
+    applyTheme(localStorage.getItem('theme') || 'light');
+    handleScrollProgress();
+    initializeNavigation();
+    initializeSidebar();
+    initializeFAQ();
+    initializePolicyModals();
+    initializeNotifications();
+    renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
+    renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
+    renderSkeletonLoaders(productList, 6);
+    updateResetButtonVisibility();
+    applyRippleEffect();
+    renderComparisonTray();
     updateAllCompareButtons();
 
-        setTimeout(() => {
-            setLanguage(localStorage.getItem('language') || 'id');
-            renderRecentlyViewed();
-            renderOrderHistory();
-            updateAllFavoriteButtons();
-            currentYearSpan.textContent = new Date().getFullYear().toString();
-            if (sellerAddressSpan) sellerAddressSpan.textContent = sellerInfo.address;
-            if (sellerPhoneSpan) sellerPhoneSpan.textContent = sellerInfo.phone;
-            if (sellerEmailSpan) sellerEmailSpan.textContent = sellerInfo.email;
-            const sellerAddressLink = document.getElementById('seller-address-link');
-            if (sellerAddressLink) {
-                const encodedAddress = encodeURIComponent(sellerInfo.address);
-                sellerAddressLink.href = `https://maps.google.com/?q=${encodedAddress}`;
-                
-            }
-            if (sellerPhoneLink) {
-                const phoneNumber = sellerInfo.phone.replace(/[\s-]/g, '');
-                sellerPhoneLink.href = `tel:${phoneNumber}`;
-                }
-            if (sellerEmailLink) {sellerEmailLink.href = `mailto:${sellerInfo.email}`;
-                
-            }
-            document.querySelectorAll('section, footer, .product-card:not(.visible)').forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
-            });
-            body.classList.remove('no-scroll');
-        }, 1200);
+    setTimeout(() => {
+        setLanguage(localStorage.getItem('language') || 'id');
+        renderRecentlyViewed();
+        renderOrderHistory();
+        updateAllFavoriteButtons();
+        currentYearSpan.textContent = new Date().getFullYear().toString();
+        if (sellerAddressSpan) sellerAddressSpan.textContent = sellerInfo.address;
+        if (sellerPhoneSpan) sellerPhoneSpan.textContent = sellerInfo.phone;
+        if (sellerEmailSpan) sellerEmailSpan.textContent = sellerInfo.email;
+        const sellerAddressLink = document.getElementById('seller-address-link');
+        if (sellerAddressLink) {
+            const encodedAddress = encodeURIComponent(sellerInfo.address);
+            sellerAddressLink.href = `https://maps.google.com/?q=${encodedAddress}`;
+        }
+        if (sellerPhoneLink) {
+            const phoneNumber = sellerInfo.phone.replace(/[\s-]/g, '');
+            sellerPhoneLink.href = `tel:${phoneNumber}`;
+        }
+        if (sellerEmailLink) {sellerEmailLink.href = `mailto:${sellerInfo.email}`;
+        }
+        document.querySelectorAll('section, footer, .product-card:not(.visible)').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('visible');
+        });
+        body.classList.remove('no-scroll');
+        updateLoyaltyPremiumVisuals(); 
+        renderLoyaltySection(); 
+        initializeAccessibilityPanel();
+        showMainContentSection('#hero');
+        
+    }, 1200);
+  };
 
 
 orderHistoryList.addEventListener('click', function(e) {
@@ -2841,11 +2979,6 @@ if (returnConfirmationModal) {
             }
         });
     }
-    
-    initializeAccessibilityPanel();
-    
-    showMainContentSection('#hero');
-    };
 
     const startApp = () => {
         if (loadingScreen) {
@@ -3132,19 +3265,19 @@ if (logoutMenuItem) {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
 
-            const confirmationMessage = 'Semua data sesi Anda (Keranjang, Favorit, Riwayat Pesanan) akan dihapus dari peramban ini. Yakin ingin logout?';
-            
+            const confirmationMessage = 'Semua data sesi Anda (Keranjang, Favorit, Riwayat Pesanan, Poin Loyalty) akan dihapus dari peramban ini. Yakin ingin logout?';
+
             showConfirmationModal(confirmationMessage, () => {
-                
+
                 const userSessionKeys = [
-                    'luxuliverUser', 
-                    'cart',    
-                    'favorites',    
+                    'luxuliverUser',
+                    'cart',
+                    'favorites',
                     'savedForLater',
-                    'recentlyViewed', 
-                    'comparisonList' 
+                    'recentlyViewed',
+                    'comparisonList',
+                    'userLoyaltyPoints' 
                 ];
 
                 userSessionKeys.forEach(key => localStorage.removeItem(key));
@@ -3155,4 +3288,4 @@ if (logoutMenuItem) {
     }
 }
 
-}); 
+});
