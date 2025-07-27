@@ -204,9 +204,26 @@ document.addEventListener('DOMContentLoaded', () => {
             loyalty_tier_locked: 'Terkunci',
             loyalty_tier_unlocked: 'Terbuka!',
             empty_loyalty: 'Mulai belanja untuk mengumpulkan poin loyalty!',
-
-  
-        },
+            empty_loyalty: 'Mulai belanja untuk mengumpulkan poin loyalty!',
+            sidebar_essentials: 'Luxuliver Essentials',
+            sidebar_size_guide: 'Panduan Ukuran',
+            sidebar_guarantee: 'Jaminan Luxuliver',
+            guarantee_title: 'Jaminan Kualitas Luxuliver',
+            guarantee_return_title: 'Bebas Pengembalian Produk Cacat',
+            guarantee_return_desc: 'Kepuasan Anda adalah prioritas kami. Jika Anda menerima produk dengan cacat produksi atau kesalahan pengiriman dari pihak kami (contoh: salah ukuran atau desain), kami akan menggantinya dengan produk yang baru. Klaim harus diajukan maksimal 3 hari setelah barang diterima dengan menyertakan video unboxing sebagai bukti.',
+            guarantee_refund_title: 'Kebijakan Non-Refund',
+            guarantee_refund_desc: 'Untuk menjaga kualitas dan efisiensi operasional, kami tidak melayani pengembalian dalam bentuk uang (refund). Semua produk yang memenuhi syarat pengembalian akan diganti dengan produk baru yang sesuai.',
+            sidebar_specs: 'Spesifikasi Produk',
+            specs_title: 'Spesifikasi & Kualitas Produk',
+            specs_fabric_title: 'Kain Premium',
+            specs_fabric_desc: 'Kami menggunakan bahan kaos New States Apparel (NSA) berkualitas tinggi yang terasa lembut, sejuk di kulit, dan menyerap keringat dengan baik. Ideal untuk kenyamanan sepanjang hari di iklim tropis.',
+            specs_print_title: 'Sablon Tahan Lama',
+            specs_print_desc: 'Desain kami diaplikasikan menggunakan teknologi sablon Direct to Film (DTF) modern, menghasilkan gambar yang tajam, warna yang cerah, dan daya rekat yang kuat sehingga tidak mudah retak atau luntur setelah dicuci berkali-kali.',
+            specs_stitching_title: 'Jahitan Presisi',
+            specs_stitching_desc: 'Setiap kaos dijahit dengan standar presisi tinggi, termasuk jahitan rantai di bagian pundak dan jahitan overdeck yang rapi, memastikan kekuatan dan daya tahan produk untuk penggunaan jangka panjang.',
+            specs_fit_title: 'Potongan Regular Fit',
+            specs_fit_desc: 'Dengan potongan Regular Fit yang telah teruji, kaos kami memberikan keseimbangan sempurna antara gaya dan kenyamanan, tidak terlalu ketat dan tidak terlalu longgar, cocok untuk berbagai bentuk tubuh.'
+            },
         en: {
             nav_home: 'Home',
             nav_collections: 'Collections',
@@ -399,8 +416,26 @@ document.addEventListener('DOMContentLoaded', () => {
             loyalty_tier_1500_message: 'Congratulations! You are now a symbol of our highest trust.',
             loyalty_tier_locked: 'Locked',
             loyalty_tier_unlocked: 'Unlocked!',
-            empty_loyalty: 'Start shopping to collect loyalty points!'
-   
+            empty_loyalty: 'Start shopping to collect loyalty points!', 
+            empty_loyalty: 'Start shopping to collect loyalty points!',
+            sidebar_essentials: 'Luxuliver Essentials',
+            sidebar_size_guide: 'Size Guide',
+            sidebar_guarantee: 'Luxuliver Guarantee',
+            guarantee_title: 'Luxuliver Quality Guarantee',
+            guarantee_return_title: 'Free Returns for Defective Products',
+            guarantee_return_desc: 'Your satisfaction is our priority. If you receive a product with a manufacturing defect or a shipping error from our side (e.g., wrong size or design), we will replace it with a new one. Claims must be submitted a maximum of 3 days after the item is received, accompanied by an unboxing video as proof.',
+            guarantee_refund_title: 'No-Refund Policy',
+            guarantee_refund_desc: 'To maintain quality and operational efficiency, we do not offer monetary refunds. All products eligible for return will be replaced with a new, corresponding product.',
+            sidebar_specs: 'Product Specifications',
+            specs_title: 'Product Specifications & Quality',
+            specs_fabric_title: 'Premium Fabric',
+            specs_fabric_desc: 'We use high-quality New States Apparel (NSA) fabric that feels soft, cool on the skin, and absorbs sweat effectively — perfect for all-day comfort in tropical climates.',
+            specs_print_title: 'Durable Print',
+            specs_print_desc: 'Our designs are applied using modern Direct to Film (DTF) printing technology, resulting in sharp images, vibrant colors, and strong adhesion that resists cracking or fading after multiple washes.',
+            specs_stitching_title: 'Precision Stitching',
+            specs_stitching_desc: 'Each t-shirt is sewn to high precision standards, including chain stitching on the shoulders and neat overdeck seams, ensuring product strength and durability for long-term use.',
+            specs_fit_title: 'Regular Fit Cut',
+            specs_fit_desc: 'With a tried-and-tested Regular Fit cut, our t-shirts provide the perfect balance of style and comfort, not too tight and not too loose, suitable for various body types.'
         }
     };
 
@@ -579,6 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let savedForLater = getLocalStorageItem('savedForLater', []);
     let recentlyViewed = getLocalStorageItem('recentlyViewed', []);
     let comparisonList = getLocalStorageItem('comparisonList', []);
+    let currentRatingFilter = 0;
 const MAX_COMPARISON_ITEMS = 2;
  let userLoyaltyPoints = getLocalStorageItem('userLoyaltyPoints', 0);
 const loyaltyTiers = [
@@ -1986,53 +2022,55 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     });
 };
 
-   const renderAllReviews = () => {
-
-    const allReviews = [];
-
-    products.forEach(product => {
-        if (product.reviews && product.reviews.length > 0) {
-
-            product.reviews.forEach(review => {
-
-                allReviews.push({ ...review, productName: product.name, productImage: product.image });
-            });
-        }
-    });
-
-
-    allReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-
-    if (allReviews.length === 0) {
-        emptyAllReviewsMessage.style.display = 'block';
-        allReviewsList.innerHTML = '';
-        return;
-    }
-
-    emptyAllReviewsMessage.style.display = 'none';
-    allReviewsList.innerHTML = allReviews.map(review => {
-        const reviewDate = new Date(review.date + 'T00:00:00').toLocaleDateString('id-ID', {
-            day: 'numeric', month: 'long', year: 'numeric'
+ const renderAllReviews = () => {
+        const allReviews = [];
+        products.forEach(product => {
+            if (product.reviews && product.reviews.length > 0) {
+                product.reviews.forEach(review => {
+                    allReviews.push({ ...review, productName: product.name, productImage: product.image });
+                });
+            }
         });
-        return `
-            <div class="review-card">
-                <img src="${review.productImage}" alt="${review.productName}" class="review-card-product-img">
-                <div class="review-card-content">
-                     <p class="review-card-product-name">Ulasan untuk: <strong>${review.productName}</strong></p>
-                    <div class="review-item">
-                        <div class="review-header">
-                            <strong class="review-author">${review.author}</strong>
-                            <span class="review-date">${reviewDate}</span>
+        const filteredReviews = currentRatingFilter === 0
+            ? allReviews
+            : allReviews.filter(review => review.rating === currentRatingFilter);
+
+        filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (filteredReviews.length === 0) {
+            if (currentRatingFilter > 0) {
+                 emptyAllReviewsMessage.textContent = `Tidak ada ulasan dengan rating ${currentRatingFilter} bintang.`;
+            } else {
+                 emptyAllReviewsMessage.textContent = "Belum ada ulasan yang diberikan.";
+            }
+            emptyAllReviewsMessage.style.display = 'block';
+            allReviewsList.innerHTML = '';
+            return;
+        }
+        emptyAllReviewsMessage.style.display = 'none';
+        allReviewsList.innerHTML = filteredReviews.map(review => {
+            const reviewDate = new Date(review.date + 'T00:00:00').toLocaleDateString('id-ID', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+            return `
+                <div class="review-card">
+                    <img src="${review.productImage}" alt="${review.productName}" class="review-card-product-img">
+                    <div class="review-card-content">
+                         <p class="review-card-product-name">Ulasan untuk: <strong>${review.productName}</strong></p>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <strong class="review-author">${review.author}</strong>
+                                <span class="review-date">${reviewDate}</span>
+                            </div>
+                            <div class="review-rating">${generateStarsHTML(review.rating)}</div>
+                            <p class="review-text">${review.text}</p>
                         </div>
-                        <div class="review-rating">${generateStarsHTML(review.rating)}</div>
-                        <p class="review-text">${review.text}</p>
                     </div>
                 </div>
-            </div>
-        `;
-    }).join('');
-};
+            `;
+        }).join('');
+    };
+
 
  const renderLoyaltySection = () => {
     if (!currentLoyaltyPointsSpan) return;
@@ -2474,14 +2512,28 @@ const updateFilterUI = () => {
     };
 
     const initializePolicyModals = () => {
-        document.querySelectorAll('a[data-modal-target]').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const modal = document.getElementById(link.dataset.modalTarget);
-                if (modal) openModal(modal);
-            });
+    document.querySelectorAll('a[data-modal-target]').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const modal = document.getElementById(link.dataset.modalTarget);
+            if (modal) {
+                if (body.classList.contains('sidebar-open')) {
+                    toggleSidebar();
+                }
+                
+                setTimeout(() => {
+                    
+                    if (modal.id === 'size-guide-modal') {
+                        renderSizeGuide(); 
+                    } else {
+
+                        openModal(modal);
+                    }
+                }, 350);
+            }
         });
-    };
+    });
+};
 
     const initializeNotifications = () => {
         notificationSidebarBtn?.addEventListener('click', e => {
@@ -2794,6 +2846,23 @@ if (paymentMethodContainer) {
 
     applyPrefs();
 }
+
+ const initializeReviewFilters = () => {
+        const filterContainer = document.getElementById('review-filter-container');
+        if (!filterContainer) return;
+
+        filterContainer.addEventListener('click', (e) => {
+            const target = e.target.closest('.rating-filter-btn');
+            if (!target) return;
+
+            currentRatingFilter = parseInt(target.dataset.rating, 10);
+
+            filterContainer.querySelectorAll('.rating-filter-btn').forEach(btn => btn.classList.remove('active'));
+            target.classList.add('active');
+
+            renderAllReviews();
+        });
+    };
     
     
     
@@ -2805,6 +2874,7 @@ if (paymentMethodContainer) {
     initializeFAQ();
     initializePolicyModals();
     initializeNotifications();
+    initializeReviewFilters();
     renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
     renderRadioOptions('payment-method', paymentMethods, 'paymentMethod');
     renderSkeletonLoaders(productList, 6);
@@ -3042,12 +3112,18 @@ if (returnConfirmationModal) {
 
    
     if (liveChatToggle) {
-        liveChatToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            liveChatModal.style.display = 'block';
-            document.body.classList.add('modal-open');
-        });
-    }
+    liveChatToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        if (document.body.classList.contains('sidebar-open')) {
+            toggleSidebar();
+        }
+
+        setTimeout(() => {
+            openModal(liveChatModal);
+        }, 350);
+    });
+}
 
    
     chatTabBtns.forEach(btn => {
