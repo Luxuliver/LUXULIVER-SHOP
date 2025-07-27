@@ -222,7 +222,23 @@ document.addEventListener('DOMContentLoaded', () => {
             specs_stitching_title: 'Jahitan Presisi',
             specs_stitching_desc: 'Setiap kaos dijahit dengan standar presisi tinggi, termasuk jahitan rantai di bagian pundak dan jahitan overdeck yang rapi, memastikan kekuatan dan daya tahan produk untuk penggunaan jangka panjang.',
             specs_fit_title: 'Potongan Regular Fit',
-            specs_fit_desc: 'Dengan potongan Regular Fit yang telah teruji, kaos kami memberikan keseimbangan sempurna antara gaya dan kenyamanan, tidak terlalu ketat dan tidak terlalu longgar, cocok untuk berbagai bentuk tubuh.'
+            specs_fit_desc: 'Dengan potongan Regular Fit yang telah teruji, kaos kami memberikan keseimbangan sempurna antara gaya dan kenyamanan, tidak terlalu ketat dan tidak terlalu longgar, cocok untuk berbagai bentuk tubuh.', 
+            nav_login: 'Login',
+            auth_tab_login: 'Login',
+            auth_tab_register: 'Daftar Akun',
+            login_title: 'Masuk ke Akun Anda',
+            register_title: 'Buat Akun Baru',
+            label_password: 'Password',
+            toast_login_success: (name) => `Selamat datang kembali, ${name}!`,
+            toast_register_success: 'Akun berhasil dibuat! Anda sekarang sudah login.',
+            toast_login_fail: 'Nomor WhatsApp atau password salah.',
+            toast_register_fail: 'Nomor WhatsApp ini sudah terdaftar.',
+            toast_logout_success: 'Anda berhasil logout.',
+            nav_hello: (name) => `Halo, ${name.split(' ')[0]}`,
+            nav_logout: 'Logout',
+            prompt_login_title: 'Akses Dibatasi',
+            prompt_login_text: 'Silakan login atau buat akun untuk menggunakan fitur ini.',
+
             },
         en: {
             nav_home: 'Home',
@@ -435,7 +451,22 @@ document.addEventListener('DOMContentLoaded', () => {
             specs_stitching_title: 'Precision Stitching',
             specs_stitching_desc: 'Each t-shirt is sewn to high precision standards, including chain stitching on the shoulders and neat overdeck seams, ensuring product strength and durability for long-term use.',
             specs_fit_title: 'Regular Fit Cut',
-            specs_fit_desc: 'With a tried-and-tested Regular Fit cut, our t-shirts provide the perfect balance of style and comfort, not too tight and not too loose, suitable for various body types.'
+            specs_fit_desc: 'With a tried-and-tested Regular Fit cut, our t-shirts provide the perfect balance of style and comfort, not too tight and not too loose, suitable for various body types.',
+            nav_login: 'Login',
+            auth_tab_login: 'Login',
+            auth_tab_register: 'Register Account',
+            login_title: 'Sign in to Your Account',
+            register_title: 'Create a New Account',
+            label_password: 'Password',
+            toast_login_success: (name) => `Welcome back, ${name}!`,
+            toast_register_success: 'Account created successfully! You are now logged in.',
+            toast_login_fail: 'Incorrect WhatsApp number or password.',
+            toast_register_fail: 'This WhatsApp number is already registered.',
+            toast_logout_success: 'You have been successfully logged out.',
+            nav_hello: (name) => `Hello, ${name.split(' ')[0]}`,
+            nav_logout: 'Logout',
+            prompt_login_title: 'Access Restricted',
+            prompt_login_text: 'Please log in or create an account to use this', 
         }
     };
 
@@ -727,6 +758,12 @@ const comparisonModal = document.getElementById('comparison-modal');
 const comparisonTableContainer = document.getElementById('comparison-table-container');
 
 const addToCart = (productId, size, quantity, triggerElement) => {
+    if (!isAuthenticated()) {
+        openModal(document.getElementById('auth-modal'));
+        return;
+    }
+    
+    
     if (checkoutFormContainer.style.display === 'block') {
         showToast('checkout_in_progress_warning', 'warning');
         return;
@@ -1660,7 +1697,12 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     const saveFavorites = () => localStorage.setItem('favorites', JSON.stringify(favorites));
 
     const toggleFavorite = (productId, buttonElement) => {
-        const product = products.find(p => p.id === productId);
+        if (!isAuthenticated()) {
+        openModal(document.getElementById('auth-modal'));
+        return;
+    }
+        
+         const product = products.find(p => p.id === productId);
         if (!product) return;
         const favoriteIndex = favorites.findIndex(item => item.id === productId);
         if (favoriteIndex > -1) {
@@ -1712,7 +1754,7 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         });
     });
 
-    favoriteCountSpan.textContent = favorites.length;
+   if (favoriteCountSpan) favoriteCountSpan.textContent = favorites.length; 
     favoriteCountSidebar.textContent = favorites.length;
 };
 
@@ -2150,6 +2192,11 @@ const saveComparisonList = () => localStorage.setItem('comparisonList', JSON.str
 
 
 const toggleCompare = (productId) => {
+    if (!isAuthenticated()) {
+        openModal(document.getElementById('auth-modal'));
+        return;
+    }
+    
     const productIndex = comparisonList.indexOf(productId);
 
     if (productIndex > -1) {
@@ -2865,8 +2912,197 @@ if (paymentMethodContainer) {
     };
     
     
+const authModal = document.getElementById('auth-modal');
+const authActionBtn = document.getElementById('auth-action-btn');
+const authNavItem = document.getElementById('auth-nav-item');
+
+const isAuthenticated = () => {
+    return getLocalStorageItem('luxuliverCurrentUser', null) !== null;
+};
+
+
+const migrateGuestDataToUser = (user) => {
+    const guestCart = getLocalStorageItem('cart', []);
+    if (guestCart.length > 0) {
+        user.cart = [...new Map([...user.cart, ...guestCart].map(item => [item.cartId, item])).values()];
+    }
+    user.favorites = [...new Set([...user.favorites, ...getLocalStorageItem('favorites', [])])];
+    user.comparisonList = [...new Set([...user.comparisonList, ...getLocalStorageItem('comparisonList', [])])];
+
+
+    ['cart', 'favorites', 'comparisonList'].forEach(key => localStorage.removeItem(key));
+};
+
+
+const loadUserData = (user) => {
+    cart = user.cart || [];
+    favorites = user.favorites || [];
+    comparisonList = user.comparisonList || [];
+    userLoyaltyPoints = user.loyaltyPoints || 0;
+
+};
+
+
+const handleRegistration = (e) => {
+    e.preventDefault();
+    const name = document.getElementById('register-name').value;
+    const phone = document.getElementById('register-phone').value;
+    const address = document.getElementById('register-address').value;
+    const password = document.getElementById('register-password').value;
+    const errorMsg = document.getElementById('register-error-msg');
+
+    let accounts = getLocalStorageItem('luxuliverAccounts', []);
+    if (accounts.some(acc => acc.phone === phone)) {
+        errorMsg.textContent = translations[currentLanguage].toast_register_fail;
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    const newUser = {
+        name, phone, address, password,
+        history: [], cart: [], favorites: [], comparisonList: [], loyaltyPoints: 0
+    };
+
+    migrateGuestDataToUser(newUser);
+    accounts.push(newUser);
+    localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+    localStorage.setItem('luxuliverCurrentUser', JSON.stringify(newUser));
+
+    loadUserData(newUser);
+    closeModal(authModal);
+    updateAuthStateUI();
+    showToast('toast_register_success', 'success');
+};
+
+
+const handleLogin = (e) => {
+    e.preventDefault();
+    const phone = document.getElementById('login-phone').value;
+    const password = document.getElementById('login-password').value;
+    const errorMsg = document.getElementById('login-error-msg');
+
+    const accounts = getLocalStorageItem('luxuliverAccounts', []);
+    const user = accounts.find(acc => acc.phone === phone && acc.password === password);
+
+    if (user) {
+        migrateGuestDataToUser(user);
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(user));
+
+
+        const accountIndex = accounts.findIndex(acc => acc.phone === phone);
+        accounts[accountIndex] = user;
+        localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+
+        loadUserData(user);
+        closeModal(authModal);
+        updateAuthStateUI();
+        showToast('toast_login_success', 'success', { name: user.name });
+    } else {
+        errorMsg.textContent = translations[currentLanguage].toast_login_fail;
+        errorMsg.style.display = 'block';
+    }
+};
+
+
+const handleLogout = () => {
+    const currentUser = getLocalStorageItem('luxuliverCurrentUser', null);
+    if (currentUser) {
+
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
+        if (accountIndex !== -1) {
+            currentUser.cart = cart;
+            currentUser.favorites = favorites;
+            currentUser.comparisonList = comparisonList;
+            currentUser.loyaltyPoints = userLoyaltyPoints;
+            accounts[accountIndex] = currentUser;
+            localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+        }
+    }
+
+    localStorage.removeItem('luxuliverCurrentUser');
+
+    cart = getLocalStorageItem('cart', []);
+    favorites = getLocalStorageItem('favorites', []);
+    comparisonList = getLocalStorageItem('comparisonList', []);
+    userLoyaltyPoints = 0;
+
+    showToast('toast_logout_success', 'info');
+    updateAuthStateUI();
+};
+
+
+const updateAuthStateUI = () => {
+    if (isAuthenticated()) {
+        const user = getLocalStorageItem('luxuliverCurrentUser');
+        authNavItem.innerHTML = `
+            <div class="user-menu">
+                <a href="#" id="auth-action-btn">${translations[currentLanguage].nav_hello(user.name)} <i class="fas fa-chevron-down"></i></a>
+                <div class="user-dropdown">
+                    <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ${translations[currentLanguage].nav_logout}</a>
+                </div>
+            </div>
+        `;
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            handleLogout();
+        });
+
+         document.querySelector('a[href="#riwayat-pesanan"]').parentElement.style.display = 'block';
+    } else {
+        authNavItem.innerHTML = `<a href="#" id="auth-action-btn" data-lang-key="nav_login"><i class="fas fa-user-circle"></i> ${translations[currentLanguage].nav_login}</a>`;
+
+        document.querySelector('a[href="#riwayat-pesanan"]').parentElement.style.display = 'none';
+    }
+
+
+    document.getElementById('auth-action-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!isAuthenticated()) {
+            openModal(authModal);
+        }
+    });
+
+
+    renderCart();
+    renderFavorites();
+    renderOrderHistory();
+    renderComparisonTray();
+    renderLoyaltySection();
+    updateAllFavoriteButtons();
+    updateAllCompareButtons();
+};
+
+
+const initAuthModal = () => {
+    const tabs = authModal.querySelectorAll('.auth-tab-btn');
+    const contents = authModal.querySelectorAll('.auth-tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+            tab.classList.add('active');
+            authModal.querySelector(`#${tab.dataset.tab}-tab-content`).classList.add('active');
+            authModal.querySelectorAll('.auth-error-msg').forEach(msg => {
+                msg.style.display = 'none';
+                msg.textContent = '';
+            });
+        });
+    });
+
+    document.getElementById('login-form').addEventListener('submit', handleLogin);
+    document.getElementById('register-form').addEventListener('submit', handleRegistration);
+};
+
+initAuthModal();
+
+    
+    
+    
     
     const initializeApp = () => {
+    updateAuthStateUI();
     applyTheme(localStorage.getItem('theme') || 'light');
     handleScrollProgress();
     initializeNavigation();
