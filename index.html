@@ -32,9 +32,9 @@
                     <li><a href="#keranjang">
                         <i class="fas fa-shopping-cart"></i> <span data-lang-key="nav_cart">Keranjang</span> <span id="cart-count">0</span>
                     </a></li>
-                    <li><a href="#favorit">
-                        <i class="fas fa-heart"></i> <span data-lang-key="nav_favorites">Favorit</span> <span id="favorite-count">0</span>
-                    </a></li>
+                    <li id="auth-nav-item" class="auth-nav-item">
+                        <a href="#" id="auth-action-btn" data-lang-key="nav_login"><i class="fas fa-user-circle"></i> Login</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -1031,6 +1031,64 @@
     </div>
 </div>
 
+<div id="guarantee-modal" class="modal policy-modal">
+    </div>
+
+<div id="auth-modal" class="modal">
+    <div class="modal-content auth-modal-content">
+        <span class="close-button">&times;</span>
+        <div class="auth-tabs">
+            <button class="auth-tab-btn active" data-tab="login" data-lang-key="auth_tab_login">Login</button>
+            <button class="auth-tab-btn" data-tab="register" data-lang-key="auth_tab_register">Daftar Akun</button>
+        </div>
+
+        <div id="login-tab-content" class="auth-tab-content active">
+            <form id="login-form">
+                <h3 data-lang-key="login_title">Masuk ke Akun Anda</h3>
+                <div class="luxury-form-group">
+                    <i class="form-icon fab fa-whatsapp"></i>
+                    <input type="tel" id="login-phone" class="form-input" placeholder=" " required>
+                    <label for="login-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-lock"></i>
+                    <input type="password" id="login-password" class="form-input" placeholder=" " required>
+                    <label for="login-password" class="form-label" data-lang-key="label_password">Password</label>
+                </div>
+                <p id="login-error-msg" class="auth-error-msg"></p>
+                <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_login">Login</button>
+            </form>
+        </div>
+
+        <div id="register-tab-content" class="auth-tab-content">
+            <form id="register-form">
+                <h3 data-lang-key="register_title">Buat Akun Baru</h3>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-user"></i>
+                    <input type="text" id="register-name" class="form-input" placeholder=" " required>
+                    <label for="register-name" class="form-label" data-lang-key="label_fullname">Nama Lengkap</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fab fa-whatsapp"></i>
+                    <input type="tel" id="register-phone" class="form-input" placeholder=" " required>
+                    <label for="register-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-map-marker-alt"></i>
+                    <textarea id="register-address" class="form-input" placeholder=" " rows="3" required></textarea>
+                    <label for="register-address" class="form-label" data-lang-key="label_address">Alamat Lengkap</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-lock"></i>
+                    <input type="password" id="register-password" class="form-input" placeholder=" " required>
+                    <label for="register-password" class="form-label" data-lang-key="label_password">Password</label>
+                </div>
+                <p id="register-error-msg" class="auth-error-msg"></p>
+                <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_register">Daftar</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="reading-guide"></div>
 
