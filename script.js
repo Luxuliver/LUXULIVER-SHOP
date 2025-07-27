@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
             toast_order_rebought: (orderId) => `Produk dari pesanan ${orderId} berhasil ditambahkan kembali!`,
             confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
-            promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 2%.`,
+            promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 1%.`,
             stock_limited: 'Terbatas!',
             stock_out: 'Stok Habis',
             add_button: 'Tambah',
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar_recently_viewed: 'Terakhir Dilihat',
             empty_recently_viewed: 'Anda belum melihat produk apapun.',
             notif_promo_1_title: 'Belanja Kapan Aja, Diskon nya Tetap Ada!',
-            notif_promo_1_desc: 'Diskon 2% untuk pembelian minimal 5 item.',
+            notif_promo_1_desc: 'Diskon 1% untuk pembelian minimal 5 item.',
             notif_info_1_title: 'Pengiriman tetap aktif setiap hari Senin sampai Sabtu!',
             notif_info_1_desc: 'Beli sekarang, kirim rutin setiap Senin–Sabtu. Gak pakai nunggu lama.',
             notif_info_2_title: 'Koleksi Baru Akan Telah Tiba!',
@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             toast_order_cancelled: 'Order cancelled. Your cart remains intact.',
             toast_order_rebought: (orderId) => `Products from order ${orderId} were successfully re-added!`,
             confirm_remove_from_cart: (name, size) => `Remove "${name} (${size})" from the cart?`,
-            promo_upsell: (items) => `Select ${items} more piece(s) to unlock an exclusive 2% offer.`,
+            promo_upsell: (items) => `Select ${items} more piece(s) to unlock an exclusive 1% offer.`,
             stock_limited: 'Limited Stock!',
             stock_out: 'Out of Stock',
             add_button: 'Add',
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar_recently_viewed: 'Recently Viewed',
             empty_recently_viewed: 'You have not viewed any products yet.',
             notif_promo_1_title: 'Shop Anytime, The Discount is Always There!',
-            notif_promo_1_desc: 'Get a 2% discount for a minimum purchase of 5 items.',
+            notif_promo_1_desc: 'Get a 1% discount for a minimum purchase of 5 items.',
             notif_info_1_title: 'Shipping is active every Monday to Saturday!',
             notif_info_1_desc: 'Buy now, and we ship regularly every Monday–Saturday. No long waits.',
             notif_info_2_title: 'New Collection Has Arrived!',
@@ -1596,7 +1596,7 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
    const calculateCartTotals = () => {
     const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-    const productDiscount = totalItems >= 5 ? subtotal * 0.02 : 0;
+    const productDiscount = totalItems >= 5 ? subtotal * 0.01 : 0;
     let shippingDiscount = 0;
     const addressInput = document.getElementById('customer-address');
 
