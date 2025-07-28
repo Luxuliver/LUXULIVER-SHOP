@@ -171,12 +171,6 @@
                     <a href="#" id="video-gallery-btn"><i class="fas fa-film"></i> <span data-lang-key="sidebar_video_gallery">Khusus Vidio</span></a>
                 </li>
             </ul>
-            <li id="logout-menu-item">
-    <a href="#" id="logout-btn">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-    </a>
-    </li>
             <button id="reset-filters-btn" class="btn btn-secondary" data-lang-key="sidebar_reset_filters">Reset Semua Filter</button>
         </nav>
     </aside>
@@ -1044,20 +1038,25 @@
 
         <div id="login-tab-content" class="auth-tab-content active">
             <form id="login-form">
-                <h3 data-lang-key="login_title">Masuk ke Akun Anda</h3>
-                <div class="luxury-form-group">
-                    <i class="form-icon fab fa-whatsapp"></i>
-                    <input type="tel" id="login-phone" class="form-input" placeholder=" " required>
-                    <label for="login-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
-                </div>
-                <div class="luxury-form-group">
-                    <i class="form-icon fas fa-lock"></i>
-                    <input type="password" id="login-password" class="form-input" placeholder=" " required>
-                    <label for="login-password" class="form-label" data-lang-key="label_password">Password</label>
-                </div>
-                <p id="login-error-msg" class="auth-error-msg"></p>
-                <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_login">Login</button>
-            </form>
+    <h3 data-lang-key="login_title">Masuk ke Akun Anda</h3>
+    <div class="luxury-form-group">
+        <i class="form-icon fab fa-whatsapp"></i>
+        <input type="tel" id="login-phone" class="form-input" placeholder=" " required>
+        <label for="login-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
+    </div>
+    <div class="luxury-form-group">
+        <i class="form-icon fas fa-lock"></i>
+        <input type="password" id="login-password" class="form-input" placeholder=" " required>
+        <label for="login-password" class="form-label" data-lang-key="label_password">Password</label>
+    </div>
+
+    <div class="form-extra-links">
+        <a href="#" id="forgot-password-link" data-lang-key="forgot_password_link">Lupa Password?</a>
+    </div>
+    
+    <p id="login-error-msg" class="auth-error-msg"></p>
+    <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_login">Login</button>
+</form>
         </div>
 
         <div id="register-tab-content" class="auth-tab-content">
@@ -1086,6 +1085,24 @@
                 <p id="register-error-msg" class="auth-error-msg"></p>
                 <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_register">Daftar</button>
             </form>
+        </div>
+    </div>
+</div>
+
+ <div id="forgot-password-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px; text-align: center;">
+        <span class="close-button">&times;</span>
+        <div class="forgot-password-content">
+            <i class="fas fa-exclamation-triangle forgot-password-icon warning"></i>
+            <h3 data-lang-key="reset_account_title">Proses Reset Akun</h3>
+            <p data-lang-key="reset_account_desc">Karena data akun tersimpan secara lokal di browser, satu-satunya cara untuk mengatasi lupa password adalah dengan mereset data website di browser Anda, lalu mendaftar ulang.</p>
+            
+            <div class="warning-box">
+                <strong data-lang-key="reset_account_warning_title">PERINGATAN PENTING</strong>
+                <p data-lang-key="reset_account_warning_desc">Tindakan ini akan **menghapus semua data Anda** yang tersimpan di browser ini, termasuk riwayat pesanan dan daftar favorit. Data tidak dapat dikembalikan.</p>
+            </div>
+            
+            <button id="understand-reset-btn" class="btn btn-secondary" data-lang-key="reset_account_understand_btn">Saya Mengerti</button>
         </div>
     </div>
 </div>
