@@ -238,6 +238,12 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_logout: 'Logout',
             prompt_login_title: 'Akses Dibatasi',
             prompt_login_text: 'Silakan login atau buat akun untuk menggunakan fitur ini.',
+            contact_admin_button: 'Hubungi Admin',
+            reset_account_title: 'Proses Reset Akun',
+            reset_account_desc: 'Karena data akun tersimpan secara lokal di browser, satu-satunya cara untuk mengatasi lupa password adalah dengan mereset data website di browser Anda, lalu mendaftar ulang.',
+            reset_account_warning_title: 'PERINGATAN PENTING',
+            reset_account_warning_desc: 'Tindakan ini akan menghapus semua data Anda yang tersimpan di browser ini, termasuk riwayat pesanan dan daftar favorit. Data tidak dapat dikembalikan.',
+            reset_account_understand_btn: 'Saya Mengerti',
 
             },
         en: {
@@ -467,6 +473,12 @@ document.addEventListener('DOMContentLoaded', () => {
             nav_logout: 'Logout',
             prompt_login_title: 'Access Restricted',
             prompt_login_text: 'Please log in or create an account to use this', 
+            contact_admin_button: 'Contact Admin',
+            reset_account_title: 'Account Reset Process',
+            reset_account_desc: 'Since account data is stored locally in the browser, the only way to resolve a forgotten password is to reset the website data in your browser, then register again.',
+            reset_account_warning_title: 'IMPORTANT WARNING',
+            reset_account_warning_desc: 'This action will permanently delete all your data stored in this browser, including order history and your favorites list. This data cannot be recovered.',
+            reset_account_understand_btn: 'I Understand',
         }
     };
 
@@ -1052,11 +1064,19 @@ function animateValue(obj, start, end, duration) {
     };
 
     const openQuickViewModal = (productId) => {
-        recentlyViewed = recentlyViewed.filter(id => id !== productId);
-        recentlyViewed.unshift(productId);
-        if (recentlyViewed.length > MAX_RECENTLY_VIEWED) recentlyViewed.length = MAX_RECENTLY_VIEWED;
-        localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
-        renderRecentlyViewed();
+    if (!isAuthenticated()) {
+        openModal(document.getElementById('auth-modal'));
+        return;
+    }
+
+    recentlyViewed = recentlyViewed.filter(id => id !== productId);
+    recentlyViewed.unshift(productId);
+    if (recentlyViewed.length > MAX_RECENTLY_VIEWED) recentlyViewed.length = MAX_RECENTLY_VIEWED;
+    
+    saveCurrentUserSession(); 
+    renderRecentlyViewed();
+        
+        
         const product = products.find(p => p.id === productId);
         if (!product) return;
         const startImageElement = document.querySelector(`.product-card[data-product-id="${productId}"] img`);
@@ -1266,8 +1286,11 @@ function animateValue(obj, start, end, duration) {
 };
 
     const renderRecentlyViewed = () => {
-        if (!recentlyViewedContainer) return;
-        emptyRecentlyViewedMessage.textContent = translations[currentLanguage].empty_recently_viewed;
+    if (!recentlyViewedContainer) return;
+    emptyRecentlyViewedMessage.textContent = translations[currentLanguage].empty_recently_viewed;
+    
+   
+        
         if (recentlyViewed.length === 0) {
             recentlyViewedContainer.innerHTML = '';
             recentlyViewedContainer.appendChild(emptyRecentlyViewedMessage);
@@ -1664,7 +1687,13 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     });
 };
 
-    const saveCart = () => localStorage.setItem('cart', JSON.stringify(cart));
+    const saveCart = () => {
+        if (isAuthenticated()) {
+            saveCurrentUserSession();
+        } else {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    };
 
    const calculateCartTotals = () => {
     const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
@@ -1694,7 +1723,13 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     return { subtotal, totalItems, discount: productDiscount, shippingDiscount, total };
 };
 
-    const saveFavorites = () => localStorage.setItem('favorites', JSON.stringify(favorites));
+    const saveFavorites = () => {
+        if (isAuthenticated()) {
+            saveCurrentUserSession();
+        } else {
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+        }
+    };
 
     const toggleFavorite = (productId, buttonElement) => {
         if (!isAuthenticated()) {
@@ -2188,7 +2223,13 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     }
 };
 
-const saveComparisonList = () => localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
+const saveComparisonList = () => {
+        if (isAuthenticated()) {
+            saveCurrentUserSession();
+        } else {
+            localStorage.setItem('comparisonList', JSON.stringify(comparisonList));
+        }
+    };
 
 
 const toggleCompare = (productId) => {
@@ -2425,6 +2466,15 @@ const renderComparisonModal = () => {
         link.addEventListener('click', e => {
             const href = e.currentTarget.getAttribute('href'); 
 
+
+            const gatedHeaderLinks = ['#koleksi', '#keranjang'];
+            if (link.closest('#main-nav') && gatedHeaderLinks.includes(href) && !isAuthenticated()) {
+                e.preventDefault();
+                openModal(document.getElementById('auth-modal'));
+                return; 
+            }
+
+
             if (href && href.startsWith('#')) {
                 e.preventDefault();
 
@@ -2433,11 +2483,9 @@ const renderComparisonModal = () => {
                     showMainContentSection(href);
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-
                
                 document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(l => l.classList.remove('active'));
                 document.querySelectorAll(`a[href="${href}"]`).forEach(l => l.classList.add('active'));
-
                
                 if (document.body.classList.contains('sidebar-open')) {
                     toggleSidebar();
@@ -2562,21 +2610,34 @@ const updateFilterUI = () => {
     document.querySelectorAll('a[data-modal-target]').forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
-            const modal = document.getElementById(link.dataset.modalTarget);
-            if (modal) {
-                if (body.classList.contains('sidebar-open')) {
-                    toggleSidebar();
-                }
-                
-                setTimeout(() => {
-                    
-                    if (modal.id === 'size-guide-modal') {
-                        renderSizeGuide(); 
-                    } else {
+            
 
-                        openModal(modal);
+            const isExternalSocial = link.href.includes('instagram.com') || link.href.includes('tiktok.com');
+            if (isExternalSocial) {
+                window.open(link.href, '_blank');
+                return;
+            }
+
+
+            if (!isAuthenticated()) {
+
+                openModal(document.getElementById('auth-modal'));
+            } else {
+
+                const modal = document.getElementById(link.dataset.modalTarget);
+                if (modal) {
+                    if (body.classList.contains('sidebar-open')) {
+                        toggleSidebar();
                     }
-                }, 350);
+                    
+                    setTimeout(() => {
+                        if (modal.id === 'size-guide-modal') {
+                            renderSizeGuide();
+                        } else {
+                            openModal(modal);
+                        }
+                    }, 350);
+                }
             }
         });
     });
@@ -2680,27 +2741,60 @@ const updateFilterUI = () => {
     });
 
     checkoutBtn.addEventListener('click', () => {
-        if (cart.length === 0) {
-            showToast('empty_cart', 'warning');
-            return;
+    if (cart.length === 0) {
+        showToast('empty_cart', 'warning');
+        return;
+    }
+
+    let stockSufficient = true;
+    const insufficientItems = [];
+    cart.forEach(item => {
+        const productInDB = products.find(p => p.id === item.id);
+        if (!productInDB || productInDB.stock < item.quantity) {
+            stockSufficient = false;
+            insufficientItems.push(`${item.name} (${item.size})`);
         }
-        const elementsToHide = [cartSummary, cartItemsContainer, emptyCartMessage, savedForLaterSection];
-        elementsToHide.forEach(el => el?.classList.add('section-fade-out'));
-        setTimeout(() => {
-            elementsToHide.forEach(el => {
-                if (el) {
-                    el.style.display = 'none';
-                    el.classList.remove('section-fade-out');
-                }
-            });
-            checkoutFormContainer.style.display = 'block';
-            Object.assign(checkoutFormContainer.style, { opacity: '1', transform: 'none' });
-            currentStep = 1;
-            updateCheckoutUI();
-            useSavedAddressBtn.style.display = localStorage.getItem('savedAddress') ? 'inline-flex' : 'none';
-            checkoutFormContainer.scrollIntoView({ behavior: 'smooth' });
-        }, 400);
     });
+
+    if (!stockSufficient) {
+        showToast(`Maaf, stok untuk item berikut tidak mencukupi: ${insufficientItems.join(', ')}. Mohon perbarui keranjang Anda.`, 'error');
+        return; 
+    }
+
+
+    const elementsToHide = [cartSummary, cartItemsContainer, emptyCartMessage, savedForLaterSection];
+    elementsToHide.forEach(el => el?.classList.add('section-fade-out'));
+    setTimeout(() => {
+        elementsToHide.forEach(el => {
+            if (el) {
+                el.style.display = 'none';
+                el.classList.remove('section-fade-out');
+            }
+        });
+        checkoutFormContainer.style.display = 'block';
+        Object.assign(checkoutFormContainer.style, { opacity: '1', transform: 'none' });
+        currentStep = 1;
+        updateCheckoutUI();
+        
+
+        if (isAuthenticated()) {
+            const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+            if (currentUser) {
+                document.getElementById('customer-name').value = currentUser.name || '';
+                document.getElementById('customer-phone').value = currentUser.phone || '';
+                document.getElementById('customer-address').value = currentUser.address || '';
+            }
+
+            useSavedAddressBtn.style.display = 'none';
+        } else {
+
+            useSavedAddressBtn.style.display = localStorage.getItem('savedAddress') ? 'inline-flex' : 'none';
+        }
+
+
+        checkoutFormContainer.scrollIntoView({ behavior: 'smooth' });
+    }, 400);
+});
 
 nextStepBtn.addEventListener('click', () => {
     if (validateStep(currentStep)) {
@@ -2912,194 +3006,213 @@ if (paymentMethodContainer) {
     };
     
     
-const authModal = document.getElementById('auth-modal');
-const authActionBtn = document.getElementById('auth-action-btn');
-const authNavItem = document.getElementById('auth-nav-item');
+    const authModal = document.getElementById('auth-modal');
+    const authActionBtn = document.getElementById('auth-action-btn');
+    const authNavItem = document.getElementById('auth-nav-item');
 
-const isAuthenticated = () => {
-    return getLocalStorageItem('luxuliverCurrentUser', null) !== null;
-};
-
-
-const migrateGuestDataToUser = (user) => {
-    const guestCart = getLocalStorageItem('cart', []);
-    if (guestCart.length > 0) {
-        user.cart = [...new Map([...user.cart, ...guestCart].map(item => [item.cartId, item])).values()];
-    }
-    user.favorites = [...new Set([...user.favorites, ...getLocalStorageItem('favorites', [])])];
-    user.comparisonList = [...new Set([...user.comparisonList, ...getLocalStorageItem('comparisonList', [])])];
-
-
-    ['cart', 'favorites', 'comparisonList'].forEach(key => localStorage.removeItem(key));
-};
-
-
-const loadUserData = (user) => {
-    cart = user.cart || [];
-    favorites = user.favorites || [];
-    comparisonList = user.comparisonList || [];
-    userLoyaltyPoints = user.loyaltyPoints || 0;
-
-};
-
-
-const handleRegistration = (e) => {
-    e.preventDefault();
-    const name = document.getElementById('register-name').value;
-    const phone = document.getElementById('register-phone').value;
-    const address = document.getElementById('register-address').value;
-    const password = document.getElementById('register-password').value;
-    const errorMsg = document.getElementById('register-error-msg');
-
-    let accounts = getLocalStorageItem('luxuliverAccounts', []);
-    if (accounts.some(acc => acc.phone === phone)) {
-        errorMsg.textContent = translations[currentLanguage].toast_register_fail;
-        errorMsg.style.display = 'block';
-        return;
-    }
-
-    const newUser = {
-        name, phone, address, password,
-        history: [], cart: [], favorites: [], comparisonList: [], loyaltyPoints: 0
+    const isAuthenticated = () => {
+        return getLocalStorageItem('luxuliverCurrentUser', null) !== null;
     };
 
-    migrateGuestDataToUser(newUser);
-    accounts.push(newUser);
-    localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
-    localStorage.setItem('luxuliverCurrentUser', JSON.stringify(newUser));
+    const saveCurrentUserSession = () => {
+        if (!isAuthenticated()) return;
 
-    loadUserData(newUser);
-    closeModal(authModal);
-    updateAuthStateUI();
-    showToast('toast_register_success', 'success');
-};
+        const currentUser = getLocalStorageItem('luxuliverCurrentUser', null);
+        if (currentUser) {
+            let accounts = getLocalStorageItem('luxuliverAccounts', []);
+            const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
 
-
-const handleLogin = (e) => {
-    e.preventDefault();
-    const phone = document.getElementById('login-phone').value;
-    const password = document.getElementById('login-password').value;
-    const errorMsg = document.getElementById('login-error-msg');
-
-    const accounts = getLocalStorageItem('luxuliverAccounts', []);
-    const user = accounts.find(acc => acc.phone === phone && acc.password === password);
-
-    if (user) {
-        migrateGuestDataToUser(user);
-        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(user));
-
-
-        const accountIndex = accounts.findIndex(acc => acc.phone === phone);
-        accounts[accountIndex] = user;
-        localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
-
-        loadUserData(user);
-        closeModal(authModal);
-        updateAuthStateUI();
-        showToast('toast_login_success', 'success', { name: user.name });
-    } else {
-        errorMsg.textContent = translations[currentLanguage].toast_login_fail;
-        errorMsg.style.display = 'block';
-    }
-};
-
-
-const handleLogout = () => {
-    const currentUser = getLocalStorageItem('luxuliverCurrentUser', null);
-    if (currentUser) {
-
-        let accounts = getLocalStorageItem('luxuliverAccounts', []);
-        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
-        if (accountIndex !== -1) {
             currentUser.cart = cart;
             currentUser.favorites = favorites;
             currentUser.comparisonList = comparisonList;
             currentUser.loyaltyPoints = userLoyaltyPoints;
-            accounts[accountIndex] = currentUser;
-            localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+            currentUser.recentlyViewed = recentlyViewed;
+
+            localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
+
+            if (accountIndex !== -1) {
+                accounts[accountIndex] = currentUser;
+                localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+            }
         }
-    }
+    };
+    
+    const migrateGuestDataToUser = (user) => {
+        const guestCart = getLocalStorageItem('cart', []);
+        if (guestCart.length > 0) {
+            user.cart = [...new Map([...(user.cart || []), ...guestCart].map(item => [item.cartId, item])).values()];
+        }
+        user.favorites = [...new Set([...(user.favorites || []), ...getLocalStorageItem('favorites', [])])];
+        user.comparisonList = [...new Set([...(user.comparisonList || []), ...getLocalStorageItem('comparisonList', [])])];
+        user.recentlyViewed = [...new Set([...(user.recentlyViewed || []), ...getLocalStorageItem('recentlyViewed', [])])];
 
-    localStorage.removeItem('luxuliverCurrentUser');
+        ['cart', 'favorites', 'comparisonList', 'recentlyViewed'].forEach(key => localStorage.removeItem(key));
+    };
+    
+    const loadUserData = (user) => {
+        cart = user.cart || [];
+        favorites = user.favorites || [];
+        comparisonList = user.comparisonList || [];
+        userLoyaltyPoints = user.loyaltyPoints || 0;
+        recentlyViewed = user.recentlyViewed || [];
+    };
 
-    cart = getLocalStorageItem('cart', []);
-    favorites = getLocalStorageItem('favorites', []);
-    comparisonList = getLocalStorageItem('comparisonList', []);
-    userLoyaltyPoints = 0;
+    const handleRegistration = (e) => {
+        e.preventDefault();
+        const name = document.getElementById('register-name').value;
+        const phone = document.getElementById('register-phone').value;
+        const address = document.getElementById('register-address').value;
+        const password = document.getElementById('register-password').value;
+        const errorMsg = document.getElementById('register-error-msg');
 
-    showToast('toast_logout_success', 'info');
-    updateAuthStateUI();
-};
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        if (accounts.some(acc => acc.phone === phone)) {
+            errorMsg.textContent = translations[currentLanguage].toast_register_fail;
+            errorMsg.style.display = 'block';
+            return;
+        }
 
+        const newUser = {
+            name, phone, address, password,
+            history: [], cart: [], favorites: [], comparisonList: [], loyaltyPoints: 0, recentlyViewed: []
+        };
+        
+        migrateGuestDataToUser(newUser);
+        accounts.push(newUser);
+        localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(newUser));
+        
+        loadUserData(newUser);
+        closeModal(authModal);
+        updateAuthStateUI();
+        showToast('toast_register_success', 'success');
+    };
 
-const updateAuthStateUI = () => {
-    if (isAuthenticated()) {
-        const user = getLocalStorageItem('luxuliverCurrentUser');
-        authNavItem.innerHTML = `
-            <div class="user-menu">
-                <a href="#" id="auth-action-btn">${translations[currentLanguage].nav_hello(user.name)} <i class="fas fa-chevron-down"></i></a>
-                <div class="user-dropdown">
-                    <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ${translations[currentLanguage].nav_logout}</a>
-                </div>
-            </div>
-        `;
-        document.getElementById('logout-btn').addEventListener('click', (e) => {
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const phone = document.getElementById('login-phone').value;
+        const password = document.getElementById('login-password').value;
+        const errorMsg = document.getElementById('login-error-msg');
+        
+        const accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const user = accounts.find(acc => acc.phone === phone && acc.password === password);
+
+        if (user) {
+            migrateGuestDataToUser(user);
+            localStorage.setItem('luxuliverCurrentUser', JSON.stringify(user));
+            
+            const accountIndex = accounts.findIndex(acc => acc.phone === phone);
+            accounts[accountIndex] = user;
+            localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+
+            loadUserData(user);
+            closeModal(authModal);
+            updateAuthStateUI();
+            showToast('toast_login_success', 'success', { name: user.name });
+        } else {
+            errorMsg.textContent = translations[currentLanguage].toast_login_fail;
+            errorMsg.style.display = 'block';
+        }
+    };
+    
+    const handleLogout = () => {
+        saveCurrentUserSession();
+        
+        localStorage.removeItem('luxuliverCurrentUser');
+        
+        cart = [];
+        favorites = [];
+        comparisonList = [];
+        userLoyaltyPoints = 0;
+        recentlyViewed = [];
+        
+        showToast('toast_logout_success', 'info');
+        updateAuthStateUI();
+    };
+
+    const updateAuthStateUI = () => {
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+        const userSpecificMenus = ['#riwayat-pesanan', '#ulasan', '#loyalty-points'];
+
+        if (isAuthenticated()) {
+            sidebarToggleBtn.style.display = '';
+            const user = getLocalStorageItem('luxuliverCurrentUser');
+            authNavItem.innerHTML = `<div class="user-menu"><a href="#" id="auth-action-btn">${translations[currentLanguage].nav_hello(user.name)} <i class="fas fa-chevron-down"></i></a><div class="user-dropdown"><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ${translations[currentLanguage].nav_logout}</a></div></div>`;
+            document.getElementById('logout-btn').addEventListener('click', (e) => { e.preventDefault(); handleLogout(); });
+            userSpecificMenus.forEach(selector => {
+                const linkElement = document.querySelector(`a[href="${selector}"]`);
+                if (linkElement) linkElement.parentElement.style.display = 'block';
+            });
+        } else {
+            sidebarToggleBtn.style.display = 'none';
+            authNavItem.innerHTML = `<a href="#" id="auth-action-btn" data-lang-key="nav_login"><i class="fas fa-user-circle"></i> ${translations[currentLanguage].nav_login}</a>`;
+            userSpecificMenus.forEach(selector => {
+                const linkElement = document.querySelector(`a[href="${selector}"]`);
+                if (linkElement) linkElement.parentElement.style.display = 'none';
+            });
+        }
+        
+        document.getElementById('auth-action-btn').addEventListener('click', (e) => {
             e.preventDefault();
-            handleLogout();
+            if (!isAuthenticated()) {
+                openModal(authModal);
+            }
         });
 
-         document.querySelector('a[href="#riwayat-pesanan"]').parentElement.style.display = 'block';
-    } else {
-        authNavItem.innerHTML = `<a href="#" id="auth-action-btn" data-lang-key="nav_login"><i class="fas fa-user-circle"></i> ${translations[currentLanguage].nav_login}</a>`;
+        renderCart();
+        renderFavorites();
+        renderOrderHistory();
+        renderComparisonTray();
+        renderLoyaltySection();
+        updateLoyaltyPremiumVisuals();
+        renderRecentlyViewed();
+        updateAllFavoriteButtons();
+        updateAllCompareButtons();
+    };
 
-        document.querySelector('a[href="#riwayat-pesanan"]').parentElement.style.display = 'none';
-    }
+    const initAuthModal = () => {
+        const tabs = authModal.querySelectorAll('.auth-tab-btn');
+        const contents = authModal.querySelectorAll('.auth-tab-content');
+        const forgotPasswordLink = document.getElementById('forgot-password-link');
+        const forgotPasswordModal = document.getElementById('forgot-password-modal');
 
-
-    document.getElementById('auth-action-btn').addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!isAuthenticated()) {
-            openModal(authModal);
-        }
-    });
-
-
-    renderCart();
-    renderFavorites();
-    renderOrderHistory();
-    renderComparisonTray();
-    renderLoyaltySection();
-    updateAllFavoriteButtons();
-    updateAllCompareButtons();
-};
-
-
-const initAuthModal = () => {
-    const tabs = authModal.querySelectorAll('.auth-tab-btn');
-    const contents = authModal.querySelectorAll('.auth-tab-content');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            authModal.querySelector(`#${tab.dataset.tab}-tab-content`).classList.add('active');
-            authModal.querySelectorAll('.auth-error-msg').forEach(msg => {
-                msg.style.display = 'none';
-                msg.textContent = '';
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                authModal.querySelector(`#${tab.dataset.tab}-tab-content`).classList.add('active');
+                authModal.querySelectorAll('.auth-error-msg').forEach(msg => {
+                    msg.style.display = 'none';
+                    msg.textContent = '';
+                });
             });
         });
-    });
+        
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeModal(authModal);
+                setTimeout(() => {
+                    openModal(forgotPasswordModal);
+                }, 350);
+            });
+        }
+        
+        const understandResetBtn = document.getElementById('understand-reset-btn');
+        if(understandResetBtn) {
+            understandResetBtn.addEventListener('click', () => {
+                closeModal(forgotPasswordModal);
+            });
+        }
 
-    document.getElementById('login-form').addEventListener('submit', handleLogin);
-    document.getElementById('register-form').addEventListener('submit', handleRegistration);
-};
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+        document.getElementById('register-form').addEventListener('submit', handleRegistration);
+    };
+
+
 
 initAuthModal();
-
-    
-    
-    
     
     const initializeApp = () => {
     updateAuthStateUI();
@@ -3118,6 +3231,21 @@ initAuthModal();
     applyRippleEffect();
     renderComparisonTray();
     updateAllCompareButtons();
+    
+    const footer = document.querySelector('footer');
+    if (footer) {
+        footer.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link) {
+
+                if (!isAuthenticated()) {
+                    
+                    e.preventDefault(); 
+                    openModal(document.getElementById('auth-modal'));
+                }
+            }
+        });
+    }
 
     setTimeout(() => {
         setLanguage(localStorage.getItem('language') || 'id');
@@ -3346,37 +3474,33 @@ if (returnConfirmationModal) {
     const emailAdminBtn = document.getElementById('email-admin-btn');
     const quickContactForm = document.getElementById('quick-contact-form');
 
-   
+
     if (liveChatToggle) {
-    liveChatToggle.addEventListener('click', (e) => {
-        e.preventDefault();
+        liveChatToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (document.body.classList.contains('sidebar-open')) {
+                toggleSidebar();
+            }
+            setTimeout(() => {
+                openModal(liveChatModal);
+            }, 350);
+        });
+    }
 
-        if (document.body.classList.contains('sidebar-open')) {
-            toggleSidebar();
-        }
-
-        setTimeout(() => {
-            openModal(liveChatModal);
-        }, 350);
-    });
-}
-
-   
+    
     chatTabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetTab = btn.dataset.tab;
             
-
             chatTabBtns.forEach(b => b.classList.remove('active'));
             chatTabContents.forEach(c => c.classList.remove('active'));
             
-
             btn.classList.add('active');
             document.querySelector(`[data-tab="${targetTab}"].chat-tab-content`).classList.add('active');
         });
     });
 
-   
+
     if (faqSearchInput) {
         faqSearchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
@@ -3399,41 +3523,34 @@ if (returnConfirmationModal) {
                 }
             });
 
-           
             if (faqNotFound) {
                 faqNotFound.style.display = (!hasResults && searchTerm !== '') ? 'block' : 'none';
             }
         });
     }
 
-   
+
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question-chat');
         question.addEventListener('click', () => {
-           
             faqItems.forEach(otherItem => {
                 if (otherItem !== item) {
                     otherItem.classList.remove('active');
                 }
             });
-            
-            
             item.classList.toggle('active');
         });
     });
 
-   
+
     if (contactAdminFromFaq) {
         contactAdminFromFaq.addEventListener('click', () => {
-
             chatTabBtns.forEach(b => b.classList.remove('active'));
             chatTabContents.forEach(c => c.classList.remove('active'));
-            
             document.querySelector('[data-tab="admin"]').classList.add('active');
             document.querySelector('[data-tab="admin"].chat-tab-content').classList.add('active');
         });
     }
-
 
     if (whatsappAdminBtn) {
         whatsappAdminBtn.addEventListener('click', () => {
@@ -3442,7 +3559,6 @@ if (returnConfirmationModal) {
             window.open(whatsappUrl, '_blank');
         });
     }
-
 
     if (emailAdminBtn) {
         emailAdminBtn.addEventListener('click', () => {
@@ -3453,11 +3569,9 @@ if (returnConfirmationModal) {
         });
     }
 
-   
     if (quickContactForm) {
         quickContactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
             const name = document.getElementById('quick-name').value;
             const topic = document.getElementById('quick-topic').value;
             const message = document.getElementById('quick-message').value;
@@ -3477,33 +3591,29 @@ if (returnConfirmationModal) {
             
             const whatsappMessage = `Halo, saya ${name}.\n\nTopik: ${topicLabels[topic]}\n\nPesan: ${message}\n\nMohon bantuannya. Terima kasih.`;
             const whatsappUrl = `https://wa.me/6287820843118?text=${encodeURIComponent(whatsappMessage)}`;
-            
             window.open(whatsappUrl, '_blank');
-            
-
             quickContactForm.reset();
             showToast('Pesan telah disiapkan di WhatsApp', 'success');
         });
     }
 
 
+
     const liveChatCloseBtn = liveChatModal?.querySelector('.close-button');
-    if (liveChatCloseBtn) {
-        liveChatCloseBtn.addEventListener('click', () => {
-            liveChatModal.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        });
-    }
+if (liveChatCloseBtn) {
+    liveChatCloseBtn.addEventListener('click', () => {
+        closeModal(liveChatModal); 
+    });
+}
 
 
     if (liveChatModal) {
-        liveChatModal.addEventListener('click', (e) => {
-            if (e.target === liveChatModal) {
-                liveChatModal.style.display = 'none';
-                document.body.classList.remove('modal-open');
-            }
-        });
-    }
+    liveChatModal.addEventListener('click', (e) => {
+        if (e.target === liveChatModal) {
+            closeModal(liveChatModal); 
+        }
+    });
+}
     
     
     const wrapper = document.querySelector('.custom-select-wrapper');
@@ -3530,7 +3640,12 @@ if (returnConfirmationModal) {
         const customOptions = optionsContainer ? optionsContainer.querySelectorAll('.custom-select-option') : [];
 
         if(trigger) {
-            trigger.addEventListener('click', () => {
+            trigger.addEventListener('click', (e) => {
+                if (!isAuthenticated()) {
+                    e.preventDefault();
+                    openModal(document.getElementById('auth-modal'));
+                    return;
+                }
                 wrapper.classList.toggle('open');
             });
         }
@@ -3599,5 +3714,4 @@ if (logoutMenuItem) {
         });
     }
 }
-
 });
