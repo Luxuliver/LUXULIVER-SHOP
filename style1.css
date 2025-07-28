@@ -4015,7 +4015,7 @@ body.loyalty-tier-1000 header {
     background-blend-mode: overlay, normal, luminosity;
     background-image: linear-gradient(rgba(240, 244, 247, 0.8), rgba(240, 244, 247, 0.8)),
                       url('AA.jpg'),
-                      linear-gradient(rgba(201, 176, 131, 0.05), transparent); /* New subtle gradient */
+                      linear-gradient(rgba(201, 176, 131, 0.05), transparent);
 }
 
 body.dark-mode.loyalty-tier-1000 #hero,
@@ -4500,4 +4500,38 @@ body.dark-mode .product-card:hover {
 .user-dropdown a:hover {
     background-color: var(--background-color);
     color: var(--primary-color);
+}
+
+.forgot-password-icon.warning {
+    color: #e74c3c; 
+}
+
+.warning-box {
+    background-color: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.3);
+    border-radius: var(--border-radius-base);
+    padding: 1rem;
+    margin: 1.5rem 0;
+}
+
+.warning-box strong {
+    color: #c0392b;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.warning-box p {
+    font-size: 0.9rem;
+    color: #721c24;
+    margin: 0;
+}
+
+body.dark-mode .warning-box {
+     background-color: rgba(231, 76, 60, 0.15);
+     border-color: rgba(231, 76, 60, 0.4);
+}
+
+body.dark-mode .warning-box strong,
+body.dark-mode .warning-box p {
+    color: #f5c6cb;
 }
