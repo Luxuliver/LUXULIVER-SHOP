@@ -244,6 +244,21 @@ document.addEventListener('DOMContentLoaded', () => {
             reset_account_warning_title: 'PERINGATAN PENTING',
             reset_account_warning_desc: 'Tindakan ini akan menghapus semua data Anda yang tersimpan di browser ini, termasuk riwayat pesanan dan daftar favorit. Data tidak dapat dikembalikan.',
             reset_account_understand_btn: 'Saya Mengerti',
+            nav_profile: 'Profil Saya',
+            profile_title: 'Akun Saya',
+            profile_manage_account: 'Kelola informasi akun dan keamanan Anda',
+            profile_info_subtitle: 'Informasi Personal',
+            profile_password_subtitle: 'Keamanan Akun',
+            profile_save_changes: 'Simpan Perubahan',
+            profile_change_password: 'Ubah Password',
+            label_old_password: 'Password Lama',
+            label_new_password: 'Password Baru',
+            label_confirm_password: 'Konfirmasi Password Baru',
+            toast_profile_updated: 'Profil berhasil diperbarui!',
+            toast_password_changed: 'Password berhasil diubah!',
+            toast_old_password_wrong: 'Password lama salah.',
+            toast_password_not_match: 'Password baru dan konfirmasi tidak cocok.',
+           
 
             },
         en: {
@@ -479,6 +494,20 @@ document.addEventListener('DOMContentLoaded', () => {
             reset_account_warning_title: 'IMPORTANT WARNING',
             reset_account_warning_desc: 'This action will permanently delete all your data stored in this browser, including order history and your favorites list. This data cannot be recovered.',
             reset_account_understand_btn: 'I Understand',
+            nav_profile: 'My Profile',
+            profile_title: 'My Account',
+            profile_manage_account: 'Manage your account information and security',
+            profile_info_subtitle: 'Personal Information',
+            profile_password_subtitle: 'Account Security',
+            profile_save_changes: 'Save Changes',
+            profile_change_password: 'Change Password',
+            label_old_password: 'Old Password',
+            label_new_password: 'New Password',
+            label_confirm_password: 'Confirm New Password',
+            toast_profile_updated: 'Profile updated successfully!',
+            toast_password_changed: 'Password changed successfully!',
+            toast_old_password_wrong: 'Old password is incorrect.',
+            
         }
     };
 
@@ -768,6 +797,9 @@ const compareNowBtn = document.getElementById('compare-now-btn');
 const clearComparisonBtn = document.getElementById('clear-comparison-btn');
 const comparisonModal = document.getElementById('comparison-modal');
 const comparisonTableContainer = document.getElementById('comparison-table-container');
+const profileModal = document.getElementById('profile-modal');
+const profileSidebarBtn = document.getElementById('profile-sidebar-btn');
+
 
 const addToCart = (productId, size, quantity, triggerElement) => {
     if (!isAuthenticated()) {
@@ -2147,6 +2179,70 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
             `;
         }).join('');
     };
+    
+    const handleProfileUpdate = (e) => {
+        e.preventDefault();
+        const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+        if (!currentUser) return;
+
+        const newName = document.getElementById('profile-name').value;
+        const newAddress = document.getElementById('profile-address').value;
+
+        currentUser.name = newName;
+        currentUser.address = newAddress;
+
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
+        if (accountIndex !== -1) {
+            accounts[accountIndex].name = newName;
+            accounts[accountIndex].address = newAddress;
+        }
+        
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
+        localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+
+        showToast('toast_profile_updated', 'success');
+        updateAuthStateUI(); 
+        closeModal(profileModal);
+    };
+const handleChangePassword = (e) => {
+        e.preventDefault();
+        const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+        if (!currentUser) return;
+
+        const oldPassword = document.getElementById('old-password').value;
+        const newPassword = document.getElementById('new-password').value;
+        const confirmNewPassword = document.getElementById('confirm-new-password').value;
+        const errorMsg = document.getElementById('change-password-error-msg');
+
+        if (oldPassword !== currentUser.password) {
+            errorMsg.textContent = translations[currentLanguage].toast_old_password_wrong;
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (newPassword !== confirmNewPassword || !newPassword) {
+            errorMsg.textContent = translations[currentLanguage].toast_password_not_match;
+            errorMsg.style.display = 'block';
+            return;
+        }
+        
+        currentUser.password = newPassword;
+
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
+        if (accountIndex !== -1) {
+            accounts[accountIndex].password = newPassword;
+        }
+
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
+        localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+
+        showToast('toast_password_changed', 'success');
+        document.getElementById('change-password-form').reset();
+        errorMsg.style.display = 'none';
+        closeModal(profileModal);
+    };
 
 
  const renderLoyaltySection = () => {
@@ -2736,9 +2832,33 @@ const updateFilterUI = () => {
         }
     });
     searchInput.addEventListener('input', () => renderSearchSuggestions(searchInput.value.trim()));
+    
     document.addEventListener('click', e => {
         if (!e.target.closest('.search-input-wrapper')) searchSuggestionsContainer.style.display = 'none';
     });
+    
+    if(profileSidebarBtn) {
+        profileSidebarBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isAuthenticated()) {
+                const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+                document.getElementById('profile-name').value = currentUser.name || '';
+                document.getElementById('profile-address').value = currentUser.address || '';
+                
+                document.getElementById('profile-info-error-msg').style.display = 'none';
+                document.getElementById('change-password-error-msg').style.display = 'none';
+                document.getElementById('change-password-form').reset();
+
+                openModal(profileModal);
+            } else {
+                openModal(document.getElementById('auth-modal'));
+            }
+        });
+    }
+    
+    document.getElementById('profile-info-form')?.addEventListener('submit', handleProfileUpdate);
+    document.getElementById('change-password-form')?.addEventListener('submit', handleChangePassword);
+
 
     checkoutBtn.addEventListener('click', () => {
     if (cart.length === 0) {
@@ -2790,6 +2910,7 @@ const updateFilterUI = () => {
 
             useSavedAddressBtn.style.display = localStorage.getItem('savedAddress') ? 'inline-flex' : 'none';
         }
+
 
 
         checkoutFormContainer.scrollIntoView({ behavior: 'smooth' });
@@ -3137,8 +3258,42 @@ if (paymentMethodContainer) {
         if (isAuthenticated()) {
             sidebarToggleBtn.style.display = '';
             const user = getLocalStorageItem('luxuliverCurrentUser');
-            authNavItem.innerHTML = `<div class="user-menu"><a href="#" id="auth-action-btn">${translations[currentLanguage].nav_hello(user.name)} <i class="fas fa-chevron-down"></i></a><div class="user-dropdown"><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> ${translations[currentLanguage].nav_logout}</a></div></div>`;
-            document.getElementById('logout-btn').addEventListener('click', (e) => { e.preventDefault(); handleLogout(); });
+            
+           
+            authNavItem.innerHTML = `
+                <div class="user-menu">
+                    <a href="#" id="auth-action-btn">${translations[currentLanguage].nav_hello(user.name)} <i class="fas fa-chevron-down"></i></a>
+                    <div class="user-dropdown">
+                        <a href="#" id="profile-dropdown-btn">
+                            <i class="fas fa-user-cog"></i> <span data-lang-key="nav_profile">${translations[currentLanguage].nav_profile}</span>
+                        </a>
+                        <a href="#" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> <span data-lang-key="nav_logout">${translations[currentLanguage].nav_logout}</span>
+                        </a>
+                    </div>
+                </div>`;
+
+           
+            document.getElementById('logout-btn').addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                handleLogout(); 
+            });
+
+
+            document.getElementById('profile-dropdown-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+                document.getElementById('profile-name').value = currentUser.name || '';
+                document.getElementById('profile-address').value = currentUser.address || '';
+                
+                document.getElementById('profile-info-error-msg').style.display = 'none';
+                document.getElementById('change-password-error-msg').style.display = 'none';
+                document.getElementById('change-password-form').reset();
+
+                openModal(profileModal);
+            });
+
             userSpecificMenus.forEach(selector => {
                 const linkElement = document.querySelector(`a[href="${selector}"]`);
                 if (linkElement) linkElement.parentElement.style.display = 'block';
