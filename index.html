@@ -59,6 +59,13 @@
                         </div>
                     </div>
                 </li>
+                
+                <li>
+                    <a href="#" id="profile-sidebar-btn" data-modal-target="profile-modal">
+                        <i class="fas fa-user-edit"></i> <span data-lang-key="nav_profile">Profil Saya</span>
+                    </a>
+                </li>
+                
                 <li>
                     <a href="#" id="notification-sidebar-btn">
                         <i class="fas fa-bell"></i>
@@ -1106,6 +1113,64 @@
         </div>
     </div>
 </div>
+
+  <div id="profile-modal" class="modal">
+    <div class="modal-content profile-modal-content">
+        <span class="close-button">&times;</span>
+        <div class="profile-header">
+            <div class="profile-header-icon"><i class="fas fa-user-shield"></i></div>
+            <div class="profile-header-text">
+                <h3 class="profile-title" data-lang-key="profile_title">Akun Saya</h3>
+                <p class="profile-subtitle" data-lang-key="profile_manage_account">Kelola informasi akun dan keamanan Anda</p>
+            </div>
+        </div>
+        <div class="profile-body">
+            <div class="profile-info-section">
+                <h4 class="profile-section-title" data-lang-key="profile_info_subtitle">Informasi Personal</h4>
+                <form id="profile-info-form">
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-user-circle"></i>
+                        <input type="text" id="profile-name" class="form-input" placeholder=" " required>
+                        <label for="profile-name" class="form-label" data-lang-key="label_fullname">Nama Lengkap</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-map-marked-alt"></i>
+                        <textarea id="profile-address" class="form-input" placeholder=" " rows="4" required></textarea>
+                        <label for="profile-address" class="form-label" data-lang-key="label_address">Alamat Lengkap</label>
+                    </div>
+                    <p id="profile-info-error-msg" class="auth-error-msg"></p>
+                    <button type="submit" class="btn btn-primary profile-action-btn" data-lang-key="profile_save_changes">Simpan Perubahan</button>
+                </form>
+            </div>
+
+            <hr class="profile-divider">
+
+            <div class="profile-security-section">
+                <h4 class="profile-section-title" data-lang-key="profile_password_subtitle">Keamanan Akun</h4>
+                <form id="change-password-form">
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-key"></i>
+                        <input type="password" id="old-password" class="form-input" placeholder=" " required>
+                        <label for="old-password" class="form-label" data-lang-key="label_old_password">Password Lama</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-lock"></i>
+                        <input type="password" id="new-password" class="form-input" placeholder=" " required>
+                        <label for="new-password" class="form-label" data-lang-key="label_new_password">Password Baru</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-check-double"></i>
+                        <input type="password" id="confirm-new-password" class="form-input" placeholder=" " required>
+                        <label for="confirm-new-password" class="form-label" data-lang-key="label_confirm_password">Konfirmasi Password Baru</label>
+                    </div>
+                    <p id="change-password-error-msg" class="auth-error-msg"></p>
+                    <button type="submit" class="btn btn-secondary profile-action-btn" data-lang-key="profile_change_password">Ubah Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="reading-guide"></div>
 
