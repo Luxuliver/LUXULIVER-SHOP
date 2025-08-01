@@ -5256,62 +5256,80 @@ body.dark-mode #sold-out-container .sold-out-item-link:hover {
     background: linear-gradient(45deg, #00f2ea, #000000, #ff0050);
 }
 
+.article-list {
+    gap: 0.75rem;
+}
+
 .article-link {
     background: linear-gradient(165deg, var(--surface-color) 0%, var(--background-color) 100%);
     border: 1px solid var(--border-color);
-    border-radius: 16px;
-    padding: 1.5rem;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: 0.75rem;
     text-decoration: none;
     position: relative;
-
-    box-shadow: 0 4px 8px rgba(0,0,0,0.02), 
-                0 10px 20px rgba(0,0,0,0.04),
-                inset 0 0 1px rgba(255,255,255,0.5);
-    transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02), 
+                0 5px 10px rgba(0,0,0,0.03);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
-
 .article-link:hover {
-    transform: scale(1.015); 
+    transform: scale(1.01);
     border-color: rgba(0,0,0,0.2);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.04), 
-                0 20px 40px rgba(0,0,0,0.08),
-                inset 0 0 1px rgba(255,255,255,0.5);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.04), 
+                0 10px 20px rgba(0,0,0,0.06);
     text-decoration: none;
 }
 
 body.dark-mode .article-link:hover {
     border-color: var(--accent-color);
-     box-shadow: 0 8px 15px rgba(0,0,0,0.2), 
-                0 20px 40px rgba(0,0,0,0.3),
-                0 0 15px rgba(201, 176, 131, 0.1);
+}
+
+.article-link::before {
+    content: '\f15c';
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+    background-color: var(--surface-color);
+    border-radius: 6px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.article-link:hover::before {
+    background-color: var(--text-color);
+    color: var(--surface-color);
 }
 
 .article-link-content h4 {
-    margin: 0 0 0.2rem 0;
-    font-size: 1.2rem;
+    margin: 0;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-color);
-    letter-spacing: 0.2px;
 }
 
 .article-link-content p {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     color: var(--light-text);
 }
 
 .article-link i.fa-chevron-right {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: var(--border-color);
     margin-left: auto;
     background-color: var(--background-color);
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -5324,11 +5342,11 @@ body.dark-mode .article-link:hover {
 }
 
 .article-modal .modal-content {
-    max-width: 800px;
+    max-width: 520px;
     background-color: var(--background-color);
     border: 1px solid var(--border-color);
-    padding: 4rem 4.5rem; 
-    box-shadow: 0 25px 60px -15px rgba(0,0,0,0.3);
+    padding: 2rem 2.5rem;
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
 }
 
 body.dark-mode .article-modal .modal-content {
@@ -5337,85 +5355,67 @@ body.dark-mode .article-modal .modal-content {
 }
 
 .article-header {
-    margin-bottom: 3rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
 }
 
 .article-content {
-    line-height: 1.8;
+    line-height: 1.65;
 }
 
 .article-content h2 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    text-align: left;
-    margin: 1rem 0 2.5rem 0;
-    line-height: 1.2;
-    color: var(--text-color);
-    position: relative;
+    font-size: 1.6rem;
+    margin: 0.25rem 0 1.5rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .article-content h2::before {
     content: 'LUXULIVER EDITORIAL';
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--accent-color);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .article-content h4 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: left;
-    color: var(--text-color);
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid var(--border-color);
+    font-size: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .article-content p {
-    font-size: 1.1rem;
-    color: var(--light-text);
-    text-align: justify;
-    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
 .article-content p:first-of-type::first-letter {
-    font-size: 4rem;
-    font-weight: 700;
-    color: var(--text-color);
-    float: left;
-    line-height: 0.8;
-    margin-right: 0.8rem;
-    margin-top: 0.5rem;
+    font-size: 3rem;
+    margin-right: 0.5rem;
+    margin-top: 0.3rem;
 }
 
 .article-content hr {
-    border: 0;
-    height: 1px;
-    background-image: linear-gradient(to right, transparent, var(--border-color), transparent);
-    margin: 4rem 0;
-    position: relative;
+    margin: 2.5rem 0;
 }
 
 .article-content hr::after {
-    content: '◆';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--background-color);
-    color: var(--accent-color);
-    padding: 0 1rem;
-    font-size: 1rem;
+    padding: 0 0.75rem;
+    font-size: 0.8rem;
 }
 
-body.dark-mode .article-content hr::after {
-    background-color: #161616;
+.article-content table {
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+}
+
+.article-content th, .article-content td {
+    padding: 0.6rem 0.8rem;
 }
 
 .sidebar-menu > li > a > i:first-child {
