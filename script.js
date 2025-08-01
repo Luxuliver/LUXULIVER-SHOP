@@ -10,677 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const translations = {
-        id: {
-            nav_home: 'Beranda',
-            nav_collections: 'Koleksi',
-            nav_cart: 'Keranjang',
-            nav_favorites: 'Favorit',
-            nav_history: 'Riwayat',
-            sidebar_title: 'Menu & Filter',
-            sidebar_main_menu: 'Menu Utama',
-            sidebar_help: 'Bantuan',
-            sidebar_faq: 'FAQ',
-            sidebar_contact_admin: 'Hubungi Admin',
-            sidebar_return_policy: 'Kebijakan Pengembalian',
-            sidebar_availability: 'Ketersediaan',
-            sidebar_all_products: 'Semua Produk',
-            sidebar_in_stock: 'Stok Tersedia',
-            sidebar_color: 'Warna',
-            sidebar_all_colors: 'Semua Warna',
-            color_black: 'Hitam',
-            color_white: 'Putih',
-            sidebar_design: 'Desain',
-            sidebar_all_designs: 'Semua Desain',
-            design_classy: 'Classy',
-            design_abstract: 'Abstrak',
-            sidebar_display_mode: 'Mode Tampilan',
-            sidebar_language: 'Bahasa',
-            sidebar_video_gallery: 'Khusus Vidio',
-            sidebar_reset_filters: 'Reset Semua Filter',
-            hero_title: 'T-Shirt stylish yang bikin gaya makin percaya diri!',
-            hero_subtitle: 'Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.',
-            hero_button: 'Jelajahi Koleksi',
-            search_placeholder: 'Cari nama produk...',
-            search_button: 'Cari',
-            all_collections_title: 'Semua Koleksi',
-            no_results: 'Produk tidak ditemukan.',
-            cart_title: 'Keranjang Belanja',
-            empty_cart: 'Keranjang Anda kosong. Mari mulai berbelanja!',
-            subtotal: 'Subtotal',
-            discount: 'Diskon',
-            total: 'Total',
-            checkout_button: 'Lanjutkan ke Checkout',
-            checkout_process_title: 'Proses Checkout',
-            step_info: 'Informasi',
-            step_shipping: 'Pengiriman',
-            step_payment: 'Pembayaran',
-            step1_title: 'Langkah 1: Informasi Kontak Anda',
-            label_fullname: 'Nama Lengkap:',
-            label_whatsapp: 'Nomor WhatsApp:',
-            note_whatsapp: 'Format: 10-15 digit angka (Gunakan format lokal, cth: 08xxxxxxxx).',
-            label_address: 'Alamat Lengkap:',
-            label_notes: 'Informasi Tambahan (Opsional):',
-            step2_title: 'Langkah 2: Pilih Metode Pengiriman',
-            label_expedition: 'Pilih Ekspedisi:',
-            step3_title: 'Langkah 3: Pilih Metode Pembayaran',
-            label_payment_method: 'Pilih Pembayaran:',
-            final_summary_title: 'Ringkasan Pesanan',
-            final_summary_note: 'Pastikan semua data sudah benar sebelum menyelesaikan pesanan.',
-            button_back: 'Kembali',
-            button_next: 'Lanjut',
-            button_order_whatsapp: 'Buat Pesanan via WhatsApp',
-            favorites_title: 'Produk Favorit Anda',
-            empty_favorites: 'Anda belum menambahkan produk favorit apapun.',
-            history_title: 'Riwayat Pesanan Anda',
-            empty_history: 'Anda belum memiliki riwayat pesanan.',
-            history_track_order: 'Lacak Pesanan',
-            history_buy_again: 'Beli Lagi',
-            history_order: 'Pesanan',
-            history_date: 'Tanggal',
-            history_status_completed: 'Selesai',
-            footer_about: 'Tentang Luxuliver',
-            footer_about_text: 'Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.',
-            footer_contact: 'Hubungi Kami',
-            footer_social: 'Ikuti Kami',
-            footer_social_text: '<a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">luxuliver</a>',
-            footer_policy_title: 'Informasi & Kebijakan',
-            footer_policy_privacy: 'Kebijakan Privasi',
-            footer_policy_terms: 'Syarat & Ketentuan',
-            footer_policy_shipping: 'Kebijakan Pengiriman',
-            footer_policy_return: 'Kebijakan Pengembalian',
-            footer_copyright: 'Semua Hak Cipta Dilindungi.',
-            reviews_title: 'Ulasan Produk',
-            reviews_count: 'ulasan',
-            no_reviews_yet: 'Belum ada ulasan untuk produk ini.',
-            add_to_cart: 'Tambah ke Keranjang',
-            size_guide: 'Panduan Ukuran',
-            share_product: 'Bagikan Produk',
-            confirm_yes: 'Ya',
-            confirm_no: 'Tidak',
-            whatsapp_confirm_text: 'Kami telah menyiapkan pesan WhatsApp untuk Anda. Mohon kirim pesan tersebut untuk melanjutkan pesanan. Apakah Anda sudah mengirimkannya?',
-            whatsapp_confirm_yes: 'Sudah, Selesaikan Pesanan',
-            whatsapp_confirm_no: 'Batal',
-            size_guide_title: 'Panduan Ukuran',
-            size_guide_subtitle: 'Semua ukuran dalam satuan centimeter (cm).',
-            th_size: 'Ukuran',
-            th_length: 'Panjang Baju',
-            th_width: 'Lebar Baju',
-            th_sleeve: 'Panjang Lengan',
-            video_gallery_title: 'Video Koleksi',
-            video_gallery_subtitle: 'Lihat lebih dekat kualitas dan gaya produk kami melalui video.',
-            video1_title: 'Brand Showcase',
-            video2_title: 'Daily Style with Luxuliver',
-            video3_title: 'Behind The Seams',
-            faq_title: 'Pertanyaan yang Sering Diajukan',
-            faq_q1: 'Bagaimana cara memesan produk?',
-            faq_a1: 'Untuk memesan, cukup tambahkan produk ke keranjang, lanjutkan ke checkout, isi informasi Anda, lalu klik tombol \'Buat Pesanan via WhatsApp\'. Anda akan diarahkan ke WhatsApp dengan pesan otomatis yang sudah kami siapkan untuk menyelesaikan pesanan dengan admin kami.',
-            faq_q2: 'Terbuat dari bahan apa T-shirt ini?',
-            faq_a2: 'Semua T-shirt kami terbuat dari bahan premium berkualitas tinggi yang lembut, adem, dan nyaman dipakai sepanjang hari. Kami menjamin kualitas bahan dan sablon terbaik.',
-            faq_q3: 'Bagaimana cara menentukan ukuran yang pas?',
-            faq_a3: 'Kami menyediakan \'Panduan Ukuran\' detail di setiap halaman produk. Cukup klik tombol \'Panduan Ukuran\' untuk melihat tabel ukuran lengkap (panjang, lebar, dan panjang lengan) dalam centimeter untuk membantu Anda memilih ukuran yang paling tepat.',
-            faq_q4: 'Apa saja metode pembayaran yang tersedia?',
-            faq_a4: 'Saat ini kami menerima pembayaran melalui transfer bank (BCA, Mandiri) dan dompet digital (GoPay, OVO). Anda dapat memilih metode yang paling nyaman bagi Anda pada langkah checkout.',
-            faq_q5: 'Berapa lama proses pengiriman?',
-            faq_a5: 'Estimasi waktu pengiriman tergantung pada lokasi Anda dan ekspedisi yang dipilih. Untuk area Jabodetabek, biasanya memakan waktu 1-3 hari kerja. Untuk luar Jabodetabek, estimasi 3-7 hari kerja. Nomor resi akan kami informasikan melalui WhatsApp setelah pesanan dikirim.',
-            policy_title_privacy: 'Kebijakan Privasi',
-            privacy_p1: 'Kami di Luxuliver sangat menghargai privasi Anda. Kebijakan ini menjelaskan informasi pribadi apa yang kami kumpulkan dan bagaimana kami menggunakannya.',
-            privacy_p2: '<strong>Informasi yang Kami Kumpulkan:</strong> Kami mengumpulkan informasi yang Anda berikan langsung kepada kami, seperti nama, nomor telepon, dan alamat email saat Anda melakukan pemesanan. Informasi ini hanya digunakan untuk memproses pesanan Anda dan untuk menghubungi Anda terkait pesanan tersebut.',
-            privacy_p3: '<strong>Keamanan Data:</strong> Kami tidak akan pernah membagikan, menjual, atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum. Semua komunikasi pesanan dilakukan melalui WhatsApp untuk kemudahan dan keamanan Anda.',
-            policy_title_terms: 'Syarat & Ketentuan',
-            terms_p1: 'Dengan mengakses dan menggunakan situs web ini, Anda setuju untuk terikat oleh Syarat dan Ketentuan berikut.',
-            terms_p2: '<strong>Pemesanan:</strong> Semua pesanan dianggap final setelah konfirmasi pembayaran diterima. Pastikan semua detail pesanan (produk, ukuran, alamat) sudah benar sebelum melakukan pembayaran.',
-            terms_p3: '<strong>Harga:</strong> Harga yang tertera dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya. Harga final adalah harga yang tercantum pada ringkasan pesanan Anda di WhatsApp, termasuk detail biaya pengiriman yang akan diinformasikan langsung oleh admin sesuai dengan alamat tujuan Anda.',
-            terms_p4: '<strong>Hak Cipta:</strong> Semua konten di situs ini, termasuk desain produk, gambar, dan teks, adalah milik Luxuliver dan dilindungi oleh undang-undang hak cipta.',
-            policy_title_shipping: 'Kebijakan Pengiriman',
-            shipping_p1: '<strong>Proses Pengiriman:</strong> Pesanan akan diproses dan dikirim dalam 1-2 hari kerja setelah konfirmasi pembayaran diterima.',
-            shipping_p2: '<strong>Waktu Pengiriman:</strong> Estimasi waktu pengiriman adalah 1-3 hari kerja untuk Jabodetabek dan 3-7 hari kerja untuk kota-kota lain di Indonesia. Keterlambatan oleh pihak ekspedisi berada di luar tanggung jawab kami.',
-            shipping_p3: '<strong>Biaya Kirim & Pelacakan:</strong> Biaya pengiriman akan diinformasikan oleh admin kami melalui WhatsApp. Nomor resi pelacakan juga akan diberikan setelah paket dikirim agar Anda dapat melacak status pengiriman Anda.',
-            policy_title_return: 'Kebijakan Pengembalian',
-            return_p1: 'Kepuasan Anda adalah prioritas kami. Kami menerima pengembalian produk dengan ketentuan sebagai berikut:',
-            return_p2: '<strong>Kondisi:</strong> Produk hanya dapat dikembalikan jika ada cacat produksi atau kesalahan pengiriman dari pihak kami (salah ukuran atau salah produk).',
-            return_p3: '<strong>Batas Waktu:</strong> Klaim pengembalian harus diajukan maksimal 3 hari setelah barang diterima, dengan menyertakan video unboxing sebagai bukti.',
-            return_p4: '<strong>Proses:</strong> Silakan hubungi admin kami melalui WhatsApp untuk memulai proses pengembalian. Produk pengganti akan kami kirim setelah produk yang dikembalikan kami terima dan periksa. Kami tidak melayani pengembalian dana (refund).',
-            toast_select_size: 'Mohon pilih ukuran baju terlebih dahulu!',
-            toast_stock_not_enough: (name, size) => `Stok ${name} (${size}) tidak mencukupi!`,
-            toast_quantity_updated: (name, size) => `Kuantitas ${name} (${size}) diperbarui!`,
-            toast_added_to_cart: (name, size, qty) => `${qty}x ${name} (${size}) ditambahkan!`,
-            toast_removed_from_cart: (name, size) => `"${name} (${size})" dihapus.`,
-            toast_removed_from_favorites: (name) => `"${name}" dihapus dari favorit.`,
-            toast_added_to_favorites: (name) => `"${name}" ditambahkan ke favorit!`,
-            toast_product_shared: 'Produk berhasil dibagikan!',
-            toast_link_copied: 'Link produk disalin ke clipboard!',
-            toast_share_failed: 'Gagal membagikan produk.',
-            toast_invalid_whatsapp: 'Nomor WhatsApp tidak valid (10-15 digit angka).',
-            toast_step_not_complete: (step) => `Mohon lengkapi semua data pada langkah ${step}.`,
-            toast_order_confirmed: 'Pesanan Anda berhasil dikonfirmasi!',
-            toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
-            toast_order_rebought: (orderId) => `Produk dari pesanan ${orderId} berhasil ditambahkan kembali!`,
-            confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
-            promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 1%.`,
-            stock_limited: 'Terbatas!',
-            stock_out: 'Stok Habis',
-            add_button: 'Tambah',
-            button_use_saved_address: 'Gunakan Alamat Tersimpan',
-            toast_address_loaded: 'Alamat berhasil dimuat!',
-            button_save_for_later: 'Simpan untuk Nanti',
-            button_move_to_cart: 'Pindahkan ke Keranjang',
-            saved_for_later_title: 'Disimpan untuk Nanti',
-            toast_moved_to_saved: (name, size) => `"${name} (${size})" disimpan.`,
-            toast_moved_to_cart: (name, size) => `"${name} (${size})" dipindahkan ke keranjang.`,
-            sidebar_recently_viewed: 'Terakhir Dilihat',
-            empty_recently_viewed: 'Anda belum melihat produk apapun.',
-            notif_promo_1_title: 'Belanja Kapan Aja, Diskon nya Tetap Ada!',
-            notif_promo_1_desc: 'Diskon 1% untuk pembelian minimal 5 item.',
-            notif_info_1_title: 'Pengiriman tetap aktif setiap hari Senin sampai Sabtu!',
-            notif_info_1_desc: 'Beli sekarang, kirim rutin setiap Senin–Sabtu. Gak pakai nunggu lama.',
-            notif_info_2_title: 'Koleksi Baru Akan Telah Tiba!',
-            notif_info_2_desc: 'Lihat koleksi T-shirt Classy terbaru pada tanggal 4 Agustus 2025 di halaman koleksi.',
-            notif_promo_2_title: 'Potongan Ongkir Khusus Jabodetabek!',
-            notif_promo_2_desc: 'Ongkir lebih hemat untuk Jabodetabek.',
-            checkout_in_progress_warning: 'Selesaikan atau batalkan checkout untuk menambah produk lain.',
-            recommendations_title: 'Anda Mungkin Juga Suka',
-            sidebar_follow_us: 'Ikuti Kami',
-            footer_social: 'Ikuti Kami',
-            follow_instagram: 'Instagram',
-            follow_tiktok: 'TikTok',
-            nav_reviews: 'Ulasan',
-            reviews_page_title: 'Ulasan Terbaru dari Pelanggan',
-            compare_now: 'Bandingkan Sekarang',
-            clear_comparison: 'Bersihkan',
-            comparison_title: 'Perbandingan Produk',
-            toast_max_compare_items: 'Maksimal 2 produk dapat dibandingkan sekaligus.',
-            nav_loyalty: 'Poin Loyalty',
-            loyalty_title: 'Poin Loyalty Anda',
-            loyalty_current_points_label: 'Poin Anda Saat Ini:',
-            loyalty_next_tier_progress: (pointsNeeded, tierName) => `Dapatkan ${pointsNeeded} poin lagi untuk level ${tierName} Premium!`,
-            loyalty_next_tier_unlocked_all: 'Selamat! Anda telah membuka semua level premium!',
-            loyalty_tier_500_title: 'Loyalty Level: Perunggu',
-            loyalty_tier_500_message: 'Selamat! Anda telah mencapai tier perunggu. Terima kasih atas kepercayaan yang anda berikan kepada kami.',
-            loyalty_tier_1000_title: 'Loyalty Level: Perak',
-            loyalty_tier_1000_message: 'Selamat! Anda telah mencapai tier perak Tier ini menunjukan keberlanjutan loyalitas anda.',
-            loyalty_tier_1500_title: 'Loyalty Level: Emas',
-            loyalty_tier_1500_message: 'Selamat! Anda kini menjadi simbol kepercayaan tertinggi kami.',
-            loyalty_tier_locked: 'Terkunci',
-            loyalty_tier_unlocked: 'Terbuka!',
-            empty_loyalty: 'Mulai belanja untuk mengumpulkan poin loyalty!',
-            empty_loyalty: 'Mulai belanja untuk mengumpulkan poin loyalty!',
-            sidebar_essentials: 'Luxuliver Essentials',
-            sidebar_size_guide: 'Panduan Ukuran',
-            sidebar_guarantee: 'Jaminan Luxuliver',
-            guarantee_title: 'Jaminan Kualitas Luxuliver',
-            guarantee_return_title: 'Bebas Pengembalian Produk Cacat',
-            guarantee_return_desc: 'Kepuasan Anda adalah prioritas kami. Jika Anda menerima produk dengan cacat produksi atau kesalahan pengiriman dari pihak kami (contoh: salah ukuran atau desain), kami akan menggantinya dengan produk yang baru. Klaim harus diajukan maksimal 3 hari setelah barang diterima dengan menyertakan video unboxing sebagai bukti.',
-            guarantee_refund_title: 'Kebijakan Non-Refund',
-            guarantee_refund_desc: 'Untuk menjaga kualitas dan efisiensi operasional, kami tidak melayani pengembalian dalam bentuk uang (refund). Semua produk yang memenuhi syarat pengembalian akan diganti dengan produk baru yang sesuai.',
-            sidebar_specs: 'Spesifikasi Produk',
-            specs_title: 'Spesifikasi & Kualitas Produk',
-            specs_fabric_title: 'Kain Premium',
-            specs_fabric_desc: 'Kami menggunakan bahan kaos New States Apparel (NSA) berkualitas tinggi yang terasa lembut, sejuk di kulit, dan menyerap keringat dengan baik. Ideal untuk kenyamanan sepanjang hari di iklim tropis.',
-            specs_print_title: 'Sablon Tahan Lama',
-            specs_print_desc: 'Desain kami diaplikasikan menggunakan teknologi sablon Direct to Film (DTF) modern, menghasilkan gambar yang tajam, warna yang cerah, dan daya rekat yang kuat sehingga tidak mudah retak atau luntur setelah dicuci berkali-kali.',
-            specs_stitching_title: 'Jahitan Presisi',
-            specs_stitching_desc: 'Setiap kaos dijahit dengan standar presisi tinggi, termasuk jahitan rantai di bagian pundak dan jahitan overdeck yang rapi, memastikan kekuatan dan daya tahan produk untuk penggunaan jangka panjang.',
-            specs_fit_title: 'Potongan Regular Fit',
-            specs_fit_desc: 'Dengan potongan Regular Fit yang telah teruji, kaos kami memberikan keseimbangan sempurna antara gaya dan kenyamanan, tidak terlalu ketat dan tidak terlalu longgar, cocok untuk berbagai bentuk tubuh.', 
-            nav_login: 'Login',
-            auth_tab_login: 'Login',
-            auth_tab_register: 'Daftar Akun',
-            login_title: 'Masuk ke Akun Anda',
-            register_title: 'Buat Akun Baru',
-            label_password: 'Password',
-            toast_login_success: (name) => `Selamat datang kembali, ${name}!`,
-            toast_register_success: 'Akun berhasil dibuat! Anda sekarang sudah login.',
-            toast_login_fail: 'Nomor WhatsApp atau password salah.',
-            toast_register_fail: 'Nomor WhatsApp ini sudah terdaftar.',
-            toast_logout_success: 'Anda berhasil logout.',
-            nav_hello: (name) => `Halo, ${name.split(' ')[0]}`,
-            nav_logout: 'Logout',
-            prompt_login_title: 'Akses Dibatasi',
-            prompt_login_text: 'Silakan login atau buat akun untuk menggunakan fitur ini.',
-            contact_admin_button: 'Hubungi Admin',
-            reset_account_title: 'Proses Reset Akun',
-            reset_account_desc: 'Karena data akun tersimpan secara lokal di browser, satu-satunya cara untuk mengatasi lupa password adalah dengan mereset data website di browser Anda, lalu mendaftar ulang.',
-            reset_account_warning_title: 'PERINGATAN PENTING',
-            reset_account_warning_desc: 'Tindakan ini akan menghapus semua data Anda yang tersimpan di browser ini, termasuk riwayat pesanan dan daftar favorit. Data tidak dapat dikembalikan.',
-            reset_account_understand_btn: 'Saya Mengerti',
-            nav_profile: 'Profil Saya',
-            profile_title: 'Akun Saya',
-            profile_manage_account: 'Kelola informasi akun dan keamanan Anda',
-            profile_info_subtitle: 'Informasi Personal',
-            profile_password_subtitle: 'Keamanan Akun',
-            profile_save_changes: 'Simpan Perubahan',
-            profile_change_password: 'Ubah Password',
-            label_old_password: 'Password Lama',
-            label_new_password: 'Password Baru',
-            label_confirm_password: 'Konfirmasi Password Baru',
-            toast_profile_updated: 'Profil berhasil diperbarui!',
-            toast_password_changed: 'Password berhasil diubah!',
-            toast_old_password_wrong: 'Password lama salah.',
-            toast_password_not_match: 'Password baru dan konfirmasi tidak cocok.',
-           
-
-            },
-        en: {
-            nav_home: 'Home',
-            nav_collections: 'Collections',
-            nav_cart: 'Cart',
-            nav_favorites: 'Favorites',
-            nav_history: 'History',
-            sidebar_title: 'Menu & Filters',
-            sidebar_main_menu: 'Main Menu',
-            sidebar_help: 'Help',
-            sidebar_faq: 'FAQ',
-            sidebar_contact_admin: 'Contact Admin',
-            sidebar_return_policy: 'Return Policy',
-            sidebar_availability: 'Availability',
-            sidebar_all_products: 'All Products',
-            sidebar_in_stock: 'In Stock',
-            sidebar_color: 'Color',
-            sidebar_all_colors: 'All Colors',
-            color_black: 'Black',
-            color_white: 'White',
-            sidebar_design: 'Design',
-            sidebar_all_designs: 'All Designs',
-            design_classy: 'Classy',
-            design_abstract: 'Abstract',
-            sidebar_display_mode: 'Display Mode',
-            sidebar_language: 'Language',
-            sidebar_video_gallery: 'Video Gallery',
-            sidebar_reset_filters: 'Reset All Filters',
-            hero_title: 'Stylish T-Shirts that boost your confidence!',
-            hero_subtitle: 'Discover a collection of stylish and comfortable apparel that makes you confident every day.',
-            hero_button: 'Explore Collections',
-            search_placeholder: 'Search product name...',
-            search_button: 'Search',
-            all_collections_title: 'All Collections',
-            no_results: 'Product not found.',
-            cart_title: 'Shopping Cart',
-            empty_cart: 'Your cart is empty. Let\'s start shopping!',
-            subtotal: 'Subtotal',
-            discount: 'Discount',
-            total: 'Total',
-            checkout_button: 'Proceed to Checkout',
-            checkout_process_title: 'Checkout Process',
-            step_info: 'Information',
-            step_shipping: 'Shipping',
-            step_payment: 'Payment',
-            step1_title: 'Step 1: Your Contact Information',
-            label_fullname: 'Full Name:',
-            label_whatsapp: 'WhatsApp Number:',
-            note_whatsapp: 'Format: 10-15 digits (Use local format, e.g., 08xxxxxxxx).',
-            label_address: 'Full Address:',
-            label_notes: 'Additional Information (Optional):',
-            step2_title: 'Step 2: Choose Shipping Method',
-            label_expedition: 'Choose Expedition:',
-            step3_title: 'Step 3: Choose Payment Method',
-            label_payment_method: 'Choose Payment:',
-            final_summary_title: 'Order Summary',
-            final_summary_note: 'Please ensure all data is correct before finalizing the order.',
-            button_back: 'Back',
-            button_next: 'Next',
-            button_order_whatsapp: 'Order via WhatsApp',
-            favorites_title: 'Your Favorite Products',
-            empty_favorites: 'You haven\'t added any favorite products yet.',
-            history_title: 'Your Order History',
-            empty_history: 'You don\'t have an order history yet.',
-            history_track_order: 'Track Order',
-            history_buy_again: 'Buy Again',
-            history_order: 'Order',
-            history_date: 'Date',
-            history_status_completed: 'Completed',
-            footer_about: 'About Luxuliver',
-            footer_about_text: 'Luxuliver presents a collection of high-quality T-Shirts with exclusive designs that blend comfort and style. Made for those who want to be confident at all times.',
-            footer_contact: 'Contact Us',
-            footer_social: 'Follow Us',
-            footer_social_text: '<a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer">luxuliver</a>',
-            footer_policy_title: 'Information & Policies',
-            footer_policy_privacy: 'Privacy Policy',
-            footer_policy_terms: 'Terms & Conditions',
-            footer_policy_shipping: 'Shipping Policy',
-            footer_policy_return: 'Return Policy',
-            footer_copyright: 'All Rights Reserved.',
-            reviews_title: 'Product Reviews',
-            reviews_count: 'reviews',
-            no_reviews_yet: 'There are no reviews for this product yet.',
-            add_to_cart: 'Add to Cart',
-            size_guide: 'Size Guide',
-            share_product: 'Share Product',
-            confirm_yes: 'Yes',
-            confirm_no: 'No',
-            whatsapp_confirm_text: 'We have prepared a WhatsApp message for you. Please send it to proceed with the order. Have you sent it?',
-            whatsapp_confirm_yes: 'Yes, Complete Order',
-            whatsapp_confirm_no: 'Cancel',
-            size_guide_title: 'Size Guide',
-            size_guide_subtitle: 'All measurements are in centimeters (cm).',
-            th_size: 'Size',
-            th_length: 'Length',
-            th_width: 'Width',
-            th_sleeve: 'Sleeve',
-            video_gallery_title: 'Collection Videos',
-            video_gallery_subtitle: 'Get a closer look at the quality and style of our products through video.',
-            video1_title: 'Brand Showcase',
-            video2_title: 'Daily Style with Luxuliver',
-            video3_title: 'Behind The Seams',
-            faq_title: 'Frequently Asked Questions',
-            faq_q1: 'How do I place an order?',
-            faq_a1: 'To order, simply add products to your cart, proceed to checkout, fill in your information, and then click the \'Order via WhatsApp\' button. You will be redirected to WhatsApp with a pre-filled message to finalize the order with our admin.',
-            faq_q2: 'What material are the T-shirts made of?',
-            faq_a2: 'All our T-shirts are made from high-quality premium that is soft, cool, and comfortable for all-day wear. We guarantee the best quality for both materials and prints.',
-            faq_q3: 'How do I find the right size?',
-            faq_a3: 'We provide a detailed \'Size Guide\' on each product page. Simply click the \'Size Guide\' button to see a complete size chart (length, width, and sleeve length) in centimeters to help you choose the most accurate size.',
-            faq_q4: 'What payment methods are available?',
-            faq_a4: 'We currently accept payments via bank transfer (BCA, Mandiri) and digital wallets (GoPay, OVO). You can choose the most convenient method for you at the checkout step.',
-            faq_q5: 'How long does shipping take?',
-            faq_a5: 'Shipping time estimates depend on your location and the chosen courier. For the Jabodetabek area, it usually takes 1-3 business days. For areas outside Jabodetabek, the estimate is 3-7 business days. We will provide the tracking number via WhatsApp once the order is shipped.',
-            policy_title_privacy: 'Privacy Policy',
-            privacy_p1: 'We at Luxuliver highly value your privacy. This policy explains what personal information we collect and how we use it.',
-            privacy_p2: '<strong>Information We Collect:</strong> We collect information you provide directly to us, such as your name, phone number, and email address when you place an order. This information is solely used to process your order and to contact you regarding that order.',
-            privacy_p3: '<strong>Data Security:</strong> We will never share, sell, or rent your personal information to third parties without your consent, except as required by law. All order communications are conducted via WhatsApp for your convenience and security.',
-            policy_title_terms: 'Terms & Conditions',
-            terms_p1: 'By accessing and using this website, you agree to be bound by the following Terms and Conditions.',
-            terms_p2: '<strong>Ordering:</strong> All orders are considered final once payment confirmation is received. Please ensure all order details (product, size, address) are correct before making a payment.',
-            terms_p3: '<strong>Pricing:</strong> Prices are subject to change at any time without prior notice. The final price will be the one stated in your order summary on WhatsApp, including the shipping fee, which will be informed directly by our admin based on your delivery address.',
-            terms_p4: '<strong>Copyright:</strong> All content on this site, including product designs, images, and text, is the property of Luxuliver and is protected by copyright law.',
-            policy_title_shipping: 'Shipping Policy',
-            shipping_p1: '<strong>Processing:</strong> Orders will be processed and shipped within 1-2 business days after payment confirmation is received.',
-            shipping_p2: '<strong>Delivery Time:</strong> Estimated delivery time is 1-3 business days for Jabodetabek and 3-7 business days for other cities in Indonesia. Delays by the courier are beyond our responsibility.',
-            shipping_p3: '<strong>Shipping Costs & Tracking:</strong> Shipping costs will be informed by our admin via WhatsApp. A tracking number will also be provided after the package is shipped so you can track your delivery status.',
-            policy_title_return: 'Return Policy',
-            return_p1: 'Your satisfaction is our priority. We accept product returns under the following conditions:',
-            return_p2: '<strong>Condition:</strong> Products can only be returned if there is a manufacturing defect or a shipping error on our part (wrong size or wrong product).',
-            return_p3: '<strong>Timeframe:</strong> Return claims must be submitted a maximum of 3 days after the item is received, accompanied by an unboxing video as proof.',
-            return_p4: '<strong>Process:</strong> Please contact our admin via WhatsApp to initiate the return process. A replacement product will be sent after we receive and inspect the returned item. We do not offer refunds.',
-            toast_select_size: 'Please select a T-shirt size first!',
-            toast_stock_not_enough: (name, size) => `Stock for ${name} (${size}) is insufficient!`,
-            toast_quantity_updated: (name, size) => `Quantity of ${name} (${size}) updated!`,
-            toast_added_to_cart: (name, size, qty) => `${qty}x ${name} (${size}) added to cart!`,
-            toast_removed_from_cart: (name, size) => `"${name} (${size})" removed from cart.`,
-            toast_removed_from_favorites: (name) => `"${name}" removed from favorites.`,
-            toast_added_to_favorites: (name) => `"${name}" added to favorites!`,
-            toast_product_shared: 'Product shared successfully!',
-            toast_link_copied: 'Product link copied to clipboard!',
-            toast_share_failed: 'Failed to share product.',
-            toast_invalid_whatsapp: 'Invalid WhatsApp number (10-15 digits).',
-            toast_step_not_complete: (step) => `Please complete all data in step ${step}.`,
-            toast_order_confirmed: 'Your order has been confirmed!',
-            toast_order_cancelled: 'Order cancelled. Your cart remains intact.',
-            toast_order_rebought: (orderId) => `Products from order ${orderId} were successfully re-added!`,
-            confirm_remove_from_cart: (name, size) => `Remove "${name} (${size})" from the cart?`,
-            promo_upsell: (items) => `Select ${items} more piece(s) to unlock an exclusive 1% offer.`,
-            stock_limited: 'Limited Stock!',
-            stock_out: 'Out of Stock',
-            add_button: 'Add',
-            button_use_saved_address: 'Use Saved Address',
-            toast_address_loaded: 'Address loaded successfully!',
-            button_save_for_later: 'Save for Later',
-            button_move_to_cart: 'Move to Cart',
-            saved_for_later_title: 'Saved for Later',
-            toast_moved_to_saved: (name, size) => `"${name} (${size})" was saved.`,
-            toast_moved_to_cart: (name, size) => `"${name} (${size})" was moved to cart.`,
-            sidebar_recently_viewed: 'Recently Viewed',
-            empty_recently_viewed: 'You have not viewed any products yet.',
-            notif_promo_1_title: 'Shop Anytime, The Discount is Always There!',
-            notif_promo_1_desc: 'Get a 1% discount for a minimum purchase of 5 items.',
-            notif_info_1_title: 'Shipping is active every Monday to Saturday!',
-            notif_info_1_desc: 'Buy now, and we ship regularly every Monday–Saturday. No long waits.',
-            notif_info_2_title: 'New Collection Has Arrived!',
-            notif_info_2_desc: 'Check out the latest Classy T-shirt collection on August 4, 2025, on the collections page.',
-            notif_promo_2_title: 'Special Shipping Discount for Jabodetabek!',
-            notif_promo_2_desc: 'More affordable shipping for the Jabodetabek area.',
-            checkout_in_progress_warning: 'Please complete or cancel the current checkout to add other products.',
-            recommendations_title: 'You Might Also Like',
-            sidebar_follow_us: 'Follow Us',
-            footer_social: 'Follow Us',
-            follow_instagram: 'Instagram',
-            follow_tiktok: 'TikTok',
-            nav_reviews: 'Reviews',
-            reviews_page_title: 'Latest Customer Reviews',
-            compare_now: 'Compare Now',
-            clear_comparison: 'Clear All',
-            comparison_title: 'Product Comparison',
-            toast_max_compare_items: 'A maximum of 2 products can be compared at once.',
-            nav_loyalty: 'Loyalty Points',
-            loyalty_title: 'Your Loyalty Points',
-            loyalty_current_points_label: 'Your Current Points:',
-            loyalty_next_tier_progress: (pointsNeeded, tierName) => `Earn ${pointsNeeded} more points for ${tierName} Premium Level!`,
-            loyalty_next_tier_unlocked_all: 'Congratulations! You have unlocked all premium levels!',
-            loyalty_tier_500_title: 'Loyalty Level: Bronze',
-            loyalty_tier_500_message: 'Congratulations on reaching the Bronze Tier. We truly appreciate your trust and support.',
-            loyalty_tier_1000_title: 'Loyalty Level: Silver',
-            loyalty_tier_1000_message: 'Congratulations! You have reached the Silver Tier. This tier represents your ongoing loyalty.',
-            loyalty_tier_1500_title: 'Loyalty Level: Gold',
-            loyalty_tier_1500_message: 'Congratulations! You are now a symbol of our highest trust.',
-            loyalty_tier_locked: 'Locked',
-            loyalty_tier_unlocked: 'Unlocked!',
-            empty_loyalty: 'Start shopping to collect loyalty points!', 
-            empty_loyalty: 'Start shopping to collect loyalty points!',
-            sidebar_essentials: 'Luxuliver Essentials',
-            sidebar_size_guide: 'Size Guide',
-            sidebar_guarantee: 'Luxuliver Guarantee',
-            guarantee_title: 'Luxuliver Quality Guarantee',
-            guarantee_return_title: 'Free Returns for Defective Products',
-            guarantee_return_desc: 'Your satisfaction is our priority. If you receive a product with a manufacturing defect or a shipping error from our side (e.g., wrong size or design), we will replace it with a new one. Claims must be submitted a maximum of 3 days after the item is received, accompanied by an unboxing video as proof.',
-            guarantee_refund_title: 'No-Refund Policy',
-            guarantee_refund_desc: 'To maintain quality and operational efficiency, we do not offer monetary refunds. All products eligible for return will be replaced with a new, corresponding product.',
-            sidebar_specs: 'Product Specifications',
-            specs_title: 'Product Specifications & Quality',
-            specs_fabric_title: 'Premium Fabric',
-            specs_fabric_desc: 'We use high-quality New States Apparel (NSA) fabric that feels soft, cool on the skin, and absorbs sweat effectively — perfect for all-day comfort in tropical climates.',
-            specs_print_title: 'Durable Print',
-            specs_print_desc: 'Our designs are applied using modern Direct to Film (DTF) printing technology, resulting in sharp images, vibrant colors, and strong adhesion that resists cracking or fading after multiple washes.',
-            specs_stitching_title: 'Precision Stitching',
-            specs_stitching_desc: 'Each t-shirt is sewn to high precision standards, including chain stitching on the shoulders and neat overdeck seams, ensuring product strength and durability for long-term use.',
-            specs_fit_title: 'Regular Fit Cut',
-            specs_fit_desc: 'With a tried-and-tested Regular Fit cut, our t-shirts provide the perfect balance of style and comfort, not too tight and not too loose, suitable for various body types.',
-            nav_login: 'Login',
-            auth_tab_login: 'Login',
-            auth_tab_register: 'Register Account',
-            login_title: 'Sign in to Your Account',
-            register_title: 'Create a New Account',
-            label_password: 'Password',
-            toast_login_success: (name) => `Welcome back, ${name}!`,
-            toast_register_success: 'Account created successfully! You are now logged in.',
-            toast_login_fail: 'Incorrect WhatsApp number or password.',
-            toast_register_fail: 'This WhatsApp number is already registered.',
-            toast_logout_success: 'You have been successfully logged out.',
-            nav_hello: (name) => `Hello, ${name.split(' ')[0]}`,
-            nav_logout: 'Logout',
-            prompt_login_title: 'Access Restricted',
-            prompt_login_text: 'Please log in or create an account to use this', 
-            contact_admin_button: 'Contact Admin',
-            reset_account_title: 'Account Reset Process',
-            reset_account_desc: 'Since account data is stored locally in the browser, the only way to resolve a forgotten password is to reset the website data in your browser, then register again.',
-            reset_account_warning_title: 'IMPORTANT WARNING',
-            reset_account_warning_desc: 'This action will permanently delete all your data stored in this browser, including order history and your favorites list. This data cannot be recovered.',
-            reset_account_understand_btn: 'I Understand',
-            nav_profile: 'My Profile',
-            profile_title: 'My Account',
-            profile_manage_account: 'Manage your account information and security',
-            profile_info_subtitle: 'Personal Information',
-            profile_password_subtitle: 'Account Security',
-            profile_save_changes: 'Save Changes',
-            profile_change_password: 'Change Password',
-            label_old_password: 'Old Password',
-            label_new_password: 'New Password',
-            label_confirm_password: 'Confirm New Password',
-            toast_profile_updated: 'Profile updated successfully!',
-            toast_password_changed: 'Password changed successfully!',
-            toast_old_password_wrong: 'Old password is incorrect.',
-            
-        }
-    };
-
-    const products = [
-        {
-            id: 'baju-001',
-            name: 'Skeleton',
-            image: 'Skeleton.jpg',
-            description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
-            sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            color: 'putih',
-            design: 'abstrak',
-            stock: 15,
-            status: 'preorder', 
-            points: 100,
-            reviews: [
-                { author: 'Muhammad Ricky', rating: 5, text: 'Kainnya adem banget, sablonnya rapi dan kualitasnya premium, keren juga desain nya bro', date: '2025-06-29' },
-                { author: 'Subhan Saputro', rating: 5, text: 'Ukurannya pas sesuai size char dan warnanya juga putih bersih, tidak menerawang, inti nya baju nya okey recommended!', date: '2025-06-29' },
-                { author: 'Bima Saputra', rating: 4, text: 'Bagus, sesuai ekspektasi, mungkin lain kali akan coba desain yang lain', date: '2025-06-29' }, 
-                { author: 'Tegar', rating: 5, text: 'Adem bahan nya', date: '2025-07-02' }, 
-                { author: 'Rangga Aji', rating: 5, text: 'Cocok buat outfit harian', date: '2025-07-03' }, 
-                { author: 'Vino Rizki', rating: 5, text: 'Kualitas sesuai harga', date: '2025-07-03' }
-            ]
-        },
-        {
-            id: 'baju-002',
-            name: 'Dog and éclipse',
-            image: 'Dog.jpg',
-            description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
-            sizes: ['XS','S', 'M', 'L', 'XL'],
-            color: 'hitam',
-            design: 'abstrak',
-            stock: 15,
-            status: 'preorder', 
-            points: 100,
-            reviews: [
-                { author: 'Dian Maulana Solihin', rating: 5, text: 'Asli bagus nih bahan nya adem banget', date: '2025-06-28' },
-                { author: 'Eko Rahman', rating: 5, text: 'Bahan untuk baju nya sih nyaman dipakai seharian ya, sablonnya pun juga tahan lama setelah beberapa kali cuci', date: '2025-07-01' }, 
-                { author: 'Zidan Hakim', rating: 5, text: 'Tidak nerawang bro, bagus', date: '2025-07-08' }, 
-                { author: 'Wahid Maulana', rating: 5, text: 'gak mudah kusut juga bahannya', date: '2025-07-15' }
-            ]
-        },
-        {
-            id: 'baju-003',
-            name: 'Travis Scott',
-            image: 'Travis scoot.jpg',
-            description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
-            sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            color: 'hitam',
-            design: 'abstrak',
-            stock: 15,
-            status: 'preorder', 
-            points: 100,
-            reviews: [
-                { author: 'Fahmi Rizky Dermawan', rating: 5, text: 'Keren abis bro, fans nya Travis Scott wajib sih ini mah punya, kualitasnya juga mantap, kaga bikin kecewa dah beli di sini', date: '2025-06-24' }, 
-                { author: 'Yoga Wijayanto', rating: 5, text: 'cocok buat cauaca panas', date: '2025-06-24' },
-                { author: 'Alif', rating: 5, text: 'serat kaik nya bagus', date: '2025-07-05' }, 
-                { author: 'Iqbal', rating: 5, text: 'jahitan nya bagus banget min', date: '2025-07-05' }, 
-                { author: 'Yusuf Gunawan', rating: 5, text: 'Mantapppp', date: '2025-07-07' }, 
-                { author: 'Jaya Santoso', rating: 5, text: 'Bagus sih ini', date: '2025-07-08' }, 
-                { author: 'Hendra', rating: 5, text: 'Cocok di gua baju nya', date: '2025-07-10' }, 
-                { author: 'Dewa Prastyo', rating: 5, text: 'Enak lah bahan nya', date: '2025-07-12' }
-            ]
-        },
-        {
-            id: 'baju-004',
-            name: 'Person',
-            image: 'Person.jpg',
-            description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
-            sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            color: 'hitam',
-            design: 'abstrak',
-            stock: 15,
-            status: 'preorder', 
-            points: 100,
-            reviews: [
-                { author: 'Farhan Mahendra', rating: 4, text: 'Jujur bahan nya bagus banget, desain nya juga okey kalo menurut gua', date: '2025-06-20' }, 
-                { author: 'Akbar Wirawan', rating: 5, text: 'sudah beli 2x, gak kecewain emang di sini', date: '2025-06-22' }, 
-                { author: 'Naufal Yuda', rating: 5, text: 'gila keren asli', date: '2025-06-28' }
-            ]
-        },
-        {
-            id: 'baju-005',
-            name: 'Atelier Noir',
-            image: 'Atelier Noir.jpg',
-            description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
-            basePrice: 100000,
-            sizes: ['XS','S', 'M', 'L', 'XL'],
-            color: 'hitam',
-            design: 'classy',
-            stock: 5,
-            status: 'preorder', 
-            points: 125,
-            reviews: [
-                { author: 'Candha Mahardika', rating: 5, text: 'Anjir bagus cuy classy nya', date: '2025-07-09' },
-                { author: 'Sandi', rating: 5, text: 'Gak expect sebagus ini', date: '2025-07-09' }, 
-                { author: 'Rizal Fahmi', rating: 5, text: 'bagus desain classy nya', date: '2025-07-12' }, 
-                { author: 'Riko Satria', rating: 5, text: 'Ditunggu desain classy selanjutnya', date: '2025-07-15' }
-            ]    
-        },  
-    ];
-
-    const sellerInfo = {
-        name: "Luxuliver Official",
-        address: "Jakarta Selatan, DKI Jakarta, Indonesia",
-        phone: "+62 878-2084-3118",
-        email: "luxuliver@gmail.com",
-        instagram: "https://www.instagram.com/luxuliver",
-        whatsappAdmin: "6287820843118"
-    };
-
-    const expeditionMethods = [
-    { id: 'jne', name: 'JNE Express', logo: 'JNE.jpg', service: 'Reguler', price: 'Konfirmasi Admin' },
-    { id: 'jnt', name: 'J&T Express', logo: 'J&T.jpg', service: 'Reguler', price: 'Konfirmasi Admin' }
-];
-
-    const paymentMethods = [
-        { id: 'bca', name: 'BCA', logo: 'BCA.jpg' },
-        { id: 'mandiri', name: 'MANDIRI', logo: 'MANDIRI.jpg' },
-        { id: 'bni', name: 'BNI', logo: 'BNI.jpg' },
-        { id: 'bri', name: 'BRI', logo: 'BRI.jpg' },
-        { id: 'gopay', name: 'GOPAY', logo: 'GOPAY.jpg' },
-        { id: 'ovo', name: 'OVO', logo: 'OVO.jpg' },
-        { id: 'Shopeepay', name: 'SHOPEEPAY', logo: 'SHOPEEPAY.jpg' }
-    ];
-
-    const sizeGuideData = [
-        { size: 'XS', length: '66', width: '46', sleeve: '20' },
-        { size: 'S', length: '68', width: '48', sleeve: '21' },
-        { size: 'M', length: '72', width: '50', sleeve: '22' },
-        { size: 'L', length: '74', width: '52', sleeve: '23' },
-        { size: 'XL', length: '76', width: '54', sleeve: '24' }
-    ];
-
-    const notificationsData = [
-        {
-            id: 'promo-001',
-            category: 'promo',
-            icon: 'fas fa-percent',
-            title: 'notif_promo_1_title',
-            description: 'notif_promo_1_desc',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 14)).toISOString()
-        },
-        {
-            id: 'info-001',
-            category: 'info',
-            icon: 'fas fa-shipping-fast',
-            title: 'notif_info_1_title',
-            description: 'notif_info_1_desc',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 8)).toISOString()
-        },
-        {
-            id: 'info-002',
-            category: 'info',
-            icon: 'fas fa-tshirt',
-            title: 'notif_info_2_title',
-            description: 'notif_info_2_desc',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
-        },
-        {
-            id: 'promo-002',
-            category: 'promo',
-            icon: 'fas fa-tag',
-            title: 'notif_promo_2_title',
-            description: 'notif_promo_2_desc',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 22)).toISOString()
-        }
-    ];
-
     let cart = getLocalStorageItem('cart', []);
     let favorites = getLocalStorageItem('favorites', []);
     let savedForLater = getLocalStorageItem('savedForLater', []);
@@ -699,7 +28,7 @@ const loyaltyTiers = [
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let pendingOrder = null;
     let currentLanguage = localStorage.getItem('language') || 'id';
-    const MAX_RECENTLY_VIEWED = 3;
+    const MAX_RECENTLY_VIEWED = 6;
 
     let activeFilters = {
         availability: 'all',
@@ -1318,31 +647,27 @@ function animateValue(obj, start, end, duration) {
 };
 
     const renderRecentlyViewed = () => {
-    if (!recentlyViewedContainer) return;
-    emptyRecentlyViewedMessage.textContent = translations[currentLanguage].empty_recently_viewed;
+    const gridContainer = document.getElementById('recently-viewed-grid');
+    const emptyMessage = document.getElementById('empty-recently-viewed-message-main');
     
-   
+    if (!gridContainer || !emptyMessage) return;
+
+    
+    const viewedProducts = recentlyViewed.map(id => products.find(p => p.id === id)).filter(p => p);
+
+    if (viewedProducts.length === 0) {
+        gridContainer.innerHTML = '';
+        gridContainer.style.display = 'none';
+        emptyMessage.style.display = 'flex';
+    } else {
+        emptyMessage.style.display = 'none';
+        gridContainer.style.display = 'grid';
         
-        if (recentlyViewed.length === 0) {
-            recentlyViewedContainer.innerHTML = '';
-            recentlyViewedContainer.appendChild(emptyRecentlyViewedMessage);
-            emptyRecentlyViewedMessage.style.display = 'block';
-            return;
-        }
-        emptyRecentlyViewedMessage.style.display = 'none';
-        recentlyViewedContainer.innerHTML = recentlyViewed.map(productId => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return '';
-            return `<li><a href="#" class="recently-viewed-item-link" data-product-id="${product.id}"><img src="${product.image}" alt="${product.name}"><span>${product.name}</span></a></li>`;
-        }).join('');
-        recentlyViewedContainer.querySelectorAll('.recently-viewed-item-link').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                openQuickViewModal(e.currentTarget.dataset.productId);
-                if (body.classList.contains('sidebar-open')) toggleSidebar();
-            });
-        });
-    };
+        gridContainer.innerHTML = viewedProducts.map(product => createProductCardHTML(product)).join('');
+        
+        attachProductCardListeners(gridContainer);
+    }
+};
 
     const getPriceBySize = (basePrice, size) => size && size.toUpperCase() === 'XL' ? basePrice + 5000 : basePrice;
 
@@ -1522,15 +847,11 @@ checkoutForm.addEventListener('submit', e => {
 
 whatsappConfirmYesBtn.addEventListener('click', () => {
     if (pendingOrder) {
+        
+        let currentUser = getLocalStorageItem('luxuliverCurrentUser');
+        if (!currentUser) return; 
 
-        let userProfile = getLocalStorageItem('luxuliverUser', {
-            name: '',
-            phone: '',
-            address: '',
-            history: []
-        });
-
-
+        
         let pointsEarned = 0;
         pendingOrder.items.forEach(item => {
             const product = products.find(p => p.id === item.id);
@@ -1543,16 +864,31 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         updateLoyaltyPremiumVisuals(); 
 
         const formData = new FormData(checkoutForm);
-        userProfile.name = formData.get('customer-name');
-        userProfile.phone = formData.get('customer-phone');
-        userProfile.address = formData.get('customer-address');
 
-        userProfile.history.unshift(pendingOrder);
+        
+        if (!currentUser.history) currentUser.history = [];
+        currentUser.history.unshift(pendingOrder);
+        
+        
+        currentUser.name = formData.get('customer-name');
+        currentUser.phone = formData.get('customer-phone');
+        currentUser.address = formData.get('customer-address');
 
-        localStorage.setItem('luxuliverUser', JSON.stringify(userProfile));
-        localStorage.removeItem('savedAddress');
-       localStorage.removeItem('orderHistory'); 
+        
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
 
+        
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
+        if (accountIndex !== -1) {
+            accounts[accountIndex] = currentUser; 
+            localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+        }
+
+       
+        localStorage.removeItem('luxuliverUser');
+
+        
         orderCounter++;
         localStorage.setItem('orderCounter', orderCounter.toString());
 
@@ -1594,12 +930,18 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     const createProductCardHTML = (product) => {
         const isFavorited = favorites.some(fav => fav.id === product.id);
         const price = getPriceBySize(product.basePrice, 'M');
-        const preOrderBadge = `<div class="pre-order-badge">Pre-Order</div>`; 
-        const lowStockLabel = product.stock > 0 && product.stock <= 5 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
-        const outOfStockLabel = product.stock === 0 ? `<div class="out-of-stock-badge">${translations[currentLanguage].stock_out}</div>` : '';
+        
+        const isSoldOut = product.stock === 0;
+
+        const preOrderBadge = product.status === 'preorder' && !isSoldOut ? `<div class="pre-order-badge">Pre-Order</div>` : '';
+        const lowStockLabel = !isSoldOut && product.stock <= 5 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
+        
+        const outOfStockLabel = isSoldOut ? `<div class="out-of-stock-badge">${translations[currentLanguage].sold_out_badge}</div>` : '';
+        
         const totalReviews = product.reviews ? product.reviews.length : 0;
         const averageRating = totalReviews > 0 ? product.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews : 0;
         const ratingHTML = `<div class="product-rating" title="${averageRating.toFixed(1)} dari 5 bintang">${generateStarsHTML(Math.round(averageRating))}<span class="rating-count">(${totalReviews})</span></div>`;
+        
         return `
 <div class="product-card" data-product-id="${product.id}">
     ${preOrderBadge}${lowStockLabel}${outOfStockLabel}
@@ -1610,14 +952,22 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
                 <p class="price">${formatRupiah(price)}</p>
                 <div class="size-options">${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}</div>
                 <div class="product-actions">
-                    <button class="btn btn-primary add-to-cart" ${product.stock === 0 ? 'disabled' : ''}><i class="fas fa-shopping-cart"></i> <span data-lang-key="${product.stock === 0 ? 'stock_out' : 'add_button'}">${product.stock === 0 ? translations[currentLanguage].stock_out : translations[currentLanguage].add_button}</span></button>
-                    <button class="btn quick-view-btn" title="Lihat Cepat"><i class="fas fa-eye"></i></button>
-                    <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit"><i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i></button>
-                    <button class="btn compare-btn" title="Bandingkan"><i class="fas fa-layer-group"></i></button>
+                    <button class="btn btn-primary add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                        <i class="fas fa-shopping-cart"></i> <span>${isSoldOut ? translations[currentLanguage].sold_out_badge : translations[currentLanguage].add_button}</span>
+                    </button>
+                    
+                    <button class="btn quick-view-btn" title="Lihat Cepat" ${isSoldOut ? 'disabled' : ''}>
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit" ${isSoldOut ? 'disabled' : ''}>
+                        <i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i>
+                    </button>
+                    <button class="btn compare-btn" title="Bandingkan" ${isSoldOut ? 'disabled' : ''}>
+                        <i class="fas fa-layer-group"></i>
+                    </button>
                 </div>
             </div>
         </div>`;
-        
     };
     
     const createFavoriteCardHTMLLuxury = (product) => {
@@ -1657,6 +1007,8 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         searchInput.value = searchTerm;
     }
     let filteredProducts = [...products];
+    filteredProducts = filteredProducts.filter(p => p.status !== 'archived' && p.stock > 0);
+    
     const currentSearchTerm = searchInput.value.trim().toLowerCase();
     if (currentSearchTerm) filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(currentSearchTerm));
     if (activeFilters.availability === 'ready') {
@@ -1996,7 +1348,8 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
    
    
    const renderOrderHistory = () => {
-    const userProfile = getLocalStorageItem('luxuliverUser', null);
+    const userProfile = getLocalStorageItem('luxuliverCurrentUser', null); 
+   
     const history = userProfile ? userProfile.history || [] : [];
 
 
@@ -2307,6 +1660,110 @@ const handleChangePassword = (e) => {
     }
 };
 
+const renderArchive = () => {
+    const archiveContainer = document.getElementById('archive-list');
+    const emptyArchiveMessage = document.getElementById('empty-archive-message');
+    if (!archiveContainer || !emptyArchiveMessage) return;
+
+    const archivedProducts = products.filter(p => p.status === 'archived');
+
+    if (archivedProducts.length === 0) {
+        emptyArchiveMessage.style.display = 'flex';
+        archiveContainer.style.display = 'none';
+        return;
+    }
+    
+    emptyArchiveMessage.style.display = 'none';
+    archiveContainer.style.display = 'grid'; 
+    archiveContainer.innerHTML = '';
+
+    let ownedProductIds = new Set(); 
+    if (isAuthenticated()) {
+        const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+        if (currentUser.history && currentUser.history.length > 0) {
+            currentUser.history.forEach(order => {
+                order.items.forEach(item => {
+                    ownedProductIds.add(item.id);
+                });
+            });
+        }
+    }
+
+    archivedProducts.forEach(product => {
+        const isOwned = ownedProductIds.has(product.id);
+        
+       
+        const cardHTML = `
+            <div class="archive-card ${isOwned ? 'is-owned' : ''}">
+                <div class="archive-card-image-container">
+                    <img src="${product.image}" alt="${product.name}" class="archive-card-image">
+                </div>
+                <div class="archive-card-info">
+                    <h3 class="archive-card-name">${product.name}</h3>
+                    <p class="archive-card-description">${product.description}</p>
+                </div>
+            </div>
+        `;
+        archiveContainer.insertAdjacentHTML('beforeend', cardHTML);
+    });
+};
+
+const renderSoldOutPage = () => {
+    const soldOutContainer = document.getElementById('sold-out-grid');
+    const emptySoldOutMessage = document.getElementById('empty-sold-out-message');
+    const soldOutCta = document.getElementById('sold-out-cta-container');
+
+    if (!soldOutContainer || !emptySoldOutMessage || !soldOutCta) return;
+
+    const soldOutProducts = products.filter(p => p.stock === 0 && p.status !== 'archived');
+
+    if (soldOutProducts.length === 0) {
+        emptySoldOutMessage.style.display = 'flex';
+        soldOutContainer.style.display = 'none';
+        soldOutCta.style.display = 'none';
+        return;
+    }
+
+    emptySoldOutMessage.style.display = 'none';
+    soldOutContainer.style.display = 'block';
+    soldOutCta.style.display = 'block';
+    soldOutContainer.innerHTML = '';
+
+    soldOutProducts.forEach(product => {
+        const cardHTML = `
+            <div class="sold-out-card">
+                <div class="sold-out-card-image-wrapper">
+                    <img src="${product.image}" alt="${product.name}" class="sold-out-card-image">
+                </div>
+                <div class="sold-out-card-info">
+                    <span class="sold-out-card-status" data-lang-key="sold_out_badge">${translations[currentLanguage].sold_out_badge}</span>
+                    <h3 class="sold-out-card-name">${product.name}</h3>
+                    <p class="sold-out-card-description">${product.description}</p>
+                    <div class="sold-out-card-meta">
+                        <span>Dirilis: <strong>Musim Semi 2025</strong></span>
+                        <span>Desain: <strong>${product.design.charAt(0).toUpperCase() + product.design.slice(1)}</strong></span>
+                    </div>
+                </div>
+            </div>
+        `;
+        soldOutContainer.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.sold-out-card').forEach(card => {
+        observer.observe(card);
+    });
+};
+
+
  const updateLoyaltyPremiumVisuals = () => {
     document.body.classList.remove('loyalty-tier-500', 'loyalty-tier-1000', 'loyalty-tier-1500');
 
@@ -2513,23 +1970,25 @@ const renderComparisonModal = () => {
     };
     
 
- const showMainContentSection = (targetId) => {
+const showMainContentSection = (targetId) => {
     document.body.classList.remove('single-section-view');
 
     const homePageSections = ['#koleksi', '#faq'];
-    
-    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#ulasan', '#loyalty-points'];
+
+    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#arsip', '#koleksi-habis', '#ulasan', '#loyalty-points', '#terakhir-dilihat'];
 
     const dividers = document.querySelectorAll('.section-divider');
     const searchSection = document.getElementById('search-section');
     const heroSection = document.getElementById('hero');
     const footer = document.querySelector('footer');
 
+
     [heroSection, searchSection, footer, ...dividers, ...allSections.map(sel => document.querySelector(sel))].forEach(el => {
         if (el) el.style.display = 'none';
     });
 
     if (targetId === '#hero') {
+
         [searchSection, footer].forEach(el => {
             if(el) el.style.display = 'block';
         });
@@ -2543,23 +2002,33 @@ const renderComparisonModal = () => {
         dividers.forEach(divider => divider.style.display = 'block');
 
     } else {
+       
         document.body.classList.add('single-section-view');
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
+           
             targetElement.style.display = 'block';
         }
+
 
         if (targetId === '#ulasan') {
             renderAllReviews();
         } else if (targetId === '#loyalty-points') { 
             renderLoyaltySection();
+        } else if (targetId === '#arsip') {
+            renderArchive();
+        } else if (targetId === '#koleksi-habis') { 
+            renderSoldOutPage();                    
+        } else if (targetId === '#terakhir-dilihat') {
+            renderRecentlyViewed();
         }
     }
 };
 
  const initializeNavigation = () => {
-    document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(link => {
+    document.querySelectorAll('#main-nav a, .sidebar-menu a, .back-to-collection-btn').forEach(link => {
         link.addEventListener('click', e => {
+
             const href = e.currentTarget.getAttribute('href'); 
 
 
@@ -2602,6 +2071,9 @@ const renderComparisonModal = () => {
     const toggleSidebar = () => {
         body.classList.toggle('sidebar-open');
         body.classList.toggle('no-scroll', body.classList.contains('sidebar-open'));
+        if (body.classList.contains('sidebar-open')) {
+            renderSoldOutCollection();
+        }
     };
 
     const updateResetButtonVisibility = () => {
@@ -2664,6 +2136,107 @@ const updateFilterUI = () => {
             }, 300);
         });
     };
+    
+   
+const updateDynamicModals = (lang) => {
+    const langData = translations[lang];
+
+    const fitFareModal = document.getElementById('fit-fare-modal');
+    if (fitFareModal) {
+        fitFareModal.querySelector('#fit-fare-choices h3').textContent = langData.fit_fare_title;
+        fitFareModal.querySelector('[data-target-view="ongkir"] span').textContent = langData.fit_fare_shipping_option;
+        fitFareModal.querySelector('[data-target-view="pria"] span').textContent = langData.fit_fare_men_option;
+        fitFareModal.querySelector('[data-target-view="wanita"] span').textContent = langData.fit_fare_women_option;
+        
+        const ongkirView = fitFareModal.querySelector('#fit-fare-view-ongkir');
+        ongkirView.querySelector('h3').textContent = langData.fit_fare_shipping_title;
+        const ongkirList = ongkirView.querySelectorAll('li');
+        ongkirList[0].innerHTML = `<strong>Jabodetabek:</strong><br>${langData.fit_fare_shipping_jabodetabek.split(': ')[1]}`;
+        ongkirList[1].innerHTML = `<strong>Pulau Jawa (Luar Jabodetabek):</strong><br>${langData.fit_fare_shipping_java.split(': ')[1]}`;
+        ongkirList[2].innerHTML = `<strong>Luar Pulau Jawa:</strong><br>${langData.fit_fare_shipping_outside_java.split(': ')[1]}`;
+        ongkirView.querySelector('.fit-fare-disclaimer').textContent = langData.fit_fare_disclaimer;
+
+        const priaView = fitFareModal.querySelector('#fit-fare-view-pria');
+        priaView.querySelector('h3').textContent = langData.fit_fare_men_title;
+        priaView.querySelector('.fit-fare-disclaimer').textContent = langData.fit_fare_disclaimer;
+        
+        const wanitaView = fitFareModal.querySelector('#fit-fare-view-wanita');
+        wanitaView.querySelector('h3').textContent = langData.fit_fare_women_title;
+        wanitaView.querySelector('.fit-fare-disclaimer').textContent = langData.fit_fare_disclaimer;
+    }
+
+   
+    const blogModal = document.getElementById('blog-modal');
+    if (blogModal) {
+        blogModal.querySelector('h3').textContent = langData.blog_modal_title;
+        blogModal.querySelector('p').textContent = langData.blog_modal_subtitle;
+        const articleLinks = blogModal.querySelectorAll('.article-link');
+        articleLinks[0].querySelector('h4').textContent = langData.article1_title;
+        articleLinks[0].querySelector('p').textContent = langData.article1_desc;
+        articleLinks[1].querySelector('h4').textContent = langData.article2_title;
+        articleLinks[1].querySelector('p').textContent = langData.article2_desc;
+        articleLinks[2].querySelector('h4').textContent = langData.article3_title;
+        articleLinks[2].querySelector('p').textContent = langData.article3_desc;
+    }
+
+    const populateArticle = (articleId, contentKey) => {
+        const articleModal = document.getElementById(articleId);
+        if (articleModal && langData[contentKey]) {
+            const content = langData[contentKey];
+            articleModal.querySelector('h2').textContent = content.h2;
+            const articleContent = articleModal.querySelector('.article-content');
+            Object.keys(content).forEach(key => {
+                const element = articleContent.querySelector(`[data-content-key="${key}"]`);
+                if(element) {
+                   if (key === 'ul1' || key === 'ul2' || key === 'table') {
+                        element.innerHTML = content[key];
+                    } else {
+                        element.innerHTML = content[key]; 
+                    }
+                }
+            });
+        }
+    };
+    
+    const updateFullArticle = (modalId, content) => {
+        const modal = document.getElementById(modalId);
+        if (!modal || !content) return;
+        const article = modal.querySelector('.article-content');
+        article.innerHTML = `
+            <h2>${content.h2}</h2>
+            <p>${content.p1}</p>
+            <h4>${content.h4_1}</h4><p>${content.p2}</p>
+            <h4>${content.h4_2}</h4><p>${content.p3}</p>
+            <h4>${content.h4_3}</h4><p>${content.p4}</p>
+            <h4>${content.h4_4}</h4><p>${content.p5}</p>
+            <h4>${content.h4_5}</h4><p>${content.p6}</p>
+            <h4>${content.h4_6}</h4><p>${content.p7}</p>
+            <h4>${content.h4_7}</h4><p>${content.p8}</p>
+            <p>${content.p9}</p>
+        `;
+        if (content.ul1) {
+            const h4_1 = article.querySelector('h4:nth-of-type(1)');
+            h4_1.insertAdjacentHTML('afterend', `<ul>${content.ul1}</ul>`);
+            h4_1.nextElementSibling.nextElementSibling.remove();
+        }
+         if (content.table) {
+            const h4_3 = article.querySelector('h4:nth-of-type(3)');
+            h4_3.insertAdjacentHTML('afterend', content.table);
+            h4_3.nextElementSibling.nextElementSibling.remove();
+        }
+    }
+    
+    updateFullArticle('article1-modal', langData.article1_content);
+   
+    const article2 = document.getElementById('article2-modal')?.querySelector('.article-content');
+    if(article2) article2.innerHTML = `<h2>${langData.article2_content.h2}</h2><p>${langData.article2_content.p1}</p><h4>${langData.article2_content.h4_1}</h4><p>${langData.article2_content.p2}</p><ul>${langData.article2_content.ul1}</ul><h4>${langData.article2_content.h4_2}</h4><p>${langData.article2_content.p3}</p><ul>${langData.article2_content.ul2}</ul><h4>${langData.article2_content.h4_3}</h4><p>${langData.article2_content.p4}</p><p>${langData.article2_content.p5}</p>`;
+    const article3 = document.getElementById('article3-modal')?.querySelector('.article-content');
+    if(article3) article3.innerHTML = `<h2>${langData.article3_content.h2}</h2><p>${langData.article3_content.p1}</p><h4>${langData.article3_content.h4_1}</h4><p>${langData.article3_content.p2}</p><h4>${langData.article3_content.h4_2}</h4><p>${langData.article3_content.p3}</p><ul>${langData.article3_content.ul1}</ul><h4>${langData.article3_content.h4_3}</h4><p>${langData.article3_content.p4}</p>${langData.article3_content.table}<h4>${langData.article3_content.h4_4}</h4><p>${langData.article3_content.p5}</p><p>${langData.article3_content.p6}</p>`;
+
+    document.querySelectorAll('.article-back-btn').forEach(btn => {
+        btn.innerHTML = `<i class="fas fa-arrow-left"></i> ${langData.article_back_button}`;
+    });
+};
 
     const setLanguage = (lang) => {
         currentLanguage = lang;
@@ -2696,48 +2269,48 @@ const updateFilterUI = () => {
         renderFavorites();
         renderRecentlyViewed();
         renderOrderHistory();
+        updateDynamicModals(lang); 
     };
 
     const initializeFAQ = () => {
         document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', () => q.parentElement.classList.toggle('active')));
     };
 
-    const initializePolicyModals = () => {
-    document.querySelectorAll('a[data-modal-target]').forEach(link => {
-        link.addEventListener('click', e => {
+   
+    const initializeAllModalTriggers = () => {
+        document.addEventListener('click', e => {
+            const trigger = e.target.closest('[data-modal-target]');
+            if (!trigger) return;
+
             e.preventDefault();
-            
 
-            const isExternalSocial = link.href.includes('instagram.com') || link.href.includes('tiktok.com');
-            if (isExternalSocial) {
-                window.open(link.href, '_blank');
-                return;
-            }
-
-
-            if (!isAuthenticated()) {
-
-                openModal(document.getElementById('auth-modal'));
-            } else {
-
-                const modal = document.getElementById(link.dataset.modalTarget);
-                if (modal) {
-                    if (body.classList.contains('sidebar-open')) {
-                        toggleSidebar();
-                    }
-                    
-                    setTimeout(() => {
-                        if (modal.id === 'size-guide-modal') {
-                            renderSizeGuide();
-                        } else {
-                            openModal(modal);
-                        }
-                    }, 350);
+           
+            if (trigger.dataset.closeCurrent === 'true') {
+                const currentModal = trigger.closest('.modal');
+                if (currentModal) {
+                    closeModal(currentModal);
                 }
             }
+
+            const modalId = trigger.dataset.modalTarget;
+            const modal = document.getElementById(modalId);
+
+            if (modal) {
+                if (body.classList.contains('sidebar-open')) {
+                    toggleSidebar();
+                }
+                
+               
+                setTimeout(() => {
+                    if (modal.id === 'size-guide-modal') {
+                        renderSizeGuide();
+                    } else {
+                        openModal(modal);
+                    }
+                }, 250);
+            }
         });
-    });
-};
+    };
 
     const initializeNotifications = () => {
         notificationSidebarBtn?.addEventListener('click', e => {
@@ -2820,41 +2393,67 @@ const updateFilterUI = () => {
         document.body.classList.add('no-scroll');
     }
 
-    searchButton.addEventListener('click', () => {
+   const handleSearchAction = (e) => {
+    e.preventDefault();
+    if (!isAuthenticated()) {
+        openModal(document.getElementById('auth-modal'));
+    } else {
         renderAllProductShowcases(searchInput.value.trim());
         searchSuggestionsContainer.style.display = 'none';
-    });
-    searchInput.addEventListener('keypress', e => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            renderAllProductShowcases(searchInput.value.trim());
-            searchSuggestionsContainer.style.display = 'none';
+    }
+};
+
+searchButton.addEventListener('click', handleSearchAction);
+
+searchInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+        handleSearchAction(e);
+    }
+});
+
+searchInput.addEventListener('focus', (e) => {
+    if (!isAuthenticated()) {
+        e.preventDefault();
+        searchInput.blur();
+        openModal(document.getElementById('auth-modal'));
+    }
+});
+
+const exploreCollectionsBtn = document.getElementById('explore-collections-btn');
+if (exploreCollectionsBtn) {
+    
+    exploreCollectionsBtn.addEventListener('click', (e) => {
+        if (!isAuthenticated()) {
+            e.preventDefault(); 
+            openModal(document.getElementById('auth-modal'));
         }
     });
-    searchInput.addEventListener('input', () => renderSearchSuggestions(searchInput.value.trim()));
-    
-    document.addEventListener('click', e => {
-        if (!e.target.closest('.search-input-wrapper')) searchSuggestionsContainer.style.display = 'none';
-    });
-    
-    if(profileSidebarBtn) {
-        profileSidebarBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (isAuthenticated()) {
-                const currentUser = getLocalStorageItem('luxuliverCurrentUser');
-                document.getElementById('profile-name').value = currentUser.name || '';
-                document.getElementById('profile-address').value = currentUser.address || '';
-                
-                document.getElementById('profile-info-error-msg').style.display = 'none';
-                document.getElementById('change-password-error-msg').style.display = 'none';
-                document.getElementById('change-password-form').reset();
+}
 
-                openModal(profileModal);
-            } else {
-                openModal(document.getElementById('auth-modal'));
-            }
-        });
-    }
+searchInput.addEventListener('input', () => renderSearchSuggestions(searchInput.value.trim()));
+
+document.addEventListener('click', e => {
+    if (!e.target.closest('.search-input-wrapper')) searchSuggestionsContainer.style.display = 'none';
+});
+
+if(profileSidebarBtn) {
+    profileSidebarBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (isAuthenticated()) {
+            const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+            document.getElementById('profile-name').value = currentUser.name || '';
+            document.getElementById('profile-address').value = currentUser.address || '';
+            
+            document.getElementById('profile-info-error-msg').style.display = 'none';
+            document.getElementById('change-password-error-msg').style.display = 'none';
+            document.getElementById('change-password-form').reset();
+
+            openModal(profileModal);
+        } else {
+            openModal(document.getElementById('auth-modal'));
+        }
+    });
+}
     
     document.getElementById('profile-info-form')?.addEventListener('submit', handleProfileUpdate);
     document.getElementById('change-password-form')?.addEventListener('submit', handleChangePassword);
@@ -3171,12 +2770,13 @@ if (paymentMethodContainer) {
     };
     
     const loadUserData = (user) => {
-        cart = user.cart || [];
-        favorites = user.favorites || [];
-        comparisonList = user.comparisonList || [];
-        userLoyaltyPoints = user.loyaltyPoints || 0;
-        recentlyViewed = user.recentlyViewed || [];
-    };
+    cart = user.cart || [];
+    favorites = user.favorites || [];
+    comparisonList = user.comparisonList || [];
+    userLoyaltyPoints = user.loyaltyPoints || 0;
+    localStorage.setItem('userLoyaltyPoints', userLoyaltyPoints); 
+    recentlyViewed = user.recentlyViewed || [];
+};
 
     const handleRegistration = (e) => {
         e.preventDefault();
@@ -3237,23 +2837,32 @@ if (paymentMethodContainer) {
     };
     
     const handleLogout = () => {
-        saveCurrentUserSession();
-        
-        localStorage.removeItem('luxuliverCurrentUser');
-        
-        cart = [];
-        favorites = [];
-        comparisonList = [];
-        userLoyaltyPoints = 0;
-        recentlyViewed = [];
-        
-        showToast('toast_logout_success', 'info');
-        updateAuthStateUI();
-    };
+    
+    localStorage.removeItem('luxuliverCurrentUser');
+    
+    cart = [];
+    favorites = [];
+    comparisonList = [];
+    userLoyaltyPoints = 0;
+    recentlyViewed = [];
+    savedForLater = []; 
+    
+    localStorage.removeItem('userLoyaltyPoints');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('favorites');
+    localStorage.removeItem('comparisonList');
+    localStorage.removeItem('recentlyViewed');
+    localStorage.removeItem('savedForLater');
+    
+    showToast('toast_logout_success', 'info');
+    updateAuthStateUI();
+    
+    window.location.reload(); 
+};
 
     const updateAuthStateUI = () => {
         const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
-        const userSpecificMenus = ['#riwayat-pesanan', '#ulasan', '#loyalty-points'];
+        const userSpecificMenus = ['#riwayat-pesanan', '#ulasan', '#loyalty-points', '#arsip'];
 
         if (isAuthenticated()) {
             sidebarToggleBtn.style.display = '';
@@ -3376,7 +2985,7 @@ initAuthModal();
     initializeNavigation();
     initializeSidebar();
     initializeFAQ();
-    initializePolicyModals();
+    initializeAllModalTriggers();
     initializeNotifications();
     initializeReviewFilters();
     renderRadioOptions('expedition-method', expeditionMethods, 'expeditionMethod');
@@ -3387,20 +2996,26 @@ initAuthModal();
     renderComparisonTray();
     updateAllCompareButtons();
     
-    const footer = document.querySelector('footer');
-    if (footer) {
-        footer.addEventListener('click', (e) => {
-            const link = e.target.closest('a');
-            if (link) {
 
-                if (!isAuthenticated()) {
-                    
-                    e.preventDefault(); 
-                    openModal(document.getElementById('auth-modal'));
-                }
-            }
-        });
-    }
+const footer = document.querySelector('footer');
+if (footer) {
+    footer.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+
+
+        if (link && !isAuthenticated()) {
+            
+
+            e.preventDefault(); 
+            
+
+            e.stopPropagation();
+
+
+            openModal(document.getElementById('auth-modal'));
+        }
+    });
+}
 
     setTimeout(() => {
         setLanguage(localStorage.getItem('language') || 'id');
@@ -3869,4 +3484,46 @@ if (logoutMenuItem) {
         });
     }
 }
+
+    const fitFareModal = document.getElementById('fit-fare-modal');
+    if (fitFareModal) {
+        const choiceButtons = fitFareModal.querySelectorAll('.fit-fare-choice-btn');
+        const backButtons = fitFareModal.querySelectorAll('.fit-fare-back-btn');
+        const views = fitFareModal.querySelectorAll('.fit-fare-view');
+        const choicesView = document.getElementById('fit-fare-choices');
+
+        const showView = (targetId) => {
+            views.forEach(view => view.classList.remove('active'));
+            const targetView = document.getElementById(`fit-fare-view-${targetId}`);
+            if (targetView) {
+                targetView.classList.add('active');
+            } else if (targetId === 'choices') {
+                choicesView.classList.add('active');
+            }
+        };
+
+        choiceButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetViewId = button.dataset.targetView;
+                showView(targetViewId);
+            });
+        });
+
+        backButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showView('choices');
+            });
+        });
+
+       
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class' && fitFareModal.classList.contains('show')) {
+                    showView('choices');
+                }
+            });
+        });
+        observer.observe(fitFareModal, { attributes: true });
+    }
+
 });
