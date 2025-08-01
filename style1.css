@@ -5256,36 +5256,46 @@ body.dark-mode #sold-out-container .sold-out-item-link:hover {
     background: linear-gradient(45deg, #00f2ea, #000000, #ff0050);
 }
 
-.article-list {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
 .article-link {
+    background: linear-gradient(165deg, var(--surface-color) 0%, var(--background-color) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background-color: var(--background-color);
-    padding: 1.25rem 1.5rem;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    gap: 1.5rem;
     text-decoration: none;
-    transition: all 0.3s ease;
+    position: relative;
+
+    box-shadow: 0 4px 8px rgba(0,0,0,0.02), 
+                0 10px 20px rgba(0,0,0,0.04),
+                inset 0 0 1px rgba(255,255,255,0.5);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
 }
 
+
 .article-link:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px var(--shadow-light);
-    border-color: var(--accent-color);
+    transform: scale(1.015); 
+    border-color: rgba(0,0,0,0.2);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.04), 
+                0 20px 40px rgba(0,0,0,0.08),
+                inset 0 0 1px rgba(255,255,255,0.5);
     text-decoration: none;
+}
+
+body.dark-mode .article-link:hover {
+    border-color: var(--accent-color);
+     box-shadow: 0 8px 15px rgba(0,0,0,0.2), 
+                0 20px 40px rgba(0,0,0,0.3),
+                0 0 15px rgba(201, 176, 131, 0.1);
 }
 
 .article-link-content h4 {
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.2rem 0;
     font-size: 1.2rem;
+    font-weight: 600;
     color: var(--text-color);
+    letter-spacing: 0.2px;
 }
 
 .article-link-content p {
@@ -5294,62 +5304,118 @@ body.dark-mode #sold-out-container .sold-out-item-link:hover {
     color: var(--light-text);
 }
 
-.article-link i {
-    font-size: 1.2rem;
-    color: var(--light-text);
-    transition: transform 0.3s ease;
+.article-link i.fa-chevron-right {
+    font-size: 1rem;
+    color: var(--border-color);
+    margin-left: auto;
+    background-color: var(--background-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.article-link:hover i {
-    transform: translateX(5px);
-    color: var(--accent-color);
+.article-link:hover i.fa-chevron-right {
+    background-color: var(--accent-color);
+    color: white;
 }
 
 .article-modal .modal-content {
     max-width: 800px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    padding: 4rem 4.5rem; 
+    box-shadow: 0 25px 60px -15px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .article-modal .modal-content {
+    background-color: #161616;
+    border-color: #2a2a2a;
 }
 
 .article-header {
-    margin-bottom: 1.5rem;
-}
-
-.article-back-btn {
-    background: none;
-    border: none;
-    color: var(--light-text);
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 8px 0;
-}
-
-.article-back-btn:hover {
-    color: var(--primary-color);
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
 }
 
 .article-content {
-    text-align: left;
     line-height: 1.8;
 }
 
 .article-content h2 {
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    text-align: center;
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: left;
+    margin: 1rem 0 2.5rem 0;
+    line-height: 1.2;
+    color: var(--text-color);
+    position: relative;
+}
+
+.article-content h2::before {
+    content: 'LUXULIVER EDITORIAL';
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
 }
 
 .article-content h4 {
-    font-size: 1.3rem;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: left;
+    color: var(--text-color);
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.article-content p, .article-content li {
+.article-content p {
     font-size: 1.1rem;
+    color: var(--light-text);
+    text-align: justify;
+    margin-bottom: 1.5rem;
+}
+
+.article-content p:first-of-type::first-letter {
+    font-size: 4rem;
+    font-weight: 700;
     color: var(--text-color);
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.article-content hr {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: 4rem 0;
+    position: relative;
+}
+
+.article-content hr::after {
+    content: '◆';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    padding: 0 1rem;
+    font-size: 1rem;
+}
+
+body.dark-mode .article-content hr::after {
+    background-color: #161616;
 }
 
 .sidebar-menu > li > a > i:first-child {
