@@ -60,6 +60,7 @@
                     </div>
                 </li>
                 
+                <hr>
                 <li>
                     <a href="#" id="profile-sidebar-btn" data-modal-target="profile-modal">
                         <i class="fas fa-user-edit"></i> <span data-lang-key="nav_profile">Profil Saya</span>
@@ -87,7 +88,9 @@
                         <li><a href="#riwayat-pesanan">
                             <i class="fas fa-history"></i> <span data-lang-key="nav_history">Riwayat</span>
                         </a></li>
-                        <li><a href="#ulasan">
+                    
+                        <li>
+                        <a href="#ulasan">
         <i class="fas fa-star"></i> <span data-lang-key="nav_reviews">Ulasan</span>
     </a></li>
            
@@ -109,6 +112,8 @@
         <li><a href="#" class="sidebar-filter" data-filter-type="design" data-filter-value="classy" data-lang-key="design_classy">Classy</a></li>
         
        <li><a href="#" class="sidebar-filter" data-filter-type="design" data-filter-value="abstrak" data-lang-key="design_abstract">Abstrak</a></li>
+       
+        <li><a href="#" class="sidebar-filter" data-filter-type="design" data-filter-value="basic" data-lang-key="design_basic">Basic</a></li>
         </ul>
       </li>
                 <li>
@@ -127,30 +132,62 @@
         </li>
     </ul>
 </li>
-                
-                <hr>
-                <li>
-                    <a href="#" class="sidebar-category-toggle" data-lang-key="sidebar_recently_viewed">Terakhir Dilihat <i class="fas fa-chevron-right"></i></a>
-                    <ul class="sidebar-submenu" id="recently-viewed-container">
-                        <p id="empty-recently-viewed-message" class="info-message-sidebar" data-lang-key="empty_recently_viewed">Anda belum melihat produk apapun.</p>
+
+ <li>
+                    <a href="#" class="sidebar-category-toggle">
+                        <i class="fas fa-landmark"></i> <span>Legacy Collection</span> <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="#koleksi-habis">
+                                <i class="fas fa-eye-slash"></i> <span data-lang-key="nav_sold_out">Koleksi Habis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#arsip">
+                                <i class="fas fa-archive"></i> <span data-lang-key="nav_archive">Arsip</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                
-                <hr>
+
                 <li>
-                    <a href="#" id="live-chat-toggle" class="sidebar-category-toggle">
-                        <i class="fas fa-comments"></i> Live Chat <i class="fas fa-chevron-right"></i>
+    <a href="#" data-modal-target="fit-fare-modal">
+        <i class="fas fa-route"></i> <span>Fit Fare</span>
+    </a>
+</li>
+                
+            
+                <li>
+    <a href="#terakhir-dilihat">
+        <i class="fas fa-eye"></i> <span data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</span>
+    </a>
+</li>
+                 
+                <li>
+                    <a href="#" data-modal-target="blog-modal">
+                        <i class="fas fa-newspaper"></i> <span>Blog / Artikel</span>
                     </a>
                 </li>
                 <hr>
                 <li>
-                    <a href="#" class="sidebar-category-toggle" data-lang-key="sidebar_follow_us">Ikuti Kami <i class="fas fa-chevron-right"></i></a>
+                    <a href="#" class="sidebar-category-toggle">
+                        <i class="fas fa-share-alt"></i> <span>Hubungi & Ikuti Kami</span> <i class="fas fa-chevron-right"></i>
+                    </a>
                     <ul class="sidebar-submenu">
-                      <li><a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a></li>
-                      <li><a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a></li>
-                  </ul>
-                 </li>
-                 
+                        <li>
+                            <a href="#" id="live-chat-toggle">
+                                <i class="fas fa-comments"></i> <span>Live Chat</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" data-modal-target="follow-us-modal">
+                                <i class="fas fa-users"></i> <span>Ikuti Kami</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                
                  <li>
     <a href="#" class="sidebar-category-toggle">
         <i class="fas fa-magic"></i> <span>Pengaturan Visual</span>
@@ -173,7 +210,8 @@
         </li>
     </ul>
 </li>
-
+          
+                <hr>
                 <li>
                     <a href="#" id="video-gallery-btn"><i class="fas fa-film"></i> <span data-lang-key="sidebar_video_gallery">Khusus Vidio</span></a>
                 </li>
@@ -187,7 +225,7 @@
             <div id="hero-content">
                 <h2 data-lang-key="hero_title">T-Shirt stylish yang bikin gaya makin percaya diri!</h2>
                 <p data-lang-key="hero_subtitle">Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.</p>
-                <a href="#koleksi" class="btn"><span data-lang-key="hero_button">Jelajahi Koleksi</span> <i class="fas fa-arrow-right"></i></a>
+                <a href="#koleksi" class="btn" id="explore-collections-btn"><span data-lang-key="hero_button">Jelajahi Koleksi</span> <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
 
@@ -227,6 +265,29 @@
                     </div>
                 <p id="no-results-message" class="info-message" style="display: none;" data-lang-key="no_results">Produk tidak ditemukan.</p>
             </section>
+            
+            <section id="koleksi-habis" style="display: none;">
+    <h2 data-lang-key="sold_out_title">Koleksi yang Telah Habis</h2>
+    <p class="sold-out-subtitle" data-lang-key="sold_out_subtitle">Produk favorit yang mungkin akan segera kami stok kembali. Nantikan informasinya!</p>
+    <div id="sold-out-grid" class="product-grid">
+        </div>
+    <div id="empty-sold-out-message" class="empty-state-container" style="display: none;">
+        <div class="empty-state-icon"><i class="fas fa-check-circle"></i></div>
+        <p class="empty-state-text" data-lang-key="empty_sold_out">Luar biasa! Saat ini semua koleksi tersedia.</p>
+    </div>
+
+    <div id="sold-out-cta-container" class="sold-out-cta">
+        <h3 data-lang-key="sold_out_cta_text">Jangan Lewatkan Koleksi Berikutnya</h3>
+        <p>Ikuti kami di media sosial untuk info restock dan rilisan terbaru.</p>
+        <div class="sold-out-social-links">
+            <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+        <a href="#koleksi" class="btn btn-primary back-to-collection-btn" data-lang-key="sold_out_cta_button">
+            <i class="fas fa-tshirt"></i> Jelajahi Koleksi Saat Ini
+        </a>
+    </div>
+</section>
 
             <section id="keranjang">
                 <h2 data-lang-key="cart_title">Keranjang Belanja</h2>
@@ -379,6 +440,27 @@
                 <div id="order-history-list">
                     </div>
                 <p id="empty-history-message" class="info-message" style="display: none;" data-lang-key="empty_history">Anda belum memiliki riwayat pesanan.</p>
+            </section>
+            
+             <section id="terakhir-dilihat" style="display: none;">
+                <h2 data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</h2>
+                <div id="recently-viewed-grid" class="product-grid">
+                    </div>
+                <div id="empty-recently-viewed-message-main" class="empty-state-container" style="display: none;">
+                    <div class="empty-state-icon"><i class="fas fa-eye-slash"></i></div>
+                    <p class="empty-state-text" data-lang-key="empty_recently_viewed">Anda belum melihat produk apapun.</p>
+                </div>
+            </section>
+            
+             <section id="arsip" style="display: none;">
+                <h2 data-lang-key="archive_title">Arsip Koleksi</h2>
+                <p class="archive-subtitle" data-lang-key="archive_subtitle">Koleksi eksklusif yang pernah menjadi bagian dari gaya Anda.</p>
+                <div id="archive-list" class="archive-grid">
+                    </div>
+                <div id="empty-archive-message" class="empty-state-container" style="display: none;">
+                    <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+                    <p class="empty-state-text" data-lang-key="empty_archive">Arsip pribadi Anda belum terbentuk. Wujudkan awal yang berkelas dengan koleksi pertama.</p>
+                </div>
             </section>
             
             
@@ -1171,10 +1253,226 @@
     </div>
 </div>
 
+ <div id="fit-fare-modal" class="modal">
+    <div class="modal-content fit-fare-modal-content">
+        <span class="close-button">&times;</span>
+        
+        <div id="fit-fare-choices" class="fit-fare-view active">
+            <h3>Pilih Estimasi</h3>
+            <div class="fit-fare-options-grid">
+                <div class="fit-fare-choice-btn" data-target-view="ongkir">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>Estimasi Ongkir</span>
+                </div>
+                <div class="fit-fare-choice-btn" data-target-view="pria">
+                    <i class="fas fa-male"></i>
+                    <span>Ukuran Pria</span>
+                </div>
+                <div class="fit-fare-choice-btn" data-target-view="wanita">
+                    <i class="fas fa-female"></i>
+                    <span>Ukuran Wanita</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="fit-fare-view-ongkir" class="fit-fare-view">
+            <button class="fit-fare-back-btn"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <h3>Estimasi Ongkos Kirim</h3>
+            <ul class="fit-fare-result-list">
+                <li><strong>Jabodetabek:</strong><br>Rp8.000 - Rp15.000</li>
+                <li><strong>Pulau Jawa (Luar Jabodetabek):</strong><br>Rp10.000 - Rp25.000</li>
+                <li><strong>Luar Pulau Jawa:</strong><br>Rp25.000 - Rp70.000</li>
+            </ul>
+            <p class="fit-fare-disclaimer">*Hanya sekedar estimasi saja*</p>
+        </div>
+
+        <div id="fit-fare-view-pria" class="fit-fare-view">
+            <button class="fit-fare-back-btn"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <h3>Estimasi Ukuran Pria</h3>
+            <ul class="fit-fare-result-list">
+                <li><strong>XS:</strong><br>Tinggi 155-165 cm, Berat 42-52 kg</li>
+                <li><strong>S:</strong><br>Tinggi 160-168 cm, Berat 52-60 kg</li>
+                <li><strong>M:</strong><br>Tinggi 165-175 cm, Berat 60-70 kg</li>
+                <li><strong>L:</strong><br>Tinggi 170-180 cm, Berat 70-78 kg</li>
+                <li><strong>XL:</strong><br>Tinggi 175-185 cm, Berat 78-90 kg</li>
+            </ul>
+            <p class="fit-fare-disclaimer">*Hanya sekedar estimasi saja*</p>
+        </div>
+
+        <div id="fit-fare-view-wanita" class="fit-fare-view">
+            <button class="fit-fare-back-btn"><i class="fas fa-arrow-left"></i> Kembali</button>
+            <h3>Estimasi Ukuran Wanita</h3>
+            <ul class="fit-fare-result-list">
+                <li><strong>XS:</strong><br>Tinggi 148-158 cm, Berat 38-45 kg</li>
+                <li><strong>S:</strong><br>Tinggi 155-162 cm, Berat 45-52 kg</li>
+                <li><strong>M:</strong><br>Tinggi 160-168 cm, Berat 52-60 kg</li>
+                <li><strong>L:</strong><br>Tinggi 165-172 cm, Berat 60-68 kg</li>
+                <li><strong>XL:</strong><br>Tinggi 168-175 cm, Berat 68-78 kg</li>
+            </ul>
+            <p class="fit-fare-disclaimer">*Hanya sekedar estimasi saja*</p>
+        </div>
+    </div>
+</div>
+
+ <div id="follow-us-modal" class="modal">
+    <div class="modal-content follow-us-modal-content">
+        <span class="close-button">&times;</span>
+        <h3>Ikuti Kami</h3>
+        <p>Dapatkan update terbaru koleksi dan promo eksklusif kami.</p>
+        <div class="follow-us-grid">
+            <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card tiktok">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+ <div id="blog-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3>Blog & Artikel Edukasi</h3>
+        <p>Tips, trik, dan informasi seputar dunia fashion dari Luxuliver.</p>
+        <div class="article-list">
+            <a href="#" class="article-link" data-close-current="true" data-modal-target="article1-modal">
+                <div class="article-link-content">
+                    <h4>Cara Merawat Kaos NSA</h4>
+                    <p>Pelajari cara menjaga kaos favorit Anda tetap awet dan berkualitas...</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="#" class="article-link" data-close-current="true" data-modal-target="article2-modal">
+                <div class="article-link-content">
+                    <h4>Perbedaan DTF vs Sablon Plastisol</h4>
+                    <p>Mana yang lebih baik untuk kaos Anda? Kenali teknologinya...</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <a href="#" class="article-link" data-close-current="true" data-modal-target="article3-modal">
+                <div class="article-link-content">
+                    <h4>Tips Memilih Ukuran T-Shirt yang Pas</h4>
+                    <p>Jangan salah ukuran lagi! Temukan tips untuk mendapatkan ukuran yang sempurna...</p>
+                </div>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="article1-modal" class="modal article-modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="article-header">
+            <button class="article-back-btn" data-close-current="true" data-modal-target="blog-modal"><i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <article class="article-content">
+            <h2>Cara Merawat Kaos NSA</h2>
+            <p><strong>Merawat kaos NSA (New States Apparel) agar awet dan sablonnya tidak cepat rusak sebenarnya cukup mudah.</strong> Kuncinya ada pada cara mencuci, menjemur, dan menyetrika. Berikut adalah panduan lengkapnya:</p>
+            <h4>1. Pisahkan Kaos Saat Mencuci</h4>
+            <p>Jangan mencampur kaos NSA Anda, terutama yang berwarna putih, dengan pakaian berwarna pekat. Ini untuk menghindari risiko kelunturan yang dapat merusak warna dasar kaos Anda.</p>
+            <h4>2. Balik Kaos Sebelum Dicuci</h4>
+            <p>Ini adalah langkah terpenting. Selalu balik kaos Anda sehingga bagian dalam berada di luar. Tujuannya adalah untuk melindungi sablon DTF dari gesekan langsung dengan pakaian lain atau mesin cuci, yang bisa menyebabkan sablon retak atau terkelupas.</p>
+            <h4>3. Cuci dengan Tangan (Sangat Direkomendasikan)</h4>
+            <p>Mencuci dengan tangan adalah cara terbaik. Gunakan deterjen lembut dan jangan merendam kaos terlalu lama (cukup 15-20 menit). Hindari mengucek atau menyikat bagian sablon secara kasar.</p>
+            <h4>4. Jika Menggunakan Mesin Cuci</h4>
+            <p>Gunakan mode putaran yang paling rendah (delicate/gentle). Hindari penggunaan pengering mesin karena panas yang berlebihan adalah musuh utama sablon. Panas dapat membuat sablon meleleh dan lengket.</p>
+            <h4>5. Jangan Gunakan Pemutih</h4>
+            <p>Pemutih mengandung bahan kimia keras yang dapat merusak serat katun pada kaos dan juga dapat memudarkan warna sablon Anda.</p>
+            <h4>6. Menjemur dengan Benar</h4>
+            <p>Setelah dicuci, balik kembali kaos ke posisi semula. Jemur di tempat yang teduh dan berangin. Hindari menjemur di bawah sinar matahari langsung karena dapat membuat warna kaos dan sablon menjadi kusam.</p>
+            <h4>7. Setrika dengan Hati-hati</h4>
+            <p>Pastikan Anda selalu menyetrika kaos dalam keadaan terbalik (bagian dalam di luar). Jangan pernah menyetrika langsung di atas permukaan sablon karena akan meleleh dan rusak. Gunakan suhu setrika yang tidak terlalu panas.</p>
+            <p>Dengan mengikuti tips sederhana ini, kaos NSA premium Anda akan tetap terlihat seperti baru untuk waktu yang lama.</p>
+        </article>
+    </div>
+</div>
+
+<div id="article2-modal" class="modal article-modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="article-header">
+            <button class="article-back-btn" data-close-current="true" data-modal-target="blog-modal"><i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <article class="article-content">
+            <h2>Perbedaan DTF vs Sablon Plastisol</h2>
+            <p>Saat memilih kaos, kualitas sablon adalah salah satu faktor terpenting. Dua teknik paling populer saat ini adalah Direct to Film (DTF) dan Plastisol. Keduanya memiliki kelebihan dan kekurangan. Mari kita bedah perbedaannya.</p>
+            
+            <h4>Apa itu Sablon Plastisol?</h4>
+            <p>Sablon Plastisol adalah metode cetak saring tradisional yang menggunakan tinta berbasis minyak (PVC). Tinta ini tidak menyerap ke dalam serat kain, melainkan membentuk lapisan tebal di atas permukaan kain. Prosesnya memerlukan screen (layar) terpisah untuk setiap warna.</p>
+            <ul>
+                <li><strong>Kelebihan:</strong> Sangat awet, warna pekat dan cerah, memberikan efek timbul yang khas.</li>
+                <li><strong>Kekurangan:</strong> Kurang ideal untuk desain dengan banyak warna atau gradasi foto, terasa sedikit kaku dan panas di area sablon, serta biaya produksi tinggi untuk pesanan dalam jumlah kecil.</li>
+            </ul>
+
+            <h4>Apa itu Sablon DTF (Direct to Film)?</h4>
+            <p>DTF adalah teknologi sablon digital modern. Desain dicetak terlebih dahulu ke sebuah lembaran film khusus menggunakan tinta pigment, lalu ditransfer ke permukaan kaos menggunakan mesin heat press. <strong>Luxuliver menggunakan teknologi sablon DTF modern untuk semua produknya.</strong></p>
+            <ul>
+                <li><strong>Kelebihan:</strong> Mampu mencetak desain full-color, gradasi, dan detail foto dengan sempurna. Hasil sablon terasa tipis, elastis, dan menyatu dengan kain sehingga tidak kaku. Sangat efisien untuk pesanan satuan atau desain dengan warna tak terbatas.</li>
+                <li><strong>Kekurangan:</strong> Efek timbul tidak setebal sablon plastisol.</li>
+            </ul>
+
+            <h4>Kesimpulan: Mana yang Lebih Baik?</h4>
+            <p>Keduanya memiliki kualitas yang baik, namun peruntukannya berbeda. Plastisol unggul untuk desain-desain simpel dengan warna solid dalam produksi massal. Sementara itu, <strong>DTF adalah pilihan superior untuk desain yang kompleks, detail, dan penuh warna</strong>.</p>
+            <p>Kami di Luxuliver memilih DTF karena teknologi ini memungkinkan kami untuk mewujudkan desain-desain eksklusif tanpa batasan warna dan dengan detail tertinggi, sambil tetap menjaga kenyamanan kaos saat dipakai.</p>
+        </article>
+    </div>
+</div>
+
+<div id="article3-modal" class="modal article-modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="article-header">
+            <button class="article-back-btn" data-close-current="true" data-modal-target="blog-modal"><i class="fas fa-arrow-left"></i> Kembali</button>
+        </div>
+        <article class="article-content">
+            <h2>Tips Memilih Ukuran T-Shirt yang Pas</h2>
+            <p>Membeli pakaian secara online memang praktis, namun memilih ukuran yang tepat seringkali menjadi tantangan. Agar Anda tidak salah pilih, ikuti tips akurat berikut ini untuk mendapatkan ukuran kaos Luxuliver yang sempurna.</p>
+
+            <h4>1. Jangan Hanya Berpatokan pada Label Ukuran (S, M, L)</h4>
+            <p>Setiap merek memiliki standar ukuran yang berbeda. Ukuran 'L' di satu merek bisa jadi setara dengan 'M' di merek lain. Cara paling akurat adalah dengan menggunakan satuan sentimeter (cm).</p>
+
+            <h4>2. Ukur Kaos Terbaik Anda di Rumah (Cara Paling Akurat)</h4>
+            <p>Ambil kaos favorit Anda yang ukurannya paling pas dan nyaman. Baringkan di permukaan datar, lalu ukur dua bagian penting ini:</p>
+            <ul>
+                <li><strong>Lebar Dada:</strong> Ukur dari jahitan ketiak kiri ke ketiak kanan.</li>
+                <li><strong>Panjang Baju:</strong> Ukur dari titik tertinggi di bahu (dekat kerah) lurus ke bawah hingga ujung bawah kaos.</li>
+            </ul>
+
+            <h4>3. Bandingkan dengan Size Chart Kami</h4>
+            <p>Setelah mendapatkan ukuran kaos Anda, bandingkan dengan size chart resmi dari Luxuliver. Ini akan memberikan hasil yang paling presisi.</p>
+            <div class="size-guide-table-container">
+                <table id="size-chart-table">
+                    <thead>
+                        <tr>
+                            <th>Ukuran</th>
+                            <th>Panjang Baju (cm)</th>
+                            <th>Lebar Baju (cm)</th>
+                            <th>Panjang Lengan (cm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>XS</td><td>66</td><td>46</td><td>20</td></tr>
+                        <tr><td>S</td><td>68</td><td>48</td><td>21</td></tr>
+                        <tr><td>M</td><td>72</td><td>50</td><td>22</td></tr>
+                        <tr><td>L</td><td>74</td><td>52</td><td>23</td></tr>
+                        <tr><td>XL</td><td>76</td><td>54</td><td>24</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>4. Pertimbangkan Gaya Personal Anda</h4>
+            <p>Apakah Anda suka kaos yang pas di badan (slim fit) atau sedikit longgar (regular/oversized)? Jika Anda berada di antara dua ukuran, pilihlah ukuran yang lebih kecil untuk tampilan fit, atau ukuran yang lebih besar untuk tampilan yang lebih santai.</p>
+
+            <p>Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!</p>
+        </article>
+    </div>
+</div>
 
 <div id="reading-guide"></div>
-
-
 
 <script src="script.js"></script>
 </body>
