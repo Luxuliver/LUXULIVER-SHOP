@@ -129,80 +129,6 @@ const comparisonTableContainer = document.getElementById('comparison-table-conta
 const profileModal = document.getElementById('profile-modal');
 const profileSidebarBtn = document.getElementById('profile-sidebar-btn');
 
-const generateVerificationCode = (order) => {
-    if (!order || !order.orderId || typeof order.total === 'undefined') {
-        console.error("Objek pesanan tidak valid untuk pembuatan kode.");
-        return null;
-    }
-   
-    const orderNumber = parseInt(order.orderId.replace(/[^0-9]/g, ''), 10);
-    const total = order.total;
-    
-    const secretKey = 31;
-    
-    const calculatedCode = ((orderNumber * 3) + (total / 100)) * secretKey;
-    
-    
-    const finalCode = Math.floor(calculatedCode % 10000);
-    
-    
-    return finalCode.toString().padStart(4, '0');
-};
-
-const renderPendingCheckoutSidebar = () => {
-    const pendingOrderItem = document.getElementById('pending-checkout-sidebar-item');
-    const storedPendingOrder = getLocalStorageItem('pendingOrder', null);
-
-    if (storedPendingOrder && pendingOrderItem) {
-        pendingOrderItem.style.display = 'block';
-    } else if (pendingOrderItem) {
-        pendingOrderItem.style.display = 'none';
-    }
-};
-
-const renderPendingCheckoutSection = () => {
-    const container = document.getElementById('pending-checkout-container');
-    const emptyMessage = document.getElementById('empty-pending-checkout-message');
-    const storedPendingOrder = getLocalStorageItem('pendingOrder', null);
-
-    if (!container || !emptyMessage) return;
-
-    if (storedPendingOrder) {
-        container.style.display = 'block';
-        emptyMessage.style.display = 'none';
-
-        const itemsHTML = storedPendingOrder.items.map(item => `
-            <div class="pending-item">
-                <img src="${item.image}" alt="${item.name}">
-                <div class="item-details">
-                    <h4>${item.name} (${item.size})</h4>
-                    <p>Jumlah: <strong>${item.quantity}</strong></p>
-                </div>
-            </div>
-        `).join('');
-
-        container.innerHTML = `
-            <div class="pending-order-card">
-                <div class="pending-order-header">
-                    <span>ID Pesanan: <strong>${storedPendingOrder.orderId}</strong></span>
-                    <span>Total: <strong>${formatRupiah(storedPendingOrder.total)}</strong></span>
-                </div>
-                <div class="pending-order-items">
-                    ${itemsHTML}
-                </div>
-                <div class="pending-order-actions">
-                    <button class="btn btn-primary btn-enter-code">
-                        <i class="fas fa-key"></i> <span data-lang-key="button_enter_code">${translations[currentLanguage].button_enter_code}</span>
-                    </button>
-                </div>
-            </div>
-        `;
-    } else {
-        container.style.display = 'none';
-        emptyMessage.style.display = 'flex';
-        container.innerHTML = '';
-    }
-};
 
 const addToCart = (productId, size, quantity, triggerElement) => {
     if (!isAuthenticated()) {
@@ -912,7 +838,7 @@ checkoutForm.addEventListener('submit', e => {
         `*Nama:* ${formData.get('customer-name')}\n*Telepon:* ${formData.get('customer-phone')}\n*Alamat:* ${formData.get('customer-address')}\n` +
         notesText + `*Ekspedisi:* ${formData.get('expeditionMethod')}\n*Pembayaran:* ${formData.get('paymentMethod')}\n\n*Detail Pesanan:*\n` +
         cart.map(item => `- ${item.name} (${item.size}) x ${item.quantity} = ${formatRupiah(item.price * item.quantity)}`).join('\n') + `\n\n*Subtotal:* ${formatRupiah(subtotal)}\n` +
-        `*Diskon Pembelian:* -${formatRupiah(discount)}\n` + shippingDiscountText + `*Total Pembayaran:* ${formatRupiah(total)}\n\n` + `Terima kasih! Detail biaya pengiriman (setelah promo) dan pin checkout akan diinfokan oleh admin kami.`;
+        `*Diskon Pembelian:* -${formatRupiah(discount)}\n` + shippingDiscountText + `*Total Pembayaran:* ${formatRupiah(total)}\n\n` + `Terima kasih! Detail biaya pengiriman (setelah promo) akan diinfokan oleh admin kami.`;
 
     pendingOrder = { orderId, date: new Date().toISOString(), items: [...cart], total };
     window.open(`https://wa.me/${sellerInfo.whatsappAdmin}?text=${encodeURIComponent(orderDetails)}`, '_blank');
@@ -921,16 +847,60 @@ checkoutForm.addEventListener('submit', e => {
 
 whatsappConfirmYesBtn.addEventListener('click', () => {
     if (pendingOrder) {
+        
+        let currentUser = getLocalStorageItem('luxuliverCurrentUser');
+        if (!currentUser) return; 
+
+        
+        let pointsEarned = 0;
+        pendingOrder.items.forEach(item => {
+            const product = products.find(p => p.id === item.id);
+            if (product && product.points) { 
+                pointsEarned += (product.points * item.quantity); 
+            }
+        });
+        userLoyaltyPoints += pointsEarned; 
+        localStorage.setItem('userLoyaltyPoints', userLoyaltyPoints); 
+        updateLoyaltyPremiumVisuals(); 
+
+        const formData = new FormData(checkoutForm);
+
+        
+        if (!currentUser.history) currentUser.history = [];
+        currentUser.history.unshift(pendingOrder);
+        
+        
+        currentUser.name = formData.get('customer-name');
+        currentUser.phone = formData.get('customer-phone');
+        currentUser.address = formData.get('customer-address');
+
+        
+        localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
+
+        
+        let accounts = getLocalStorageItem('luxuliverAccounts', []);
+        const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
+        if (accountIndex !== -1) {
+            accounts[accountIndex] = currentUser; 
+            localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
+        }
+
+       
+        localStorage.removeItem('luxuliverUser');
+
+        
+        orderCounter++;
+        localStorage.setItem('orderCounter', orderCounter.toString());
+
+        cart = [];
+        saveCart();
+        refreshAllCartViews();
+        renderOrderHistory();
+        checkoutForm.reset();
         closeModal(whatsappConfirmationModal);
-        
-        const adminCodeModal = document.getElementById('admin-code-modal');
-        const adminCodeInput = document.getElementById('admin-code-input');
-        const adminCodeError = document.getElementById('admin-code-error');
-        
-        adminCodeInput.value = '';
-        adminCodeError.style.display = 'none';
-        
-        openModal(adminCodeModal);
+        showToast("toast_order_confirmed", "success");
+        pendingOrder = null;
+        renderLoyaltySection(); 
     }
 });
 
@@ -939,106 +909,6 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         closeModal(whatsappConfirmationModal);
         showToast("toast_order_cancelled", "warning");
     });
-    
-const adminCodeForm = document.getElementById('admin-code-form');
-const adminCodeCancelBtn = document.getElementById('admin-code-cancel');
-
-if(adminCodeForm) {
-    adminCodeForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const userInput = document.getElementById('admin-code-input').value;
-        const expectedCode = generateVerificationCode(pendingOrder);
-        const adminCodeError = document.getElementById('admin-code-error');
-
-        if (userInput === expectedCode) {
-            
-            let currentUser = getLocalStorageItem('luxuliverCurrentUser');
-            if (!currentUser) return;
-
-            let pointsEarned = 0;
-            pendingOrder.items.forEach(item => {
-                const product = products.find(p => p.id === item.id);
-                if (product && product.points) {
-                    pointsEarned += (product.points * item.quantity);
-                }
-            });
-            userLoyaltyPoints += pointsEarned;
-            localStorage.setItem('userLoyaltyPoints', userLoyaltyPoints);
-            updateLoyaltyPremiumVisuals();
-
-            const formData = new FormData(checkoutForm);
-
-            if (!currentUser.history) currentUser.history = [];
-            currentUser.history.unshift(pendingOrder);
-            
-            currentUser.name = formData.get('customer-name');
-            currentUser.phone = formData.get('customer-phone');
-            currentUser.address = formData.get('customer-address');
-
-            localStorage.setItem('luxuliverCurrentUser', JSON.stringify(currentUser));
-
-            let accounts = getLocalStorageItem('luxuliverAccounts', []);
-            const accountIndex = accounts.findIndex(acc => acc.phone === currentUser.phone);
-            if (accountIndex !== -1) {
-                accounts[accountIndex] = currentUser;
-                localStorage.setItem('luxuliverAccounts', JSON.stringify(accounts));
-            }
-
-            orderCounter++;
-            localStorage.setItem('orderCounter', orderCounter.toString());
-
-            cart = [];
-            saveCart();
-            refreshAllCartViews();
-            renderOrderHistory();
-            checkoutForm.reset();
-            
-            closeModal(document.getElementById('admin-code-modal'));
-            showToast("toast_order_confirmed", "success");
-            pendingOrder = null;
-            
-            localStorage.removeItem('pendingOrder');
-    renderPendingCheckoutSidebar(); 
-    renderPendingCheckoutSection(); 
-    
-     
-            renderLoyaltySection();
-
-
-        } else {
-
-            adminCodeError.textContent = translations[currentLanguage].toast_invalid_code;
-            adminCodeError.style.display = 'block';
-            const adminCodeInput = document.getElementById('admin-code-input');
-            adminCodeInput.focus();
-            
-            
-            adminCodeInput.parentElement.classList.add('shake-animation');
-            setTimeout(() => {
-                adminCodeInput.parentElement.classList.remove('shake-animation');
-            }, 500);
-        }
-    });
-}
-
-
-if(adminCodeCancelBtn) {
-    const handleCancelPendingOrder = () => {
-        if (pendingOrder) {
-            localStorage.setItem('pendingOrder', JSON.stringify(pendingOrder));
-            showToast("toast_pending_checkout_saved", "info");
-            renderPendingCheckoutSidebar();
-            renderPendingCheckoutSection(); 
-        }
-        closeModal(document.getElementById('admin-code-modal'));
-    };
-
-    adminCodeCancelBtn.addEventListener('click', handleCancelPendingOrder);
-    
-    const adminCodeModal = document.getElementById('admin-code-modal');
-    adminCodeModal.querySelector('.close-button').addEventListener('click', handleCancelPendingOrder);
-}
 
     const renderSkeletonLoaders = (container, count) => {
         container.innerHTML = Array(count).fill(0).map(() => `
@@ -2100,17 +1970,18 @@ const renderComparisonModal = () => {
     };
     
 
- const showMainContentSection = (targetId) => {
+const showMainContentSection = (targetId) => {
     document.body.classList.remove('single-section-view');
 
-    const homePageSections = ['#koleksi'];
+    const homePageSections = ['#koleksi', '#faq'];
 
-    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#arsip', '#koleksi-habis', '#ulasan', '#loyalty-points', '#terakhir-dilihat', '#checkout-tertunda'];
+    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#arsip', '#koleksi-habis', '#ulasan', '#loyalty-points', '#terakhir-dilihat'];
 
     const dividers = document.querySelectorAll('.section-divider');
     const searchSection = document.getElementById('search-section');
     const heroSection = document.getElementById('hero');
     const footer = document.querySelector('footer');
+
 
     [heroSection, searchSection, footer, ...dividers, ...allSections.map(sel => document.querySelector(sel))].forEach(el => {
         if (el) el.style.display = 'none';
@@ -2131,13 +2002,14 @@ const renderComparisonModal = () => {
         dividers.forEach(divider => divider.style.display = 'block');
 
     } else {
-
+       
         document.body.classList.add('single-section-view');
         const targetElement = document.querySelector(targetId);
-        
         if (targetElement) {
+           
             targetElement.style.display = 'block';
         }
+
 
         if (targetId === '#ulasan') {
             renderAllReviews();
@@ -2149,8 +2021,6 @@ const renderComparisonModal = () => {
             renderSoldOutPage();                    
         } else if (targetId === '#terakhir-dilihat') {
             renderRecentlyViewed();
-        } else if (targetId === '#checkout-tertunda') { 
-            renderPendingCheckoutSection();
         }
     }
 };
@@ -2970,9 +2840,6 @@ if (paymentMethodContainer) {
     
     localStorage.removeItem('luxuliverCurrentUser');
     
-    localStorage.removeItem('pendingOrder');
-
-    
     cart = [];
     favorites = [];
     comparisonList = [];
@@ -3150,23 +3017,6 @@ if (footer) {
     });
 }
 
-    const pendingCheckoutContainer = document.getElementById('pending-checkout-container');
-    if (pendingCheckoutContainer) {
-        pendingCheckoutContainer.addEventListener('click', (e) => {
-            if (e.target.closest('.btn-enter-code')) {
-                const storedPendingOrder = getLocalStorageItem('pendingOrder', null);
-                if (storedPendingOrder) {
-                    pendingOrder = storedPendingOrder;
-                    
-                    const adminCodeModal = document.getElementById('admin-code-modal');
-                    document.getElementById('admin-code-input').value = '';
-                    document.getElementById('admin-code-error').style.display = 'none';
-                    openModal(adminCodeModal);
-                }
-            }
-        });
-    }
-
     setTimeout(() => {
         setLanguage(localStorage.getItem('language') || 'id');
         renderRecentlyViewed();
@@ -3193,7 +3043,6 @@ if (footer) {
         body.classList.remove('no-scroll');
         updateLoyaltyPremiumVisuals(); 
         renderLoyaltySection(); 
-        renderPendingCheckoutSidebar();
         initializeAccessibilityPanel();
         showMainContentSection('#hero');
         
