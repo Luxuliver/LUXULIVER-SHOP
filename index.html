@@ -82,11 +82,6 @@
                         <li><a href="#keranjang">
                             <i class="fas fa-shopping-cart"></i> <span data-lang-key="nav_cart">Keranjang</span> (<span id="cart-count-sidebar">0</span>)
                         </a></li>
-                        <li id="pending-checkout-sidebar-item" style="display: none;">
-    <a href="#checkout-tertunda" style="animation: pulse-animation 2s infinite;">
-        <i class="fas fa-hourglass-half"></i> <span data-lang-key="sidebar_pending_checkout">Checkout Tertunda</span>
-    </a>
-</li>
                         <li><a href="#favorit">
                             <i class="fas fa-heart"></i> <span data-lang-key="nav_favorites">Favorit</span> (<span id="favorite-count-sidebar">0</span>)
                         </a></li>
@@ -446,16 +441,6 @@
                     </div>
                 <p id="empty-history-message" class="info-message" style="display: none;" data-lang-key="empty_history">Anda belum memiliki riwayat pesanan.</p>
             </section>
-            
-            <section id="checkout-tertunda" style="display: none;">
-    <h2 data-lang-key="pending_checkout_title">Checkout Tertunda</h2>
-    <div id="pending-checkout-container">
-        </div>
-    <div id="empty-pending-checkout-message" class="empty-state-container" style="display: none;">
-        <div class="empty-state-icon"><i class="fas fa-box"></i></div>
-        <p class="empty-state-text" data-lang-key="empty_pending_checkout">Tidak ada checkout yang tertunda saat ini.</p>
-    </div>
-</section>
             
              <section id="terakhir-dilihat" style="display: none;">
                 <h2 data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</h2>
@@ -1484,28 +1469,6 @@
 
             <p>Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!</p>
         </article>
-    </div>
-</div>
-
- <div id="admin-code-modal" class="modal">
-    <div class="modal-content" style="max-width: 500px; text-align: center;">
-        <span class="close-button">&times;</span>
-        <h3 data-lang-key="admin_code_title">Konfirmasi Pesanan</h3>
-        <p data-lang-key="admin_code_desc" style="margin-bottom: 2rem;">
-            Setelah pembayaran berhasil, admin akan memberikan kode konfirmasi via WhatsApp. Masukkan kode tersebut di sini untuk menyelesaikan pesanan Anda.
-        </p>
-        <form id="admin-code-form">
-            <div class="luxury-form-group" style="margin-bottom: 1rem;">
-                <i class="form-icon fas fa-key"></i>
-                <input type="text" id="admin-code-input" class="form-input" placeholder=" " required inputmode="numeric" maxlength="4">
-                <label for="admin-code-input" class="form-label" data-lang-key="admin_code_placeholder">Kode dari Admin</label>
-            </div>
-            <p id="admin-code-error" class="auth-error-msg" style="display: none;"></p>
-            <div class="modal-actions" style="margin-top: 2rem;">
-                <button type="button" id="admin-code-cancel" class="btn btn-secondary" data-lang-key="confirm_no">Batal</button>
-                <button type="submit" class="btn btn-primary" data-lang-key="admin_code_confirm">Konfirmasi</button>
-            </div>
-        </form>
     </div>
 </div>
 
