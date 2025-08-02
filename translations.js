@@ -327,17 +327,7 @@ const translations = {
             table: '<div class="size-guide-table-container"><table id="size-chart-table"><thead><tr><th>Ukuran</th><th>Panjang Baju (cm)</th><th>Lebar Baju (cm)</th><th>Panjang Lengan (cm)</th></tr></thead><tbody><tr><td>XS</td><td>66</td><td>46</td><td>20</td></tr><tr><td>S</td><td>68</td><td>48</td><td>21</td></tr><tr><td>M</td><td>72</td><td>50</td><td>22</td></tr><tr><td>L</td><td>74</td><td>52</td><td>23</td></tr><tr><td>XL</td><td>76</td><td>54</td><td>24</td></tr></tbody></table></div>',
             h4_4: '4. Pertimbangkan Gaya Personal Anda',
             p5: 'Apakah Anda suka kaos yang pas di badan (slim fit) atau sedikit longgar (regular/oversized)? Jika Anda berada di antara dua ukuran, pilihlah ukuran yang lebih kecil untuk tampilan fit, atau ukuran yang lebih besar untuk tampilan yang lebih santai.',
-            p6: 'Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!', 
-            admin_code_title: 'Verifikasi Pesanan Anda',
-            admin_code_desc: 'Setelah pembayaran berhasil, admin akan memberikan 4 digit kode unik via WhatsApp. Masukkan kode tersebut di sini untuk menyelesaikan pesanan.',
-            admin_code_placeholder: 'Kode Konfirmasi (4 Digit)', 
-            sidebar_pending_checkout: 'Checkout Tertunda',
-            toast_pending_checkout_saved: 'Checkout Anda disimpan. Selesaikan nanti dari menu sidebar.',
-            pending_checkout_title: 'Checkout Tertunda',
-            empty_pending_checkout: 'Tidak ada checkout yang tertunda saat ini.',
-            button_enter_code: 'Masukkan Kode Konfirmasi',
-   
-           
+            p6: 'Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!'
         }
     },
     en: {
@@ -672,17 +662,7 @@ const translations = {
         table: '<div class="size-guide-table-container"><table id="size-chart-table"><thead><tr><th>Size</th><th>Length (cm)</th><th>Width (cm)</th><th>Sleeve (cm)</th></tr></thead><tbody><tr><td>XS</td><td>66</td><td>46</td><td>20</td></tr><tr><td>S</td><td>68</td><td>48</td><td>21</td></tr><tr><td>M</td><td>72</td><td>50</td><td>22</td></tr><tr><td>L</td><td>74</td><td>52</td><td>23</td></tr><tr><td>XL</td><td>76</td><td>54</td><td>24</td></tr></tbody></table></div>',
         h4_4: '4. Consider Your Personal Style',
         p5: 'Do you prefer a t-shirt that is snug (slim fit) or a bit looser (regular/oversized)? If you are between two sizes, choose the smaller size for a fitted look, or the larger size for a more relaxed look.',
-        p6: 'By following the steps above, especially by measuring your own t-shirt, you are very likely to get the perfect size. Happy shopping!', 
-        admin_code_title: 'Verify Your Order',
-        admin_code_desc: 'After successful payment, the admin will provide a 4-digit unique code via WhatsApp. Enter that code here to complete your order.',
-        admin_code_placeholder: 'Confirmation Code (4 Digits)', 
-        sidebar_pending_checkout: 'Pending Checkout',
-        toast_pending_checkout_saved: 'Your checkout is saved. You can complete it later from the sidebar menu.',
-        pending_checkout_title: 'Pending Checkout',
-        empty_pending_checkout: 'There are no pending checkouts at the moment.',
-        button_enter_code: 'Enter Confirmation Code',
-   
-   
-   }
+        p6: 'By following the steps above, especially by measuring your own t-shirt, you are very likely to get the perfect size. Happy shopping!'
+    }
 }
 };
