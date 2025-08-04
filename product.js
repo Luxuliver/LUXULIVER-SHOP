@@ -98,6 +98,19 @@ const products = [
                 { author: 'Rizal Fahmi', rating: 5, text: 'bagus desain classy nya', date: '2025-07-12' }, 
                 { author: 'Riko Satria', rating: 5, text: 'Ditunggu desain classy selanjutnya', date: '2025-07-15' }
             ]    
+        },
+        {
+            id: 'baju-006',
+            name: 'Velluto',
+            image: 'Velluto.jpg',
+            description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
+            basePrice: 100000,
+            sizes: ['XS','S', 'M', 'L', 'XL'],
+            color: 'hitam',
+            design: 'classy',
+            stock: 4,
+            status: 'preorder', 
+            points: 125,
         }
         
     ];
