@@ -17,13 +17,53 @@ document.addEventListener('DOMContentLoaded', () => {
     let comparisonList = getLocalStorageItem('comparisonList', []);
     let currentRatingFilter = 0;
 const MAX_COMPARISON_ITEMS = 2;
+
+ const tourSteps = [
+    {
+        element: '#sidebar-toggle-btn',
+        title: 'Buka Menu & Filter',
+        intro: 'Klik di sini untuk membuka menu navigasi, melihat koleksi, mengatur filter pencarian produk, dan mengakses fitur lainnya.',
+        position: 'right'
+    },
+    {
+        element: '.search-input-wrapper',
+        title: 'Pencarian Produk',
+        intro: 'Ketik nama produk yang ingin Anda cari di sini untuk menemukan koleksi favorit Anda dengan cepat.',
+        position: 'bottom'
+    },
+    {
+        element: '.product-card:first-child .add-to-cart',
+        title: 'Tambah ke Keranjang',
+        intro: 'Pilih ukuran, lalu klik tombol ini untuk menambahkan produk ke keranjang belanja Anda.',
+        position: 'bottom'
+    },
+    {
+        element: 'header nav a[href="#keranjang"]',
+        title: 'Lihat Keranjang',
+        intro: 'Semua produk yang Anda pilih akan terkumpul di sini. Klik untuk melihat detail dan melanjutkan ke pembayaran.',
+        position: 'bottom'
+    },
+    {
+        element: '#auth-nav-item',
+        title: 'Akun Anda',
+        intro: 'Masuk atau daftar untuk menyimpan favorit, melihat riwayat pesanan, dan mendapatkan poin loyalty.',
+        position: 'left'
+    }
+];
+
  let userLoyaltyPoints = getLocalStorageItem('userLoyaltyPoints', 0);
 const loyaltyTiers = [
     { points: 500, message: 'loyalty_tier_500_message', class: 'loyalty-tier-500' },
     { points: 1000, message: 'loyalty_tier_1000_message', class: 'loyalty-tier-1000' },
     { points: 1500, message: 'loyalty_tier_1500_message', class: 'loyalty-tier-1500' }
 ];
-
+   
+   
+    const photoGalleryImages = [
+    { src: 'A1.jpg', title: 'Stillight' },
+    { src: 'B1.jpg', title: 'Stillight' },
+    { src: 'C1.jpg', title: 'Stillight' }
+];
 
     let orderCounter = parseInt(localStorage.getItem('orderCounter')) || 1000;
     let pendingOrder = null;
@@ -136,7 +176,6 @@ const addToCart = (productId, size, quantity, triggerElement) => {
         return;
     }
     
-    
     if (checkoutFormContainer.style.display === 'block') {
         showToast('checkout_in_progress_warning', 'warning');
         return;
@@ -151,18 +190,22 @@ const addToCart = (productId, size, quantity, triggerElement) => {
         showToast('toast_stock_not_enough', "error", { name: product.name, size: size });
         return;
     }
-    const price = getPriceBySize(product.basePrice, size);
+
+    const effectiveBasePrice = product.isPromo ? product.promoPrice : product.basePrice;
+
+    const price = getPriceBySize(effectiveBasePrice, size);
+
     if (existingItem) {
         existingItem.quantity += quantity;
         showToast('toast_quantity_updated', 'info', { name: product.name, size: size });
     } else {
+ 
         cart.push({ ...product, price, size, quantity, cartId: cartItemIdentifier });
     }
     showToast('toast_added_to_cart', 'success', { name: product.name, size: size, qty: quantity });
     saveCart();
     refreshAllCartViews();
     if (triggerElement) flyToCartAnimation(triggerElement);
-
 };
 
 const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
@@ -291,7 +334,8 @@ function animateValue(obj, start, end, duration) {
                 const cartItemDiv = document.createElement('div');
                 cartItemDiv.className = 'cart-item';
                 cartItemDiv.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}">
+                   <img src="${item.image[0]}" alt="${item.name}">
+
                     <div class="item-details">
                         <h4>${item.name} (${item.size})</h4>
                         <p>Harga: ${formatRupiah(item.price)}</p>
@@ -437,65 +481,108 @@ function animateValue(obj, start, end, duration) {
     saveCurrentUserSession(); 
     renderRecentlyViewed();
         
-        
-        const product = products.find(p => p.id === productId);
-        if (!product) return;
-        const startImageElement = document.querySelector(`.product-card[data-product-id="${productId}"] img`);
-        const modalContent = quickViewModal.querySelector('.modal-content');
-        modalContent.dataset.productId = productId;
-        quickViewModal.querySelector('img').src = product.image;
-        quickViewModal.querySelector('img').alt = product.name;
-        document.getElementById('modal-product-name').textContent = product.name;
-        document.getElementById('modal-product-description').textContent = product.description;
-        const updateModalPrice = (size) => {
-            document.getElementById('modal-product-price').textContent = formatRupiah(getPriceBySize(product.basePrice, size));
-        };
-        modalSizeOptions.innerHTML = product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('');
-        modalSizeOptions.querySelectorAll('.size-option').forEach(option => {
-            option.addEventListener('click', e => {
-                modalSizeOptions.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
-                e.target.classList.add('selected');
-                updateModalPrice(e.target.dataset.size);
-            });
-        });
-        const defaultSizeOption = modalSizeOptions.querySelector('.size-option[data-size="M"]') || modalSizeOptions.querySelector('.size-option');
-        if (defaultSizeOption) {
-            defaultSizeOption.classList.add('selected');
-            updateModalPrice(defaultSizeOption.dataset.size);
-        }
-        const modalActionsContainer = quickViewModal.querySelector('.modal-buttons-group');
-        modalActionsContainer.innerHTML = `
-            <button class="btn btn-primary" id="modal-add-to-cart-btn"><i class="fas fa-shopping-cart"></i> <span>${translations[currentLanguage].add_to_cart}</span></button>
-            <button class="btn add-to-favorite modal-add-to-favorite"><i class="far fa-heart"></i></button>`;
-        const newModalAddToCartBtn = modalActionsContainer.querySelector('#modal-add-to-cart-btn');
-        newModalAddToCartBtn.disabled = product.stock === 0;
-        newModalAddToCartBtn.addEventListener('click', () => {
-            if (checkoutFormContainer.style.display === 'block') {
-                showToast('checkout_in_progress_warning', 'warning');
-                return;
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const modalContent = quickViewModal.querySelector('.modal-content');
+    modalContent.dataset.productId = productId;
+    
+    const mainImage = document.getElementById('modal-main-image');
+    const thumbnailsContainer = document.getElementById('modal-thumbnails');
+
+    mainImage.src = product.image[0];
+    mainImage.alt = product.name;
+    thumbnailsContainer.innerHTML = ''; 
+
+    if (product.image.length > 1) {
+        product.image.forEach((imgSrc, index) => {
+            const thumb = document.createElement('img');
+            thumb.src = imgSrc;
+            thumb.alt = `${product.name} thumbnail ${index + 1}`;
+            thumb.className = 'thumbnail-img';
+            if (index === 0) {
+                thumb.classList.add('active');
             }
-            if (modalActionsContainer.classList.contains('quantity-selector-active') || product.stock === 0) return;
-            const selectedSizeEl = modalSizeOptions.querySelector('.size-option.selected');
-            if (!selectedSizeEl) {
-                showToast("toast_select_size", "warning");
-                return;
-            }
-            showQuantitySelector(modalActionsContainer, product, (quantity) => {
-                addToCart(productId, selectedSizeEl.dataset.size, quantity, quickViewModal);
-                closeModal(quickViewModal);
+            thumb.addEventListener('click', () => {
+                mainImage.src = imgSrc;
+                thumbnailsContainer.querySelectorAll('.thumbnail-img').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
             });
+            thumbnailsContainer.appendChild(thumb);
         });
-        modalActionsContainer.querySelector('.modal-add-to-favorite').addEventListener('click', e => toggleFavorite(productId, e.currentTarget));
-        quickViewModal.querySelector('.modal-share-product-btn').onclick = () => shareProduct(product);
-        renderReviews(product);
-        renderRecommendations(product);
-        if (startImageElement) {
-            implementSharedElementTransition(startImageElement, quickViewModal, () => updateAllFavoriteButtons());
-        } else {
-            openModal(quickViewModal);
-            updateAllFavoriteButtons();
+        thumbnailsContainer.style.display = 'grid';
+    } else {
+        thumbnailsContainer.style.display = 'none';
+    }
+
+    document.getElementById('modal-product-name').textContent = product.name;
+    document.getElementById('modal-product-description').textContent = product.description;
+    
+    const updateModalPrice = (size) => {
+    const modalPriceElement = document.getElementById('modal-product-price');
+    
+    if (product.isPromo) {
+      
+        const originalPrice = getPriceBySize(product.basePrice, size);
+        const promotionalPrice = getPriceBySize(product.promoPrice, size);
+      
+        modalPriceElement.innerHTML = `
+            <span class="price has-promo">${formatRupiah(originalPrice)}</span>
+            <span class="promo-price">${formatRupiah(promotionalPrice)}</span>
+        `;
+    } else {
+      
+        const normalPrice = getPriceBySize(product.basePrice, size);
+        modalPriceElement.innerHTML = `<span class="price">${formatRupiah(normalPrice)}</span>`;
+    }
+};
+    
+
+    modalSizeOptions.innerHTML = product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('');
+    modalSizeOptions.querySelectorAll('.size-option').forEach(option => {
+        option.addEventListener('click', e => {
+            modalSizeOptions.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            e.target.classList.add('selected');
+            updateModalPrice(e.target.dataset.size);
+        });
+    });
+
+    const defaultSizeOption = modalSizeOptions.querySelector('.size-option[data-size="M"]') || modalSizeOptions.querySelector('.size-option');
+    if (defaultSizeOption) {
+        defaultSizeOption.classList.add('selected');
+        updateModalPrice(defaultSizeOption.dataset.size);
+    }
+
+    const modalActionsContainer = quickViewModal.querySelector('.modal-buttons-group');
+    modalActionsContainer.innerHTML = `
+        <button class="btn btn-primary" id="modal-add-to-cart-btn"><i class="fas fa-shopping-cart"></i> <span>${translations[currentLanguage].add_to_cart}</span></button>
+        <button class="btn add-to-favorite modal-add-to-favorite"><i class="far fa-heart"></i></button>`;
+    const newModalAddToCartBtn = modalActionsContainer.querySelector('#modal-add-to-cart-btn');
+    newModalAddToCartBtn.disabled = product.stock === 0;
+    newModalAddToCartBtn.addEventListener('click', () => {
+        if (checkoutFormContainer.style.display === 'block') {
+            showToast('checkout_in_progress_warning', 'warning');
+            return;
         }
-    };
+        if (modalActionsContainer.classList.contains('quantity-selector-active') || product.stock === 0) return;
+        const selectedSizeEl = modalSizeOptions.querySelector('.size-option.selected');
+        if (!selectedSizeEl) {
+            showToast("toast_select_size", "warning");
+            return;
+        }
+        showQuantitySelector(modalActionsContainer, product, (quantity) => {
+            addToCart(productId, selectedSizeEl.dataset.size, quantity, quickViewModal);
+            closeModal(quickViewModal);
+        });
+    });
+    modalActionsContainer.querySelector('.modal-add-to-favorite').addEventListener('click', e => toggleFavorite(productId, e.currentTarget));
+    quickViewModal.querySelector('.modal-share-product-btn').onclick = () => shareProduct(product);
+    renderReviews(product);
+    renderRecommendations(product);
+    
+    openModal(quickViewModal);
+    updateAllFavoriteButtons();
+};
 
     const moveToSavedForLater = (cartId) => {
         const itemIndex = cart.findIndex(item => item.cartId === cartId);
@@ -928,54 +1015,61 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     };
 
     const createProductCardHTML = (product) => {
-        const isFavorited = favorites.some(fav => fav.id === product.id);
-        const price = getPriceBySize(product.basePrice, 'M');
-        
-        const isSoldOut = product.stock === 0;
+    const isFavorited = favorites.some(fav => fav.id === product.id);
+    const price = getPriceBySize(product.basePrice, 'M');
+    
+    const isSoldOut = product.stock === 0;
 
-        const preOrderBadge = product.status === 'preorder' && !isSoldOut ? `<div class="pre-order-badge">Pre-Order</div>` : '';
-        const lowStockLabel = !isSoldOut && product.stock <= 5 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
-        
-        const outOfStockLabel = isSoldOut ? `<div class="out-of-stock-badge">${translations[currentLanguage].sold_out_badge}</div>` : '';
-        
-        const totalReviews = product.reviews ? product.reviews.length : 0;
-        const averageRating = totalReviews > 0 ? product.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews : 0;
-        const ratingHTML = `<div class="product-rating" title="${averageRating.toFixed(1)} dari 5 bintang">${generateStarsHTML(Math.round(averageRating))}<span class="rating-count">(${totalReviews})</span></div>`;
-        
-        return `
+    const priceHTML = product.isPromo
+        ? `<p class="price has-promo">${formatRupiah(product.basePrice)}</p>
+           <p class="promo-price">${formatRupiah(product.promoPrice)}</p>`
+        : `<p class="price">${formatRupiah(price)}</p>`;
+
+    const preOrderBadge = product.status === 'preorder' && !isSoldOut ? `<div class="pre-order-badge">Pre-Order</div>` : '';
+    const lowStockLabel = !isSoldOut && product.stock <= 5 ? `<div class="low-stock-badge">${translations[currentLanguage].stock_limited}</div>` : '';
+    
+    const outOfStockLabel = isSoldOut ? `<div class="out-of-stock-badge">${translations[currentLanguage].sold_out_badge}</div>` : '';
+    
+    const totalReviews = product.reviews ? product.reviews.length : 0;
+    const averageRating = totalReviews > 0 ? product.reviews.reduce((acc, review) => acc + review.rating, 0) / totalReviews : 0;
+    const ratingHTML = `<div class="product-rating" title="${averageRating.toFixed(1)} dari 5 bintang">${generateStarsHTML(Math.round(averageRating))}<span class="rating-count">(${totalReviews})</span></div>`;
+    
+    return `
 <div class="product-card" data-product-id="${product.id}">
     ${preOrderBadge}${lowStockLabel}${outOfStockLabel}
-    <div class="product-image-container"><img src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
-            <div class="product-info">
-                <h3>${product.name}</h3>
-                ${ratingHTML}
-                <p class="price">${formatRupiah(price)}</p>
-                <div class="size-options">${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}</div>
-                <div class="product-actions">
-                    <button class="btn btn-primary add-to-cart" ${isSoldOut ? 'disabled' : ''}>
-                        <i class="fas fa-shopping-cart"></i> <span>${isSoldOut ? translations[currentLanguage].sold_out_badge : translations[currentLanguage].add_button}</span>
-                    </button>
-                    
-                    <button class="btn quick-view-btn" title="Lihat Cepat" ${isSoldOut ? 'disabled' : ''}>
-                        <i class="fas fa-eye"></i>
-                    </button>
-                    <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit" ${isSoldOut ? 'disabled' : ''}>
-                        <i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i>
-                    </button>
-                    <button class="btn compare-btn" title="Bandingkan" ${isSoldOut ? 'disabled' : ''}>
-                        <i class="fas fa-layer-group"></i>
-                    </button>
-                </div>
+    <div class="product-image-container"><img src="${product.image[0]}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='placeholder.jpg';"></div>
+
+        <div class="product-info">
+            <h3>${product.name}</h3>
+            ${ratingHTML}
+            ${priceHTML}
+            <div class="size-options">${product.sizes.map(size => `<span class="size-option" data-size="${size}">${size}</span>`).join('')}</div>
+            <div class="product-actions">
+                <button class="btn btn-primary add-to-cart" ${isSoldOut ? 'disabled' : ''}>
+                    <i class="fas fa-shopping-cart"></i> <span>${isSoldOut ? translations[currentLanguage].sold_out_badge : translations[currentLanguage].add_button}</span>
+                </button>
+                
+                <button class="btn quick-view-btn" title="Lihat Cepat" ${isSoldOut ? 'disabled' : ''}>
+                    <i class="fas fa-eye"></i>
+                </button>
+                <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit" ${isSoldOut ? 'disabled' : ''}>
+                    <i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i>
+                </button>
+                <button class="btn compare-btn" title="Bandingkan" ${isSoldOut ? 'disabled' : ''}>
+                    <i class="fas fa-layer-group"></i>
+                </button>
             </div>
-        </div>`;
-    };
+        </div>
+    </div>`;
+};
     
     const createFavoriteCardHTMLLuxury = (product) => {
     const price = getPriceBySize(product.basePrice, 'M');
     return `
     <div class="favorite-card-luxury" data-product-id="${product.id}">
         <div class="favorite-card-image">
-            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <img src="${product.image[0]}" alt="${product.name}" loading="lazy">
+
              <div class="favorite-card-image-overlay"></div>
         </div>
         <div class="favorite-card-content">
@@ -1018,6 +1112,9 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     }
     if (activeFilters.color !== 'all') filteredProducts = filteredProducts.filter(p => p.color === activeFilters.color);
     if (activeFilters.design !== 'all') filteredProducts = filteredProducts.filter(p => p.design === activeFilters.design);
+    if (activeFilters.promo) {
+    filteredProducts = filteredProducts.filter(p => p.isPromo === true);
+}
 
 
     const sortDropdown = document.getElementById('sort-products-dropdown');
@@ -1051,7 +1148,16 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         });
     }, 500);
 
-    const isFilterOrSearchActive = activeFilters.availability !== 'all' || activeFilters.color !== 'all' || activeFilters.design !== 'all' || currentSearchTerm;
+    const isFilterOrSearchActive = activeFilters.availability !== 'all' 
+                                 || activeFilters.color !== 'all' 
+                                 || activeFilters.design !== 'all' 
+                                 || activeFilters.promo 
+                                 || currentSearchTerm;
+                                 
+    const showAllBtn = document.getElementById('show-all-products-btn');
+    if (showAllBtn) {
+        showAllBtn.style.display = isFilterOrSearchActive ? 'flex' : 'none';
+    }
 
     const kolekasiH2 = document.querySelector('#koleksi h2');
     if (isFilterOrSearchActive) {
@@ -1079,32 +1185,56 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         }
     };
 
-   const calculateCartTotals = () => {
+const calculateCartTotals = () => {
     const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
     const productDiscount = totalItems >= 5 ? subtotal * 0.01 : 0;
     let shippingDiscount = 0;
+    let shippingDiscountLabel = '';
     const addressInput = document.getElementById('customer-address');
 
     if (cart.length > 0 && addressInput && addressInput.value) {
         const address = addressInput.value.toLowerCase();
+        const addressParts = address.split(',').map(part => part.trim()).filter(part => part.length > 0);
+
+        let discountFound = false;
         const jabodetabekCities = ['jakarta', 'bogor', 'depok', 'tangerang', 'bekasi'];
 
-        const addressParts = address.split(',');
+        const streetPrefixes = ['jl', 'jalan', 'gg', 'gang'];
 
-        const lastTwoParts = addressParts.slice(-2).map(part => part.trim());
+        for (const part of [...addressParts].reverse()) {
+            
+            const isStreet = streetPrefixes.some(prefix => part.startsWith(prefix + '.') || part.startsWith(prefix + ' '));
+            if (isStreet) {
+                continue;
+            }
 
-        const isJabodetabek = lastTwoParts.some(part =>
-            jabodetabekCities.some(city => part.includes(city))
-        );
+            for (const discount of shippingDiscounts) {
+                const cityRegex = new RegExp('\\b' + discount.city.toLowerCase() + '\\b');
+                if (cityRegex.test(part)) {
+                    shippingDiscount = discount.discountAmount;
+                    shippingDiscountLabel = `Promo Ongkir ${discount.city}`;
+                    discountFound = true;
+                    break;
+                }
+            }
+            if (discountFound) break;
 
-        if (isJabodetabek) {
-            shippingDiscount = 2000;
+            for (const city of jabodetabekCities) {
+                const cityRegex = new RegExp('\\b' + city + '\\b');
+                if (cityRegex.test(part)) {
+                    shippingDiscount = 1000;
+                    shippingDiscountLabel = 'Promo Ongkir (Jabodetabek)';
+                    discountFound = true;
+                    break;
+                }
+            }
+            if (discountFound) break;
         }
     }
 
     const total = subtotal - productDiscount - shippingDiscount;
-    return { subtotal, totalItems, discount: productDiscount, shippingDiscount, total };
+    return { subtotal, totalItems, discount: productDiscount, shippingDiscount, shippingDiscountLabel, total };
 };
 
     const saveFavorites = () => {
@@ -1189,6 +1319,26 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         });
     };
 
+    const renderPhotoGallery = () => {
+        const photoGalleryModal = document.getElementById('photo-gallery-modal');
+        const photoGrid = document.getElementById('photo-gallery-grid');
+        if (!photoGalleryModal || !photoGrid) return;
+
+        photoGrid.innerHTML = ''; 
+
+        photoGalleryImages.forEach(image => {
+            const photoItem = document.createElement('div');
+            photoItem.className = 'photo-item';
+            photoItem.innerHTML = `
+                <img src="${image.src}" alt="${image.title}" loading="lazy">
+                <h4>${image.title}</h4>
+            `;
+            photoGrid.appendChild(photoItem);
+        });
+
+        openModal(photoGalleryModal);
+    };
+    
     const renderReviews = (product) => {
         const reviewsContainer = document.getElementById('modal-reviews-list-container');
         const reviewsSummary = document.querySelector('.reviews-summary');
@@ -1265,7 +1415,8 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
     };
     
     const renderFinalSummary = () => {
-    const { subtotal, totalItems, discount, shippingDiscount, total } = calculateCartTotals();
+ 
+    const { subtotal, totalItems, discount, shippingDiscount, shippingDiscountLabel, total } = calculateCartTotals();
     const formData = new FormData(checkoutForm);
 
     const customerName = formData.get('customer-name') || 'Belum diisi';
@@ -1276,14 +1427,14 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
 
     const shippingDiscountHTML = shippingDiscount > 0 ? `
         <div class="finance-line">
-            <span class="label">Promo Ongkir (Jabodetabek)</span>
+            <span class="label">${shippingDiscountLabel}</span>
             <span class="amount">- ${formatRupiah(shippingDiscount)}</span>
         </div>` : '';
 
     const itemsHTML = cart.map(item => `
-        <div class="summary-product-item">
-            <div class="image-container"><img src="${item.image}" alt="${item.name}"></div>
-            <div class="details">
+    <div class="summary-product-item">
+        <div class="image-container"><img src="${item.image[0]}" alt="${item.name}"></div>
+        <div class="details">
                 <div class="name">${item.name}</div>
                 <div class="qty-size">${item.quantity}x, Ukuran: ${item.size}</div>
             </div>
@@ -1425,7 +1576,8 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
                         <ul class="collection-item-list">
                             ${order.items.map(item => `
                                 <li class="collection-item">
-                                    <img src="${item.image}" alt="${item.name}" class="collection-item-image">
+                                  <img src="${item.image[0]}" alt="${item.name}" class="collection-item-image">
+
                                     <div class="collection-item-info">
                                         <p class="item-name">${item.name} (${item.size})</p>
                                         <p class="item-meta">Kuantitas: ${item.quantity}</p>
@@ -1489,7 +1641,8 @@ whatsappConfirmYesBtn.addEventListener('click', () => {
         products.forEach(product => {
             if (product.reviews && product.reviews.length > 0) {
                 product.reviews.forEach(review => {
-                    allReviews.push({ ...review, productName: product.name, productImage: product.image });
+                    allReviews.push({ ...review, productName: product.name, productImage: product.image[0] });
+
                 });
             }
         });
@@ -1763,6 +1916,41 @@ const renderSoldOutPage = () => {
     });
 };
 
+ const renderNewCollection = () => {
+    const newCollectionGrid = document.getElementById('new-collection-grid');
+    const emptyMessage = document.getElementById('empty-new-collection-message');
+
+    if (!newCollectionGrid || !emptyMessage) return;
+
+
+    const today = new Date();
+    
+    
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+
+    today.setHours(23, 59, 59, 999); 
+    thirtyDaysAgo.setHours(0, 0, 0, 0);
+
+    const newProducts = products.filter(p => {
+        if (!p.dateAdded) return false;
+        const addedDate = new Date(p.dateAdded);
+        
+        return addedDate >= thirtyDaysAgo && addedDate <= today && p.stock > 0 && p.status !== 'archived';
+    });
+    
+    newProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+
+    if (newProducts.length === 0) {
+        newCollectionGrid.style.display = 'none';
+        emptyMessage.style.display = 'flex';
+    } else {
+        newCollectionGrid.style.display = 'grid';
+        emptyMessage.style.display = 'none';
+        newCollectionGrid.innerHTML = newProducts.map(product => createProductCardHTML(product)).join('');
+        attachProductCardListeners(newCollectionGrid);
+    }
+};
 
  const updateLoyaltyPremiumVisuals = () => {
     document.body.classList.remove('loyalty-tier-500', 'loyalty-tier-1000', 'loyalty-tier-1500');
@@ -1953,7 +2141,7 @@ const renderComparisonModal = () => {
         if (filteredProducts.length > 0) {
             searchSuggestionsContainer.innerHTML = filteredProducts.map(product => `
                 <div class="suggestion-item" data-product-name="${product.name}">
-                    <img src="${product.image}" alt="${product.name}">
+                    <img src="${product.image[0]}" alt="${product.name}">
                     <span>${product.name}</span>
                 </div>`).join('');
             searchSuggestionsContainer.querySelectorAll('.suggestion-item').forEach(item => {
@@ -1975,7 +2163,8 @@ const showMainContentSection = (targetId) => {
 
     const homePageSections = ['#koleksi', '#faq'];
 
-    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#arsip', '#koleksi-habis', '#ulasan', '#loyalty-points', '#terakhir-dilihat'];
+    
+    const allSections = ['#koleksi', '#keranjang', '#favorit', '#riwayat-pesanan', '#arsip', '#koleksi-habis', '#ulasan', '#loyalty-points', '#terakhir-dilihat', '#koleksi-baru'];
 
     const dividers = document.querySelectorAll('.section-divider');
     const searchSection = document.getElementById('search-section');
@@ -2021,6 +2210,10 @@ const showMainContentSection = (targetId) => {
             renderSoldOutPage();                    
         } else if (targetId === '#terakhir-dilihat') {
             renderRecentlyViewed();
+        }
+        
+        else if (targetId === '#koleksi-baru') {
+            renderNewCollection();
         }
     }
 };
@@ -2125,17 +2318,33 @@ const updateFilterUI = () => {
             updateResetButtonVisibility();
             setTimeout(toggleSidebar, 200);
         });
-        videoGalleryBtn.addEventListener('click', e => {
-            e.preventDefault();
-            toggleSidebar();
-            setTimeout(() => {
-                openModal(videoGalleryModal);
-                videoGalleryModal.querySelectorAll('video').forEach(video => {
-                    video.play().catch(error => console.error("Error attempting to autoplay video:", error));
-                });
-            }, 300);
-        });
-    };
+        
+        const highlightVideosBtn = document.getElementById('highlight-videos-btn');
+        const highlightPhotosBtn = document.getElementById('highlight-photos-btn');
+
+        if (highlightVideosBtn) {
+            highlightVideosBtn.addEventListener('click', e => {
+                e.preventDefault();
+                toggleSidebar();
+                setTimeout(() => {
+                    openModal(videoGalleryModal);
+                    videoGalleryModal.querySelectorAll('video').forEach(video => {
+                        video.play().catch(error => console.error("Error attempting to autoplay video:", error));
+                    });
+                }, 300);
+            });
+        }
+
+        if (highlightPhotosBtn) {
+            highlightPhotosBtn.addEventListener('click', e => {
+                e.preventDefault();
+                toggleSidebar();
+                setTimeout(() => {
+                    renderPhotoGallery();
+                }, 300);
+            });
+        };
+      }
     
    
 const updateDynamicModals = (lang) => {
@@ -2865,7 +3074,7 @@ if (paymentMethodContainer) {
         const userSpecificMenus = ['#riwayat-pesanan', '#ulasan', '#loyalty-points', '#arsip'];
 
         if (isAuthenticated()) {
-            sidebarToggleBtn.style.display = '';
+            sidebarToggleBtn.style.display = 'block';
             const user = getLocalStorageItem('luxuliverCurrentUser');
             
            
@@ -2974,11 +3183,264 @@ if (paymentMethodContainer) {
         document.getElementById('register-form').addEventListener('submit', handleRegistration);
     };
 
-
-
 initAuthModal();
+
+const promoBajuBtn = document.getElementById('promo-baju-btn');
+const diskonOngkirBtn = document.getElementById('diskon-ongkir-btn');
+
+if (promoBajuBtn) {
+    promoBajuBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+      
+        activeFilters = {
+            availability: 'all',
+            color: 'all',
+            design: 'all',
+            promo: true 
+        };
+
+        if (body.classList.contains('sidebar-open')) {
+            toggleSidebar();
+        }
+        setTimeout(() => {
+            document.getElementById('koleksi').scrollIntoView({ behavior: 'smooth' });
+            renderAllProductShowcases();
+        }, 300);
+    });
+}
+
+if (diskonOngkirBtn) {
+    diskonOngkirBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        renderShippingDiscountsModal();
+        if (body.classList.contains('sidebar-open')) {
+            toggleSidebar();
+        }
+    });
+}
+
+const renderShippingDiscountsModal = () => {
+    const modal = document.getElementById('shipping-discount-modal');
+    const listContainer = document.getElementById('shipping-discount-list');
+    
+    if (!modal || !listContainer) return;
+
+    listContainer.innerHTML = '';
+
+    shippingDiscounts.forEach(discount => {
+        const card = document.createElement('div');
+        card.className = 'shipping-discount-card';
+        card.style.background = discount.bgColor;
+
+        card.innerHTML = `
+            <div class="icon-wrapper">
+                <i class="${discount.icon}"></i>
+            </div>
+            <div class="details">
+                <h4>Diskon Ongkir ${discount.city}</h4>
+                <p>${discount.message}</p>
+            </div>
+        `;
+        listContainer.appendChild(card);
+    });
+
+    openModal(modal);
+};
+
+   const showAllProductsBtn = document.getElementById('show-all-products-btn');
+if (showAllProductsBtn) {
+    showAllProductsBtn.addEventListener('click', () => {
+     
+        activeFilters = {
+            availability: 'all',
+            color: 'all',
+            design: 'all',
+            promo: false
+        };
+        
+        searchInput.value = '';
+        renderAllProductShowcases();
+        updateFilterUI();
+        updateResetButtonVisibility();
+    });
+}
+
+let currentTourStep = 0;
+let isTourActive = false;
+
+const startTourBtn = document.getElementById('start-tour-btn');
+const tourOverlay = document.getElementById('tour-overlay');
+const tourHighlightBox = document.getElementById('tour-highlight-box');
+const tourTooltip = document.getElementById('tour-tooltip');
+const tourTitle = document.getElementById('tour-title');
+const tourIntro = document.getElementById('tour-intro');
+const tourStepCounter = document.getElementById('tour-step-counter');
+const tourSkipBtn = document.getElementById('tour-skip-btn');
+const tourPrevBtn = document.getElementById('tour-prev-btn');
+const tourNextBtn = document.getElementById('tour-next-btn');
+
+function showTourStep(stepIndex) {
+    if (stepIndex < 0 || stepIndex >= tourSteps.length) {
+        endTour();
+        return;
+    }
+
+    tourTooltip.classList.remove('show');
+    currentTourStep = stepIndex;
+    const step = tourSteps[stepIndex];
+    const targetElement = document.querySelector(step.element);
+
+    if (!targetElement) {
+        showTourStep(stepIndex + 1);
+        return;
+    }
+
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+
+    let scrollTimeout;
+    const scrollEndListener = () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            window.removeEventListener('scroll', scrollEndListener);
+            
+            tourOverlay.classList.add('show');
+            const rect = targetElement.getBoundingClientRect();
+
+            tourHighlightBox.style.width = `${rect.width + 12}px`;
+            tourHighlightBox.style.height = `${rect.height + 12}px`;
+            tourHighlightBox.style.top = `${rect.top - 6}px`;
+            tourHighlightBox.style.left = `${rect.left - 6}px`;
+            tourTitle.textContent = step.title;
+            tourIntro.innerHTML = step.intro; 
+            tourStepCounter.textContent = `${stepIndex + 1} / ${tourSteps.length}`;
+
+            positionTooltip(targetElement, step.position || 'auto');
+
+            tourPrevBtn.style.display = stepIndex === 0 ? 'none' : 'inline-flex';
+            tourNextBtn.textContent = (stepIndex === tourSteps.length - 1) ? 'Selesai' : 'Lanjut';
+
+            requestAnimationFrame(() => {
+                tourTooltip.classList.add('show');
+            });
+            
+            setTimeout(() => tourOverlay.classList.remove('show'), 1500);
+
+        }, 150);
+    };
+    window.addEventListener('scroll', scrollEndListener);
+    scrollEndListener(); 
+}
+
+function positionTooltip(targetElement, preferredPosition = 'auto') {
+    const targetRect = targetElement.getBoundingClientRect();
+    const tooltipEl = tourTooltip;
+    const spacing = 15;
+
+    tooltipEl.style.top = `-9999px`;
+    tooltipEl.style.left = `-9999px`;
+    tooltipEl.style.visibility = 'hidden';
+    tooltipEl.style.display = 'flex';
+    const tooltipRect = tooltipEl.getBoundingClientRect();
+    tooltipEl.style.display = '';
+    tooltipEl.style.visibility = '';
+
+    const positions = ['bottom', 'top', 'right', 'left'];
+    let bestPosition = preferredPosition;
+
+    if (preferredPosition === 'auto') {
+        const space = {
+            top: targetRect.top - spacing,
+            bottom: window.innerHeight - targetRect.bottom - spacing,
+            left: targetRect.left - spacing,
+            right: window.innerWidth - targetRect.right - spacing
+        };
+
+        let bestFit = 'bottom';
+        if (space.bottom < tooltipRect.height) {
+            if (space.top > space.bottom) bestFit = 'top';
+            if (space.right > tooltipRect.width && space.right > space.top && space.right > space.bottom) bestFit = 'right';
+            if (space.left > tooltipRect.width && space.left > space.right && space.left > space.top && space.left > space.bottom) bestFit = 'left';
+        }
+        bestPosition = bestFit;
+    }
+    
+    tooltipEl.dataset.placement = bestPosition;
+    let top, left;
+
+    switch (bestPosition) {
+        case 'top':
+            top = targetRect.top - tooltipRect.height - spacing;
+            left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+            break;
+        case 'left':
+            top = targetRect.top + (targetRect.height / 2) - (tooltipRect.height / 2);
+            left = targetRect.left - tooltipRect.width - spacing;
+            break;
+        case 'right':
+            top = targetRect.top + (targetRect.height / 2) - (tooltipRect.height / 2);
+            left = targetRect.right + spacing;
+            break;
+        case 'bottom':
+        default:
+            top = targetRect.bottom + spacing;
+            left = targetRect.left + (targetRect.width / 2) - (tooltipRect.width / 2);
+            break;
+    }
+
+    left = Math.max(10, Math.min(left, window.innerWidth - tooltipRect.width - 10));
+    top = Math.max(10, Math.min(top, window.innerHeight - tooltipRect.height - 10));
+
+    tooltipEl.style.top = `${top}px`;
+    tooltipEl.style.left = `${left}px`;
+}
+
+function startTour() {
+    if (body.classList.contains('sidebar-open')) {
+        toggleSidebar();
+    }
+    document.body.classList.add('tour-active');
+    isTourActive = true;
+    tourOverlay.style.display = 'block';
+    showTourStep(0);
+}
+
+function endTour() {
+    document.body.classList.remove('tour-active');
+    isTourActive = false;
+    tourOverlay.style.display = 'none';
+    tourTooltip.classList.remove('show');
+}
+
+function initializeTour() {
+    startTourBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        startTour();
+    });
+
+    tourSkipBtn.addEventListener('click', endTour);
+
+    tourNextBtn.addEventListener('click', () => {
+        showTourStep(currentTourStep + 1);
+    });
+
+    tourPrevBtn.addEventListener('click', () => {
+        showTourStep(currentTourStep - 1);
+    });
+    
+    window.addEventListener('resize', () => {
+        if (isTourActive) {
+            showTourStep(currentTourStep);
+        }
+    });
+}
     
     const initializeApp = () => {
+        if (isAuthenticated()) {
+            const currentUser = getLocalStorageItem('luxuliverCurrentUser');
+            if (currentUser) {
+                loadUserData(currentUser); 
+            }
+        }
     updateAuthStateUI();
     applyTheme(localStorage.getItem('theme') || 'light');
     handleScrollProgress();
@@ -2995,6 +3457,7 @@ initAuthModal();
     applyRippleEffect();
     renderComparisonTray();
     updateAllCompareButtons();
+    initializeTour(); 
     
 
 const footer = document.querySelector('footer');
