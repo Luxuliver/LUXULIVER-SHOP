@@ -2471,10 +2471,20 @@ body.dark-mode #quick-view-modal .modal-content {
 }
 
 #quick-view-modal .modal-body {
-    display: grid;
-    grid-template-columns: 4fr 5fr; 
-    gap: 4rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
     align-items: flex-start;
+}
+
+#quick-view-modal .modal-body > .modal-image-gallery {
+    flex: 6; 
+    min-width: 0; 
+}
+
+#quick-view-modal .modal-body > .modal-product-info {
+    flex: 5;
+    min-width: 0; 
 }
 
 #quick-view-modal .modal-body > img {
