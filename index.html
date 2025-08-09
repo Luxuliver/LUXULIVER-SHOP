@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1050">
     <title>Luxuliver Stylish</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -148,8 +148,31 @@
                                 <i class="fas fa-archive"></i> <span data-lang-key="nav_archive">Arsip</span>
                             </a>
                         </li>
+                    <li>
+                        <a href="#koleksi-baru">
+                            <i class="fas fa-star"></i> <span data-lang-key="nav_new_collection">Koleksi Baru</span>
+                            </a>
+                            </li>
                     </ul>
                 </li>
+                
+                <li>
+    <a href="#" class="sidebar-category-toggle">
+        <i class="fas fa-tags"></i> <span>Exclusive Offers</span> <i class="fas fa-chevron-right"></i>
+    </a>
+    <ul class="sidebar-submenu">
+        <li>
+            <a href="#" id="promo-baju-btn">
+                <i class="fas fa-tshirt"></i> <span>Promo Baju</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="diskon-ongkir-btn">
+                <i class="fas fa-truck-loading"></i> <span>Diskon Ongkir</span>
+            </a>
+        </li>
+    </ul>
+</li>
 
                 <li>
     <a href="#" data-modal-target="fit-fare-modal">
@@ -163,6 +186,7 @@
         <i class="fas fa-eye"></i> <span data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</span>
     </a>
 </li>
+    
                  
                 <li>
                     <a href="#" data-modal-target="blog-modal">
@@ -190,7 +214,7 @@
                 
                  <li>
     <a href="#" class="sidebar-category-toggle">
-        <i class="fas fa-magic"></i> <span>Pengaturan Visual</span>
+        <i class="fas fa-magic"></i> <span>Display & Help Bar</span>
         <i class="fas fa-chevron-right"></i>
     </a>
     <ul class="sidebar-submenu">
@@ -199,6 +223,13 @@
                 <i class="fas fa-universal-access"></i> <span>Aksesibilitas</span>
             </a>
         </li>
+        
+         <li>
+                            <a href="#" id="start-tour-btn">
+                                <i class="fas fa-route"></i> <span>Mode Tur</span>
+                            </a>
+                        </li>
+        
         <li>
             <div class="sidebar-action-item">
                 <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
@@ -211,9 +242,22 @@
     </ul>
 </li>
           
-                <hr>
                 <li>
-                    <a href="#" id="video-gallery-btn"><i class="fas fa-film"></i> <span data-lang-key="sidebar_video_gallery">Khusus Vidio</span></a>
+                    <a href="#" class="sidebar-category-toggle">
+                        <i class="fas fa-star"></i> <span data-lang-key="sidebar_highlight">Highlight</span> <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="#" id="highlight-videos-btn">
+                                <i class="fas fa-film"></i> <span data-lang-key="highlight_videos">Khusus Video</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" id="highlight-photos-btn">
+                                <i class="fas fa-camera"></i> <span data-lang-key="highlight_photos">Khusus Foto</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <button id="reset-filters-btn" class="btn btn-secondary" data-lang-key="sidebar_reset_filters">Reset Semua Filter</button>
@@ -240,31 +284,36 @@
                 </div>
             </section>
             
-                <section id="koleksi">
-                <h2 data-lang-key="all_collections_title">Semua Koleksi</h2>
+            <section id="koleksi">
+    <h2 data-lang-key="all_collections_title">Semua Koleksi</h2>
 
-                <div class="sorting-controls-container">
-    <div class="custom-select-wrapper">
-        <div class="custom-select-trigger">
-            <span>URUTKAN:</span>
-            <strong id="custom-select-value">Standar</strong>
-            <i class="fas fa-chevron-down"></i>
-        </div>
-        <div class="custom-select-options">
+    <button id="show-all-products-btn" class="btn btn-secondary" style="display: none; margin: 0 auto 2.5rem auto;">
+        <i class="fas fa-list"></i> Tampilkan Semua Produk
+    </button>
+
+    <div class="sorting-controls-container">
+        <div class="custom-select-wrapper">
+            <div class="custom-select-trigger">
+                <span>URUTKAN:</span>
+                <strong id="custom-select-value">Standar</strong>
+                <i class="fas fa-chevron-down"></i>
             </div>
-        <select id="sort-products-dropdown" class="original-select">
-            <option value="default">Standar</option>
-            <option value="popularity">Populer</option>
-            <option value="price-asc">Harga: Terendah</option>
-            <option value="price-desc">Harga: Tertinggi</option>
-        </select>
+            <div class="custom-select-options">
+                </div>
+            <select id="sort-products-dropdown" class="original-select">
+                <option value="default">Standar</option>
+                <option value="popularity">Populer</option>
+                <option value="price-asc">Harga: Terendah</option>
+                <option value="price-desc">Harga: Tertinggi</option>
+            </select>
+        </div>
     </div>
-</div>
-                
-                <div id="product-list" class="product-grid">
-                    </div>
-                <p id="no-results-message" class="info-message" style="display: none;" data-lang-key="no_results">Produk tidak ditemukan.</p>
-            </section>
+    
+    <div id="product-list" class="product-grid">
+        </div>
+    <p id="no-results-message" class="info-message" style="display: none;" data-lang-key="no_results">Produk tidak ditemukan.</p>
+</section>
+
             
             <section id="koleksi-habis" style="display: none;">
     <h2 data-lang-key="sold_out_title">Koleksi yang Telah Habis</h2>
@@ -286,6 +335,17 @@
         <a href="#koleksi" class="btn btn-primary back-to-collection-btn" data-lang-key="sold_out_cta_button">
             <i class="fas fa-tshirt"></i> Jelajahi Koleksi Saat Ini
         </a>
+    </div>
+</section>
+
+ <section id="koleksi-baru" style="display: none;">
+    <h2 data-lang-key="new_collection_title">Koleksi Terbaru</h2>
+    <p class="new-collection-subtitle" data-lang-key="new_collection_subtitle" style="text-align:center; max-width: 600px; margin: -2.5rem auto 4.5rem auto;">Produk yang baru ditambahkan dalam 30 hari terakhir.</p>
+    <div id="new-collection-grid" class="product-grid">
+        </div>
+    <div id="empty-new-collection-message" class="empty-state-container" style="display: none;">
+        <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+        <p class="empty-state-text" data-lang-key="empty_new_collection">Saat ini tidak ada koleksi yang baru ditambahkan.</p>
     </div>
 </section>
 
@@ -532,6 +592,8 @@
                  <h3 data-lang-key="footer_social">Ikuti Kami</h3>
                  <p><a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> <span data-lang-key="follow_instagram">Instagram</span></a></p>
                  <p><a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> <span data-lang-key="follow_tiktok">TikTok</span></a></p>
+                 
+                 <p><a href="https://x.com/Luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i> <span data-lang-key="follow_x">X (Twitter)</span></a></p>
                  </div>
             <div class="footer-section">
                 <h3 data-lang-key="footer_policy_title">Informasi & Kebijakan</h3>
@@ -556,8 +618,11 @@
         <div class="modal-content">
             <span class="close-button">&times;</span>
             <div class="modal-body">
-                <img src="placeholder.jpg" alt="Produk">
-                <div class="modal-product-info">
+                <div class="modal-image-gallery">
+                    <img id="modal-main-image" src="placeholder.jpg" alt="Produk">
+                    <div class="modal-thumbnails" id="modal-thumbnails"></div>
+                    </div>
+                    <div class="modal-product-info">
                     <h3 id="modal-product-name">Nama Baju</h3>
                     <p id="modal-product-description">Deskripsi singkat produk.</p>
                     <p class="price" id="modal-product-price">Rp0</p>
@@ -661,10 +726,6 @@
                 <div class="video-item">
                     <h4 data-lang-key="video2_title">Daily Style with Luxuliver</h4>
                     <video src="B.mp4" controls preload="metadata" playsinline></video>
-                </div>
-                <div class="video-item">
-                    <h4 data-lang-key="video3_title">Behind The Seams</h4>
-                    <video src="C.mp4" controls preload="metadata" playsinline></video>
                 </div>
             </div>
         </div>
@@ -1328,6 +1389,10 @@
                 <i class="fab fa-tiktok"></i>
                 <span>TikTok</span>
             </a>
+            <a href="https://x.com/Luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card x">
+                <i class="fab fa-x-twitter"></i>
+                <span>X (Twitter)</span>
+            </a>
         </div>
     </div>
 </div>
@@ -1471,6 +1536,52 @@
         </article>
     </div>
 </div>
+
+ <div id="photo-gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="photo_gallery_title">Galeri Foto Koleksi</h3>
+            <p data-lang-key="photo_gallery_subtitle">Setiap detail, tertangkap dalam sebuah gambar.</p>
+            <div id="photo-gallery-grid" class="photo-grid">
+                </div>
+     </div>
+</div>
+
+ <div id="shipping-discount-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="close-button">&times;</span>
+        <div class="shipping-discount-header">
+            <i class="fas fa-shipping-fast"></i>
+            <h3>Diskon Pengiriman Eksklusif</h3>
+            <p>Hemat lebih banyak untuk pengiriman ke kota-kota pilihan kami!</p>
+        </div>
+        <div id="shipping-discount-list" class="shipping-discount-grid">
+            </div>
+    </div>
+</div>
+
+<div id="tour-overlay" style="display: none;">
+    <div id="tour-highlight-box"></div>
+    <div id="tour-tooltip">
+        <div id="tour-header">
+            <h4 id="tour-title"></h4>
+            <button id="tour-skip-btn" title="Lewati Tur">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="tour-tooltip-content">
+            <p id="tour-intro"></p>
+        </div>
+        <div id="tour-navigation">
+            <span id="tour-step-counter"></span>
+            <div class="tour-nav-buttons">
+                <button id="tour-prev-btn" class="btn btn-secondary btn-sm">Sebelumnya</button>
+                <button id="tour-next-btn" class="btn btn-primary btn-sm">Lanjut</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div id="reading-guide"></div>
 
