@@ -2,9 +2,11 @@ const products = [
         {
             id: 'baju-001',
             name: 'Skeleton',
-            image: 'Skeleton.jpg',
+            image: ['Skeleton.jpg'],
             description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
+            basePrice: 100000,
+            isPromo: true,
+            promoPrice: 98000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'putih',
             design: 'abstrak',
@@ -23,9 +25,9 @@ const products = [
         {
             id: 'baju-002',
             name: 'Dog and éclipse',
-            image: 'Dog.jpg',
+            image: ['Dog.jpg'],
             description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
+            basePrice: 100000,
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
@@ -42,9 +44,9 @@ const products = [
         {
             id: 'baju-003',
             name: 'Travis Scott',
-            image: 'Travis scoot.jpg',
+            image: ['Travis scoot.jpg'],
             description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
+            basePrice: 100000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
@@ -65,9 +67,9 @@ const products = [
         {
             id: 'baju-004',
             name: 'Person',
-            image: 'Person.jpg',
+            image: ['Person.jpg'],
             description: 'T-Shirt paling nyaman dan bagus untuk dipakai setiap hari, cocok disemua musim.',
-            basePrice: 95000,
+            basePrice: 100000,
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'abstrak',
@@ -83,9 +85,9 @@ const products = [
         {
             id: 'baju-005',
             name: 'Atelier Noir',
-            image: 'Atelier Noir.jpg',
+            image: ['Atelier Noir.jpg'],
             description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
-            basePrice: 100000,
+            basePrice: 105000,
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'classy',
@@ -102,15 +104,16 @@ const products = [
         {
             id: 'baju-006',
             name: 'Velluto',
-            image: 'Velluto.jpg',
+            image: ['Velluto.jpg'],
             description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
-            basePrice: 100000,
+            basePrice: 105000,
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'classy',
             stock: 4,
             status: 'preorder', 
             points: 125,
+            dateAdded: '2025-08-4', 
         }
         
     ];
@@ -181,3 +184,27 @@ const products = [
             timestamp: new Date(new Date().setDate(new Date().getDate() - 22)).toISOString()
         }
     ];
+    
+    const shippingDiscounts = [
+    {
+        city: 'Bali',
+        discountAmount: 4000,
+        icon: 'fas fa-city',
+        message: 'Nikmati potongan ongkir Rp4.000 untuk semua pengiriman di area Bali!',
+        bgColor: 'linear-gradient(135deg, #f5af19 0%, #f12711 100%)'
+    },
+    {
+        city: 'Bandung',
+        discountAmount: 2000,
+        icon: 'fas fa-city',
+        message: 'Spesial untuk warga Bandung, dapatkan potongan ongkir sebesar Rp2.000.',
+        bgColor: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+    },
+    {
+        city: 'Surabaya',
+        discountAmount: 3000,
+        icon: 'fas fa-city',
+        message: 'Arek Suroboyo! Ada potongan ongkir Rp3.000 khusus untuk Anda.',
+        bgColor: 'linear-gradient(135deg, #ff0084 0%, #33001b 100%)'
+    }
+];
