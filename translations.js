@@ -25,7 +25,6 @@ const translations = {
         design_basic: 'Basic',
         sidebar_display_mode: 'Mode Tampilan',
         sidebar_language: 'Bahasa',
-        sidebar_video_gallery: 'Khusus Vidio',
         sidebar_reset_filters: 'Reset Semua Filter',
         hero_title: 'T-Shirt stylish yang bikin gaya makin percaya diri!',
         hero_subtitle: 'Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.',
@@ -98,9 +97,9 @@ const translations = {
         th_sleeve: 'Panjang Lengan',
         video_gallery_title: 'Video Koleksi',
         video_gallery_subtitle: 'Lihat lebih dekat kualitas dan gaya produk kami melalui video.',
-        video1_title: 'Brand Showcase',
-        video2_title: 'Daily Style with Luxuliver',
-        video3_title: 'Behind The Seams',
+        video1_title: 'Motionary',
+        video2_title: 'Motionary',
+        video3_title: 'Motionary',
         faq_title: 'Pertanyaan yang Sering Diajukan',
         faq_q1: 'Bagaimana cara memesan produk?',
         faq_a1: 'Untuk memesan, cukup tambahkan produk ke keranjang, lanjutkan ke checkout, isi informasi Anda, lalu klik tombol \'Buat Pesanan via WhatsApp\'. Anda akan diarahkan ke WhatsApp dengan pesan otomatis yang sudah kami siapkan untuk menyelesaikan pesanan dengan admin kami.',
@@ -172,6 +171,7 @@ const translations = {
         sidebar_follow_us: 'Ikuti Kami',
         follow_instagram: 'Instagram',
         follow_tiktok: 'TikTok',
+        follow_x: 'X (Twitter)',
         nav_reviews: 'Ulasan',
         reviews_page_title: 'Ulasan Terbaru dari Pelanggan',
         compare_now: 'Bandingkan Sekarang',
@@ -327,7 +327,18 @@ const translations = {
             table: '<div class="size-guide-table-container"><table id="size-chart-table"><thead><tr><th>Ukuran</th><th>Panjang Baju (cm)</th><th>Lebar Baju (cm)</th><th>Panjang Lengan (cm)</th></tr></thead><tbody><tr><td>XS</td><td>66</td><td>46</td><td>20</td></tr><tr><td>S</td><td>68</td><td>48</td><td>21</td></tr><tr><td>M</td><td>72</td><td>50</td><td>22</td></tr><tr><td>L</td><td>74</td><td>52</td><td>23</td></tr><tr><td>XL</td><td>76</td><td>54</td><td>24</td></tr></tbody></table></div>',
             h4_4: '4. Pertimbangkan Gaya Personal Anda',
             p5: 'Apakah Anda suka kaos yang pas di badan (slim fit) atau sedikit longgar (regular/oversized)? Jika Anda berada di antara dua ukuran, pilihlah ukuran yang lebih kecil untuk tampilan fit, atau ukuran yang lebih besar untuk tampilan yang lebih santai.',
-            p6: 'Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!'
+            p6: 'Dengan mengikuti langkah-langkah di atas, terutama dengan mengukur kaos Anda sendiri, kemungkinan Anda mendapatkan ukuran yang sempurna sangatlah besar. Selamat berbelanja!', 
+            nav_new_collection: 'Koleksi Baru',
+            new_collection_title: 'Koleksi Terbaru',
+            new_collection_subtitle: 'Produk yang baru ditambahkan dalam 30 hari terakhir.',
+            empty_new_collection: 'Saat ini tidak ada koleksi yang baru ditambahkan.', 
+            sidebar_highlight: 'Highlight',
+            highlight_videos: 'Khusus Video',
+            highlight_photos: 'Khusus Foto',
+            photo_gallery_title: 'Galeri Foto Koleksi',
+            photo_gallery_subtitle: 'Setiap detail, tertangkap dalam sebuah gambar.'
+
+
         }
     },
     en: {
@@ -356,7 +367,6 @@ const translations = {
     design_basic: 'Basic',
     sidebar_display_mode: 'Display Mode',
     sidebar_language: 'Language',
-    sidebar_video_gallery: 'Video Gallery',
     sidebar_reset_filters: 'Reset All Filters',
     hero_title: 'Stylish T-Shirts that boost your confidence!',
     hero_subtitle: 'Discover a collection of stylish and comfortable apparel that makes you confident every day.',
@@ -429,9 +439,9 @@ const translations = {
     th_sleeve: 'Sleeve',
     video_gallery_title: 'Collection Videos',
     video_gallery_subtitle: 'Get a closer look at the quality and style of our products through video.',
-    video1_title: 'Brand Showcase',
-    video2_title: 'Daily Style with Luxuliver',
-    video3_title: 'Behind The Seams',
+    video1_title: 'Motionary',
+    video2_title: 'Motionary',
+    video3_title: 'Motionary',
     faq_title: 'Frequently Asked Questions',
     faq_q1: 'How do I place an order?',
     faq_a1: 'To order, simply add products to your cart, proceed to checkout, fill in your information, and then click the \'Order via WhatsApp\' button. You will be redirected to WhatsApp with a pre-filled message to finalize the order with our admin.',
@@ -503,6 +513,7 @@ const translations = {
     sidebar_follow_us: 'Follow Us',
     follow_instagram: 'Instagram',
     follow_tiktok: 'TikTok',
+    follow_x: 'X (Twitter)',
     nav_reviews: 'Reviews',
     reviews_page_title: 'Latest Customer Reviews',
     compare_now: 'Compare Now',
@@ -662,7 +673,18 @@ const translations = {
         table: '<div class="size-guide-table-container"><table id="size-chart-table"><thead><tr><th>Size</th><th>Length (cm)</th><th>Width (cm)</th><th>Sleeve (cm)</th></tr></thead><tbody><tr><td>XS</td><td>66</td><td>46</td><td>20</td></tr><tr><td>S</td><td>68</td><td>48</td><td>21</td></tr><tr><td>M</td><td>72</td><td>50</td><td>22</td></tr><tr><td>L</td><td>74</td><td>52</td><td>23</td></tr><tr><td>XL</td><td>76</td><td>54</td><td>24</td></tr></tbody></table></div>',
         h4_4: '4. Consider Your Personal Style',
         p5: 'Do you prefer a t-shirt that is snug (slim fit) or a bit looser (regular/oversized)? If you are between two sizes, choose the smaller size for a fitted look, or the larger size for a more relaxed look.',
-        p6: 'By following the steps above, especially by measuring your own t-shirt, you are very likely to get the perfect size. Happy shopping!'
+        p6: 'By following the steps above, especially by measuring your own t-shirt, you are very likely to get the perfect size. Happy shopping!', 
+        nav_new_collection: 'New Collection',
+        new_collection_title: 'Latest Collection',
+        new_collection_subtitle: 'Products added in the last 30 days.',
+        empty_new_collection: 'There are no new collections at this time.', 
+        sidebar_highlight: 'Highlight',
+        highlight_videos: 'Video Special',
+        highlight_photos: 'Photo Special',
+        photo_gallery_title: 'Collection Photo Gallery',
+        photo_gallery_subtitle: 'Every detail, captured in a picture.'
+
+
     }
 }
 };
