@@ -497,7 +497,7 @@ body.dark-mode .scroll-progress-bar {
     color: #FFFFFF;
     text-align: center;
     overflow: hidden;
-    background: url('hero-background.jpg') no-repeat center center/cover;
+    background: url('AA.jpg') no-repeat center center/cover;
 }
 
 #hero::before {
