@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1050">
+    <meta name="viewport" content="width=1200">
     <title>Luxuliver Stylish</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -171,7 +171,16 @@
                 <i class="fas fa-truck-loading"></i> <span>Diskon Ongkir</span>
             </a>
         </li>
-    </ul>
+        <a href="#penawaran-paket">
+                <i class="fas fa-box-open"></i> <span>Penawaran Paket</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="custom-package-btn">
+                <i class="fas fa-box-open"></i> <span>Paket Kustom</span>
+            </a>
+        </li>
+        </ul>
 </li>
 
                 <li>
@@ -229,6 +238,22 @@
                                 <i class="fas fa-route"></i> <span>Mode Tur</span>
                             </a>
                         </li>
+                
+                <li>
+            <a href="#" data-modal-target="theme-customizer-modal">
+                <i class="fas fa-palette"></i> <span>Mode Kustom</span>
+            </a>
+        </li>
+                    
+                <li>
+        <div class="sidebar-action-item">
+            <span class="sidebar-action-label">Mode Fokus</span>
+            <button id="focus-mode-toggle" class="btn-utility">
+                <i class="fas fa-eye theme-icon"></i>
+                <i class="fas fa-eye-slash theme-icon"></i>
+            </button>
+        </div>
+    </li>
         
         <li>
             <div class="sidebar-action-item">
@@ -240,7 +265,6 @@
             </div>
         </li>
     </ul>
-</li>
           
                 <li>
                     <a href="#" class="sidebar-category-toggle">
@@ -259,7 +283,12 @@
                         </li>
                     </ul>
                 </li>
-            </ul>
+                <li>
+                    <a href="#" data-modal-target="order-map-modal">
+                        <i class="fas fa-map-marked-alt"></i> <span>Peta Aktivitas</span>
+                    </a>
+                </li>
+                </ul>
             <button id="reset-filters-btn" class="btn btn-secondary" data-lang-key="sidebar_reset_filters">Reset Semua Filter</button>
         </nav>
     </aside>
@@ -288,6 +317,11 @@
             
             <section id="koleksi">
     <h2 data-lang-key="all_collections_title">Semua Koleksi</h2>
+    
+    <div class="promo-info-banner">
+        <i class="fas fa-tags"></i>
+        <p>Penawaran Spesial: Beli <strong>5 produk satuan</strong> apa pun dan dapatkan <strong>diskon 5%</strong> secara otomatis di keranjang Anda!</p>
+    </div>
 
     <button id="show-all-products-btn" class="btn btn-secondary" style="display: none; margin: 0 auto 2.5rem auto;">
         <i class="fas fa-list"></i> Tampilkan Semua Produk
@@ -509,6 +543,15 @@
                     </div>
                 <p id="empty-history-message" class="info-message" style="display: none;" data-lang-key="empty_history">Anda belum memiliki riwayat pesanan.</p>
             </section>
+            
+             <section id="penawaran-paket" style="display: none;">
+        <h2>Penawaran Paket Spesial</h2>
+        <p style="text-align:center; max-width: 600px; margin: -2.5rem auto 4.5rem auto;">
+            Dapatkan koleksi pilihan kami dalam satu paket hemat. Penawaran eksklusif hanya di sini.
+        </p>
+        <div id="bundle-products-grid" class="bundle-grid">
+            </div>
+    </section>
             
              <section id="terakhir-dilihat" style="display: none;">
                 <h2 data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</h2>
@@ -1617,9 +1660,122 @@
     </div>
 </div>
 
-<script src="script.js"></script>
+<div id="order-map-modal" class="modal">
+    <div class="modal-content" style="max-width: 900px;">
+        <span class="close-button">&times;</span>
+        <h3 style="text-align:center; font-size: 2.2rem; margin-bottom: 2rem;">Aktivitas Pengiriman Terkini</h3>
+        <div id="interactive-map-container">
+            <img src="AB.jpg" alt="Peta Indonesia" class="map-image">
+            </div>
+    </div>
+</div>
+
+ <div id="theme-customizer-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="close-button">&times;</span>
+        <h3>Panel Kustomisasi Tampilan</h3>
+        <p style="text-align:center; margin-top:-1rem; margin-bottom:2rem;">Pilih skema warna sesuai selera Anda. Perubahan akan terlihat secara langsung.</p>
+
+        <div id="theme-controls-container">
+            <div class="theme-control">
+                <label for="primary-color-picker">Warna Utama (Tombol & Aksen)</label>
+                <input type="color" id="primary-color-picker" data-variable="--primary-color">
+            </div>
+            <div class="theme-control">
+                <label for="background-color-picker">Warna Latar</label>
+                <input type="color" id="background-color-picker" data-variable="--background-color">
+            </div>
+            <div class="theme-control">
+                <label for="surface-color-picker">Warna Permukaan (Kartu)</label>
+                <input type="color" id="surface-color-picker" data-variable="--surface-color">
+            </div>
+            <div class="theme-control">
+                <label for="text-color-picker">Warna Teks</label>
+                <input type="color" id="text-color-picker" data-variable="--text-color">
+            </div>
+        </div>
+
+        <div class="theme-actions">
+            <button id="reset-theme-btn" class="btn btn-secondary">Reset ke Default</button>
+            <button id="save-theme-btn" class="btn btn-primary">Simpan Tema</button>
+        </div>
+    </div>
+</div>
+
+<div id="upsell-confirm-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+        <span class="close-button">&times;</span>
+        <div class="modal-icon" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h3>Tunggu Sebentar!</h3>
+        <p id="upsell-modal-message" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;"></p>
+        <div class="modal-actions" style="display: flex; gap: 1rem;">
+            <button id="upsell-back-btn" class="btn btn-secondary" style="flex: 1;">Kembali Belanja</button>
+            <button id="upsell-proceed-btn" class="btn btn-primary" style="flex: 1;">Ya, Lanjutkan Saja</button>
+        </div>
+    </div>
+</div>
+
+<div id="custom-package-modal" class="modal">
+    <div class="modal-content" style="max-width: 950px; text-align: center;">
+        <span class="close-button">&times;</span>
+
+        <div id="pk-step-1" class="pk-step active">
+            <h3>Buat Paket Kustom Anda</h3>
+            <p>Pilih jumlah produk yang ingin Anda masukkan ke dalam paket.</p>
+            <div class="pk-type-selection">
+                <button class="pk-type-btn" data-count="2">
+                    <i class="fas fa-box"></i>
+                    <span>Paket 2 Produk</span>
+                    <strong>Rp 195.000</strong>
+                </button>
+                <button class="pk-type-btn" data-count="3">
+                    <i class="fas fa-boxes"></i>
+                    <span>Paket 3 Produk</span>
+                    <strong>Rp 290.000</strong>
+                </button>
+                <button class="pk-type-btn" data-count="4">
+                    <i class="fas fa-dolly-flatbed"></i>
+                    <span>Paket 4 Produk</span>
+                    <strong>Rp 385.000</strong>
+                </button>
+            </div>
+        </div>
+
+        <div id="pk-step-2" class="pk-step">
+            <h3 id="pk-step-2-title">Pilih Produk 1 dari X</h3>
+            <div id="pk-product-selection-grid" class="product-grid">
+                </div>
+            <div class="pk-navigation">
+                <p class="pk-price-display">Total: <strong>Rp 0</strong></p>
+                <button id="pk-add-to-cart-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-cart-plus"></i> Tambah Paket ke Keranjang
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div id="pk-size-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+        <span class="close-button">&times;</span>
+        <div id="pk-size-modal-content">
+            </div>
+    </div>
+</div>
+
 <script src="product.js"></script>
 <script src="translations.js"></script>
+<script src="maps.js"></script>
+<script src="mode-fokus.js"></script>
+<script src="theme.js"></script>
+<script src="ui.js"></script>
+<script src="bundle.js"></script>
+<script src="navigation-patch.js"></script>
+<script src="kustom.js"></script>
+<script src="script.js"></script>
+  
 
 </body>
 </html>
