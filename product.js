@@ -114,6 +114,20 @@ const products = [
             status: 'preorder', 
             points: 125,
             dateAdded: '2025-08-4', 
+        }, 
+        {
+            id: 'baju-007',
+            name: 'The Beatles',
+            image: ['The-baatles.jpg'],
+            description: 'Simpel, refined, dan penuh gaya.',
+            basePrice: 100000,
+            sizes: ['XS','S', 'M', 'L', 'XL'],
+            color: 'hitam',
+            design: 'basic',
+            stock: l5,
+            status: 'preorder', 
+            points: 100,
+            dateAdded: '2025-08-14', 
         }
         
     ];
