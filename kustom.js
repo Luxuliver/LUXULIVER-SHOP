@@ -131,7 +131,7 @@ const handleAddToCart = () => {
         id: `custom-pkg-${Date.now()}`,
         cartId: `custom-pkg-${Date.now()}`,
         name: `Paket Kustom (${selectedProducts.map(p => `${p.name} (${p.chosenSize})`).join(', ')})`,
-        image: ['A1.jpg'],
+        image: ['costum.jpg'],
         price: finalPrice,
         quantity: 1,
         size: `${productsToSelect} Items`,
