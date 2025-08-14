@@ -130,6 +130,8 @@ const translations = {
         return_p3: '<strong>Batas Waktu:</strong> Klaim pengembalian harus diajukan maksimal 3 hari setelah barang diterima, dengan menyertakan video unboxing sebagai bukti.',
         return_p4: '<strong>Proses:</strong> Silakan hubungi admin kami melalui WhatsApp untuk memulai proses pengembalian. Produk pengganti akan kami kirim setelah produk yang dikembalikan kami terima dan periksa. Kami tidak melayani pengembalian dana (refund).',
         toast_select_size: 'Mohon pilih ukuran baju terlebih dahulu!',
+        toast_package_in_cart_warning: 'Anda sudah memiliki item paket di keranjang. Selesaikan pesanan ini terlebih dahulu atau kosongkan keranjang.',
+    toast_single_items_in_cart_warning: 'Keranjang Anda berisi produk satuan. Paket tidak dapat ditambahkan.',
         toast_stock_not_enough: (name, size) => `Stok ${name} (${size}) tidak mencukupi!`,
         toast_quantity_updated: (name, size) => `Kuantitas ${name} (${size}) diperbarui!`,
         toast_added_to_cart: (name, size, qty) => `${qty}x ${name} (${size}) ditambahkan!`,
@@ -145,7 +147,7 @@ const translations = {
         toast_order_cancelled: 'Pesanan dibatalkan. Keranjang Anda tetap utuh.',
         toast_order_rebought: (orderId) => `Produk dari pesanan ${orderId} berhasil ditambahkan kembali!`,
         confirm_remove_from_cart: (name, size) => `Hapus "${name} (${size})" dari keranjang?`,
-        promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 1%.`,
+        promo_upsell: (items) => `Pilih ${items} koleksi lagi untuk menikmati penawaran eksklusif 5%.`,
         stock_limited: 'Terbatas!',
         stock_out: 'Stok Habis',
         add_button: 'Tambah',
@@ -336,9 +338,10 @@ const translations = {
             highlight_videos: 'Khusus Video',
             highlight_photos: 'Khusus Foto',
             photo_gallery_title: 'Galeri Foto Koleksi',
-            photo_gallery_subtitle: 'Setiap detail, tertangkap dalam sebuah gambar.'
-
-
+            photo_gallery_subtitle: 'Setiap detail, tertangkap dalam sebuah gambar.', 
+            toast_package_in_cart_warning: 'Anda sudah memiliki item paket di keranjang. Selesaikan pesanan ini terlebih dahulu atau kosongkan keranjang.',
+            toast_single_items_in_cart_warning: 'Keranjang Anda berisi produk satuan. Paket tidak dapat ditambahkan.',
+            
         }
     },
     en: {
@@ -472,6 +475,8 @@ const translations = {
     return_p3: '<strong>Timeframe:</strong> Return claims must be submitted a maximum of 3 days after the item is received, accompanied by an unboxing video as proof.',
     return_p4: '<strong>Process:</strong> Please contact our admin via WhatsApp to initiate the return process. A replacement product will be sent after we receive and inspect the returned item. We do not offer refunds.',
     toast_select_size: 'Please select a T-shirt size first!',
+    toast_package_in_cart_warning: 'You already have a package item in your cart. Please complete this order first or empty the cart.',
+    toast_single_items_in_cart_warning: 'Your cart contains single items. Packages cannot be added.',
     toast_stock_not_enough: (name, size) => `Stock for ${name} (${size}) is insufficient!`,
     toast_quantity_updated: (name, size) => `Quantity of ${name} (${size}) updated!`,
     toast_added_to_cart: (name, size, qty) => `${qty}x ${name} (${size}) added to cart!`,
@@ -683,8 +688,6 @@ const translations = {
         highlight_photos: 'Photo Special',
         photo_gallery_title: 'Collection Photo Gallery',
         photo_gallery_subtitle: 'Every detail, captured in a picture.'
-
-
     }
 }
 };
