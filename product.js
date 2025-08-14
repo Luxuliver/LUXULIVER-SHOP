@@ -113,23 +113,38 @@ const products = [
             stock: 4,
             status: 'preorder', 
             points: 125,
-            dateAdded: '2025-08-4', 
+            dateAdded: '2025-08-4',
         }, 
         {
             id: 'baju-007',
-            name: 'The Beatles',
-            image: ['The-baatles.jpg'],
+            name: 'The-Beatles',
+            image: ['The-beatles.jpg'],
             description: 'Simpel, refined, dan penuh gaya.',
             basePrice: 100000,
             sizes: ['XS','S', 'M', 'L', 'XL'],
             color: 'hitam',
             design: 'basic',
-            stock: l5,
+            stock: 15,
             status: 'preorder', 
             points: 100,
-            dateAdded: '2025-08-14', 
+            dateAdded: '2025-08-14',
+        }, 
+        {
+            id: 'bundle-001',
+            name: 'Paket Alpha',
+            image: ['paket-alpha.jpg'], 
+            description: 'Promo bundle spesial: Kaos Travis Scott (Hitam) + Person (Hitam). Hemat & tetap stylish.',
+            basePrice: 190000, 
+            isPromo: false, 
+            sizes: ['XS', 'S', 'M', 'L'], 
+            color: 'mix', 
+            design: 'bundel',
+            stock: 10,
+            status: 'preorder',
+            points: 200,
+            isBundle: true 
+            
         }
-        
     ];
 
     const sellerInfo = {
