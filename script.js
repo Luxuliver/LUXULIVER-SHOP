@@ -1772,24 +1772,78 @@ const calculateCartTotals = () => {
 const renderPersonalizedRecommendations = () => {
     const recommendationsSection = document.getElementById('personalized-recommendations');
     const grid = document.getElementById('personalized-products-grid');
-    const allAvailableProducts = products.filter(p => {
-        return p.stock > 0 && !recentlyViewed.includes(p.id);
-    });
+    const isHomePageVisible = document.getElementById('hero').style.display !== 'none';
 
-    if (allAvailableProducts.length === 0) {
-        recommendationsSection.style.display = 'none';
+    if (!recommendationsSection || !grid) return;
+
+    const availableSingles = products.filter(p => !p.isBundle && p.stock > 0 && !recentlyViewed.includes(p.id));
+    const availableBundles = products.filter(p => p.isBundle === true && p.stock > 0);
+
+    if (availableSingles.length === 0 && availableBundles.length === 0) {
+        if (isHomePageVisible) recommendationsSection.style.display = 'none';
         return;
     }
 
-    const shuffledProducts = shuffleArray(allAvailableProducts);
-
-    const finalRecommendations = shuffledProducts.slice(0, 2);
+    const shuffledSingles = shuffleArray(availableSingles).slice(0, 1);
+    const shuffledBundles = shuffleArray(availableBundles).slice(0, 1);
+    const finalRecommendations = [...shuffledSingles, ...shuffledBundles];
 
     if (finalRecommendations.length > 0) {
-        grid.innerHTML = finalRecommendations.map(p => createProductCardHTML(p)).join('');
-        attachProductCardListeners(grid);
-        recommendationsSection.style.display = 'block';
+        grid.innerHTML = finalRecommendations.map(p => `
+            <a href="#" class="recommendation-link" 
+               data-product-id="${p.id}" 
+               data-is-bundle="${p.isBundle || false}" 
+               title="${p.name}">
+                <img src="${p.image[0]}" alt="${p.name}" loading="lazy">
+                <span class="recommendation-name">${p.name}</span>
+            </a>
+        `).join('');
+
+        grid.querySelectorAll('.recommendation-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = link.dataset.productId;
+                const isBundle = link.dataset.isBundle === 'true';
+
+                if (isBundle) {
+                    const targetSectionId = '#penawaran-paket';
+                    showMainContentSection(targetSectionId);
+                    updateActiveNav(targetSectionId); 
+
+                    if (typeof renderBundlePage === 'function') renderBundlePage();
+
+                    setTimeout(() => {
+                        const bundleCard = document.querySelector(`#bundle-products-grid .product-card[data-product-id="${productId}"]`);
+                        if (bundleCard) {
+                            bundleCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            bundleCard.classList.add('highlighted');
+                            setTimeout(() => bundleCard.classList.remove('highlighted'), 3000);
+                        }
+                    }, 500);
+                } else {
+                    const targetSectionId = '#koleksi';
+                    showMainContentSection(targetSectionId);
+                    updateActiveNav(targetSectionId);
+
+                    setTimeout(() => {
+                        const productCard = document.querySelector(`#product-list .product-card[data-product-id="${productId}"]`);
+                        if (productCard) {
+                            productCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            productCard.classList.add('highlighted');
+                            setTimeout(() => productCard.classList.remove('highlighted'), 3000);
+                        }
+                    }, 500);
+                }
+            });
+        });
+
+        if (isHomePageVisible && isAuthenticated()) {
+            recommendationsSection.style.display = 'block';
+        } else {
+            recommendationsSection.style.display = 'none';
+        }
     } else {
+
         recommendationsSection.style.display = 'none';
     }
 };
@@ -2322,33 +2376,55 @@ const showMainContentSection = (targetId) => {
     }
 };
 
- const initializeNavigation = () => {
+const updateActiveNav = (targetId) => {
+    
+    document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(link => {
+        link.classList.remove('active');
+    });
+
+    const newActiveLinks = document.querySelectorAll(`a[href="${targetId}"]`);
+    newActiveLinks.forEach(link => {
+        link.classList.add('active');
+        
+        const submenu = link.closest('.sidebar-submenu');
+        if (submenu) {
+            const parentLi = submenu.parentElement;
+            if (parentLi && !parentLi.classList.contains('open')) {
+                parentLi.classList.add('open');
+            }
+        }
+    });
+};
+
+const initializeNavigation = () => {
+    
     document.querySelectorAll('#main-nav a, .sidebar-menu a, .back-to-collection-btn').forEach(link => {
         link.addEventListener('click', e => {
-
-            const href = e.currentTarget.getAttribute('href'); 
-
-
+            
             const gatedHeaderLinks = ['#koleksi', '#keranjang'];
-            if (link.closest('#main-nav') && gatedHeaderLinks.includes(href) && !isAuthenticated()) {
+            if (link.closest('#main-nav') && gatedHeaderLinks.includes(link.getAttribute('href')) && !isAuthenticated()) {
                 e.preventDefault();
                 openModal(document.getElementById('auth-modal'));
                 return; 
             }
-
-
+            
+            const href = e.currentTarget.getAttribute('href'); 
+            
             if (href && href.startsWith('#')) {
+
                 e.preventDefault();
 
                 const targetElement = document.querySelector(href);
                 if (targetElement) {
+
                     showMainContentSection(href);
+
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
                
-                document.querySelectorAll('#main-nav a, .sidebar-menu a').forEach(l => l.classList.remove('active'));
-                document.querySelectorAll(`a[href="${href}"]`).forEach(l => l.classList.add('active'));
+                updateActiveNav(href);
                
+                
                 if (document.body.classList.contains('sidebar-open')) {
                     toggleSidebar();
                 }
