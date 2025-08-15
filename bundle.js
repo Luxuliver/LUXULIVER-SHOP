@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (bundleProducts.length > 0) {
             container.innerHTML = bundleProducts.map(product => {
-                const isFavorited = (typeof APP.favorites !== 'undefined' && APP.favorites.some(fav => fav.id === product.id));
                 
                 return `
                     <div class="product-card" data-product-id="${product.id}">
@@ -26,10 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <button class="btn btn-primary add-to-cart">
                                     <i class="fas fa-shopping-cart"></i> <span>Beli Paket</span>
                                 </button>
-                                <button class="btn add-to-favorite ${isFavorited ? 'favorited' : ''}" title="Favorit">
-                                    <i class="${isFavorited ? 'fas' : 'far'} fa-heart"></i>
-                                </button>
-                            </div>
+                                </div>
                         </div>
                     </div>
                 `;
@@ -52,12 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 
-                const favoriteBtn = card.querySelector('.add-to-favorite');
-                if (favoriteBtn) {
-                    favoriteBtn.addEventListener('click', (e) => {
-                        APP.toggleFavorite(productId, e.currentTarget);
-                    });
-                }
 
                 const sizeOptions = card.querySelector('.size-options');
                 if (sizeOptions) {
@@ -89,10 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         container.querySelectorAll('.product-card').forEach(card => {
             const productId = card.dataset.productId;
             const favButton = card.querySelector('.add-to-favorite');
-            const isFavorited = APP.favorites.some(fav => fav.id === productId);
-
-            favButton.classList.toggle('favorited', isFavorited);
-            favButton.querySelector('i').className = `fa-heart ${isFavorited ? 'fas' : 'far'}`;
+            if (favButton) {
+                const isFavorited = APP.favorites.some(fav => fav.id === productId);
+                favButton.classList.toggle('favorited', isFavorited);
+                favButton.querySelector('i').className = `fa-heart ${isFavorited ? 'fas' : 'far'}`;
+            }
         });
     });
 });
