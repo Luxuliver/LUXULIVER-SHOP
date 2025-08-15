@@ -7,6 +7,7 @@ const products = [
             basePrice: 100000,
             isPromo: true,
             promoPrice: 98000,
+            flashSaleEndDate: '2025-09-15T23:59:59', 
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
             color: 'putih',
             design: 'abstrak',
@@ -114,6 +115,7 @@ const products = [
             status: 'preorder', 
             points: 125,
             dateAdded: '2025-08-4',
+            boughtTogether: ['baju-005'],
         }, 
         {
             id: 'baju-007',
@@ -144,6 +146,36 @@ const products = [
             points: 200,
             isBundle: true 
             
+        }, 
+        {
+            id: 'bundle-002',
+            name: 'Paket Beta',
+            image: ['paket-beta.jpg'], 
+            description: 'Hemat lebih banyak dengan paket kaos: Skeleton (Putih) + Travis scoot (Hitam) + Velluto (Hitam).',
+            basePrice: 290000, 
+            isPromo: false, 
+            sizes: ['XS', 'S', 'M', 'L'], 
+            color: 'mix', 
+            design: 'bundel',
+            stock: 10,
+            status: 'preorder',
+            points: 200,
+            isBundle: true 
+        }, 
+        {
+            id: 'bundle-003',
+            name: 'Paket Gemma',
+            image: ['paket-gemma.jpg'], 
+            description: 'Koleksi kaos terbaik dalam satu paket: The Beatles (Hitam) + Velluto (Hitam) + Atelier Noir (Hitam) + Dog and éclipse (Hitam).',
+            basePrice: 390000, 
+            isPromo: false, 
+            sizes: ['XS', 'S', 'M', 'L'], 
+            color: 'mix', 
+            design: 'bundel',
+            stock: 10,
+            status: 'preorder',
+            points: 200,
+            isBundle: true 
         }
     ];
 
