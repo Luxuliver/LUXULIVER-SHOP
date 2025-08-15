@@ -6370,3 +6370,107 @@ body.dark-mode .promo-info-banner {
 body.dark-mode .promo-info-banner i {
     color: var(--accent-color);
 }
+
+#personalized-recommendations .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.recommendation-link {
+    display: block;
+    text-decoration: none;
+    position: relative;
+    border-radius: var(--border-radius-base);
+    overflow: hidden;
+    box-shadow: 0 8px 20px var(--shadow-light);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    aspect-ratio: 4 / 5;
+}
+
+.recommendation-link:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 30px var(--shadow-medium);
+    text-decoration: none;
+}
+
+.recommendation-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.recommendation-link:hover img {
+    transform: scale(1.1);
+}
+
+.recommendation-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+}
+
+.recommendation-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    z-index: 2;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.recommendation-link:hover .recommendation-name {
+    transform: translateY(0);
+}
+
+.product-card.highlighted {
+    transition: all 0.5s ease-in-out !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 0 5px var(--surface-color), 0 0 35px 10px var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+    z-index: 10;
+}
+
+.flash-sale-timer {
+    background-color: #e74c3c; 
+    color: white;
+    padding: 0.5rem 1rem;
+    margin: 1rem auto;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    animation: pulse-danger 2s infinite;
+}
+
+.flash-sale-timer span {
+    margin-right: 0.5em;
+}
+
+.flash-sale-timer strong {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+@keyframes pulse-danger {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+    }
+}
