@@ -132,6 +132,20 @@ const products = [
             dateAdded: '2025-08-14',
         }, 
         {
+            id: 'baju-008',
+            name: 'Vanderlux',
+            image: ['Vanderlux.jpg'],
+            description: 'Desain classy minimalis untuk tampilan yang bersih dan elegan.',
+            basePrice: 105000,
+            sizes: ['XS','S', 'M', 'L', 'XL'],
+            color: 'putih',
+            design: 'classy',
+            stock: 5,
+            status: 'preorder', 
+            points: 125,
+            dateAdded: '2025-08-20',
+        }, 
+        {
             id: 'bundle-001',
             name: 'Paket Alpha',
             image: ['paket-alpha.jpg'], 
@@ -265,7 +279,7 @@ const products = [
         city: 'Surabaya',
         discountAmount: 3000,
         icon: 'fas fa-city',
-        message: 'Arek Suroboyo! Ada potongan ongkir Rp3.000 khusus untuk Anda.',
+        message: 'Spesial untuk orang Surabaya! Ada potongan ongkir Rp3.000 khusus untuk Anda.',
         bgColor: 'linear-gradient(135deg, #ff0084 0%, #33001b 100%)'
     }
 ];
