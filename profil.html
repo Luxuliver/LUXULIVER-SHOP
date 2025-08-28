@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akun Saya - Luxuliver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="essentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @keyframes aurora-background {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body.essentials-page {
+            background-color: var(--background-color);
+            background-image: linear-gradient(
+                125deg,
+                rgba(198, 168, 116, 0.05),
+                rgba(45, 55, 72, 0.05),
+                rgba(198, 168, 116, 0.05)
+            );
+            background-size: 400% 400%;
+            animation: aurora-background 20s ease infinite;
+        }
+
+        .essentials-content-wrapper {
+            background: var(--surface-color);
+            padding: 0;
+            box-shadow: 0 10px 40px -10px var(--shadow-medium);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 80vh;
+        }
+
+        .dashboard-sidebar {
+            padding: 2rem 1.5rem;
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-user-profile {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem auto;
+            background: var(--primary-color);
+            color: var(--primary-btn-text-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 500;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .user-phone {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .sidebar-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav-list li a {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.9rem 1.25rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav-list li a:hover {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .sidebar-nav-list li a.active {
+            background-color: var(--primary-color);
+            color: var(--primary-btn-text-color);
+            font-weight: 600;
+            box-shadow: 0 5px 15px -5px var(--shadow-strong);
+        }
+
+        .sidebar-nav-list li a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-content {
+            padding: 2.5rem 3rem;
+        }
+
+        .view-pane {
+            display: none;
+            animation: fadeInView 0.5s ease;
+        }
+
+        .view-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeInView {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .view-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--text-color);
+            margin: 0 0 2.5rem 0;
+        }
+
+        .content-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .dashboard-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-card .label {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .stat-card .value .fas {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .wishlist-item a {
+            text-decoration: none;
+        }
+
+        .wishlist-item-img {
+            width: 100%;
+            aspect-ratio: 1 / 1.1;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px -5px var(--shadow-medium);
+            transition: transform 0.3s;
+        }
+
+        .wishlist-item a:hover .wishlist-item-img {
+            transform: scale(1.05);
+        }
+
+        .form-section {
+            max-width: 550px;
+        }
+
+        .luxury-form-group {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 0;
+            font-size: 1rem;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            background: transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: var(--accent-color);
+        }
+
+        .form-label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            color: var(--light-text);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus + .form-label,
+        .form-input:not(:placeholder-shown) + .form-label {
+            top: -15px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar-nav-list {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body class="essentials-page">
+
+    <!-- Header -->
+    <header class="highlight-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <h1>LUXULIVER</h1>
+            </a>
+            <a href="index.html" class="btn-essentials-kembali">
+                <i class="fas fa-arrow-left"></i>
+                <span>Kembali ke Toko</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="essentials-detail-container">
+            <div class="essentials-content-wrapper">
+                <div class="dashboard-container">
+
+                    <!-- Sidebar -->
+                    <aside class="dashboard-sidebar">
+                        <div class="sidebar-user-profile">
+                            <div class="user-avatar" id="profile-initials">LX</div>
+                            <h3 class="user-name" id="profile-user-name">Nama Pengguna</h3>
+                            <p class="user-phone" id="profile-user-phone">08xxxx</p>
+                        </div>
+                        <nav>
+                            <ul class="sidebar-nav-list">
+                                <li>
+                                    <a href="#" class="profile-nav-link active" data-target="dasbor-view">
+                                        <i class="fas fa-th-large"></i> Dasbor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="profile-nav-link" data-target="wishlist-view">
+                                        <i class="fas fa-star"></i> Koleksi Impian
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="profile-nav-link" data-target="pengaturan-view">
+                                        <i class="fas fa-cog"></i> Pengaturan Akun
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
+
+
+                    <main class="dashboard-content">
+
+                        <div id="dasbor-view" class="view-pane active">
+                            <h2 class="view-header" id="greeting-message">Halo, Pengguna</h2>
+                            <div class="dashboard-stats-grid">
+                                <div class="content-card stat-card">
+                                    <p class="label">Status Loyalitas</p>
+                                    <p class="value" id="header-loyalty-tier">Tier</p>
+                                </div>
+                                <div class="content-card stat-card">
+                                    <p class="label">Poin Anda</p>
+                                    <p class="value">
+                                        <i class="fas fa-gem"></i>
+                                        <span id="loyalty-points-display">0</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="content-card" style="margin-top: 2rem;">
+                                <h3 class="card-title">Jejak Digital Terbaru</h3>
+                                <ul class="activity-feed-list" id="activity-feed-container"></ul>
+                            </div>
+                        </div>
+
+                        <!-- Wishlist -->
+                        <div id="wishlist-view" class="view-pane">
+                            <h2 class="view-header">Koleksi Impian Anda</h2>
+                            <div class="content-card">
+                                <div class="wishlist-grid" id="wishlist-container"></div>
+                            </div>
+                        </div>
+
+                        <!-- Pengaturan -->
+                        <div id="pengaturan-view" class="view-pane">
+                            <h2 class="view-header">Pengaturan Akun</h2>
+                            <div class="content-card">
+                                <div class="form-section">
+                                    <h3 class="card-title">Profil & Alamat</h3>
+                                    <form id="profile-info-form">
+                                        <div class="luxury-form-group">
+                                            <input type="text" id="profile-name" class="form-input" placeholder=" " required>
+                                            <label for="profile-name" class="form-label">Nama Lengkap</label>
+                                        </div>
+                                        <div class="luxury-form-group">
+                                            <input type="text" id="profile-address" class="form-input" placeholder=" " required>
+                                            <label for="profile-address" class="form-label">Alamat Lengkap</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" style="width:100%;">Simpan Perubahan</button>
+                                    </form>
+
+                                    <hr class="elegant-divider" style="margin: 3rem 0;">
+
+                                    <h3 class="card-title">Ubah Password</h3>
+                                    <form id="change-password-form">
+                                        <div class="luxury-form-group">
+                                            <input type="password" id="old-password" class="form-input" placeholder=" " required>
+                                            <label for="old-password" class="form-label">Password Lama</label>
+                                        </div>
+                                        <div class="luxury-form-group">
+                                            <input type="password" id="new-password" class="form-input" placeholder=" " required>
+                                            <label for="new-password" class="form-label">Password Baru</label>
+                                        </div>
+                                        <p id="change-password-error-msg" class="auth-error-msg" style="text-align:center;"></p>
+                                        <button type="submit" class="btn btn-secondary" style="width:100%;">Ubah Password</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </main>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="toast-container"></div>
+
+    <script src="product.js"></script>
+    <script src="translations.js"></script>
+    <script src="automatic-theme.js"></script>
+    <script src="profil.js"></script>
+</body>
+</html>
