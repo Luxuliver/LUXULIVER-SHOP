@@ -282,7 +282,7 @@ const products = [
             title: 'notif_info_2_title',
             desc_short: 'notif_info_2_desc_short',
             desc_full: 'notif_info_2_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 6)).toISOString()
         },
         {
             id: 'promo-002',
@@ -300,7 +300,7 @@ const products = [
             title: 'notif_info_3_title',
             desc_short: 'notif_info_3_desc_short',
             desc_full: 'notif_info_3_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 10)).toISOString()
         },
         {
             id: 'promo-003',
@@ -309,7 +309,7 @@ const products = [
             title: 'notif_promo_3_title',
             desc_short: 'notif_promo_3_desc_short',
             desc_full: 'notif_promo_3_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 4)).toISOString()
         },
          {
             id: 'info-004',
@@ -318,7 +318,7 @@ const products = [
             title: 'notif_info_4_title',
             desc_short: 'notif_info_4_desc_short',
             desc_full: 'notif_info_4_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 25)).toISOString()
         },
         {
             id: 'promo-004',
@@ -327,7 +327,7 @@ const products = [
             title: 'notif_promo_4_title',
             desc_short: 'notif_promo_4_desc_short',
             desc_full: 'notif_promo_4_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 11)).toISOString()
         },
          {
             id: 'info-005',
@@ -336,7 +336,7 @@ const products = [
             title: 'notif_info_5_title',
             desc_short: 'notif_info_5_desc_short',
             desc_full: 'notif_info_5_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 44)).toISOString()
         },
         {
             id: 'promo-005',
@@ -345,7 +345,7 @@ const products = [
             title: 'notif_promo_5_title',
             desc_short: 'notif_promo_5_desc_short',
             desc_full: 'notif_promo_5_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 20)).toISOString()
         },
          {
             id: 'info-006',
@@ -354,7 +354,7 @@ const products = [
             title: 'notif_info_6_title',
             desc_short: 'notif_info_6_desc_short',
             desc_full: 'notif_info_6_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 38)).toISOString()
         },
         {
             id: 'promo-006',
@@ -372,7 +372,7 @@ const products = [
             title: 'notif_info_7_title',
             desc_short: 'notif_info_7_desc_short',
             desc_full: 'notif_info_7_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 24)).toISOString()
         },
         {
             id: 'promo-007',
@@ -381,7 +381,7 @@ const products = [
             title: 'notif_promo_7_title',
             desc_short: 'notif_promo_7_desc_short',
             desc_full: 'notif_promo_7_desc_full',
-            timestamp: new Date(new Date().setDate(new Date().getDate() - 2)).toISOString()
+            timestamp: new Date(new Date().setDate(new Date().getDate() - 16)).toISOString()
         },
     ];
     
