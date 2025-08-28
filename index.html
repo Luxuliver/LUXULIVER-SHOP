@@ -1,0 +1,1562 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1200">
+    <title>Luxuliver Stylish</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+    <div id="loading-screen">
+       <video id="loading-video" autoplay muted playsinline preload="auto">
+    <source src="Luxu.mp4" type="video/mp4">
+    Browser Anda tidak mendukung tag video.
+    </video>
+    </div>
+
+    <header>
+        <div class="container">
+            <div class="header-left">
+                <button id="sidebar-toggle-btn" class="btn-utility"><i class="fas fa-bars"></i></button>
+                <a href="#" class="logo"><h1>LUXULIVER</h1></a>
+            </div>
+            <nav>
+                <ul id="main-nav">
+                    <li><a href="#hero" class="active" data-lang-key="nav_home"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="#koleksi" data-lang-key="nav_collections"><i class="fas fa-tshirt"></i> Koleksi</a></li>
+                    <li><a href="#keranjang">
+                        <i class="fas fa-shopping-cart"></i> <span data-lang-key="nav_cart">Keranjang</span> <span id="cart-count">0</span>
+                    </a></li>
+                    <li id="auth-nav-item" class="auth-nav-item">
+                        <a href="#" id="auth-action-btn" data-lang-key="nav_login"><i class="fas fa-user-circle"></i> Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="scroll-progress-bar-container">
+            <div class="scroll-progress-bar"></div>
+        </div>
+    </header>
+
+    <aside id="sidebar">
+        <div class="sidebar-header">
+            <h3 data-lang-key="sidebar_title">Menu & Filter</h3>
+            <button id="sidebar-close-btn" class="btn-utility">&times;</button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li>
+                    <div class="sidebar-action-item">
+                        <span class="sidebar-action-label" data-lang-key="sidebar_language">Bahasa</span>
+                        <div id="language-toggle-buttons">
+                            <button class="lang-btn active" data-lang="id">ID</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                    </div>
+                </li>
+                
+                <hr>
+                <li>
+                    <a href="profil.html">
+    <i class="fas fa-user-edit"></i> <span data-lang-key="nav_profile">Profil Saya</span>
+</a>
+                </li>
+                
+                <li>
+    <a href="notifikasi.html"> <i class="fas fa-bell"></i>
+        <span>Notifikasi</span>
+    </a>
+</li>
+                <hr>
+                <li>
+                    <a href="#" class="sidebar-category-toggle" data-lang-key="sidebar_main_menu"><i class="fas fa-grip-horizontal"></i> Menu Utama <i class="fas fa-chevron-right"></i></a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="#hero" class="active" data-lang-key="nav_home"><i class="fas fa-home"></i> Beranda</a></li>
+                        <li><a href="#koleksi" data-lang-key="nav_collections"><i class="fas fa-tshirt"></i> Koleksi</a></li>
+                        <li><a href="#keranjang">
+                            <i class="fas fa-shopping-cart"></i> <span data-lang-key="nav_cart">Keranjang</span> (<span id="cart-count-sidebar">0</span>)
+                        </a></li>
+                        <li><a href="#favorit">
+                            <i class="fas fa-heart"></i> <span data-lang-key="nav_favorites">Favorit</span> (<span id="favorite-count-sidebar">0</span>)
+                        </a></li>
+                        <li><a href="#riwayat-pesanan">
+                            <i class="fas fa-history"></i> <span data-lang-key="nav_history">Riwayat</span>
+                        </a></li>
+                    
+                        <li>
+                        <a href="#ulasan">
+        <i class="fas fa-star"></i> <span data-lang-key="nav_reviews">Ulasan</span>
+    </a></li>
+           
+                <li><a href="#loyalty-points" data-lang-key="nav_loyalty"><i class="fas fa-gem"></i> <span data-lang-key="nav_loyalty">Poin Loyalty</span></a></li>
+                </ul>
+                </li>
+
+ <li>
+                    <a href="#" class="sidebar-category-toggle">
+                        <i class="fas fa-landmark"></i> <span>Legacy Collection</span> <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="#koleksi-habis">
+                                <i class="fas fa-eye-slash"></i> <span data-lang-key="nav_sold_out">Koleksi Habis</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#arsip">
+                                <i class="fas fa-archive"></i> <span data-lang-key="nav_archive">Arsip</span>
+                            </a>
+                        </li>
+                    <li>
+                        <a href="#koleksi-baru">
+                            <i class="fas fa-star"></i> <span data-lang-key="nav_new_collection">Koleksi Baru</span>
+                            </a>
+                            </li>
+                    </ul>
+                </li>
+                
+                <li>
+    <a href="#" class="sidebar-category-toggle">
+        <i class="fas fa-tags"></i> <span>Exclusive Offers</span> <i class="fas fa-chevron-right"></i>
+    </a>
+    <ul class="sidebar-submenu">
+        <li>
+            <a href="#" id="promo-baju-btn">
+                <i class="fas fa-tshirt"></i> <span>Promo Baju</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="diskon-ongkir-btn">
+                <i class="fas fa-truck-loading"></i> <span>Diskon Ongkir</span>
+            </a>
+        </li>
+        <a href="#penawaran-paket">
+                <i class="fas fa-box-open"></i> <span>Penawaran Paket</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" id="custom-package-btn">
+                <i class="fas fa-box-open"></i> <span>Paket Kustom</span>
+            </a>
+        </li>
+        </ul>
+</li>
+
+                 <li>
+    <a href="essentials.html">
+        <i class="fas fa-crown"></i> <span data-lang-key="sidebar_essentials">Luxuliver Essentials</span>
+    </a>
+</li>
+                
+            
+                <li>
+    <a href="#terakhir-dilihat">
+        <i class="fas fa-eye"></i> <span data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</span>
+    </a>
+</li>
+    
+                 
+               <li>
+    <a href="blog.html"> <i class="fas fa-newspaper"></i> <span>Blog / Artikel</span>
+    </a>
+</li>
+                <hr>
+                <li>
+    <a href="#" class="sidebar-category-toggle">
+        <i class="fas fa-magic"></i> <span>Display & Help Bar</span>
+        <i class="fas fa-chevron-right"></i>
+    </a>
+    <ul class="sidebar-submenu">
+        <li>
+            <a href="#" id="a11y-sidebar-btn">
+                <i class="fas fa-universal-access"></i> <span>Aksesibilitas</span>
+            </a>
+        </li>
+        
+         <li>
+                            <a href="#" id="start-tour-btn">
+                                <i class="fas fa-route"></i> <span>Mode Tur</span>
+                            </a>
+                        </li>
+                
+                <li>
+            <a href="#" data-modal-target="theme-customizer-modal">
+                <i class="fas fa-palette"></i> <span>Mode Kustom</span>
+            </a>
+        </li>
+                    
+                <li>
+        <div class="sidebar-action-item">
+            <span class="sidebar-action-label">Mode Fokus</span>
+            <button id="focus-mode-toggle" class="btn-utility">
+                <i class="fas fa-eye theme-icon"></i>
+                <i class="fas fa-eye-slash theme-icon"></i>
+            </button>
+        </div>
+    </li>
+        
+        <li>
+            <div class="sidebar-action-item">
+                <span class="sidebar-action-label" data-lang-key="sidebar_display_mode">Mode Tampilan</span>
+                <button id="dark-mode-toggle" class="btn-utility">
+                    <i class="fas fa-sun theme-icon sun-icon"></i>
+                    <i class="fas fa-moon theme-icon moon-icon"></i>
+                </button>
+            </div>
+        </li>
+    </ul>
+    
+                    <li>
+    <a href="contact.html">
+        <i class="fas fa-share-alt"></i> <span>Hubungi & Ikuti Kami</span>
+    </a>
+</li>
+          
+                <li>
+    <a href="highlight.html"> <i class="fas fa-star"></i> <span data-lang-key="sidebar_highlight">Highlight</span>
+    </a>
+</li>
+                </ul>
+            <button id="reset-filters-btn" class="btn btn-secondary" data-lang-key="sidebar_reset_filters">Reset Semua Filter</button>
+        </nav>
+    </aside>
+    <div id="sidebar-overlay"></div>
+    <main>
+        <div id="hero">
+    <div id="hero-content">
+        <h2 data-lang-key="hero_title">T-Shirt Stylish yang Bikin Gaya Makin Percaya Diri!</h2>
+        <p data-lang-key="hero_subtitle">Temukan koleksi pakaian stylish dan nyaman yang membuat Anda tampil percaya diri setiap hari.</p>
+        <a href="#koleksi" class="btn" id="explore-collections-btn">
+            <span data-lang-key="hero_button">Jelajahi Koleksi</span>
+        </a>
+    </div>
+</div>
+
+        <div class="container">
+            <section id="search-section">
+                <div class="search-bar">
+                    <div class="search-input-wrapper">
+                        <input type="text" id="search-input" data-lang-key-placeholder="search_placeholder" placeholder="Cari nama produk..." autocomplete="off">
+                        <div id="search-suggestions-container"></div>
+                    </div>
+                    <button id="search-button" class="btn btn-primary"><i class="fas fa-search"></i> <span data-lang-key="search_button">Cari</span></button>
+                </div>
+            </section>
+            
+            <section id="koleksi">
+    <h2 data-lang-key="all_collections_title">Semua Koleksi</h2>
+    
+    <div id="shop-status-banner" class="shop-status-banner-closed" style="display: none;">
+    <i class="fas fa-clock"></i>
+    <p>Maaf, toko sedang tutup. Silakan berbelanja lagi besok!</p>
+    </div>
+    
+    <div class="promo-info-banner">
+        <i class="fas fa-tags"></i>
+        <p>Penawaran Spesial: Beli <strong>5 produk satuan</strong> apa pun dan dapatkan <strong>diskon 5%</strong> secara otomatis di keranjang Anda!</p>
+    </div>
+
+    <button id="show-all-products-btn" class="btn btn-secondary" style="display: none; margin: 0 auto 2.5rem auto;">
+        <i class="fas fa-list"></i> Tampilkan Semua Produk
+    </button>
+
+    <div class="sorting-controls-container">
+        <div class="custom-select-wrapper">
+            <div class="custom-select-trigger">
+                <span>URUTKAN:</span>
+                <strong id="custom-select-value">Standar</strong>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="custom-select-options">
+                </div>
+            <select id="sort-products-dropdown" class="original-select">
+                <option value="default">Standar</option>
+                <option value="popularity">Populer</option>
+                <option value="price-asc">Harga: Terendah</option>
+                <option value="price-desc">Harga: Tertinggi</option>
+            </select>
+        </div>
+    </div>
+    
+    <div id="product-list" class="product-grid">
+        </div>
+    <p id="no-results-message" class="info-message" style="display: none;" data-lang-key="no_results">Produk tidak ditemukan.</p>
+    <div id="pagination-container" class="pagination-container"></div>
+    
+</section>
+
+            
+            <section id="koleksi-habis" style="display: none;">
+    <h2 data-lang-key="sold_out_title">Koleksi yang Telah Habis</h2>
+    <p class="sold-out-subtitle" data-lang-key="sold_out_subtitle">Produk favorit yang mungkin akan segera kami stok kembali. Nantikan informasinya!</p>
+    <div id="sold-out-grid" class="product-grid">
+        </div>
+    <div id="empty-sold-out-message" class="empty-state-container" style="display: none;">
+        <div class="empty-state-icon"><i class="fas fa-check-circle"></i></div>
+        <p class="empty-state-text" data-lang-key="empty_sold_out">Luar biasa! Saat ini semua koleksi tersedia.</p>
+    </div>
+
+    <div id="sold-out-cta-container" class="sold-out-cta">
+        <h3 data-lang-key="sold_out_cta_text">Jangan Lewatkan Koleksi Berikutnya</h3>
+        <p>Ikuti kami di media sosial untuk info restock dan rilisan terbaru.</p>
+        <div class="sold-out-social-links">
+            <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+        <a href="#koleksi" class="btn btn-primary back-to-collection-btn" data-lang-key="sold_out_cta_button">
+            <i class="fas fa-tshirt"></i> Jelajahi Koleksi Saat Ini
+        </a>
+    </div>
+</section>
+
+ <section id="koleksi-baru" style="display: none;">
+    <h2 data-lang-key="new_collection_title">Koleksi Terbaru</h2>
+    <p class="new-collection-subtitle" data-lang-key="new_collection_subtitle" style="text-align:center; max-width: 600px; margin: -2.5rem auto 4.5rem auto;">Produk yang baru ditambahkan dalam 30 hari terakhir.</p>
+    <div id="new-collection-grid" class="product-grid">
+        </div>
+    <div id="empty-new-collection-message" class="empty-state-container" style="display: none;">
+        <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+        <p class="empty-state-text" data-lang-key="empty_new_collection">Saat ini tidak ada koleksi yang baru ditambahkan.</p>
+    </div>
+</section>
+
+ <section id="personalized-recommendations" style="display: none;">
+    <h2>Direkomendasikan Untuk Anda</h2>
+    <div id="personalized-products-grid" class="product-grid">
+        </div>
+</section>
+
+            <section id="keranjang">
+                <h2 data-lang-key="cart_title">Keranjang Belanja</h2>
+                <div id="cart-items-container" class="cart-items-container">
+                    </div>
+                    
+                <div id="empty-cart-message" class="empty-state-container">
+                    <div class="empty-state-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <p class="empty-state-text" data-lang-key="empty_cart">Keranjang Anda kosong. Mari mulai berbelanja!</p>
+                    </div>
+
+                <div id="saved-for-later-section" style="display: none;">
+                    <div class="section-divider"></div>
+                    <h3 data-lang-key="saved_for_later_title" style="text-align:center; font-size: 2rem; margin-bottom: 2rem;">Disimpan untuk Nanti</h3>
+                    <div id="saved-for-later-container" class="cart-items-container"></div>
+                </div>
+                <div id="cart-summary" class="cart-summary" style="display: none;">
+                    <p id="promo-upsell-message" class="promo-message" style="display: none;"></p>
+                    <p><span data-lang-key="subtotal">Subtotal</span>: <span id="subtotal-price">Rp0</span></p>
+                    <p><span data-lang-key="discount">Diskon</span>: <span id="discount-amount">Rp0</span></p>
+                    <h3><span data-lang-key="total">Total</span>: <span id="total-price">Rp0</span></h3>
+                    <button id="checkout-btn" class="btn btn-primary"><span data-lang-key="checkout_button">Lanjutkan ke Checkout</span> <i class="fas fa-lock"></i></button>
+
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Pembayaran Aman</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-box-open"></i>
+                            <span>Garansi Kualitas</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span>Pengiriman Cepat</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="checkout-form-container" class="checkout-form-container" style="display: none;">
+                    <div id="checkout-header">
+                        <h3 data-lang-key="checkout_process_title">Proses Checkout</h3>
+                        <div id="progress-bar">
+                            <div class="progress-step active" data-step="1">
+                                 <div class="step-icon"><i class="fas fa-user"></i></div>
+                                <p data-lang-key="step_info">Informasi</p>
+                            </div>
+                            <div class="progress-step" data-step="2">
+                                 <div class="step-icon"><i class="fas fa-truck"></i></div>
+                                <p data-lang-key="step_shipping">Pengiriman</p>
+                            </div>
+                            <div class="progress-step" data-step="3">
+                                 <div class="step-icon"><i class="fas fa-credit-card"></i></div>
+                                <p data-lang-key="step_payment">Pembayaran</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="checkout-form">
+                        <div class="checkout-step active" data-step="1">
+    <div class="luxury-step-header">
+        <h4 data-lang-key="step1_title">Langkah 1: Informasi Kontak Anda</h4>
+        <button type="button" id="use-saved-address-btn" class="btn-utility-luxury" style="display: none;">
+            <i class="fas fa-history"></i> <span data-lang-key="button_use_saved_address">Gunakan Alamat Tersimpan</span>
+        </button>
+    </div>
+
+    <div class="form-grid">
+        <div class="luxury-form-group">
+            <i class="form-icon fas fa-user"></i>
+            <input type="text" id="customer-name" name="customer-name" class="form-input" placeholder=" " required>
+            <label for="customer-name" class="form-label" data-lang-key="label_fullname">Nama Lengkap:</label>
+        </div>
+
+        <div class="luxury-form-group">
+            <i class="form-icon fab fa-whatsapp"></i>
+            <input type="tel" id="customer-phone" name="customer-phone" class="form-input" placeholder=" " required>
+            <label for="customer-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp:</label>
+        </div>
+    </div>
+
+    <div class="luxury-form-group">
+        <i class="form-icon fas fa-map-marker-alt"></i>
+        <textarea id="customer-address" name="customer-address" class="form-input" placeholder=" " rows="4" required></textarea>
+        <label for="customer-address" class="form-label" data-lang-key="label_address">Alamat Lengkap:</label>
+    </div>
+
+    <div class="luxury-form-group">
+        <i class="form-icon fas fa-pencil-alt"></i>
+        <textarea id="customer-notes" name="customer-notes" class="form-input" placeholder=" " rows="3"></textarea>
+        <label for="customer-notes" class="form-label" data-lang-key="label_notes">Informasi Tambahan (Opsional):</label>
+    </div>
+</div>
+
+                        <div class="checkout-step" data-step="2">
+                            <h4 data-lang-key="step2_title">Langkah 2: Pilih Metode Pengiriman</h4>
+                            <div class="form-group-radio">
+                                <label data-lang-key="label_expedition">Pilih Ekspedisi:</label>
+                                <div class="radio-options-container" id="expedition-method">
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="checkout-step" data-step="3">
+    <div class="step3-grid-layout">
+        <div>
+            <h4 data-lang-key="step3_title">Langkah 3: Pilih Metode Pembayaran</h4>
+            <div class="form-group-radio">
+                <label data-lang-key="label_payment_method">Pilih Pembayaran:</label>
+                <div class="radio-options-container" id="payment-method">
+                </div>
+            </div>
+        </div>
+        
+        <div class="order-summary-final">
+            <h4 data-lang-key="final_summary_title">Ringkasan Pesanan</h4>
+            <div id="final-order-summary"></div>
+            <p data-lang-key="final_summary_note">Pastikan semua data sudah benar sebelum menyelesaikan pesanan.</p>
+        </div>
+    </div>
+</div>
+
+                        <div id="checkout-navigation" class="form-navigation">
+                            <button type="button" class="btn btn-secondary" id="prev-step-btn" style="display: none;">
+                                <i class="fas fa-arrow-left"></i> <span data-lang-key="button_back">Kembali</span>
+                            </button>
+                            <button type="button" class="btn btn-primary" id="next-step-btn">
+                                <span data-lang-key="button_next">Lanjut</span> <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submit-order-btn" style="display: none;">
+                                <span data-lang-key="button_order_whatsapp">Buat Pesanan via WhatsApp</span> <i class="fab fa-whatsapp"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            
+            <section id="favorit">
+    <h2 data-lang-key="favorites_title">Produk Favorit Anda</h2>
+    <div id="favorite-products-list" class="favorite-luxury-list">
+        </div>
+    <div id="empty-favorites-message" class="empty-state-container">
+    <div class="empty-state-icon"><i class="fas fa-heart-broken"></i></div>
+    <p class="empty-state-text" data-lang-key="empty_favorites">Anda belum menambahkan produk favorit apapun.</p>
+    </div>
+</section>
+
+            <section id="riwayat-pesanan">
+                <h2 data-lang-key="history_title">Riwayat Pesanan Anda</h2>
+                <div id="order-history-list">
+                    </div>
+                <p id="empty-history-message" class="info-message" style="display: none;" data-lang-key="empty_history">Anda belum memiliki riwayat pesanan.</p>
+            </section>
+            
+             <section id="penawaran-paket" style="display: none;">
+        <h2>Penawaran Paket Spesial</h2>
+        <p style="text-align:center; max-width: 600px; margin: -2.5rem auto 4.5rem auto;">
+            Dapatkan koleksi pilihan kami dalam satu paket hemat. Penawaran eksklusif hanya di sini.
+        </p>
+        <div id="bundle-products-grid" class="bundle-grid">
+            </div>
+    </section>
+            
+             <section id="terakhir-dilihat" style="display: none;">
+                <h2 data-lang-key="sidebar_recently_viewed">Terakhir Dilihat</h2>
+                <div id="recently-viewed-grid" class="product-grid">
+                    </div>
+                <div id="empty-recently-viewed-message-main" class="empty-state-container" style="display: none;">
+                    <div class="empty-state-icon"><i class="fas fa-eye-slash"></i></div>
+                    <p class="empty-state-text" data-lang-key="empty_recently_viewed">Anda belum melihat produk apapun.</p>
+                </div>
+            </section>
+            
+             <section id="arsip" style="display: none;">
+                <h2 data-lang-key="archive_title">Arsip Koleksi</h2>
+                <p class="archive-subtitle" data-lang-key="archive_subtitle">Koleksi eksklusif yang pernah menjadi bagian dari gaya Anda.</p>
+                <div id="archive-list" class="archive-grid">
+                    </div>
+                <div id="empty-archive-message" class="empty-state-container" style="display: none;">
+                    <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+                    <p class="empty-state-text" data-lang-key="empty_archive">Arsip pribadi Anda belum terbentuk. Wujudkan awal yang berkelas dengan koleksi pertama.</p>
+                </div>
+            </section>
+            
+            
+            
+            <section id="ulasan" style="display: none;">
+    <h2 data-lang-key="reviews_page_title">Ulasan Terbaru dari Pelanggan</h2>
+    
+    <div id="review-filter-container">
+        <div class="rating-filter-buttons">
+            <button class="rating-filter-btn active" data-rating="0">Semua</button>
+            <button class="rating-filter-btn" data-rating="5">5 <i class="fas fa-star"></i></button>
+            <button class="rating-filter-btn" data-rating="4">4 <i class="fas fa-star"></i></button>
+            <button class="rating-filter-btn" data-rating="3">3 <i class="fas fa-star"></i></button>
+            <button class="rating-filter-btn" data-rating="2">2 <i class="fas fa-star"></i></button>
+            <button class="rating-filter-btn" data-rating="1">1 <i class="fas fa-star"></i></button>
+        </div>
+
+        <div class="design-filter-buttons" style="margin-top: 1rem;">
+            <button class="design-filter-btn active" data-design="all">Semua Desain</button>
+            <button class="design-filter-btn" data-design="abstrak">Abstrak</button>
+            <button class="design-filter-btn" data-design="classy">Classy</button>
+            <button class="design-filter-btn" data-design="basic">Basic</button>
+        </div>
+    </div>
+    <div id="all-reviews-list" class="all-reviews-container">
+        </div>
+
+    <div id="review-pagination-container" class="pagination-container"></div>
+
+    <p id="empty-all-reviews-message" class="info-message" style="display: none;" data-lang-key="empty_all_reviews">Belum ada ulasan yang diberikan.</p>
+</section>
+            
+            <section id="loyalty-points" style="display: none;">
+    <h2 data-lang-key="loyalty_title">Poin Loyalty Anda</h2>
+    <div class="loyalty-info-card">
+        <div class="loyalty-current-points">
+            <span data-lang-key="loyalty_current_points_label">Poin Anda Saat Ini:</span>
+            <strong id="current-loyalty-points">0</strong> <i class="fas fa-gem"></i>
+        </div>
+        <div id="loyalty-next-tier" class="loyalty-next-tier">
+            </div>
+    </div>
+    <div id="loyalty-tiers-container" class="loyalty-tiers-container">
+        </div>
+    <p id="empty-loyalty-message" class="info-message" style="display: none;" data-lang-key="empty_loyalty">Mulai belanja untuk mengumpulkan poin loyalty!</p>
+</section>
+
+            <div class="section-divider"></div>
+        </div>
+    </main>
+    
+    <div id="comparison-tray" class="comparison-tray">
+    <div class="comparison-tray-content">
+        <div class="comparison-items" id="comparison-items">
+            </div>
+        <div class="comparison-actions">
+            <button id="compare-now-btn" class="btn btn-primary" disabled data-lang-key="compare_now">Bandingkan Sekarang</button>
+            <button id="clear-comparison-btn" class="btn btn-danger" data-lang-key="clear_comparison">Bersihkan</button>
+        </div>
+    </div>
+</div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section about footer-collapsible">
+    <button type="button" class="footer-toggle">
+        <h3 data-lang-key="footer_about">Tentang Luxuliver</h3>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="footer-panel">
+        <p data-lang-key="footer_about_text">Luxuliver menghadirkan koleksi T-Shirt berkualitas tinggi dengan desain eksklusif yang memadukan kenyamanan dan gaya. Dibuat untuk Anda yang ingin tampil percaya diri setiap saat.</p>
+    </div>
+</div>
+            <div class="footer-section contact-info footer-collapsible">
+    <button type="button" class="footer-toggle">
+        <h3 data-lang-key="footer_contact">Hubungi Kami</h3>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="footer-panel">
+        <a href="#" id="seller-address-link" target="_blank" rel="noopener noreferrer">
+            <p><i class="fas fa-map-marker-alt"></i> <span id="seller-address"></span></p>
+        </a>
+        <p><i class="fas fa-phone"></i> <a href="" id="seller-phone-link"><span id="seller-phone"></span></a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:luxuliver@gmail.com" id="seller-email-link"><span id="seller-email"></span></a></p>
+    </div>
+</div>
+            <div class="footer-section social-media footer-collapsible">
+    <button type="button" class="footer-toggle">
+        <h3 data-lang-key="footer_social">Ikuti Kami</h3>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="footer-panel">
+        <p><a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> <span data-lang-key="follow_instagram">Instagram</span></a></p>
+        <p><a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> <span data-lang-key="follow_tiktok">TikTok</span></a></p>
+        <p><a href="https://x.com/Luxuliver" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i> <span data-lang-key="follow_x">X (Twitter)</span></a></p>
+    </div>
+</div>
+            <div class="footer-section footer-collapsible">
+    <button type="button" class="footer-toggle">
+        <h3 data-lang-key="footer_policy_title">Informasi & Kebijakan</h3>
+        <i class="fas fa-chevron-down"></i>
+    </button>
+    <div class="footer-panel">
+        <ul class="footer-links" id="policy-links">
+            <li><a href="#" data-modal-target="privacy-policy-modal" data-lang-key="footer_policy_privacy">Kebijakan Privasi</a></li>
+            <li><a href="#" data-modal-target="terms-policy-modal" data-lang-key="footer_policy_terms">Syarat & Ketentuan</a></li>
+            <li><a href="#" data-modal-target="shipping-policy-modal" data-lang-key="footer_policy_shipping">Kebijakan Pengiriman</a></li>
+            <li><a href="#" data-modal-target="return-policy-modal" data-lang-key="footer_policy_return">Kebijakan Pengembalian</a></li>
+        </ul>
+    </div>
+</div>
+
+ <div class="footer-section payment-shipping footer-collapsible">
+            <button type="button" class="footer-toggle">
+                <h3>Metode Pembayaran</h3>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="footer-panel">
+                <div class="footer-icon-grid">
+                    <img src="BCA.jpg" alt="BCA Transfer" title="BCA Transfer">
+                    <img src="BNI.jpg" alt="BNI Transfer" title="BNI Transfer">
+                    <img src="BRI.jpg" alt="BRI Transfer" title="BRI Transfer">
+                    <img src="MANDIRI.jpg" alt="Mandiri Transfer" title="Mandiri Transfer">
+                    <img src="PAYPAL.jpg" alt="PAYPAL Transfer" title="PAYPAL Transfer">
+                    <img src="GOPAY.jpg" alt="GOPAY" title="GOPAY">
+                    <img src="OVO.jpg" alt="OVO" title="OVO">
+                    <img src="DANA.jpg" alt="DANA" title="DANA">
+                    <img src="SHOPEEPAY.jpg" alt="SHOPEEPAY" title="SHOPEEPAY">
+                </div>
+            </div>
+        </div>
+
+ <div class="footer-section payment-shipping footer-collapsible">
+            <button type="button" class="footer-toggle">
+                <h3>Metode Pengiriman</h3>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="footer-panel">
+                <div class="footer-icon-grid">
+                    <img src="JNE.jpg" alt="JNE Express" title="JNE Express">
+                    <img src="J&T.jpg" alt="J&T Express" title="J&T Express">
+                    <img src="Lion.jpg" alt="Lion Parcel" title="Lion Parcel">
+                    <img src="Tiki.jpg" alt="Tiki" title="Tiki">
+                    <img src="Wahana.jpg" alt="Wahana" title="Wahana">
+                    <img src="Pos.jpg" alt="Pos Indonesia" title="Pos Indonesia">
+                    <img src="Gosen.jpg" alt="GO-SEND" title="GO-SEND">
+                    <img src="Spx.jpg" alt="Shopee Express" title="Shopee Express">
+                    <img src="Grab.jpg" alt="GrabExpress" title="GrabExpress">
+                </div>
+            </div>
+        </div>
+
+
+            <div class="copyright">
+                <p>&copy; <span id="current-year"></span> Luxuliver. <span data-lang-key="footer_copyright">Semua Hak Cipta Dilindungi.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <div id="quick-view-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="modal-body">
+                <div class="modal-image-gallery">
+                    <img id="modal-main-image" src="placeholder.jpg" alt="Produk">
+                    <div class="modal-thumbnails" id="modal-thumbnails"></div>
+                    </div>
+                    <div class="modal-product-info">
+                    <h3 id="modal-product-name">Nama Baju</h3>
+                    <p id="modal-product-description">Deskripsi singkat produk.</p>
+                    <p class="price" id="modal-product-price">Rp0</p>
+                    <div class="size-options" id="modal-size-options"></div>
+
+                    <hr class="modal-divider">
+                    <div class="reviews-section">
+                        <div class="reviews-summary" style="display: none;">
+                            <h4 id="modal-reviews-title" data-lang-key="reviews_title">Ulasan Produk</h4>
+                            <div class="summary-line">
+                                <span class="average-rating-stars" id="modal-average-rating-stars"></span>
+                                <strong id="modal-average-rating-value"></strong>
+                                <span>/ 5.0</span>
+                                <span class="total-reviews-count">(<span id="modal-total-reviews"></span> <span data-lang-key="reviews_count">ulasan</span>)</span>
+                            </div>
+                        </div>
+                        <div class="reviews-list" id="modal-reviews-list-container">
+                            </div>
+                        <p id="modal-no-reviews" class="info-message" style="display: none; font-size: 1rem; padding: 20px;" data-lang-key="no_reviews_yet">Belum ada ulasan untuk produk ini.</p>
+                    </div>
+                     <hr class="modal-divider">
+                    <div class="modal-buttons-group">
+                        <button class="btn btn-primary add-to-cart" id="modal-add-to-cart-btn" data-id=""><i class="fas fa-shopping-cart"></i> <span data-lang-key="add_to_cart">Tambah ke Keranjang</span></button>
+                        <button class="btn add-to-favorite modal-add-to-favorite" data-id=""><i class="far fa-heart"></i></button>
+                    </div>
+                     <div class="modal-utility-buttons">
+                        <button class="btn-utility" id="modal-size-guide-btn"><i class="fas fa-ruler-horizontal"></i> <span data-lang-key="size_guide">Panduan Ukuran</span></button>
+                        <button class="btn-utility modal-share-product-btn" data-id=""><i class="fas fa-share-alt"></i> <span data-lang-key="share_product">Bagikan Produk</span></button>
+                    </div>
+                    
+                    <div class="policy-note-sm">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Garansi Penggantian Produk. Kami tidak melayani pengembalian dana (refund).</span>
+                    </div>
+                    
+
+                    <div id="modal-recommendations" style="display: none;">
+                        <hr class="modal-divider">
+                        <h4 class="recommendations-title" data-lang-key="recommendations_title">Anda Mungkin Juga Suka</h4>
+                        <div class="recommendations-grid" id="modal-recommendations-grid">
+                            </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+   <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <p id="confirm-message">Apakah Anda yakin?</p>
+            <div class="modal-actions">
+                <button id="confirm-yes" class="btn btn-danger" data-lang-key="confirm_yes">Ya</button>
+                <button id="confirm-no" class="btn btn-secondary" data-lang-key="confirm_no">Tidak</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="whatsapp-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <p id="whatsapp-confirm-message" data-lang-key="whatsapp_confirm_text">Kami telah menyiapkan pesan WhatsApp untuk Anda. Mohon kirim pesan tersebut untuk melanjutkan pesanan. Apakah Anda sudah mengirimkannya?</p>
+            <div class="modal-actions">
+                <button id="whatsapp-confirm-yes" class="btn btn-primary"><i class="fas fa-check"></i> <span data-lang-key="whatsapp_confirm_yes">Sudah, Selesaikan Pesanan</span></button>
+                <button id="whatsapp-confirm-no" class="btn btn-secondary"><i class="fas fa-times"></i> <span data-lang-key="whatsapp_confirm_no">Batal</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="size-guide-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="size_guide_title">Panduan Ukuran</h3>
+            <p data-lang-key="size_guide_subtitle">Semua ukuran dalam satuan centimeter (cm).</p>
+            <div class="size-guide-table-container">
+                <table id="size-chart-table">
+                    <thead>
+                        <tr>
+                            <th data-lang-key="th_size">Ukuran</th>
+                            <th data-lang-key="th_length">Panjang Baju</th>
+                            <th data-lang-key="th_width">Lebar Baju</th>
+                            <th data-lang-key="th_sleeve">Panjang Lengan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+            <p class="notes" data-lang-key="size_guide_note">*Toleransi ukuran +/- 1-2 cm karena proses produksi.</p>
+        </div>
+    </div>
+
+    <div id="video-gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="video_gallery_title">Video Sinematik Koleksi</h3>
+            <p data-lang-key="video_gallery_subtitle">Lihat lebih dekat kualitas dan gaya produk kami melalui video.</p>
+            <div class="video-grid">
+                <div class="video-item">
+                    <h4 data-lang-key="video1_title">Brand Showcase</h4>
+                    <video src="A.mp4" controls preload="metadata" playsinline></video>
+                </div>
+                <div class="video-item">
+                    <h4 data-lang-key="video2_title">Daily Style with Luxuliver</h4>
+                    <video src="B.mp4" controls preload="metadata" playsinline></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="privacy-policy-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="policy_title_privacy">Kebijakan Privasi</h3>
+            <div class="policy-content">
+                <p data-lang-key="privacy_p1">Kami di Luxuliver sangat menghargai privasi Anda. Kebijakan ini menjelaskan informasi pribadi apa yang kami kumpulkan dan bagaimana kami menggunakannya.</p>
+                <p data-lang-key="privacy_p2"><strong>Informasi yang Kami Kumpulkan:</strong> Kami mengumpulkan informasi yang Anda berikan langsung kepada kami, seperti nama, nomor telepon, dan alamat email saat Anda melakukan pemesanan. Informasi ini hanya digunakan untuk memproses pesanan Anda dan untuk menghubungi Anda terkait pesanan tersebut.</p>
+                <p data-lang-key="privacy_p3"><strong>Keamanan Data:</strong> Kami tidak akan pernah membagikan, menjual, atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum. Semua komunikasi pesanan dilakukan melalui WhatsApp untuk kemudahan dan keamanan Anda.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="terms-policy-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="policy_title_terms">Syarat & Ketentuan</h3>
+            <div class="policy-content">
+                <p data-lang-key="terms_p1">Dengan mengakses dan menggunakan situs web ini, Anda setuju untuk terikat oleh Syarat dan Ketentuan berikut.</p>
+                <p data-lang-key="terms_p2"><strong>Pemesanan:</strong> Semua pesanan dianggap final setelah konfirmasi pembayaran diterima. Pastikan semua detail pesanan (produk, ukuran, alamat) sudah benar sebelum melakukan pembayaran.</p>
+                <p data-lang-key="terms_p3"><strong>Harga:</strong> Harga yang tertera dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya. Harga final adalah harga yang tertera pada ringkasan pesanan Anda di WhatsApp.</p>
+                <p data-lang-key="terms_p4"><strong>Hak Cipta:</strong> Semua konten di situs ini, termasuk desain produk, gambar, dan teks, adalah milik Luxuliver dan dilindungi oleh undang-undang hak cipta.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="shipping-policy-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="policy_title_shipping">Kebijakan Pengiriman</h3>
+            <div class="policy-content">
+                <p data-lang-key="shipping_p1"><strong>Proses Pengiriman:</strong> Pesanan akan diproses dan dikirim dalam 1-2 hari kerja setelah konfirmasi pembayaran diterima.</p>
+                <p data-lang-key="shipping_p2"><strong>Waktu Pengiriman:</strong> Estimasi waktu pengiriman adalah 1-3 hari kerja untuk Jabodetabek dan 3-7 hari kerja untuk kota-kota lain di Indonesia. Keterlambatan oleh pihak ekspedisi berada di luar tanggung jawab kami.</p>
+                <p data-lang-key="shipping_p3"><strong>Biaya Kirim & Pelacakan:</strong> Biaya pengiriman akan diinformasikan oleh admin kami melalui WhatsApp. Nomor resi pelacakan juga akan diberikan setelah paket dikirim agar Anda dapat melacak status pengiriman Anda.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="return-policy-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="policy_title_return">Kebijakan Pengembalian</h3>
+            <div class="policy-content">
+                <p data-lang-key="return_p1">Kepuasan Anda adalah prioritas kami. Kami menerima pengembalian produk dengan ketentuan sebagai berikut:</p>
+                <p data-lang-key="return_p2"><strong>Kondisi:</strong> Produk hanya dapat dikembalikan jika ada cacat produksi atau kesalahan pengiriman dari pihak kami (salah ukuran atau salah produk).</p>
+                <p data-lang-key="return_p3"><strong>Batas Waktu:</strong> Klaim pengembalian harus diajukan maksimal 3 hari setelah barang diterima, dengan menyertakan video unboxing sebagai bukti.</p>
+                <p data-lang-key="return_p4"><strong>Proses:</strong> Silakan hubungi admin kami melalui WhatsApp untuk memulai proses pengembalian. Produk pengganti akan kami kirim setelah produk yang dikembalikan kami terima dan periksa. Kami tidak melayani pengembalian dana (refund).</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="tracking-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="tracking-header">
+            <h3>Lacak Status Pesanan</h3>
+            <p>ID Pesanan: <strong id="tracking-order-id"></strong></p>
+        </div>
+        <div id="tracking-timeline-container" class="tracking-timeline">
+            </div>
+    </div>
+</div>
+    
+    <div id="return-request-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Ajukan Pengembalian Barang</h3>
+            <p>ID Pesanan: <strong id="return-order-id"></strong></p>
+            
+            <form id="return-form">
+                <div class="form-group">
+                    <label>Pilih produk yang ingin dikembalikan:</label>
+                    <div id="return-product-list" class="return-product-selection">
+                        </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="return-reason">Alasan Pengembalian:</label>
+                    <select id="return-reason" class="form-input" required>
+                        <option value="" disabled selected>-- Pilih Alasan --</option>
+                        <option value="cacat_produksi">Ada cacat produksi</option>
+                        <option value="salah_ukuran">Barang tidak sesuai ukuran </option>
+                        <option value="salah_produk">Salah produk yang dikirim</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Unggah foto/video bukti (wajib):</label>
+                    <label for="return-proof-upload" class="file-upload-label">
+                        <i class="fas fa-paperclip"></i> Pilih File
+                    </label>
+                    <input type="file" id="return-proof-upload" class="file-upload-input">
+                    <span id="return-file-name" class="file-name-display"></span>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="submit" id="submit-return-request-btn" class="btn btn-primary">Kirim Permintaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <div id="return-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div class="confirmation-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Konfirmasi Kebijakan Pengembalian</h3>
+            <p class="confirmation-message">
+                Sesuai kebijakan, barang yang memenuhi syarat hanya akan <strong>diganti dengan produk baru</strong>. Kami tidak melayani pengembalian dana (refund).
+            </p>
+            <p class="confirmation-question">
+                Apakah Anda ingin melanjutkan?
+            </p>
+            <div class="modal-actions">
+                <button id="confirm-return-cancel" class="btn btn-secondary">Kembali</button>
+                <button id="confirm-return-continue" class="btn btn-primary">Lanjut</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Live Chat Modal -->
+    <div id="live-chat-modal" class="modal">
+        <div class="modal-content live-chat-content">
+            <div class="live-chat-header">
+                <h3><i class="fas fa-comments"></i> Live Chat Support</h3>
+                <span class="close-button">&times;</span>
+            </div>
+            
+            <div class="live-chat-body">
+                <div class="chat-tabs">
+                    <button class="chat-tab-btn active" data-tab="faq">
+                        <i class="fas fa-question-circle"></i> FAQ
+                    </button>
+                    <button class="chat-tab-btn" data-tab="admin">
+                        <i class="fab fa-whatsapp"></i> Hubungi Admin
+                    </button>
+                </div>
+                
+                <div class="chat-content">
+                    <!-- FAQ Tab -->
+                    <div class="chat-tab-content active" data-tab="faq">
+                        <div class="faq-search">
+                            <input type="text" id="faq-search" placeholder="Cari pertanyaan..." class="faq-search-input">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        
+                        <div class="faq-list">
+                            <div class="faq-item-chat" data-keywords="pesan order beli checkout">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Bagaimana cara memesan produk?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Untuk memesan, cukup tambahkan produk ke keranjang, lanjutkan ke checkout, isi informasi Anda, lalu klik tombol 'Buat Pesanan via WhatsApp'. Anda akan diarahkan ke WhatsApp dengan pesan otomatis yang sudah kami siapkan untuk menyelesaikan pesanan dengan admin kami.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item-chat" data-keywords="bahan material katun kualitas">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-tshirt"></i>
+                                    <span>Terbuat dari bahan apa T-shirt ini?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Semua T-shirt kami terbuat dari bahan katun premium berkualitas tinggi yang lembut, adem, dan nyaman dipakai sepanjang hari. Kami menjamin kualitas bahan dan sablon terbaik.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item-chat" data-keywords="ukuran size panduan guide">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-ruler-horizontal"></i>
+                                    <span>Bagaimana cara menentukan ukuran yang pas?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Kami menyediakan 'Panduan Ukuran' detail di setiap halaman produk. Cukup klik tombol 'Panduan Ukuran' untuk melihat tabel ukuran lengkap (panjang, lebar, dan panjang lengan) dalam centimeter untuk membantu Anda memilih ukuran yang paling tepat.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item-chat" data-keywords="pembayaran bayar transfer bank gopay ovo">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Apa saja metode pembayaran yang tersedia?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Saat ini kami menerima pembayaran melalui transfer bank (BCA, Mandiri) dan dompet digital (GoPay, OVO). Anda dapat memilih metode yang paling nyaman bagi Anda pada langkah checkout.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item-chat" data-keywords="pengiriman kirim lama estimasi waktu">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-shipping-fast"></i>
+                                    <span>Berapa lama proses pengiriman?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Estimasi waktu pengiriman tergantung pada lokasi Anda dan ekspedisi yang dipilih. Untuk area Jabodetabek, biasanya memakan waktu 1-3 hari kerja. Untuk luar Jabodetabek, estimasi 3-7 hari kerja. Nomor resi akan kami informasikan melalui WhatsApp setelah pesanan dikirim.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="faq-item-chat" data-keywords="return retur pengembalian tukar">
+                                <div class="faq-question-chat">
+                                    <i class="fas fa-undo-alt"></i>
+                                    <span>Bagaimana kebijakan pengembalian barang?</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <div class="faq-answer-chat">
+                                    <p>Kami menerima pengembalian produk jika ada cacat produksi atau kesalahan pengiriman dari pihak kami. Klaim harus diajukan maksimal 3 hari setelah barang diterima dengan menyertakan video unboxing. Produk akan diganti dengan yang baru, kami tidak melayani refund.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-not-found" style="display: none;">
+                            <div class="not-found-content">
+                                <i class="fas fa-search"></i>
+                                <p>Tidak menemukan jawaban yang Anda cari?</p>
+                                <button class="btn btn-primary" id="contact-admin-from-faq">
+                                    <i class="fab fa-whatsapp"></i> Hubungi Admin
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Admin Contact Tab -->
+                    <div class="chat-tab-content" data-tab="admin">
+                        <div class="admin-contact-info">
+                            <div class="admin-avatar">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h4>Customer Service Luxuliver</h4>
+                            <p>Siap membantu Anda 24/7</p>
+                        </div>
+                        
+                        <div class="contact-options">
+                            <div class="contact-option whatsapp-option">
+                                <div class="contact-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h5>WhatsApp</h5>
+                                    <p>Respon cepat dalam hitungan menit</p>
+                                    <button class="btn btn-success" id="whatsapp-admin-btn">
+                                        <i class="fab fa-whatsapp"></i> Chat Sekarang
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-option email-option">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h5>Email</h5>
+                                    <p>luxuliver@gmail.com</p>
+                                    <button class="btn btn-secondary" id="email-admin-btn">
+                                        <i class="fas fa-envelope"></i> Kirim Email
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="quick-contact-form">
+                            <h5>Kirim Pesan Cepat</h5>
+                            <form id="quick-contact-form">
+                                <div class="form-group">
+                                    <input type="text" id="quick-name" placeholder="Nama Anda" required>
+                                </div>
+                                <div class="form-group">
+                                    <select id="quick-topic" required>
+                                        <option value="">Pilih Topik</option>
+                                        <option value="order">Pertanyaan Pesanan</option>
+                                        <option value="product">Informasi Produk</option>
+                                        <option value="shipping">Pengiriman</option>
+                                        <option value="return">Pengembalian</option>
+                                        <option value="other">Lainnya</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="quick-message" placeholder="Pesan Anda..." rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="comparison-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 data-lang-key="comparison_title">Perbandingan Produk</h3>
+        <div id="comparison-table-container" class="comparison-table-container">
+            </div>
+    </div>
+</div>
+
+ <div id="a11y-panel" class="a11y-panel">
+    <div class="a11y-panel-header">
+        <h4>Pengaturan Tampilan & Aksesibilitas</h4>
+        <button id="a11y-panel-close-btn" class="a11y-panel-close-btn" title="Tutup">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Ukuran Teks</span>
+        <div class="a11y-controls">
+            <button data-action="font-decrease" title="Perkecil Teks">A-</button>
+            <button data-action="font-reset" title="Reset Ukuran Teks">A</button>
+            <button data-action="font-increase" title="Perbesar Teks">A+</button>
+        </div>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Teks Mudah Dibaca</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-readable-font">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Kontras Tinggi</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-contrast">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Garis Bawahi Tautan</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-underline-links">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="a11y-option">
+        <span class="a11y-label">Kurangi Gerakan</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-reduce-motion">
+            <span class="slider round"></span>
+        </label>
+    </div>
+    
+    <div class="a11y-option">
+        <span class="a11y-label">Pemandu Baca</span>
+        <label class="switch">
+            <input type="checkbox" data-action="toggle-reading-guide">
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>
+
+ <div id="specs-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="specs_title">Spesifikasi & Kualitas Produk</h3>
+            <div class="policy-content" id="specs-content">
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-tshirt"></i></div>
+                    <div class="spec-details">
+                        <h4 data-lang-key="specs_fabric_title">Kain Premium</h4>
+                        <p data-lang-key="specs_fabric_desc">Kami menggunakan bahan Cotton Combed 24s berkualitas tinggi yang terasa lembut, sejuk di kulit, dan menyerap keringat dengan baik. Ideal untuk kenyamanan sepanjang hari di iklim tropis.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-palette"></i></div>
+                    <div class="spec-details">
+                        <h4 data-lang-key="specs_print_title">Sablon Tahan Lama</h4>
+                        <p data-lang-key="specs_print_desc">Desain kami diaplikasikan menggunakan teknologi sablon Direct to Film (DTF) modern, menghasilkan gambar yang tajam, warna yang cerah, dan daya rekat yang kuat sehingga tidak mudah retak atau luntur setelah dicuci berkali-kali.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-cut"></i></div>
+                    <div class="spec-details">
+                        <h4 data-lang-key="specs_stitching_title">Jahitan Presisi</h4>
+                        <p data-lang-key="specs_stitching_desc">Setiap kaos dijahit dengan standar presisi tinggi, termasuk jahitan rantai di bagian pundak dan jahitan overdeck yang rapi, memastikan kekuatan dan daya tahan produk untuk penggunaan jangka panjang.</p>
+                    </div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-ruler-combined"></i></div>
+                    <div class="spec-details">
+                        <h4 data-lang-key="specs_fit_title">Potongan Regular Fit</h4>
+                        <p data-lang-key="specs_fit_desc">Dengan potongan Regular Fit yang telah teruji, kaos kami memberikan keseimbangan sempurna antara gaya dan kenyamanan, tidak terlalu ketat dan tidak terlalu longgar, cocok untuk berbagai bentuk tubuh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <div id="guarantee-modal" class="modal policy-modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 data-lang-key="guarantee_title">Jaminan Kualitas Luxuliver</h3>
+        <div class="policy-content">
+            <div class="spec-item">
+                <div class="spec-icon"><i class="fas fa-box-open"></i></div>
+                <div class="spec-details">
+                    <h4 data-lang-key="guarantee_return_title">Bebas Pengembalian Produk Cacat</h4>
+                    <p data-lang-key="guarantee_return_desc">Kepuasan Anda adalah prioritas kami. Jika Anda menerima produk dengan cacat produksi atau kesalahan pengiriman dari pihak kami (contoh: salah ukuran atau desain), kami akan menggantinya dengan produk yang baru. Klaim harus diajukan maksimal 3 hari setelah barang diterima dengan menyertakan video unboxing sebagai bukti.</p>
+                </div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="spec-details">
+                    <h4 data-lang-key="guarantee_refund_title">Kebijakan Non-Refund</h4>
+                    <p data-lang-key="guarantee_refund_desc">Untuk menjaga kualitas dan efisiensi operasional, kami tidak melayani pengembalian dalam bentuk uang (refund). Semua produk yang memenuhi syarat pengembalian akan diganti dengan produk baru yang sesuai.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="guarantee-modal" class="modal policy-modal">
+    </div>
+
+<div id="auth-modal" class="modal">
+    <div class="modal-content auth-modal-content">
+        <span class="close-button">&times;</span>
+        <div class="auth-tabs">
+            <button class="auth-tab-btn active" data-tab="login" data-lang-key="auth_tab_login">Login</button>
+            <button class="auth-tab-btn" data-tab="register" data-lang-key="auth_tab_register">Daftar Akun</button>
+        </div>
+
+        <div id="login-tab-content" class="auth-tab-content active">
+            <form id="login-form">
+    <h3 data-lang-key="login_title">Masuk ke Akun Anda</h3>
+    <div class="luxury-form-group">
+        <i class="form-icon fab fa-whatsapp"></i>
+        <input type="tel" id="login-phone" class="form-input" placeholder=" " required>
+        <label for="login-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
+    </div>
+    <div class="luxury-form-group">
+        <i class="form-icon fas fa-lock"></i>
+        <input type="password" id="login-password" class="form-input" placeholder=" " required>
+        <label for="login-password" class="form-label" data-lang-key="label_password">Password</label>
+    </div>
+
+    <div class="form-extra-links">
+        <a href="#" id="forgot-password-link" data-lang-key="forgot_password_link">Lupa Password?</a>
+    </div>
+    
+    <p id="login-error-msg" class="auth-error-msg"></p>
+    <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_login">Login</button>
+</form>
+        </div>
+
+        <div id="register-tab-content" class="auth-tab-content">
+            <form id="register-form">
+                <h3 data-lang-key="register_title">Buat Akun Baru</h3>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-user"></i>
+                    <input type="text" id="register-name" class="form-input" placeholder=" " required>
+                    <label for="register-name" class="form-label" data-lang-key="label_fullname">Nama Lengkap</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fab fa-whatsapp"></i>
+                    <input type="tel" id="register-phone" class="form-input" placeholder=" " required>
+                    <label for="register-phone" class="form-label" data-lang-key="label_whatsapp">Nomor WhatsApp</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-map-marker-alt"></i>
+                    <textarea id="register-address" class="form-input" placeholder=" " rows="3" required></textarea>
+                    <label for="register-address" class="form-label" data-lang-key="label_address">Alamat Lengkap</label>
+                </div>
+                <div class="luxury-form-group">
+                    <i class="form-icon fas fa-lock"></i>
+                    <input type="password" id="register-password" class="form-input" placeholder=" " required>
+                    <label for="register-password" class="form-label" data-lang-key="label_password">Password</label>
+                </div>
+                <p id="register-error-msg" class="auth-error-msg"></p>
+                <button type="submit" class="btn btn-primary" data-lang-key="auth_tab_register">Daftar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+ <div id="forgot-password-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px; text-align: center;">
+        <span class="close-button">&times;</span>
+        <div class="forgot-password-content">
+            <i class="fas fa-exclamation-triangle forgot-password-icon warning"></i>
+            <h3 data-lang-key="reset_account_title">Proses Reset Akun</h3>
+            <p data-lang-key="reset_account_desc">Karena data akun tersimpan secara lokal di browser, satu-satunya cara untuk mengatasi lupa password adalah dengan mereset data website di browser Anda, lalu mendaftar ulang.</p>
+            
+            <div class="warning-box">
+                <strong data-lang-key="reset_account_warning_title">PERINGATAN PENTING</strong>
+                <p data-lang-key="reset_account_warning_desc">Tindakan ini akan **menghapus semua data Anda** yang tersimpan di browser ini, termasuk riwayat pesanan dan daftar favorit. Data tidak dapat dikembalikan.</p>
+            </div>
+            
+            <button id="understand-reset-btn" class="btn btn-secondary" data-lang-key="reset_account_understand_btn">Saya Mengerti</button>
+        </div>
+    </div>
+</div>
+
+  <div id="profile-modal" class="modal">
+    <div class="modal-content profile-modal-content">
+        <span class="close-button">&times;</span>
+        <div class="profile-header">
+            <div class="profile-header-icon"><i class="fas fa-user-shield"></i></div>
+            <div class="profile-header-text">
+                <h3 class="profile-title" data-lang-key="profile_title">Akun Saya</h3>
+                <p class="profile-subtitle" data-lang-key="profile_manage_account">Kelola informasi akun dan keamanan Anda</p>
+            </div>
+        </div>
+        <div class="profile-body">
+            <div class="profile-info-section">
+                <h4 class="profile-section-title" data-lang-key="profile_info_subtitle">Informasi Personal</h4>
+                <form id="profile-info-form">
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-user-circle"></i>
+                        <input type="text" id="profile-name" class="form-input" placeholder=" " required>
+                        <label for="profile-name" class="form-label" data-lang-key="label_fullname">Nama Lengkap</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-map-marked-alt"></i>
+                        <textarea id="profile-address" class="form-input" placeholder=" " rows="4" required></textarea>
+                        <label for="profile-address" class="form-label" data-lang-key="label_address">Alamat Lengkap</label>
+                    </div>
+                    <p id="profile-info-error-msg" class="auth-error-msg"></p>
+                    <button type="submit" class="btn btn-primary profile-action-btn" data-lang-key="profile_save_changes">Simpan Perubahan</button>
+                </form>
+            </div>
+
+            <hr class="profile-divider">
+
+            <div class="profile-security-section">
+                <h4 class="profile-section-title" data-lang-key="profile_password_subtitle">Keamanan Akun</h4>
+                <form id="change-password-form">
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-key"></i>
+                        <input type="password" id="old-password" class="form-input" placeholder=" " required>
+                        <label for="old-password" class="form-label" data-lang-key="label_old_password">Password Lama</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-lock"></i>
+                        <input type="password" id="new-password" class="form-input" placeholder=" " required>
+                        <label for="new-password" class="form-label" data-lang-key="label_new_password">Password Baru</label>
+                    </div>
+                    <div class="luxury-form-group">
+                        <i class="form-icon fas fa-check-double"></i>
+                        <input type="password" id="confirm-new-password" class="form-input" placeholder=" " required>
+                        <label for="confirm-new-password" class="form-label" data-lang-key="label_confirm_password">Konfirmasi Password Baru</label>
+                    </div>
+                    <p id="change-password-error-msg" class="auth-error-msg"></p>
+                    <button type="submit" class="btn btn-secondary profile-action-btn" data-lang-key="profile_change_password">Ubah Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div id="follow-us-modal" class="modal">
+    <div class="modal-content follow-us-modal-content">
+        <span class="close-button">&times;</span>
+        <h3>Ikuti Kami</h3>
+        <p>Dapatkan update terbaru koleksi dan promo eksklusif kami.</p>
+        <div class="follow-us-grid">
+            <a href="https://www.instagram.com/luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.tiktok.com/@luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card tiktok">
+                <i class="fab fa-tiktok"></i>
+                <span>TikTok</span>
+            </a>
+            <a href="https://x.com/Luxuliver" target="_blank" rel="noopener noreferrer" class="follow-us-link-card x">
+                <i class="fab fa-x-twitter"></i>
+                <span>X (Twitter)</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+ <div id="photo-gallery-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 data-lang-key="photo_gallery_title">Galeri Foto Koleksi</h3>
+            <p data-lang-key="photo_gallery_subtitle">Setiap detail, tertangkap dalam sebuah gambar.</p>
+            <div id="photo-gallery-grid" class="photo-grid">
+                </div>
+     </div>
+</div>
+
+ <div id="shipping-discount-modal" class="modal">
+    <div class="modal-content" style="max-width: 800px;">
+        <span class="close-button">&times;</span>
+        <div class="shipping-discount-header">
+            <i class="fas fa-shipping-fast"></i>
+            <h3>Diskon Pengiriman Eksklusif</h3>
+            <p>Hemat lebih banyak untuk pengiriman ke kota-kota pilihan kami!</p>
+        </div>
+        <div id="shipping-discount-list" class="shipping-discount-grid">
+            </div>
+    </div>
+</div>
+
+<div id="tour-overlay" style="display: none;">
+    <div id="tour-highlight-box"></div>
+    <div id="tour-tooltip">
+        <div id="tour-header">
+            <h4 id="tour-title"></h4>
+            <button id="tour-skip-btn" title="Lewati Tur">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="tour-tooltip-content">
+            <p id="tour-intro"></p>
+        </div>
+        <div id="tour-navigation">
+            <span id="tour-step-counter"></span>
+            <div class="tour-nav-buttons">
+                <button id="tour-prev-btn" class="btn btn-secondary btn-sm">Sebelumnya</button>
+                <button id="tour-next-btn" class="btn btn-primary btn-sm">Lanjut</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="reading-guide"></div>
+
+ <div id="thank-you-modal" class="modal">
+    <div class="modal-content thank-you-content">
+        <div class="thank-you-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <h3 id="thank-you-title">Sebuah Pilihan yang Berkelas</h3>
+        <p id="thank-you-message" class="main-message">
+            Kami merasa terhormat atas kepercayaan yang Anda berikan kepada Luxuliver. Pesanan Anda telah berhasil dikonfirmasi dan kini menjadi prioritas kami.
+        </p>
+        <p class="next-step-message">
+            Tim admin kami akan segera merespons Anda melalui WhatsApp untuk secepatnya.
+        </p>
+        <p class="closing-message">
+            Bersiaplah untuk merasakan gaya dan kenyamanan yang akan meningkatkan kepercayaan diri Anda.
+        </p>
+        <div class="modal-actions">
+            <button id="thank-you-history-btn" class="btn btn-secondary">
+                <i class="fas fa-history"></i> Lihat Riwayat Pesanan
+            </button>
+            <button id="thank-you-continue-btn" class="btn btn-primary">
+                <i class="fas fa-tshirt"></i> Lanjutkan Belanja
+            </button>
+        </div>
+    </div>
+</div>
+
+ <div id="theme-customizer-modal" class="modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <span class="close-button">&times;</span>
+        <h3>Panel Kustomisasi Tampilan</h3>
+        <p style="text-align:center; margin-top:-1rem; margin-bottom:2rem;">Pilih skema warna sesuai selera Anda. Perubahan akan terlihat secara langsung.</p>
+
+        <div id="theme-controls-container">
+            <div class="theme-control">
+                <label for="primary-color-picker">Warna Utama (Tombol & Aksen)</label>
+                <input type="color" id="primary-color-picker" data-variable="--primary-color">
+            </div>
+            <div class="theme-control">
+                <label for="background-color-picker">Warna Latar</label>
+                <input type="color" id="background-color-picker" data-variable="--background-color">
+            </div>
+            <div class="theme-control">
+                <label for="surface-color-picker">Warna Permukaan (Kartu)</label>
+                <input type="color" id="surface-color-picker" data-variable="--surface-color">
+            </div>
+            <div class="theme-control">
+                <label for="text-color-picker">Warna Teks</label>
+                <input type="color" id="text-color-picker" data-variable="--text-color">
+            </div>
+        </div>
+
+        <div class="theme-actions">
+            <button id="reset-theme-btn" class="btn btn-secondary">Reset ke Default</button>
+            <button id="save-theme-btn" class="btn btn-primary">Simpan Tema</button>
+        </div>
+    </div>
+</div>
+
+<div id="upsell-confirm-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+        <span class="close-button">&times;</span>
+        <div class="modal-icon" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h3>Tunggu Sebentar!</h3>
+        <p id="upsell-modal-message" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;"></p>
+        <div class="modal-actions" style="display: flex; gap: 1rem;">
+            <button id="upsell-back-btn" class="btn btn-secondary" style="flex: 1;">Kembali Belanja</button>
+            <button id="upsell-proceed-btn" class="btn btn-primary" style="flex: 1;">Ya, Lanjutkan Saja</button>
+        </div>
+    </div>
+</div>
+
+<div id="custom-package-modal" class="modal">
+    <div class="modal-content" style="max-width: 950px; text-align: center;">
+        <span class="close-button">&times;</span>
+
+        <div id="pk-step-1" class="pk-step active">
+            <h3>Buat Paket Kustom Anda</h3>
+            <p>Pilih jumlah produk yang ingin Anda masukkan ke dalam paket.</p>
+            <div class="pk-type-selection">
+                <button class="pk-type-btn" data-count="2">
+                    <i class="fas fa-box"></i>
+                    <span>Paket 2 Produk</span>
+                    <strong>Rp 190.000</strong>
+                </button>
+                <button class="pk-type-btn" data-count="3">
+                    <i class="fas fa-boxes"></i>
+                    <span>Paket 3 Produk</span>
+                    <strong>Rp 285.000</strong>
+                </button>
+                <button class="pk-type-btn" data-count="4">
+                    <i class="fas fa-dolly-flatbed"></i>
+                    <span>Paket 4 Produk</span>
+                    <strong>Rp 380.000</strong>
+                </button>
+            </div>
+        </div>
+
+        <div id="pk-step-2" class="pk-step">
+            <h3 id="pk-step-2-title">Pilih Produk 1 dari X</h3>
+            <div id="pk-product-selection-grid" class="product-grid">
+                </div>
+            <div class="pk-navigation">
+                <p class="pk-price-display">Total: <strong>Rp 0</strong></p>
+                <button id="pk-add-to-cart-btn" class="btn btn-primary" disabled>
+                    <i class="fas fa-cart-plus"></i> Tambah Paket ke Keranjang
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div id="pk-size-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+        <span class="close-button">&times;</span>
+        <div id="pk-size-modal-content">
+            </div>
+    </div>
+</div>
+
+<script src="product.js"></script>
+<script src="translations.js"></script>
+<script src="maps.js"></script>
+<script src="mode-fokus.js"></script>
+<script src="theme.js"></script>
+<script src="ui.js"></script>
+<script src="bundle.js"></script>
+<script src="navigation-patch.js"></script>
+<script src="kustom.js"></script>
+<script src="flash-sale.js"></script>
+<script src="product-activity.js"></script>
+<script src="live-filter.js"></script>
+<script src="automatic-theme.js"></script>
+<script src="script.js"></script>
+  </body>
+</html>

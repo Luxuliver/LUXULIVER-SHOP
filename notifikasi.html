@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Notifikasi - Luxuliver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="essentials.css">
+    <link rel="stylesheet" href="artikel.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .notification-page-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+
+        .featured-notification {
+            color: #fff;
+            background-color: #333;
+            background-size: cover;
+            background-position: center;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: flex-end;
+            min-height: 350px;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+            text-decoration: none;
+            position: relative;
+        }
+        .featured-notification::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 70%);
+        }
+        .featured-content {
+            position: relative;
+            z-index: 2;
+            padding: 2.5rem;
+            max-width: 700px;
+        }
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: var(--primary-btn-text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .featured-content h2 {
+            font-family: var(--font-family-headings);
+            font-size: 2.5rem;
+            line-height: 1.3;
+            color: #fff;
+            text-align: left;
+            margin: 0 0 1rem 0;
+            padding: 0;
+            border: none;
+        }
+        .featured-content h2::after { display: none; }
+        .featured-content p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.85);
+            margin: 0;
+        }
+
+        .notification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        .notification-card-page {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 25px -10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .notification-card-page:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card-icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+        .card-icon.promo { background-color: rgba(108, 117, 125, 0.1); color: #6c757d; }
+        .card-icon.info { background-color: rgba(198, 168, 116, 0.1); color: var(--accent-color); }
+
+        .card-header-text h3 {
+            font-size: 1.3rem;
+            margin: 0 0 0.25rem 0;
+            line-height: 1.4;
+        }
+        .card-header-text .timestamp {
+            font-size: 0.85rem;
+            color: var(--light-text);
+        }
+
+        .card-body p {
+            font-size: 1rem;
+            color: var(--light-text);
+            margin: 0 0 1.5rem 0;
+            flex-grow: 1;
+        }
+        .card-footer { margin-top: auto; }
+
+        #notification-detail-modal .modal-content { max-width: 700px; }
+        .notification-detail-header {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .notification-detail-header .card-icon { margin: 0; }
+        .notification-detail-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+        .notification-detail-body p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--light-text);
+        }
+    </style>
+</head>
+<body class="artikel-page">
+
+    <header class="artikel-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <a href="index.html" class="btn-essentials-toko">
+                <i class="fas fa-home"></i>
+                <span>Kembali ke Beranda</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="notification-page-container">
+            <div class="article-title-header">
+                <h2>Pusat Notifikasi</h2>
+                <p style="font-size: 1.2rem; color: var(--light-text); margin-top: -1rem;">
+                    Semua info terbaru, promo, dan pengumuman penting dari kami.
+                </p>
+            </div>
+            
+            <div id="featured-notification-container"></div>
+            
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all">Semua</button>
+                <button class="filter-btn" data-filter="info">Info</button>
+                <button class="filter-btn" data-filter="promo">Promo</button>
+            </div>
+            
+            <div id="notification-grid" class="notification-grid"></div>
+            
+            <p id="empty-notification-message" class="info-message" style="display: none; margin-top: 3rem;">
+                Tidak ada notifikasi dalam kategori ini.
+            </p>
+        </div>
+    </main>
+    
+    <!-- Modal -->
+    <div id="notification-detail-modal" class="modal policy-modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <div id="notification-detail-content"></div>
+        </div>
+    </div>
+
+    <script src="product.js"></script>
+    <script src="translations.js"></script>
+    <script src="automatic-theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const featuredContainer = document.getElementById('featured-notification-container');
+            const gridContainer = document.getElementById('notification-grid');
+            const emptyMessage = document.getElementById('empty-notification-message');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const detailModal = document.getElementById('notification-detail-modal');
+            const detailModalContent = document.getElementById('notification-detail-content');
+
+            const allNotifications = [...notificationsData].sort(
+                (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+            );
+            
+            const formatTimestamp = (isoString) => 
+                new Date(isoString).toLocaleDateString('id-ID', { 
+                    day: 'numeric', 
+                    month: 'long', 
+                    year: 'numeric' 
+                });
+
+            const openModal = (modalElement) => {
+                modalElement.classList.add('show');
+                document.body.classList.add('no-scroll');
+            };
+            const closeModal = (modalElement) => {
+                modalElement.classList.remove('show');
+                document.body.classList.remove('no-scroll');
+            };
+
+            const openNotificationDetail = (notifId) => {
+                const notif = allNotifications.find(n => n.id === notifId);
+                if (!notif) return;
+                
+                const currentLang = 'id';
+                const titleText = translations[currentLang][notif.title] || notif.title;
+                const fullDescText = translations[currentLang][notif.desc_full] || "Deskripsi tidak tersedia.";
+
+                detailModalContent.innerHTML = `
+                    <div class="notification-detail-header">
+                        <div class="card-icon ${notif.category}">
+                            <i class="${notif.icon}"></i>
+                        </div>
+                        <h3>${titleText}</h3>
+                    </div>
+                    <div class="notification-detail-body">
+                        <p>${fullDescText}</p>
+                    </div>
+                `;
+                openModal(detailModal);
+            };
+
+            const renderNotifications = (filter = 'all') => {
+                const featuredNotif = allNotifications.length > 0 ? allNotifications[0] : null;
+                
+                if (featuredNotif) {
+                    const currentLang = 'id';
+                    const titleText = translations[currentLang][featuredNotif.title];
+                    const shortDescText = translations[currentLang][featuredNotif.desc_short];
+                    const categoryText = featuredNotif.category.charAt(0).toUpperCase() + featuredNotif.category.slice(1);
+                    const bgImage = featuredNotif.category === 'promo' ? 'hitam.jpg' : 'hitam.jpg';
+
+                    featuredContainer.innerHTML = `
+                        <div class="featured-notification" style="background-image: url('${bgImage}')">
+                            <div class="featured-content">
+                                <span class="featured-badge">${categoryText}</span>
+                                <h2>${titleText}</h2>
+                                <p>${shortDescText}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const notificationsForGrid = allNotifications.slice(1);
+                const filtered = filter === 'all' 
+                    ? notificationsForGrid 
+                    : notificationsForGrid.filter(n => n.category === filter);
+
+                gridContainer.innerHTML = '';
+                emptyMessage.style.display = filtered.length === 0 ? 'block' : 'none';
+
+                filtered.forEach(notif => {
+                    const currentLang = 'id';
+                    const titleText = translations[currentLang][notif.title];
+                    const shortDescText = translations[currentLang][notif.desc_short];
+                    
+                    const card = document.createElement('div');
+                    card.className = 'notification-card-page';
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <div class="card-icon ${notif.category}"> 
+                                <i class="${notif.icon}"></i> 
+                            </div>
+                            <div class="card-header-text">
+                                <h3>${titleText}</h3>
+                                <span class="timestamp">${formatTimestamp(notif.timestamp)}</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <p>${shortDescText}</p>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-secondary lihat-detail-btn" data-notif-id="${notif.id}">
+                                Lihat Detail
+                            </button>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+            };
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    renderNotifications(button.dataset.filter);
+                });
+            });
+
+            gridContainer.addEventListener('click', (e) => {
+                const detailButton = e.target.closest('.lihat-detail-btn');
+                if (detailButton) {
+                    const notifId = detailButton.dataset.notifId;
+                    openNotificationDetail(notifId);
+                }
+            });
+
+            detailModal.addEventListener('click', (e) => {
+                if (e.target === detailModal || e.target.closest('.close-button')) {
+                    closeModal(detailModal);
+                }
+            });
+
+            renderNotifications();
+        });
+    </script>
+</body>
+</html>
