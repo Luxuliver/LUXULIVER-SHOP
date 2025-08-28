@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Highlight Galeri - Luxuliver</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="highlight.css">
+</head>
+<body class="highlight-page">
+
+    <header class="highlight-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <a href="index.html#koleksi" class="btn-back-to-shop">
+                <i class="fas fa-tshirt"></i>
+                <span>Kembali ke Toko</span>
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <div class="highlight-container">
+            <h2>Highlight Galeri</h2>
+            <p>Jelajahi konten visual terbaik kami, dari video sinematik hingga detail foto produk yang menawan.</p>
+
+            <div class="hero-slider-container">
+                <div class="hero-slider-wrapper">
+                    </div>
+                <button class="slider-nav" id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-nav" id="next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+
+            <div class="highlight-tabs">
+                <button class="tab-btn active" data-target="video-content"><i class="fas fa-film"></i> Galeri Video</button>
+                <button class="tab-btn" data-target="foto-content"><i class="fas fa-camera"></i> Galeri Foto</button>
+                <span class="active-tab-indicator"></span>
+            </div>
+
+            <div class="highlight-content">
+                <div id="video-content" class="tab-pane active">
+                    <div id="video-gallery-grid" class="video-grid"></div>
+                </div>
+
+                <div id="foto-content" class="tab-pane">
+                    <div id="photo-gallery-grid" class="photo-grid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="highlight-footer">
+        <p>&copy; <span id="current-year">2025</span> Luxuliver. Semua Hak Cipta Dilindungi.</p>
+    </footer>
+    
+<script>
+    const heroSliderData = [
+        { imgSrc: 'slider1.jpg', title: 'Koleksi Elegan Musim Ini', description: 'Temukan perpaduan sempurna antara gaya klasik dan modern.' },
+        { imgSrc: 'slider2.jpg', title: 'Detail Jahitan Presisi', description: 'Setiap produk dibuat dengan ketelitian untuk kualitas terbaik.' },
+        { imgSrc: 'slider3.jpg', title: 'Gaya Urban Dinamis', description: 'Tampil menonjol di setiap kesempatan dengan koleksi urban kami.' }
+    ];
+
+    const videoGalleryData = [
+        { pageUrl: 'video-classy-detail.html', thumbnailSrc: 'Coming.jpg', videoSrc: 'Coming.mp4', title: 'Classy in Motion', description: 'Lihat bagaimana keanggunan koleksi Classy kami.' },
+        { pageUrl: 'video-abstrak-detail.html', thumbnailSrc: 'Coming.jpg', videoSrc: 'Coming.m4', title: 'Abstrak Dynamics', description: 'Ekspresi gaya yang berani dan artistik.' },
+        { pageUrl: 'video-basic-detail.html', thumbnailSrc: 'Coming.jpg', videoSrc: 'Coming.mp4', title: 'Basic Essentials', description: 'Kenyamanan dan gaya minimalis sehari-hari.' }
+    ];
+
+    const photoGalleryData = [
+        { pageUrl: 'foto-classy-detail.html', src: 'Coming.jpg', title: 'Classy Design', description: 'Menonjolkan keanggunan abadi.' },
+        { pageUrl: 'foto-abstrak-detail.html', src: 'Coming.jpg', title: 'Abstrak Design', description: 'Ekspresi seni yang berani.' },
+        { pageUrl: 'foto-basic-detail.html', src: 'Coming.jpg', title: 'Basic Design', description: 'Kenyamanan dan kesederhanaan.' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanes = document.querySelectorAll('.tab-pane');
+        const tabIndicator = document.querySelector('.active-tab-indicator');
+        function moveIndicator(targetButton) {
+            tabIndicator.style.left = `${targetButton.offsetLeft}px`;
+            tabIndicator.style.width = `${targetButton.offsetWidth}px`;
+        }
+        moveIndicator(document.querySelector('.tab-btn.active'));
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                moveIndicator(button);
+                const targetId = button.dataset.target;
+                tabPanes.forEach(pane => pane.classList.toggle('active', pane.id === targetId));
+            });
+        });
+        
+        const sliderWrapper = document.querySelector('.hero-slider-wrapper');
+        const prevButton = document.getElementById('prev-slide');
+        const nextButton = document.getElementById('next-slide');
+        
+        let sliderHTML = '';
+        heroSliderData.forEach(slide => {
+            sliderHTML += `
+                <div class="hero-slide">
+                    <img src="${slide.imgSrc}" alt="${slide.title}">
+                    <div class="hero-slide-content">
+                        <h3>${slide.title}</h3>
+                        <p>${slide.description}</p>
+                    </div>
+                </div>
+            `;
+        });
+        sliderWrapper.innerHTML = sliderHTML;
+
+        let currentIndex = 0;
+        const totalSlides = heroSliderData.length;
+        let slideInterval; 
+
+        function goToSlide(index) {
+            sliderWrapper.style.transform = 'translateX(-' + (index * 100) + '%)';
+        }
+
+        function startAutoSlide() {
+            slideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                goToSlide(currentIndex);
+            }, 5000); 
+        }
+
+        function resetAutoSlide() {
+            clearInterval(slideInterval);
+            startAutoSlide();
+        }
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            goToSlide(currentIndex);
+            resetAutoSlide();
+        });
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            goToSlide(currentIndex);
+            resetAutoSlide();
+        });
+        
+        startAutoSlide(); 
+
+        const videoGrid = document.getElementById('video-gallery-grid');
+        let videoGalleryHTML = '';
+        videoGalleryData.forEach(data => {
+            videoGalleryHTML += `
+                <a href="${data.pageUrl}" class="video-card">
+                    <div class="video-card-thumbnail-wrapper">
+                        <img src="${data.thumbnailSrc}" alt="${data.title}" class="video-card-thumbnail">
+                        <div class="play-icon-overlay">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    <div class="video-card-content">
+                        <h4>${data.title}</h4>
+                        <p>${data.description}</p>
+                    </div>
+                </a>
+            `;
+        });
+        videoGrid.innerHTML = videoGalleryHTML;
+
+        const photoGrid = document.getElementById('photo-gallery-grid');
+        let photoGalleryHTML = '';
+        photoGalleryData.forEach(data => {
+            photoGalleryHTML += `
+                <a href="${data.pageUrl}" class="photo-card">
+                    <img src="${data.src}" alt="${data.title}" class="photo-card-image">
+                    <div class="photo-card-content">
+                        <h4>${data.title}</h4>
+                        <p>${data.description}</p>
+                        <span class="read-more-link">Lihat Detail <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            `;
+        });
+        photoGrid.innerHTML = photoGalleryHTML;
+    });
+</script>
+ <script src="automatic-theme.js"></script>
+</body>
+</html>

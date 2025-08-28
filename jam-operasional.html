@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Operasional - Luxuliver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="essentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="essentials-page">
+    <header class="highlight-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <a href="contact.html" class="btn-essentials-kembali"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
+        </div>
+    </header>
+    <main>
+        <div class="essentials-detail-container">
+            <div class="essentials-detail-header">
+                <i class="fas fa-clock"></i>
+                <h2>Jam Operasional & Layanan</h2>
+            </div>
+            <div class="essentials-content-wrapper">
+                
+                <div class="live-status-container">
+                    <span>Status Layanan Admin Saat Ini:</span>
+                    <div id="live-status-indicator" class="status-badge">
+                        <span class="dot"></span>
+                        <span id="live-status-text">Memeriksa...</span>
+                    </div>
+                </div>
+
+                <div class="guarantee-philosophy">
+                    <h3>Waktu Layanan Kami</h3>
+                    <p>Kami berkomitmen untuk memberikan layanan terbaik pada waktu yang telah ditentukan. Berikut adalah panduan jam operasional kami untuk berbagai layanan.</p>
+                </div>
+                <hr class="elegant-divider">
+                
+                <div class="operating-hours-container">
+                    <div class="hours-card">
+                        <div class="hours-icon"><i class="fab fa-whatsapp"></i></div>
+                        <h4>Layanan Admin (WhatsApp)</h4>
+                        <ul>
+                            <li><strong>Senin - Jumat:</strong> 07:00 - 18:00 WIB</li>
+                            <li><strong>Sabtu:</strong> 07:00 - 20:00 WIB</li>
+                            <li><strong>Minggu & Hari Libur:</strong> Tutup</li>
+                            <li><strong>Estimasi Balas:</strong> <span class="response-time">~1-2 Jam (di jam kerja)</span></li>
+                        </ul>
+                    </div>
+                    <div class="hours-card">
+                        <div class="hours-icon"><i class="fas fa-truck"></i></div>
+                        <h4>Proses Pengiriman</h4>
+                        <ul>
+                            <li><strong>Senin - Sabtu:</strong> Pesanan yang dikonfirmasi sebelum jam 14:00 WIB akan dikirim pada hari yang sama.</li>
+                            <li><strong>Setelah jam 14:00 WIB:</strong> Akan dikirim pada hari kerja berikutnya.</li>
+                            <li><strong>Minggu & Hari Libur:</strong> Tidak ada pengiriman.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="elegant-divider">
+                <h3>Kalender Libur Operasional</h3>
+                <div class="holiday-calendar-section">
+                    <div class="holiday-item">
+                        <div class="date-box">
+                            <span class="month">DES</span>
+                            <span class="day">25</span>
+                        </div>
+                        <p>Hari Raya Natal - Semua layanan (Admin & Pengiriman) tutup.</p>
+                    </div>
+                     <div class="holiday-item">
+                        <div class="date-box">
+                            <span class="month">JAN</span>
+                            <span class="day">01</span>
+                        </div>
+                        <p>Tahun Baru 2026 - Semua layanan (Admin & Pengiriman) tutup.</p>
+                    </div>
+                </div>
+
+                <hr class="elegant-divider">
+                <div class="admin-contact-card">
+                    <h4>Masih Punya Pertanyaan?</h4>
+                    <p>Jika Anda memiliki pertanyaan di luar jam operasional, silakan kunjungi halaman FAQ kami atau tinggalkan pesan, akan kami balas sesegera mungkin.</p>
+                    <a href="pertanyaan.html" class="contact-button whatsapp" style="background: var(--primary-color);">
+                        <i class="fas fa-question-circle"></i> Kunjungi Pusat Bantuan
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusIndicator = document.getElementById('live-status-indicator');
+            const statusText = document.getElementById('live-status-text');
+
+            if (statusIndicator) {
+                const now = new Date();
+                const day = now.getDay();
+                const hour = now.getHours();
+
+                let isOpen = false;
+
+                if (day >= 1 && day <= 5) {
+                    if (hour >= 7 && hour < 18) {
+                        isOpen = true;
+                    }
+                }
+                else if (day === 6) {
+                    if (hour >= 7 && hour < 20) {
+                        isOpen = true;
+                    }
+                }
+
+                if (isOpen) {
+                    statusIndicator.classList.add('open');
+                    statusText.textContent = 'Saat Ini Buka';
+                } else {
+                    statusIndicator.classList.add('closed');
+                    statusText.textContent = 'Saat Ini Tutup';
+                }
+            }
+        });
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

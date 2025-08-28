@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback & Saran - Luxuliver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="essentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="essentials-page">
+    <header class="highlight-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <a href="contact.html" class="btn-essentials-kembali"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
+        </div>
+    </header>
+    <main>
+        <div class="essentials-detail-container">
+            <div class="essentials-detail-header">
+                <i class="fas fa-comment-alt"></i><h2>Feedback & Saran</h2>
+            </div>
+            <div class="essentials-content-wrapper">
+                <div class="guarantee-philosophy">
+                    <h3>Kami Mendengarkan Anda</h3>
+                    <p>Suara Anda adalah kompas bagi kami. Setiap saran, kritik, dan ide dari Anda sangat berharga untuk membantu kami menjadi lebih baik. Jangan ragu untuk berbagi pemikiran Anda.</p>
+                </div>
+                <hr class="elegant-divider">
+                <div class="feedback-form-container">
+                    <h4>Bagaimana Pengalaman Anda Bersama Kami?</h4>
+                    <form action="#" id="main-feedback-form">
+                        <div class="form-group">
+                            <label for="feedback-type">Jenis Masukan</label>
+                            <select id="feedback-type" name="type" class="form-input">
+                                <option>Saran untuk Desain Baru</option>
+                                <option>Masukan tentang Kualitas Produk</option>
+                                <option>Pengalaman Berbelanja di Website</option>
+                                <option>Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback-message">Saran atau Masukan Anda</label>
+                            <textarea id="feedback-message" name="message" rows="8" required placeholder="Tuliskan pemikiran Anda di sini..."></textarea>
+                        </div>
+                         <div class="form-group">
+                            <label for="feedback-name">Nama Anda (Opsional)</label>
+                            <input type="text" id="feedback-name" name="name" placeholder="Agar kami bisa menyapa Anda kembali...">
+                        </div>
+                        <button type="submit" class="btn-essentials-toko" style="width: 100%;"><i class="fab fa-whatsapp"></i> Kirim via WhatsApp</button>
+                    </form>
+                </div>
+
+                <hr class="elegant-divider">
+                <h3>Apa yang Terjadi Setelah Anda Mengirim Masukan?</h3>
+                <div class="claim-process">
+                    <div class="process-step">
+                        <div class="step-number"><i class="fas fa-inbox"></i></div>
+                        <h4>1. Diterima Tim Kami</h4>
+                        <p>Setiap masukan yang masuk akan dibaca dan dicatat oleh tim kami.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number"><i class="fas fa-users"></i></div>
+                        <h4>2. Didiskusikan</h4>
+                        <p>Saran dan ide-ide terbaik akan menjadi bahan diskusi dalam rapat pengembangan kami.</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number"><i class="fas fa-lightbulb"></i></div>
+                        <h4>3. Menjadi Inspirasi</h4>
+                        <p>Masukan Anda bisa menjadi inspirasi untuk koleksi, fitur website, atau perbaikan layanan kami di masa depan.</p>
+                    </div>
+                </div>
+
+                <hr class="elegant-divider">
+                <h3>Contoh Nyata dari Masukan Komunitas</h3>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-header">Anda Berkata:</div>
+                        <p class="impact-quote">"Saya harap ada lebih banyak desain yang simpel dan classy."</p>
+                    </div>
+                    <div class="impact-arrow"><i class="fas fa-long-arrow-alt-right"></i></div>
+                    <div class="impact-card">
+                        <div class="impact-header">Kami Wujudkan:</div>
+                        <p class="impact-result">Koleksi <strong>'Atelier Noir' & 'Velluto'</strong> dirilis, berfokus pada keanggunan minimalis.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="product.js"></script>
+    <script src="automatic-theme.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentYearEl = document.getElementById('current-year');
+            if (currentYearEl) {
+                currentYearEl.textContent = new Date().getFullYear();
+            }
+
+            const feedbackForm = document.getElementById('main-feedback-form');
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const feedbackType = document.getElementById('feedback-type').value;
+                    const message = document.getElementById('feedback-message').value;
+                    const name = document.getElementById('feedback-name').value;
+
+                    if (!message.trim()) {
+                        alert('Mohon isi saran atau masukan Anda.');
+                        return;
+                    }
+
+                    if (typeof sellerInfo === 'undefined' || !sellerInfo.whatsappAdmin) {
+                        alert('Error: Gagal memuat informasi kontak admin.');
+                        return;
+                    }
+
+                    const senderName = name.trim() ? name.trim() : 'Pelanggan';
+                    const whatsappMessage = `*Feedback & Saran untuk Luxuliver*\n\n` +
+                                        `*Dari:* ${senderName}\n` +
+                                        `*Jenis Masukan:* ${feedbackType}\n\n` +
+                                        `*Pesan:*\n${message}`;
+                    
+                    const adminWhatsapp = sellerInfo.whatsappAdmin;
+                    const whatsappUrl = `https://wa.me/${adminWhatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
+                    
+                    window.open(whatsappUrl, '_blank');
+                    
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

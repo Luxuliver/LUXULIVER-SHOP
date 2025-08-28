@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lacak Pesanan - Luxuliver</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="essentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        a.btn-essentials-toko.disabled {
+            background: var(--light-text);
+            color: var(--surface-color);
+            cursor: not-allowed;
+            pointer-events: none; /* Mencegah link diklik */
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="essentials-page">
+    <header class="highlight-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <a href="contact.html" class="btn-essentials-kembali"><i class="fas fa-arrow-left"></i><span>Kembali</span></a>
+        </div>
+    </header>
+    <main>
+        <div class="essentials-detail-container">
+            <div class="essentials-detail-header"><i class="fas fa-truck-loading"></i><h2>Lacak Pesanan Anda</h2></div>
+            <div class="essentials-content-wrapper">
+                <div class="guarantee-philosophy">
+                    <h3>Ketahui Posisi Paket Anda</h3>
+                    <p>Masukkan No Resi yang Anda terima dari kami untuk melacak status pengiriman Anda melalui situs resmi mitra ekspedisi kami.</p>
+                </div>
+                <hr class="elegant-divider">
+                <div class="tracking-form-container">
+                    <input type="text" id="tracking-id-input" placeholder="Masukkan No. Resi Anda di sini...">
+                    <a href="#" id="track-order-link" class="btn-essentials-toko disabled" target="_blank" rel="noopener noreferrer">Lacak</a>
+                </div>
+                <div class="tracking-help-card">
+                    <h4><i class="fas fa-exclamation-circle"></i> Tidak Menemukan Pesanan?</h4>
+                    <ul>
+                        <li>Pastikan No Resi yang Anda masukkan sudah benar (contoh: JTE1234567890).</li>
+                        <li>Nomor resi biasanya baru aktif dan bisa dilacak dalam 1x24 jam setelah pesanan dikirim.</li>
+                        <li>Masih mengalami kendala? <a href="https://wa.me/6287820843118" target="_blank">Hubungi Admin kami</a> untuk bantuan.</li>
+                    </ul>
+                </div>
+                <hr class="elegant-divider">
+                <h3>Memahami Tahapan Status Pesanan</h3>
+                <div class="order-status-timeline"></div>
+                <hr class="elegant-divider">
+                <h3>Seperti Apa Paket Anda Nanti</h3>
+                <div class="packaging-showcase">
+                    <div class="packaging-image"><img src="plastik.jpg" alt="Contoh Paket Luxuliver"></div>
+                    <div class="packaging-details">
+                        <div class="spec-details">
+                            <h4>Dikemas dengan Aman & Premium</h4>
+                            <p>Setiap pesanan kami kemas dengan teliti untuk memastikan produk tiba di tangan Anda dalam kondisi sempurna.</p>
+                            <ul>
+                                <li><i class="fas fa-check-circle"></i> Polymailer tebal dan tahan air.</li>
+                                <li><i class="fas fa-check-circle"></i> Segel keamanan untuk privasi.</li>
+                                <li><i class="fas fa-check-circle"></i> Kartu ucapan terima kasih eksklusif.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr class="elegant-divider">
+                <h3>Tautan Pelacakan Langsung</h3>
+                <p style="text-align:center; max-width:600px; margin:-2rem auto 2rem auto; color:var(--light-text);">Anda juga bisa melacak langsung di situs resmi mitra ekspedisi kami:</p>
+                <div class="courier-links-grid">
+                    <a href="https://www.jne.co.id/id/tracking/trace" target="_blank" class="courier-card"><img src="JNE.jpg" alt="JNE Express"><span>Lacak di JNE</span></a>
+                    <a href="https://jet.co.id/track" target="_blank" class="courier-card"><img src="J&T.jpg" alt="J&T Express"><span>Lacak di J&T</span></a>
+                </div>
+                <hr class="elegant-divider">
+                <h3>Setelah Paket Anda Tiba</h3>
+                <div class="after-delivery-guide">
+                    <div class="guide-step"><div class="guide-icon"><i class="fas fa-video"></i></div><h4>1. Wajib Video Unboxing</h4><p>Untuk syarat klaim jika ada kekurangan atau cacat, pastikan Anda merekam video saat membuka paket.</p></div>
+                    <div class="guide-step"><div class="guide-icon"><i class="fas fa-share-alt"></i></div><h4>2. Bagikan Gaya Anda!</h4><p>Kami senang melihat Anda mengenakan produk kami! Posting di media sosial dengan hashtag <strong>#GayaLuxuliver</strong>.</p></div>
+                    <div class="guide-step"><div class="guide-icon"><i class="fas fa-star"></i></div><h4>3. Tinggalkan Ulasan</h4><p>Ulasan Anda sangat berarti. Bantu komunitas dengan memberikan review di halaman produk yang Anda beli.</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackingInput = document.getElementById('tracking-id-input');
+            const trackLink = document.getElementById('track-order-link');
+    
+            if (trackingInput && trackLink) {
+                trackingInput.addEventListener('input', () => {
+                    const trackingId = trackingInput.value.trim();
+                    
+                    if (trackingId) {
+                        trackLink.href = `https://cekresi.com/?noresi=${trackingId}`;
+                        trackLink.classList.remove('disabled');
+                    } else {
+                        trackLink.href = '#';
+                        trackLink.classList.add('disabled');
+                    }
+                });
+            }
+        });
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokasi Kami - Luxuliver</title>
+    <link rel="stylesheet" href="style.css"><link rel="stylesheet" href="style1.css"><link rel="stylesheet" href="essentials.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="essentials-page">
+    <header class="highlight-header">
+        <div class="container"><a href="index.html" class="logo"><h1>LUXULIVER</h1></a><a href="contact.html" class="btn-essentials-kembali"><i class="fas fa-arrow-left"></i><span>Kembali</span></a></div>
+    </header>
+    <main>
+        <div class="essentials-detail-container">
+            <div class="essentials-detail-header"><i class="fas fa-map-marked-alt"></i><h2>Pusat Operasional Kami</h2></div>
+            <div class="essentials-content-wrapper">
+                <div class="guarantee-philosophy">
+                    <h3>Temukan Kami di Jakarta Selatan</h3>
+                    <p>Meskipun kami beroperasi secara online, pusat kreatif dan operasional kami berada di jantung kota Jakarta Selatan. Lihat detail langsung dari lokasi kami di bawah ini.</p>
+                </div>
+
+                <div class="live-details-widget">
+                    <div class="live-detail-item">
+                        <i class="far fa-clock"></i>
+                        <div class="detail-text">
+                            <span>Waktu Lokal Saat Ini</span>
+                            <strong id="live-time">Memuat...</strong>
+                        </div>
+                    </div>
+                    <div class="live-detail-item">
+                        <i class="fas fa-sun"></i>
+                        <div class="detail-text">
+                            <span>Cuaca Saat Ini</span>
+                            <strong>Cerah</strong>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="map-embed-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126906.9657224217!2d106.77259232049615!3d-6.262386345638515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f15753064609%3A0x3030f7d057c79a0!2sJakarta%20Selatan%2C%20Kota%20Jakarta%20Selatan%2C%20Daerah%20Khusus%20Ibukota%20Jakarta!5e0!3m2!1sid!2sid!4v1690000000000" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <hr class="elegant-divider">
+
+                <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-location-arrow"></i></div>
+                    <div class="spec-details">
+                        <h4>Alamat Operasional</h4>
+                        <p><strong>Luxuliver HQ</strong><br>Jakarta Selatan, DKI Jakarta, Indonesia</p>
+                    </div>
+                </div>
+                 <div class="spec-item">
+                    <div class="spec-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="spec-details">
+                        <h4>Kontak Email</h4>
+                        <p>Untuk semua pertanyaan, silakan hubungi kami di:<br><strong>luxuliver@gmail.com</strong></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <script>
+    function updateLiveTime() {
+        const timeElement = document.getElementById('live-time');
+        if (timeElement) {
+            const now = new Date();
+            const options = { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            const timeString = now.toLocaleTimeString('id-ID', options);
+            timeElement.textContent = `${timeString} WIB`;
+        }
+    }
+
+    updateLiveTime();
+    setInterval(updateLiveTime, 1000);
+</script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>
