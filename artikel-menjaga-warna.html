@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Menjaga Warna Kaos - Luxuliver Blog</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="artikel.css">
+</head>
+<body class="artikel-page">
+
+    <header class="artikel-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <div class="artikel-header-actions">
+                <a href="blog.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+                <a href="index.html#koleksi" class="btn btn-primary"><i class="fas fa-tshirt"></i> Kembali ke Toko</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="article-container">
+            <div class="article-title-header">
+                <h2>Tips Jitu Menjaga Warna Kaos Hitam Tetap Pekat dan Putih Tetap Cerah</h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 19 Juli 2025</span>
+                    <span><i class="fas fa-clock"></i> 3 Menit Baca</span>
+                </div>
+            </div>
+            
+            <article class="article-content">
+                <p>Kaos hitam yang pudar atau kaos putih yang menguning adalah masalah klasik. Dengan beberapa trik sederhana, Anda bisa menjaga warna kaos andalan Anda tetap prima lebih lama.</p>
+
+                <h4>Untuk Kaos Hitam (dan Warna Gelap Lainnya):</h4>
+                <ul>
+                    <li><strong>Cuci dengan Air Dingin:</strong> Air panas adalah musuh utama warna gelap karena membuka serat kain dan melepaskan pewarna. Selalu gunakan air dingin.</li>
+                    <li><strong>Balik Sebelum Dicuci:</strong> Ini mengurangi gesekan pada permukaan luar kaos, menjaga warna dan sablon tetap awet.</li>
+                    <li><strong>Gunakan Deterjen Khusus:</strong> Jika memungkinkan, gunakan deterjen yang diformulasikan untuk pakaian berwarna gelap.</li>
+                    <li><strong>Hindari Matahari Langsung:</strong> Sinar UV dapat memudarkan warna hitam dengan cepat. Jemur kaos di tempat yang teduh atau di dalam ruangan.</li>
+                </ul>
+
+                <h4>Untuk Kaos Putih:</h4>
+                <ul>
+                    <li><strong>Pisahkan Total:</strong> Jangan pernah mencuci kaos putih bersamaan dengan pakaian berwarna, bahkan warna pastel sekalipun.</li>
+                    <li><strong>Gunakan Pencerah Alami:</strong> Tambahkan setengah cangkir baking soda atau cuka putih ke dalam siklus cucian untuk membantu mencerahkan kain tanpa bahan kimia keras.</li>
+                    <li><strong>Manfaatkan Sinar Matahari:</strong> Berbeda dengan kaos hitam, sinar matahari adalah teman baik kaos putih karena dapat berfungsi sebagai pemutih alami.</li>
+                    <li><strong>Atasi Noda Keringat:</strong> Untuk noda kuning di area ketiak, buat pasta dari baking soda dan air, oleskan, diamkan sejenak, lalu sikat perlahan sebelum dicuci.</li>
+                </ul>
+            </article>
+
+            <div class="social-share">
+                <h4>Bagikan Artikel Ini:</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="share-btn copy-link"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showArticleToast(message) {
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'var(--primary-color, #1A202C)';
+            toast.style.color = 'var(--primary-btn-text-color, #FFFFFF)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '50px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1001';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, bottom 0.5s';
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.bottom = '30px';
+            }, 100);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.bottom = '20px';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+
+        function initializeShareButtons() {
+            const pageTitle = document.title;
+            const pageUrl = window.location.href;
+            
+            const shareText = `Lihat artikel menarik ini: "${pageTitle}"`;
+
+            const whatsappBtn = document.querySelector('.share-btn.whatsapp');
+            const copyLinkBtn = document.querySelector('.share-btn.copy-link');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showArticleToast('Link artikel berhasil disalin!');
+                    }).catch(err => {
+                        console.error('Gagal menyalin link: ', err);
+                        showArticleToast('Gagal menyalin link.');
+                    });
+                });
+            }
+        }
+        initializeShareButtons();
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

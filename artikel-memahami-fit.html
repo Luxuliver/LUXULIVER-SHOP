@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memahami Jenis Fit Kaos - Luxuliver Blog</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="artikel.css">
+</head>
+<body class="artikel-page">
+
+    <header class="artikel-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <div class="artikel-header-actions">
+                <a href="blog.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+                <a href="index.html#koleksi" class="btn btn-primary"><i class="fas fa-tshirt"></i> Kembali ke Toko</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="article-container">
+            <div class="article-title-header">
+                <h2>Regular, Slim, atau Oversized? Memahami Perbedaan Jenis Fit Kaos</h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 15 Agustus 2025</span>
+                    <span><i class="fas fa-clock"></i> 3 Menit Baca</span>
+                </div>
+            </div>
+            
+            <article class="article-content">
+                <p>Istilah "fit" pada pakaian mengacu pada bagaimana potongan sebuah kaos dirancang untuk menempel di badan. Memahami perbedaannya akan membantu Anda memilih gaya yang paling sesuai dengan selera dan bentuk tubuh Anda.</p>
+
+                <h4>1. Regular Fit (Potongan Standar)</h4>
+                <p>Ini adalah potongan klasik dan paling umum, seperti yang digunakan pada semua kaos Luxuliver. Potongannya lurus dari ketiak hingga ke ujung bawah, memberikan ruang yang cukup di area dada dan pinggang tanpa terlalu longgar.</p>
+                <ul>
+                    <li><strong>Karakteristik:</strong> Nyaman, tidak ketat, memberikan ruang gerak yang bebas.</li>
+                    <li><strong>Cocok untuk:</strong> Hampir semua bentuk tubuh dan menjadi pilihan paling aman dan serbaguna.</li>
+                </ul>
+
+                <h4>2. Slim Fit (Potongan Ramping)</h4>
+                <p>Seperti namanya, potongan ini dirancang untuk mengikuti lekuk tubuh. Bagian dada, pinggang, dan lengan dibuat lebih sempit untuk memberikan siluet yang lebih ramping dan modern.</p>
+                <ul>
+                    <li><strong>Karakteristik:</strong> Ketat di badan, menonjolkan bentuk tubuh.</li>
+                    <li><strong>Cocok untuk:</strong> Orang dengan postur tubuh ramping atau atletis. Terkadang perlu menaikkan satu ukuran dari biasanya agar tidak terlalu sesak.</li>
+                </ul>
+
+                <h4>3. Oversized Fit (Potongan Longgar)</h4>
+                <p>Potongan ini sengaja dibuat jauh lebih besar dari ukuran standar. Biasanya memiliki bahu yang turun (drop shoulder), lingkar dada yang sangat lebar, dan panjang yang melebihi pinggul. Ini adalah gaya yang populer di kalangan streetwear.</p>
+                <ul>
+                    <li><strong>Karakteristik:</strong> Sangat longgar, santai, dan memberikan kesan kasual.</li>
+                    <li><strong>Cocok untuk:</strong> Siapa saja yang menyukai gaya streetwear atau menginginkan pakaian yang sangat nyaman dan lapang.</li>
+                </ul>
+
+                <p>Dengan memahami perbedaan ini, Anda bisa lebih percaya diri saat memilih ukuran. Ingat, semua produk kami menggunakan <strong>Regular Fit</strong> sebagai standar kenyamanan dan gaya.</p>
+            </article>
+
+            <div class="social-share">
+                <h4>Bagikan Artikel Ini:</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="share-btn copy-link"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showArticleToast(message) {
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'var(--primary-color, #1A202C)';
+            toast.style.color = 'var(--primary-btn-text-color, #FFFFFF)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '50px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1001';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, bottom 0.5s';
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.bottom = '30px';
+            }, 100);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.bottom = '20px';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+
+        function initializeShareButtons() {
+            const pageTitle = document.title;
+            const pageUrl = window.location.href;
+            
+            const shareText = `Lihat artikel menarik ini: "${pageTitle}"`;
+
+            const whatsappBtn = document.querySelector('.share-btn.whatsapp');
+            const copyLinkBtn = document.querySelector('.share-btn.copy-link');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showArticleToast('Link artikel berhasil disalin!');
+                    }).catch(err => {
+                        console.error('Gagal menyalin link: ', err);
+                        showArticleToast('Gagal menyalin link.');
+                    });
+                });
+            }
+        }
+        initializeShareButtons();
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perbedaan DTF vs Sablon Plastisol - Luxuliver Blog</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="artikel.css"> </head>
+<body>
+
+    <header class="artikel-header">
+    <div class="container">
+        <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+        
+        <div class="artikel-header-actions">
+            <a href="blog.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+            
+            <a href="index.html#koleksi" class="btn btn-primary"><i class="fas fa-tshirt"></i> Kembali ke Toko</a>
+        </div>
+    </div>
+</header>
+
+    <main>
+    <div class="article-container">
+        <div class="article-title-header">
+            <h2>Perbedaan DTF vs Sablon Plastisol</h2>
+            <div class="article-meta">
+                <span><i class="fas fa-calendar-alt"></i> 16 Agustus 2025</span>
+                <span><i class="fas fa-clock"></i> 4 Menit Baca</span>
+            </div>
+        </div>
+        
+        <article class="article-content">
+            <p>Saat memilih kaos, kualitas sablon adalah salah satu faktor terpenting. Dua teknik paling populer saat ini adalah Direct to Film (DTF) dan Plastisol. Keduanya memiliki kelebihan dan kekurangan. Mari kita bedah perbedaannya.</p>
+            
+            <h4>Apa itu Sablon Plastisol?</h4>
+            <p>Sablon Plastisol adalah metode cetak saring tradisional yang menggunakan tinta berbasis minyak (PVC). Tinta ini tidak menyerap ke dalam serat kain, melainkan membentuk lapisan tebal di atas permukaan kain. Prosesnya memerlukan screen (layar) terpisah untuk setiap warna.</p>
+            <ul>
+                <li><strong>Kelebihan:</strong> Sangat awet, warna pekat dan cerah, memberikan efek timbul yang khas.</li>
+                <li><strong>Kekurangan:</strong> Kurang ideal untuk desain dengan banyak warna atau gradasi foto, terasa sedikit kaku dan panas di area sablon, serta biaya produksi tinggi untuk pesanan dalam jumlah kecil.</li>
+            </ul>
+
+            <h4>Apa itu Sablon DTF (Direct to Film)?</h4>
+            <p>DTF adalah teknologi sablon digital modern. Desain dicetak terlebih dahulu ke sebuah lembaran film khusus menggunakan tinta pigment, lalu ditransfer ke permukaan kaos menggunakan mesin heat press. <strong>Luxuliver menggunakan teknologi sablon DTF modern untuk semua produknya.</strong></p>
+            <ul>
+                <li><strong>Kelebihan:</strong> Mampu mencetak desain full-color, gradasi, dan detail foto dengan sempurna. Hasil sablon terasa tipis, elastis, dan menyatu dengan kain sehingga tidak kaku. Sangat efisien untuk pesanan satuan atau desain dengan warna tak terbatas.</li>
+                <li><strong>Kekurangan:</strong> Efek timbul tidak setebal sablon plastisol.</li>
+            </ul>
+
+            <h4>Kesimpulan: Mana yang Lebih Baik?</h4>
+            <p>Keduanya memiliki kualitas yang baik, namun peruntukannya berbeda. Plastisol unggul untuk desain-desain simpel dengan warna solid dalam produksi massal. Sementara itu, <strong>DTF adalah pilihan superior untuk desain yang kompleks, detail, dan penuh warna</strong>.</p>
+            <p>Kami di Luxuliver memilih DTF karena teknologi ini memungkinkan kami untuk mewujudkan desain-desain eksklusif tanpa batasan warna dan dengan detail tertinggi, sambil tetap menjaga kenyamanan kaos saat dipakai.</p>
+        </article>
+
+        <div class="social-share">
+    <h4>Bagikan Artikel Ini:</h4>
+    <div class="share-buttons">
+        <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="share-btn copy-link"><i class="fas fa-link"></i></a>
+    </div>
+</div>
+    </div>
+</main>
+
+     <script>
+        function showArticleToast(message) {
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'var(--primary-color, #1A202C)';
+            toast.style.color = 'var(--primary-btn-text-color, #FFFFFF)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '50px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1001';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, bottom 0.5s';
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.bottom = '30px';
+            }, 100);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.bottom = '20px';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+
+        function initializeShareButtons() {
+            const pageTitle = document.title;
+            const pageUrl = window.location.href;
+            
+            const shareText = `Lihat artikel menarik ini: "${pageTitle}"`;
+
+            const whatsappBtn = document.querySelector('.share-btn.whatsapp');
+            const copyLinkBtn = document.querySelector('.share-btn.copy-link');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showArticleToast('Link artikel berhasil disalin!');
+                    }).catch(err => {
+                        console.error('Gagal menyalin link: ', err);
+                        showArticleToast('Gagal menyalin link.');
+                    });
+                });
+            }
+        }
+        initializeShareButtons();
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

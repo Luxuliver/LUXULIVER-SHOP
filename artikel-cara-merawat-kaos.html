@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara Merawat Kaos Agar Awet - Luxuliver Blog</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="artikel.css"> </head>
+<body>
+
+    <header class="artikel-header">
+    <div class="container">
+        <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+        
+        <div class="artikel-header-actions">
+            <a href="blog.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+            
+            <a href="index.html#koleksi" class="btn btn-primary"><i class="fas fa-tshirt"></i> Kembali ke Toko</a>
+        </div>
+    </div>
+</header>
+
+    <main>
+    <div class="article-container">
+        <div class="article-title-header">
+            <h2>Cara Merawat Kaos NSA</h2>
+            <div class="article-meta">
+                <span><i class="fas fa-calendar-alt"></i> 4 Agustus 2025</span>
+                <span><i class="fas fa-clock"></i> 3 Menit Baca</span>
+            </div>
+        </div>
+        
+        <article class="article-content">
+            <p><strong>Merawat kaos NSA (New States Apparel) agar awet dan sablonnya tidak cepat rusak sebenarnya cukup mudah.</strong> Kuncinya ada pada cara mencuci, menjemur, dan menyetrika. Berikut adalah panduan lengkapnya:</p>
+            <h4>1. Pisahkan Kaos Saat Mencuci</h4>
+            <p>Jangan mencampur kaos NSA Anda, terutama yang berwarna putih, dengan pakaian berwarna pekat. Ini untuk menghindari risiko kelunturan yang dapat merusak warna dasar kaos Anda.</p>
+            <h4>2. Balik Kaos Sebelum Dicuci</h4>
+            <p>Ini adalah langkah terpenting. Selalu balik kaos Anda sehingga bagian dalam berada di luar. Tujuannya adalah untuk melindungi sablon DTF dari gesekan langsung dengan pakaian lain atau mesin cuci, yang bisa menyebabkan sablon retak atau terkelupas.</p>
+            <h4>3. Cuci dengan Tangan (Sangat Direkomendasikan)</h4>
+            <p>Mencuci dengan tangan adalah cara terbaik. Gunakan deterjen lembut dan jangan merendam kaos terlalu lama (cukup 15-20 menit). Hindari mengucek atau menyikat bagian sablon secara kasar.</p>
+            <h4>4. Jika Menggunakan Mesin Cuci</h4>
+            <p>Gunakan mode putaran yang paling rendah (delicate/gentle). Hindari penggunaan pengering mesin karena panas yang berlebihan adalah musuh utama sablon. Panas dapat membuat sablon meleleh dan lengket.</p>
+            <h4>5. Jangan Gunakan Pemutih</h4>
+            <p>Pemutih mengandung bahan kimia keras yang dapat merusak serat katun pada kaos dan juga dapat memudarkan warna sablon Anda.</p>
+            <h4>6. Menjemur dengan Benar</h4>
+            <p>Setelah dicuci, balik kembali kaos ke posisi semula. Jemur di tempat yang teduh dan berangin. Hindari menjemur di bawah sinar matahari langsung karena dapat membuat warna kaos dan sablon menjadi kusam.</p>
+            <h4>7. Setrika dengan Hati-hati</h4>
+            <p>Pastikan Anda selalu menyetrika kaos dalam keadaan terbalik (bagian dalam di luar). Jangan pernah menyetrika langsung di atas permukaan sablon karena akan meleleh dan rusak. Gunakan suhu setrika yang tidak terlalu panas.</p>
+            <p>Dengan mengikuti tips sederhana ini, kaos NSA premium Anda akan tetap terlihat seperti baru untuk waktu yang lama.</p>
+        </article>
+
+        <div class="social-share">
+    <h4>Bagikan Artikel Ini:</h4>
+    <div class="share-buttons">
+        <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="share-btn copy-link"><i class="fas fa-link"></i></a>
+    </div>
+</div>
+    </div>
+</main>
+
+     <script>
+        function showArticleToast(message) {
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'var(--primary-color, #1A202C)';
+            toast.style.color = 'var(--primary-btn-text-color, #FFFFFF)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '50px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1001';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, bottom 0.5s';
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.bottom = '30px';
+            }, 100);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.bottom = '20px';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+
+        function initializeShareButtons() {
+            const pageTitle = document.title;
+            const pageUrl = window.location.href;
+            
+            const shareText = `Lihat artikel menarik ini: "${pageTitle}"`;
+
+            const whatsappBtn = document.querySelector('.share-btn.whatsapp');
+            const copyLinkBtn = document.querySelector('.share-btn.copy-link');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showArticleToast('Link artikel berhasil disalin!');
+                    }).catch(err => {
+                        console.error('Gagal menyalin link: ', err);
+                        showArticleToast('Gagal menyalin link.');
+                    });
+                });
+            }
+        }
+        initializeShareButtons();
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tips Memilih Ukuran Kaos untuk Wanita - Luxuliver Blog</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="artikel.css">
+</head>
+<body class="artikel-page">
+
+    <header class="artikel-header">
+        <div class="container">
+            <a href="index.html" class="logo"><h1>LUXULIVER</h1></a>
+            <div class="artikel-header-actions">
+                <a href="blog.html" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Kembali ke Blog</a>
+                <a href="index.html#koleksi" class="btn btn-primary"><i class="fas fa-tshirt"></i> Kembali ke Toko</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="article-container">
+            <div class="article-title-header">
+                <h2>Tips Khusus Wanita: Menemukan Ukuran Kaos Pria yang Pas dan Stylish</h2>
+                <div class="article-meta">
+                    <span><i class="fas fa-calendar-alt"></i> 10 Agustus 2025</span>
+                    <span><i class="fas fa-clock"></i> 3 Menit Baca</span>
+                </div>
+            </div>
+            
+            <article class="article-content">
+                <p>Banyak wanita menyukai kenyamanan dan gaya kasual dari kaos pria (unisex fit), seperti koleksi Luxuliver. Namun, memilih ukurannya bisa sedikit tricky. Berikut adalah beberapa tips agar Anda mendapatkan tampilan yang pas dan tetap stylish.</p>
+
+                <h4>Fokus pada Lebar Dada dan Panjang</h4>
+                <p>Karena potongan kaos pria lurus, ukuran yang paling penting bagi wanita adalah lingkar dada. Ukur lingkar dada Anda, bagi dua, lalu cocokkan dengan "Lebar Baju" di tabel ukuran kami. Pastikan ukurannya cukup longgar agar nyaman di area dada dan pinggul.</p>
+                <p>Perhatikan juga panjangnya. Jika Anda tidak ingin kaos terlalu panjang, Anda mungkin perlu turun satu ukuran dari yang biasa Anda pakai di brand wanita.</p>
+
+                <h4>Cara Styling Kaos Unisex</h4>
+                <p>Mendapatkan ukuran yang tepat hanyalah setengah dari perjuangan. Sisanya ada di cara Anda menatanya!</p>
+                <ul>
+                    <li><strong>French Tuck:</strong> Masukkan hanya bagian depan kaos ke dalam celana atau rok. Ini memberikan ilusi pinggang dan membuat tampilan lebih rapi tanpa menghilangkan kesan santai.</li>
+                    <li><strong>Side Knot:</strong> Ikat ujung samping kaos untuk menciptakan siluet yang lebih pas di pinggang dan memberikan sentuhan gaya yang chic.</li>
+                    <li><strong>Gulung Lengan:</strong> Menggulung lengan kaos beberapa kali dapat membuatnya terlihat lebih pas di lengan dan memberikan detail gaya yang keren.</li>
+                    <li><strong>Sebagai Outer:</strong> Gunakan kaos yang lebih besar sebagai luaran (outer) di atas tank top atau dress ketat untuk tampilan streetwear yang edgy.</li>
+                </ul>
+
+                <p>Jangan takut untuk bereksperimen! Dengan memilih ukuran yang nyaman dan beberapa trik styling, kaos unisex bisa menjadi salah satu item paling serbaguna di lemari Anda.</p>
+            </article>
+
+            <div class="social-share">
+                <h4>Bagikan Artikel Ini:</h4>
+                <div class="share-buttons">
+                    <a href="#" class="share-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="share-btn copy-link"><i class="fas fa-link"></i></a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showArticleToast(message) {
+            
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.backgroundColor = 'var(--primary-color, #1A202C)';
+            toast.style.color = 'var(--primary-btn-text-color, #FFFFFF)';
+            toast.style.padding = '15px 25px';
+            toast.style.borderRadius = '50px';
+            toast.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            toast.style.zIndex = '1001';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.5s, bottom 0.5s';
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.bottom = '30px';
+            }, 100);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.bottom = '20px';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 500);
+            }, 3000);
+        }
+
+        function initializeShareButtons() {
+            const pageTitle = document.title;
+            const pageUrl = window.location.href;
+            
+            const shareText = `Lihat artikel menarik ini: "${pageTitle}"`;
+
+            const whatsappBtn = document.querySelector('.share-btn.whatsapp');
+            const copyLinkBtn = document.querySelector('.share-btn.copy-link');
+
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+                    window.open(whatsappUrl, '_blank');
+                });
+            }
+
+            if (copyLinkBtn) {
+                copyLinkBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(pageUrl).then(() => {
+                        showArticleToast('Link artikel berhasil disalin!');
+                    }).catch(err => {
+                        console.error('Gagal menyalin link: ', err);
+                        showArticleToast('Gagal menyalin link.');
+                    });
+                });
+            }
+        }
+        initializeShareButtons();
+    </script>
+    <script src="automatic-theme.js"></script>
+</body>
+</html>
