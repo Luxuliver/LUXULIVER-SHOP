@@ -125,7 +125,8 @@ const products = [
                 { author: 'dedi firmansyah', rating: 5, text: 'rating 5 cakep soalnya', date: '2025-08-10' }, 
                 { author: 'Vicky Bagus', rating: 5, text: 'boleh-boleh bahan nya', date: '2025-08-14' }, 
                 { author: 'Kelvin', rating: 5, text: 'classy parah asli ini desain nya', date: '2025-08-14' }, 
-                { author: 'Bayu Erlangga', rating: 5, text: 'keren...', date: '2025-08-16' }
+                { author: 'Bayu Erlangga', rating: 5, text: 'keren...', date: '2025-08-16' }, 
+                { author: 'Faris Bimantoro', rating: 5, text: 'Sablonnya bagus, awet dipakai berkali-kali tanpa ngelupas, bahannya juga enak, sama kayak koleksi lainnya, cuma sayang paketnya kurang lengkap.', date: '2025-09-01' }
             ]
         }, 
         {
